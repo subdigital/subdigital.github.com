@@ -4,13 +4,230 @@
   <title>subdigital</title>
   <link href="http://subdigital.github.com/atom.xml" rel="self"/>
   <link href="http://subdigital.github.com/"/>
-  <updated>2011-08-17T23:52:26-05:00</updated>
+  <updated>2011-08-18T01:25:52-05:00</updated>
   <id>http://subdigital.github.com/</id>
   <author>
     <name>Ben Scheirman</name>
     
   </author>
 
+  
+  <entry>
+    <title>My Vim Journey</title>
+    <link href="http://subdigital.github.com/blog/2011/08/17/my-vim-journey/"/>
+    <updated>2011-08-17T23:53:00-05:00</updated>
+    <id>http://subdigital.github.com/blog/2011/08/17/my-vim-journey</id>
+    <content type="html">&lt;p&gt;For my Rails work, I've largely leaned on &lt;a href=&quot;http://macromates.org&quot;&gt;TextMate&lt;/a&gt;.  It's used by many Rubyists, looks sexy,
+and is easily extended.&lt;/p&gt;
+
+&lt;p&gt;I still use TextMate frequently, but I've been ramping up on my Vim
+skills and I've recently come to a point where I think I'm pretty
+productive in it.&lt;/p&gt;
+
+&lt;p&gt;My initial frustrations with Vim were that it was too configurable.
+Talk to any Vim power-user and you'll find a completely different set of
+plugins &amp;amp; keyboard shortcuts.  If you snag a friend's set of Vim
+configuration files (like I did) you might find yourself frustrated that
+there's too much to learn and it's difficult to know where various
+behaviors are coming from.&lt;/p&gt;
+
+&lt;p&gt;In this post, I'll attempt to demonstrate a very sane Vim setup that
+newcomers can use to get started and not be too overwhelmed.&lt;/p&gt;
+
+&lt;h2&gt;Why Vim?&lt;/h2&gt;
+
+&lt;p&gt;Before I get started with the basics of Vim, why would you use it in the
+first place?&lt;/p&gt;
+
+&lt;p&gt;For me it boils down to this:  &lt;em&gt;I love staying on the keyboard&lt;/em&gt;.
+Vim may not make you faster (&lt;em&gt;in fact initially you'll be a lot slower&lt;/em&gt;) but it can fit your workflow better.&lt;/p&gt;
+
+&lt;p&gt;Another big differentiator of Vim is &lt;em&gt;Command Mode&lt;/em&gt;.  The notion
+here is that you spend more time wrangling text rather than creating it
+from scratch.  That's certainly true of my code.&lt;/p&gt;
+
+&lt;p&gt;It is important, however, that in the larger software ecosystem,
+&lt;em&gt;typing is not the bottleneck&lt;/em&gt;.  Don't expect Vim to make you build
+the right software faster.&lt;/p&gt;
+
+&lt;p&gt;Vim enables a keyboard-optimized workflow that &lt;em&gt;may&lt;/em&gt; make you faster.
+YMMV.  If you're fast with TextMate or Emacs or don't want to spend the
+time to learn something new, then Vim may very well not be for you.&lt;/p&gt;
+
+&lt;p&gt;Lastly, Vim is ubiquitous.  It's on every platform and
+you can carry your configuration (or a very large set of it) everywhere.
+People frequently put their vim configurations on Github for themselves
+and others to utilize.&lt;/p&gt;
+
+&lt;h2&gt;Getting MacVim&lt;/h2&gt;
+
+&lt;p&gt;Almost all Unix-based systems (like Mac) include a terminal version of
+Vim.  The version included on OS X isn't compiled with Ruby support, so
+some plugins won't work.  In addition, it doesn't have OS-level
+integration like Copy &amp;amp; Paste in the same buffer.&lt;/p&gt;
+
+&lt;p&gt;Most Vim users I know use MacVim, which comes pre-compiled with Ruby
+support, has tabs, and more.&lt;/p&gt;
+
+&lt;p&gt;If you have &lt;a href=&quot;http://mxcl.github.com/homebrew/&quot;&gt;homebrew&lt;/a&gt; installed, just
+type:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+brew install  macvim
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;If you'd rather grab a pre-built binary, then head on over &lt;a href=&quot;https://github.com/b4winckler/macvim&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;You'll also want to make sure that the &lt;code&gt;mvim&lt;/code&gt; binary is in your path.&lt;/p&gt;
+
+&lt;h2&gt;Basic Vim Navigation&lt;/h2&gt;
+
+&lt;p&gt;I won't cover everything you can do in Vim here, but here's just enough
+to get you started:&lt;/p&gt;
+
+&lt;p&gt;In Command Mode:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Press &lt;code&gt;h&lt;/code&gt;, &lt;code&gt;j&lt;/code&gt;, &lt;code&gt;k&lt;/code&gt;, &lt;code&gt;l&lt;/code&gt; to move the cursor around.  It will feel weird, but you start to appreciate not
+lifting your hand off of the home row to reach for the arrow keys.&lt;/li&gt;
+&lt;li&gt;Press &lt;code&gt;gg&lt;/code&gt; to go to the end of a document, &lt;code&gt;G&lt;/code&gt; to go to the top of
+the document.&lt;/li&gt;
+&lt;li&gt;Press &lt;code&gt;i&lt;/code&gt; to go to insert mode at the current position&lt;/li&gt;
+&lt;li&gt;Press &lt;code&gt;a&lt;/code&gt; to &quot;append&quot; content at the end of the current line&lt;/li&gt;
+&lt;li&gt;Type &lt;code&gt;cw&lt;/code&gt; (&quot;change word&quot;) to replace the current word and go into
+insert mode&lt;/li&gt;
+&lt;li&gt;Type &lt;code&gt;dta&lt;/code&gt; to (&quot;delete 'til the letter a&quot;) in a line&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;In Insert Mode:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Press &lt;code&gt;esc&lt;/code&gt; to go back to command mode.&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;Commands:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;In Command Mode, you can type commands by prefixing them with &lt;code&gt;:&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;To write the changes to the current buffer (save) type &lt;code&gt;:w&lt;/code&gt; and hit
+&lt;code&gt;enter&lt;/code&gt;.  Often times you'll write &amp;amp; quit in one command, with &lt;code&gt;:wq&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;Feel free to use the mouse &amp;amp; arrow-keys while you're getting used to everything.  It
+will feel weird.&lt;/p&gt;
+
+&lt;p&gt;For more Vim-fu, definitely check out this &lt;a href=&quot;http://peepcode.com/products/smash-into-vim-i&quot;&gt;PeepCode
+screencast&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2&gt;Installing a Base Set of Plugins with Janus&lt;/h2&gt;
+
+&lt;p&gt;The real power of Vim is in the plugins, and fortunately Yehuda Katz &amp;amp;
+Carl Lerche have put together an opinionated and useful set of plugins
+that are pre-configured and work well together.  Take a look at the plugins it includes
+&lt;a href=&quot;https://github.com/carlhuda/janus&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Getting Janus installed is easy.  If you are super trust-worthy and
+don't mind running a script blindly (I don't recommend it) you can
+simply run:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+curl https://raw.github.com/carlhuda/janus/master/bootstrap.sh -o - | sh
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;More explicit instructions for the paranoid can be found on &lt;a href=&quot;http://github.com/carlhuda/janus&quot;&gt;the github
+page&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Once you have Janus installed, your Vim will be on steroids. Don't worry
+though, I'll try to cover the most important things you'll be using.&lt;/p&gt;
+
+&lt;h2&gt;Getting a Decent Theme installed&lt;/h2&gt;
+
+&lt;p&gt;MacVim installs a hundred nasty looking themes, but a few of them are
+worth taking a look at.  Here are some that I like:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;molokai&lt;/li&gt;
+&lt;li&gt;railscasts&lt;/li&gt;
+&lt;li&gt;vividchalk&lt;/li&gt;
+&lt;li&gt;vibrantink&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;If you want to install other themes (like this nice &lt;a href=&quot;http://www.vim.org/scripts/script.php?script_id=2855&quot;&gt;github&lt;/a&gt; one) then you
+simply download it &amp;amp; copy the &lt;code&gt;theme.vim&lt;/code&gt; (or whatever the theme is
+called) to &lt;code&gt;~/.vim/colors&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;To switch between the themes that are installed, you can use the menu,
+or you can type &lt;code&gt;:colorscheme &amp;lt;scheme&amp;gt;&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;To set defaults for your installation, you'd normally add commands to
+&lt;code&gt;~/.vimrc&lt;/code&gt; however Janus has taken that file over.  It instead reads
+your settings from &lt;code&gt;~/.vimrc.local&lt;/code&gt;.  In order to provide settings for
+graphical Vim installations (like MacVim) there's also a &lt;code&gt;~/.gvimrc&lt;/code&gt;
+file.&lt;/p&gt;
+
+&lt;p&gt;Open up that file (&lt;code&gt;:edit ~/.gvimrc&lt;/code&gt;) and add the following commands:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;vim
+:colorscheme github
+:set guifont=Menlo:h14
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Feel free to tweak this to contain your favorite color scheme &amp;amp; font.
+In order to see these changes you have to &quot;source&quot; the file:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+:source %
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;(&lt;code&gt;%&lt;/code&gt; here means &quot;current file&quot;)&lt;/p&gt;
+
+&lt;p&gt;You should see the changes take effect immediately.&lt;/p&gt;
+
+&lt;h2&gt;Opening MacVim with a &quot;Project&quot;&lt;/h2&gt;
+
+&lt;p&gt;One common thing in TextMate is to &lt;code&gt;cd&lt;/code&gt; into a project and then type
+&lt;code&gt;mate .&lt;/code&gt; which will open TextMate's project drawer with all of the files
+in that directory loaded up.&lt;/p&gt;
+
+&lt;p&gt;In MacVim, you can do the same.  Navigate to a folder with some content
+(like a Rails app) and type: &lt;code&gt;mvim .&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;You should see something resembling a file navigator.  You can navigate
+these with the same movement commands from above.&lt;/p&gt;
+
+&lt;p&gt;Once you've chosen a file, press &lt;code&gt;enter&lt;/code&gt; to open it in the buffer.&lt;/p&gt;
+
+&lt;p&gt;&lt;span class='has-pullquote' data-pullquote='The leader key is a special, configurable key used to create quick shortcut combinations.'&gt;
+Janus comes with NERDTree, which has similar behavior to TextMate's
+Project Drawer.  Open up the NERDTree pane by typing &lt;code&gt;&amp;lt;leader&amp;gt;-n&lt;/code&gt; or &lt;code&gt;\n&lt;/code&gt;. By default the leader key is set to backslash.
+The leader key is a special, configurable key used to create quick shortcut combinations.
+&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;The NERDTree window can be collapsed by typing &lt;code&gt;&amp;lt;leader&amp;gt;-n&lt;/code&gt; again.&lt;/p&gt;
+
+&lt;p&gt;You might want to instead find the file by searching for it by name.
+For that, the aptly-named Command-T plugin can be hepful.&lt;/p&gt;
+
+&lt;p&gt;Command-T can be activated (by default) with &lt;code&gt;&amp;lt;leader&amp;gt;-t&lt;/code&gt;.  Start typing
+and it will auto complete the results.&lt;/p&gt;
+
+&lt;h2&gt;Scared Yet?&lt;/h2&gt;
+
+&lt;p&gt;Writing this reminds me of how hard it was to get started.  I can only
+offer some encouragement that with practice, Vim does start to feel like
+ you can leverage your fast typing skills to really.&lt;/p&gt;
+
+&lt;p&gt;Practice only a couple of commands at a time.  Really learn what they
+are doing and then move one to the next command.  Print out a cheet
+sheet.  Pair with someone else who uses Vim.&lt;/p&gt;
+
+&lt;p&gt;I hope you found this intro useful. I'll cover some more Vim tricks as time goes on.&lt;/p&gt;
+</content>
+  </entry>
   
   <entry>
     <title>A Fresh Start?</title>
