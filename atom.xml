@@ -1,15 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title>My Octopress Blog</title>
-  <link href="http://yoursite.com/atom.xml" rel="self"/>
-  <link href="http://yoursite.com/"/>
-  <updated>2011-08-17T23:25:37-05:00</updated>
-  <id>http://yoursite.com/</id>
+  <title>subdigital</title>
+  <link href="http://subdigital.github.com/atom.xml" rel="self"/>
+  <link href="http://subdigital.github.com/"/>
+  <updated>2011-08-17T23:41:18-05:00</updated>
+  <id>http://subdigital.github.com/</id>
   <author>
-    <name>Your Name</name>
+    <name>Ben Scheirman</name>
     
   </author>
 
+  
+  <entry>
+    <title>A Fresh Start?</title>
+    <link href="http://subdigital.github.com/blog/2011/08/17/a-fresh-start/"/>
+    <updated>2011-08-17T23:37:00-05:00</updated>
+    <id>http://subdigital.github.com/blog/2011/08/17/a-fresh-start</id>
+    <content type="html">&lt;p&gt;So I'm giving this [Octopress|http://octopress.org] think the old college try.  It is labelled
+as a &quot;blogging framework for Hackers.&quot;&lt;/p&gt;
+</content>
+  </entry>
   
 </feed>
