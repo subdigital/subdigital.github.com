@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title>subdigital</title>
-  <link href="http://subdigital.github.com/atom.xml" rel="self"/>
-  <link href="http://subdigital.github.com/"/>
-  <updated>2011-08-18T01:38:28-05:00</updated>
-  <id>http://subdigital.github.com/</id>
+  <title>Fickle Bits</title>
+  <link href="http://benscheirman.com/atom.xml" rel="self"/>
+  <link href="http://benscheirman.com/"/>
+  <updated>2011-08-21T12:21:28-05:00</updated>
+  <id>http://benscheirman.com/</id>
   <author>
     <name>Ben Scheirman</name>
     
@@ -14,9 +14,9 @@
   
   <entry>
     <title>My Vim Journey</title>
-    <link href="http://subdigital.github.com/blog/2011/08/17/my-vim-journey/"/>
+    <link href="http://benscheirman.com/blog/2011/08/17/my-vim-journey/"/>
     <updated>2011-08-17T23:53:00-05:00</updated>
-    <id>http://subdigital.github.com/blog/2011/08/17/my-vim-journey</id>
+    <id>http://benscheirman.com/blog/2011/08/17/my-vim-journey</id>
     <content type="html">&lt;p&gt;For my Rails work, I've largely leaned on &lt;a href=&quot;http://macromates.org&quot;&gt;TextMate&lt;/a&gt;.  It's used by many Rubyists, looks sexy,
 and is easily extended.&lt;/p&gt;
 
@@ -231,9 +231,9 @@ sheet.  Pair with someone else who uses Vim.&lt;/p&gt;
   
   <entry>
     <title>A Fresh Start?</title>
-    <link href="http://subdigital.github.com/blog/2011/08/17/a-fresh-start/"/>
+    <link href="http://benscheirman.com/blog/2011/08/17/a-fresh-start/"/>
     <updated>2011-08-17T23:37:00-05:00</updated>
-    <id>http://subdigital.github.com/blog/2011/08/17/a-fresh-start</id>
+    <id>http://benscheirman.com/blog/2011/08/17/a-fresh-start</id>
     <content type="html">&lt;p&gt;So I've been thinking of ditching the traditional blog for a while now.  My &lt;a href=&quot;http://flux88.com&quot;&gt;current blog&lt;/a&gt; is hosted on WordPress, which
 is powerful enough, however it always seems like a hassle to maintain.&lt;/p&gt;
 

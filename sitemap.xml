@@ -1,19 +1,19 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
-        <loc>http://subdigital.github.com/blog/2011/08/17/a-fresh-start/</loc>
+        <loc>http://benscheirman.com/blog/2011/08/17/a-fresh-start/</loc>
         <lastmod>2011-08-18T01:29:47-05:00</lastmod>
     </url>
     <url>
-        <loc>http://subdigital.github.com/blog/2011/08/17/my-vim-journey/</loc>
+        <loc>http://benscheirman.com/blog/2011/08/17/my-vim-journey/</loc>
         <lastmod>2011-08-18T01:25:51-05:00</lastmod>
     </url>
     <url>
-        <loc>http://subdigital.github.com/blog/archives/</loc>
+        <loc>http://benscheirman.com/blog/archives/</loc>
         <lastmod>2011-08-18T01:29:47-05:00</lastmod>
     </url>
     <url>
-        <loc>http://subdigital.github.com/</loc>
+        <loc>http://benscheirman.com/</loc>
         <lastmod>2011-08-18T01:29:47-05:00</lastmod>
     </url>
 </urlset>
