@@ -4,7 +4,7 @@
   <title>Fickle Bits</title>
   <link href="http://benscheirman.com/atom.xml" rel="self"/>
   <link href="http://benscheirman.com/"/>
-  <updated>2011-08-21T22:55:44-05:00</updated>
+  <updated>2011-08-22T12:17:21-05:00</updated>
   <id>http://benscheirman.com/</id>
   <author>
     <name>Ben Scheirman</name>
@@ -171,7 +171,7 @@ file.&lt;/p&gt;
 
 &lt;p&gt;Open up that file (&lt;code&gt;:edit ~/.gvimrc&lt;/code&gt;) and add the following commands:&lt;/p&gt;
 
-&lt;p&gt;&lt;code&gt;vim
+&lt;p&gt;&lt;code&gt;
 :colorscheme github
 :set guifont=Menlo:h14
 &lt;/code&gt;&lt;/p&gt;
