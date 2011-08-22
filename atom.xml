@@ -4,7 +4,7 @@
   <title>Fickle Bits</title>
   <link href="http://benscheirman.com/atom.xml" rel="self"/>
   <link href="http://benscheirman.com/"/>
-  <updated>2011-08-22T12:19:50-05:00</updated>
+  <updated>2011-08-22T12:27:41-05:00</updated>
   <id>http://benscheirman.com/</id>
   <author>
     <name>Ben Scheirman</name>
@@ -171,18 +171,23 @@ file.&lt;/p&gt;
 
 &lt;p&gt;Open up that file (&lt;code&gt;:edit ~/.gvimrc&lt;/code&gt;) and add the following commands:&lt;/p&gt;
 
-&lt;p&gt;```
-colorscheme github&lt;/p&gt;
+&lt;p&gt;``` vim&lt;/p&gt;
 
-&lt;p&gt;set guifont=Menlo:h14
-```&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;colorscheme github
+set guifont=Menlo:h14
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
 
 &lt;p&gt;Feel free to tweak this to contain your favorite color scheme &amp;amp; font.
 In order to see these changes you have to &quot;source&quot; the file:&lt;/p&gt;
 
-&lt;p&gt;&lt;code&gt;
-:source %
-&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;:source %
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
 
 &lt;p&gt;(&lt;code&gt;%&lt;/code&gt; here means &quot;current file&quot;)&lt;/p&gt;
 
