@@ -4,7 +4,7 @@
   <title>Fickle Bits</title>
   <link href="http://benscheirman.com/atom.xml" rel="self"/>
   <link href="http://benscheirman.com/"/>
-  <updated>2011-08-21T12:21:28-05:00</updated>
+  <updated>2011-08-21T22:55:44-05:00</updated>
   <id>http://benscheirman.com/</id>
   <author>
     <name>Ben Scheirman</name>
@@ -234,18 +234,19 @@ sheet.  Pair with someone else who uses Vim.&lt;/p&gt;
     <link href="http://benscheirman.com/blog/2011/08/17/a-fresh-start/"/>
     <updated>2011-08-17T23:37:00-05:00</updated>
     <id>http://benscheirman.com/blog/2011/08/17/a-fresh-start</id>
-    <content type="html">&lt;p&gt;So I've been thinking of ditching the traditional blog for a while now.  My &lt;a href=&quot;http://flux88.com&quot;&gt;current blog&lt;/a&gt; is hosted on WordPress, which
-is powerful enough, however it always seems like a hassle to maintain.&lt;/p&gt;
+    <content type="html">&lt;p&gt;So I've been thinking of ditching the traditional blog for a while now.  My &lt;a href=&quot;http://flux88.com&quot;&gt;current blog&lt;/a&gt; is powered by WordPress, which
+is powerful enough, however it always seems like a hassle to maintain.
+There are also no fantastic blog editors for the Mac (still).&lt;/p&gt;
 
 &lt;p&gt;This time I'm going in a completely new direction.  This blog is powered
 by &lt;a href=&quot;http://octopress.org&quot;&gt;Octopress&lt;/a&gt; (which uses
-&lt;a href=&quot;https://github.com/mojombo/jekyll&quot;&gt;Jekyll&lt;/a&gt; as the engine.  I 'm not
-going to import posts and I'm not going to worry about integrating a lot
-of features.  Just epic content, that's it!&lt;/p&gt;
+&lt;a href=&quot;https://github.com/mojombo/jekyll&quot;&gt;Jekyll&lt;/a&gt; as the engine.  I'm not
+going to import old posts and I'm not going to worry about integrating a lot
+of features. Just epic content, that's it!&lt;/p&gt;
 
-&lt;p&gt;Posts are composed in Markdown (I'm using vim to write this) and the blog is then deployed to a git repository for publishing.&lt;/p&gt;
+&lt;p&gt;Posts are composed in Markdown (I'm using vim to write this), static HTML is generated and the blog is then deployed to a git repository.&lt;/p&gt;
 
-&lt;p&gt;Will it make me blog more?  I hope so, but only time will tell!&lt;/p&gt;
+&lt;p&gt;Will it make me blog more? I hope so, but only time will tell!&lt;/p&gt;
 </content>
   </entry>
   
