@@ -4,7 +4,7 @@
   <title>Fickle Bits</title>
   <link href="http://benscheirman.com/atom.xml" rel="self"/>
   <link href="http://benscheirman.com/"/>
-  <updated>2011-08-22T12:27:41-05:00</updated>
+  <updated>2011-08-22T18:01:46-05:00</updated>
   <id>http://benscheirman.com/</id>
   <author>
     <name>Ben Scheirman</name>
@@ -90,12 +90,13 @@ to get you started:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Press &lt;code&gt;h&lt;/code&gt;, &lt;code&gt;j&lt;/code&gt;, &lt;code&gt;k&lt;/code&gt;, &lt;code&gt;l&lt;/code&gt; to move the cursor around.  It will feel weird, but you start to appreciate not
 lifting your hand off of the home row to reach for the arrow keys.&lt;/li&gt;
-&lt;li&gt;Press &lt;code&gt;gg&lt;/code&gt; to go to the end of a document, &lt;code&gt;G&lt;/code&gt; to go to the top of
+&lt;li&gt;Press &lt;code&gt;G&lt;/code&gt; to go to the end of a document, &lt;code&gt;gg&lt;/code&gt; to go to the top of
 the document.&lt;/li&gt;
 &lt;li&gt;Press &lt;code&gt;i&lt;/code&gt; to go to insert mode at the current position&lt;/li&gt;
-&lt;li&gt;Press &lt;code&gt;a&lt;/code&gt; to &quot;append&quot; content at the end of the current line&lt;/li&gt;
-&lt;li&gt;Type &lt;code&gt;cw&lt;/code&gt; (&quot;change word&quot;) to replace the current word and go into
-insert mode&lt;/li&gt;
+&lt;li&gt;Press &lt;code&gt;I&lt;/code&gt; to insert at the beginning of the line&lt;/li&gt;
+&lt;li&gt;Press &lt;code&gt;a&lt;/code&gt; to &quot;append&quot; content after the cursor&lt;/li&gt;
+&lt;li&gt;Press &lt;code&gt;A&lt;/code&gt; to &quot;append&quot; content at the end of a line&lt;/li&gt;
+&lt;li&gt;Type &lt;code&gt;cw&lt;/code&gt; (&quot;change word&quot;) to replace the current word and go into insert mode&lt;/li&gt;
 &lt;li&gt;Type &lt;code&gt;dta&lt;/code&gt; to (&quot;delete 'til the letter a&quot;) in a line&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -133,9 +134,12 @@ that are pre-configured and work well together.  Take a look at the plugins it i
 don't mind running a script blindly (I don't recommend it) you can
 simply run:&lt;/p&gt;
 
-&lt;p&gt;&lt;code&gt;
-curl https://raw.github.com/carlhuda/janus/master/bootstrap.sh -o - | sh
-&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;curl https://raw.github.com/carlhuda/janus/master/bootstrap.sh -o - | sh
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
 
 &lt;p&gt;More explicit instructions for the paranoid can be found on &lt;a href=&quot;http://github.com/carlhuda/janus&quot;&gt;the github
 page&lt;/a&gt;.&lt;/p&gt;
