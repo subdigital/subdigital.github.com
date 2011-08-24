@@ -4,13 +4,108 @@
   <title>Fickle Bits</title>
   <link href="http://benscheirman.com/atom.xml" rel="self"/>
   <link href="http://benscheirman.com/"/>
-  <updated>2011-08-22T18:01:46-05:00</updated>
+  <updated>2011-08-24T10:33:01-05:00</updated>
   <id>http://benscheirman.com/</id>
   <author>
     <name>Ben Scheirman</name>
     
   </author>
 
+  
+  <entry>
+    <title>When viewWillAppear: Isn't Called</title>
+    <link href="http://benscheirman.com/blog/2011/08/24/when-viewwillappear-isnt-called/"/>
+    <updated>2011-08-24T10:11:00-05:00</updated>
+    <id>http://benscheirman.com/blog/2011/08/24/when-viewwillappear-isnt-called</id>
+    <content type="html">&lt;p&gt;The &lt;code&gt;UIViewController&lt;/code&gt; lifecycle is pretty simple.  &lt;code&gt;viewDidLoad&lt;/code&gt; is
+called when the view is loaded (usually from a XIB) and when the view
+controller's view is about to be displayed &lt;code&gt;viewWillAppear:&lt;/code&gt; gets called
+(and &lt;code&gt;viewWillDisappear:&lt;/code&gt; when it goes away).&lt;/p&gt;
+
+&lt;p&gt;The problem is, when you have a non-standard view hierarchy (like my
+current app) these methods don't get called. The Apple docs have this to
+say about the problem:&lt;/p&gt;
+
+&lt;blockquote&gt;&lt;p&gt;Warning: If the view belonging to a view controller is added to a view hierarchy directly, the view controller will not receive this message. If you insert or add a view to the view hierarchy, and it has a view controller, you should send the associated view controller this message directly. Failing to send the view controller this message will prevent any associated animation from being displayed.&lt;/p&gt;&lt;/blockquote&gt;
+
+&lt;p&gt;In my application I have a persistent bar at the bottom of the screen,
+so my &lt;code&gt;UINavigationController&lt;/code&gt; only owns a portion of the screen.  Thus, my
+&lt;code&gt;RootViewController&lt;/code&gt; (which owns these 2 portions) is always &lt;em&gt;active&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class='screenshot ' src='http://benscheirman.com/images/non-standard-nav-frame.png' width='' height='' alt='' title=''&gt;&lt;/p&gt;
+
+&lt;p&gt;I recently came upon a requirement that needed to leverage
+&lt;code&gt;viewWillAppear:&lt;/code&gt; and &lt;code&gt;viewWillDisappear:&lt;/code&gt; in order to decorate the
+bottom bar with some additional information. Since this is a view
+controller a few layers deep in the hierarchy, the methods weren't being
+called.&lt;/p&gt;
+
+&lt;p&gt;Luckly, there is a fix to this. The navigation controller can notify
+its &lt;code&gt;delegate&lt;/code&gt; when it changes view controllers.&lt;/p&gt;
+
+&lt;p&gt;Start off in the view controller that is the root of the navigation
+controller hierarchy.  Make it conform to the
+&lt;code&gt;UINavigationControllerDelegate&lt;/code&gt; protocol.  We'll also need an ivar to
+store the last view controller that &lt;em&gt;appeared&lt;/em&gt; so that we can notify
+when it &lt;em&gt;disappears&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;```objc&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@interface MyRootViewController : UIViewController
+    &amp;lt;UINavigationControllerDelegate&amp;gt; {
+      UIViewController *_lastViewController;
+}
+// methods
+
+@end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;In the implementation, in do the following:&lt;/p&gt;
+
+&lt;p&gt;```objc&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@implementation MyRootViewController
+
+// other stuff
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+
+    self.navigationController.delegate = self;
+    // ...
+}
+
+- (void)navigationController:(UINavigationController *)navigationController 
+      willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    if (_lastViewController) {
+        [_lastViewController viewWillDisappear:animated];
+    }
+
+    [viewController viewWillAppear:animated];
+    _lastViewController = viewController;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;If you need support for &lt;code&gt;viewDidAppear&lt;/code&gt; and &lt;code&gt;viewDidDisappear&lt;/code&gt; then
+you'd have to implement this method as well:&lt;/p&gt;
+
+&lt;p&gt;```objc&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;- (void)navigationController:(UINavigationController *)navigationController 
+       didShowViewController:(UIViewController *)viewController 
+                    animated:(BOOL)animated;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;After doing this, your view controllers should start receiving the
+&lt;code&gt;viewWillAppear:&lt;/code&gt; and &lt;code&gt;viewWillDisappear:&lt;/code&gt; methods successfully.&lt;/p&gt;
+</content>
+  </entry>
   
   <entry>
     <title>My Vim Journey</title>
