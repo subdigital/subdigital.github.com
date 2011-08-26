@@ -100,6 +100,59 @@
     
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2011/08/26/vim---could-not-invoke-jslint/">Vim - Could Not Invoke JSLint</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2011-08-26 08:59:00 -0500" pubdate  updated >Aug 26<span>th</span>, 2011</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>If you&#8217;re running MacVim with Janus and have upgraded to Lion, you may
+have noticed a little error when you open JavaScript files:</p>
+
+<blockquote><p>Error detected while processing function 87_JSLint:
+Line 33:
+could not invoke JSLint!</p></blockquote>
+
+<p>It seems many are having <a href="https://github.com/hallettj/jslint.vim/issues/13">this issue</a>.  There are 2 things to check:</p>
+
+<ol>
+<li>Make sure you have Node in your path.  Confirm this by typing <code>which
+node</code> and make sure it resolves a binary somewhere on your system.</li>
+<li>Open up your <code>~/.vimrc.local</code> and add this command:</li>
+</ol>
+
+
+<figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+</pre></td><td class='code' width='100%'><pre><code class='vim'><div class='line'><span class="c">&quot; Use Node.js for JavaScript interpretation</span>
+</div><div class='line'><span class="k">let</span> $JS_CMD<span class="p">=</span><span class="s1">&#39;node&#39;</span>
+</div></code></pre></td></tr></table></div></figure>
+
+<p>Kudos to <a href="http://github.com/eventualbuddha">eventualbuddha</a> for
+figuring this out.</p>
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2011/08/26/vim---could-not-invoke-jslint/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2011/08/26/is-rails-exempt-from-software-principles/">Is Rails Exempt?</a></h1>
     
     
@@ -751,6 +804,10 @@ of features. Just epic content, that&#8217;s it!</p>
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/08/26/vim---could-not-invoke-jslint/">Vim - Could Not Invoke JSLint</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2011/08/26/is-rails-exempt-from-software-principles/">Is Rails Exempt?</a>

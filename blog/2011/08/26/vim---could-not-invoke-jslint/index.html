@@ -5,10 +5,8 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Fickle Bits: Category: rails</title>
+  <title>Fickle Bits: Vim - Could Not Invoke JSLint</title>
   <meta name="author" content="Ben Scheirman">
-  
-    <meta name="description" content="Category: rails"/>
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +16,7 @@
 
   
 
-  <link rel="canonical" href="http://benscheirman.comblog/categories/rails/index.html"/>
+  <link rel="canonical" href="http://benscheirman.com/blog/2011/08/26/vim---could-not-invoke-jslint/"/>
   <link href="/favicon.png" rel="shortcut icon" />
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -95,36 +93,110 @@
   <div id="main">
     <div id="content">
       <div>
-<article>
+<article class="hentry">
   
   <header>
-    <h1 class="entry-title">Category: Rails</h1>
+    
+      <h1 class="entry-title">Vim - Could Not Invoke JSLint</h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2011-08-26 08:59:00 -0500" pubdate  updated >Aug 26<span>th</span>, 2011</time>
+
+
+</p>
     
   </header>
-  
-  <div id="blog-archives" class="category">
 
 
+<div class="entry-content"><p>If you&#8217;re running MacVim with Janus and have upgraded to Lion, you may
+have noticed a little error when you open JavaScript files:</p>
 
-  
-  <h2>2011</h2>
+<blockquote><p>Error detected while processing function 87_JSLint:
+Line 33:
+could not invoke JSLint!</p></blockquote>
 
-<article>
-  
-<h1><a href="/blog/2011/08/26/is-rails-exempt-from-software-principles/">Is Rails Exempt?</a></h1>
-<time datetime="2011-08-26 07:58:00 -0500" pubdate><span class='month'>Aug</span> <span class='day'>26</span> <span class='year'>2011</span></time>
+<p>It seems many are having <a href="https://github.com/hallettj/jslint.vim/issues/13">this issue</a>.  There are 2 things to check:</p>
 
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/rails/'>rails</a>, <a class='category' href='/blog/categories/ruby-/'>ruby,</a></span>
-</footer>
+<ol>
+<li>Make sure you have Node in your path.  Confirm this by typing <code>which
+node</code> and make sure it resolves a binary somewhere on your system.</li>
+<li>Open up your <code>~/.vimrc.local</code> and add this command:</li>
+</ol>
 
 
-</article>
+<figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+</pre></td><td class='code' width='100%'><pre><code class='vim'><div class='line'><span class="c">&quot; Use Node.js for JavaScript interpretation</span>
+</div><div class='line'><span class="k">let</span> $JS_CMD<span class="p">=</span><span class="s1">&#39;node&#39;</span>
+</div></code></pre></td></tr></table></div></figure>
 
+<p>Kudos to <a href="http://github.com/eventualbuddha">eventualbuddha</a> for
+figuring this out.</p>
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">Ben Scheirman</span></span>
+
+      
+
+
+
+
+<time datetime="2011-08-26 08:59:00 -0500" pubdate  updated >Aug 26<span>th</span>, 2011</time>
+
+
+
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/vim/'>vim</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://benscheirman.com/blog/2011/08/26/vim---could-not-invoke-jslint/" data-via="subdigital" data-counturl="http://benscheirman.com/blog/2011/08/26/vim---could-not-invoke-jslint/" >Tweet</a>
+  
+  
+  <g:plusone size="medium"></g:plusone>
+  
+</div>
+
+    
+  </footer>
 </article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread"><div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_shortname = 'subdigital';
+  var disqus_identifier = 'http://benscheirman.com/blog/2011/08/26/vim---could-not-invoke-jslint/';
+  var disqus_url = 'http://benscheirman.com/blog/2011/08/26/vim---could-not-invoke-jslint/';
+  //var disqus_developer = 1;
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
 
