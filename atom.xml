@@ -4,7 +4,7 @@
   <title>Fickle Bits</title>
   <link href="http://benscheirman.com/atom.xml" rel="self"/>
   <link href="http://benscheirman.com/"/>
-  <updated>2011-08-25T22:02:08-05:00</updated>
+  <updated>2011-08-26T07:58:29-05:00</updated>
   <id>http://benscheirman.com/</id>
   <author>
     <name>Ben Scheirman</name>
@@ -15,7 +15,7 @@
   <entry>
     <title>Is Rails Exempt?</title>
     <link href="http://benscheirman.com/blog/2011/08/26/is-rails-exempt-from-software-principles/"/>
-    <updated>2011-08-26T21:37:00-05:00</updated>
+    <updated>2011-08-26T07:58:00-05:00</updated>
     <id>http://benscheirman.com/blog/2011/08/26/is-rails-exempt-from-software-principles</id>
     <content type="html">&lt;p&gt;If you've been following the Ruby community recently, you'd notice that
 there's are people calling our Rails (and Rails developers) for treating
