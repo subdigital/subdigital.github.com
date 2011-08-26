@@ -4,13 +4,199 @@
   <title>Fickle Bits</title>
   <link href="http://benscheirman.com/atom.xml" rel="self"/>
   <link href="http://benscheirman.com/"/>
-  <updated>2011-08-24T10:33:01-05:00</updated>
+  <updated>2011-08-25T22:02:08-05:00</updated>
   <id>http://benscheirman.com/</id>
   <author>
     <name>Ben Scheirman</name>
     
   </author>
 
+  
+  <entry>
+    <title>Is Rails Exempt?</title>
+    <link href="http://benscheirman.com/blog/2011/08/26/is-rails-exempt-from-software-principles/"/>
+    <updated>2011-08-26T21:37:00-05:00</updated>
+    <id>http://benscheirman.com/blog/2011/08/26/is-rails-exempt-from-software-principles</id>
+    <content type="html">&lt;p&gt;If you've been following the Ruby community recently, you'd notice that
+there's are people calling our Rails (and Rails developers) for treating
+Rails as if it is somehow &lt;em&gt;exempt&lt;/em&gt; from long-standing software
+principles.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://osherove.com/&quot;&gt;Roy Osherove&lt;/a&gt;, a fairly well-known .NET developer and author of The &lt;a href=&quot;http://artofunittesting.com/&quot;&gt;Art of Unit Testing&lt;/a&gt;, ventured into Ruby-land
+recently and commented on twitter about how Rails's
+definition of unit &amp;amp; integration is quite different from his.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class='tweet ' src='http://benscheirman.com/images/rails-unit-integration-tweet.png' width='' height='' alt='' title=''&gt;&lt;/p&gt;
+
+&lt;p&gt;I have to agree with Roy. Those in the TDD camp in .NET understood the
+difference and were (from my experience) fairly cognizent of isolating
+concerns and not mixing the 2 concepts. Some even go as far as to
+isolate integration tests into their own assembly, providing a physical
+separation further guaranteeing that a unit test project won't touch
+web services or the database.&lt;/p&gt;
+
+&lt;p&gt;It's easy to assume from the outside that the Rails is just testing
+nirvana and that &lt;em&gt;everyone&lt;/em&gt; does it and it's so easy.  Unfortunately it's
+just not the truth.  Rails (and Ruby) make testing really easy but that
+means it's even easier to do the wrong thing as well.&lt;/p&gt;
+
+&lt;h2&gt;Legacy Rails Apps&lt;/h2&gt;
+
+&lt;p&gt;Now that Rails is (gasp) over 7 years old you're starting to see some
+real legacy Rails applications out in the wild.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://twitter.com/avdi&quot;&gt;Avdi Grimm&lt;/a&gt; has a &lt;a href=&quot;http://avdi.org/devblog/2011/08/22/your-code-is-my-hell/&quot;&gt;good post&lt;/a&gt; on the topic of how many of the Rails apps he comes to work on are in poor shape, technically.&lt;/p&gt;
+
+&lt;blockquote&gt;&lt;p&gt;Here are a few examples, just to give you an idea of what I’m talking about:&lt;/p&gt;
+
+&lt;p&gt;“Design Patterns are a Java thing. In Ruby you just write code.”&lt;/p&gt;
+
+&lt;p&gt;“The warnings Ruby produces are dumb; just disable them.”&lt;/p&gt;
+
+&lt;p&gt;“Sure they aren’t technically Unit Tests, but isolating objects turned out to be kind of hard and besides nobody else is doing it.”&lt;/p&gt;
+
+&lt;p&gt;“Stuff like the Law of Demeter isn’t really as important in Ruby code”&lt;/p&gt;
+
+&lt;p&gt;“That’s only a problem in large projects” (implying that this project will never become large).&lt;/p&gt;&lt;/blockquote&gt;
+
+&lt;p&gt;I've certainly been guilty of some of this. Rails makes it easy to do
+things that can turn out to be problematic. As with anything, you have
+to be disciplined to notice the warning signs and act accordingly.&lt;/p&gt;
+
+&lt;p&gt;When testing is painful, you're likely making mistakes. Some common
+pain-points that I've experienced are:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;No tests - the app is hard to test because the design is poor. Classes
+are too tightly coupled and don't have clear delineation of
+responsibilities.&lt;/li&gt;
+&lt;li&gt;Tests break for unrelated reasons - the tests are covering too much
+behavior, so when a single behavior changes, many tests break.&lt;/li&gt;
+&lt;li&gt;Tests break when implementation changes - the tests are probably
+utilizing too much mocking &amp;amp; stubbing. The tests are coupled heavily
+to a particular implementation.&lt;/li&gt;
+&lt;li&gt;Unclear what the problem is when a test breaks - Tests are probably
+too coarse-grained and may contain too many assertions per test.&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;These are just a sampling of what I've personally observed.&lt;/p&gt;
+
+&lt;p&gt;So why do many Rails developers ignore these concepts?&lt;/p&gt;
+
+&lt;h2&gt;Pragmatism at work&lt;/h2&gt;
+
+&lt;p&gt;Many rails tutorials (and the default Rails template) treats model tests
+as &lt;em&gt;unit&lt;/em&gt; tests. Since Rails models are by default based on Active
+Record, they have data access baked into their core.  Doing proper unit
+testing means you're testing a logical unit.  If your test involves a
+model operation that requires a database round-trip, that's technically
+an &lt;em&gt;integration&lt;/em&gt; test.  But does it really matter?&lt;/p&gt;
+
+&lt;p&gt;Most Rails developers will tell you no. Consider this spec:&lt;/p&gt;
+
+&lt;p&gt;```ruby&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;describe Post do
+  it &quot;should be initially unpublished&quot; do
+    Post.new.published.should == false
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;This is a unit test. It tests a single piece of functionality and will
+fail for just one reason.&lt;/p&gt;
+
+&lt;p&gt;Now, here's another example:&lt;/p&gt;
+
+&lt;p&gt;```ruby&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;it &quot;should fetch published articles&quot; do
+  # ?
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;```ruby&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# post.rb
+class Post &amp;lt; ActiveRecord::Base
+  def self.published
+    where(&quot;published_at &amp;lt;= ?&quot;, Time.now)
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;How should you implement this spec?&lt;/p&gt;
+
+&lt;p&gt;If you were trying to avoid hitting the database you might intercept the
+&lt;code&gt;where&lt;/code&gt; call and assert the parameters passed to it. But surely this
+isn't the only way you could implement this method giving the same
+behavior.  You might use &lt;code&gt;scopes&lt;/code&gt; or another &lt;code&gt;where&lt;/code&gt; call might actually
+be added later that doesn't affect the outcome of this method in any way
+that this test is concerned about.&lt;/p&gt;
+
+&lt;p&gt;```ruby&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;it &quot;should fetch published articles&quot; do
+  3.times { Factory.create :article }
+  future_post = Factory.create :article, :published_at =&amp;gt; 2.days.from_now
+  posts = Post.published
+  posts.size.should == 3
+  post.should_not include future_post
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;This test hits the database (numerous times, in fact) but it's testing
+&lt;em&gt;exactly&lt;/em&gt; the behavior we need.  We aren't testing implementation, we're
+testing that the behavior works as intended.  If we somehow muck with
+the query, breaking it, this test will fail.  If we change the
+implementation to use some other query means (scopes or whatever) this
+test will still pass.&lt;/p&gt;
+
+&lt;p&gt;Is it so bad that the test hits the database?&lt;/p&gt;
+
+&lt;p&gt;There are drawbacks of course:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The test requires a database, thus you have to migrate&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;database_cleaner&lt;/code&gt; gem will have to be present to clean out the
+database before each run&lt;/li&gt;
+&lt;li&gt;These database statements make the test suite a LOT slower, so large
+test suites will eventually suffer.&lt;/li&gt;
+&lt;li&gt;The tests could fail if the database isn't present (or migrated), or
+if the query is incorrect.  But this isn't likely to happen since
+we're using a tested framework (ActiveRecord).&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;Ultimately this isn't really a unit test at all.  It's an integration
+test.  So is &lt;code&gt;spec/models/post_spec.rb&lt;/code&gt; the wrong place for this stuff?&lt;/p&gt;
+
+&lt;p&gt;The question eventually comes down to this: &lt;em&gt;What is more valuable?  A
+fast, isolated test suite?  Or a test suite that breaks for the right
+reasons?&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2&gt;Don't throw out good practices just because it's Ruby&lt;/h2&gt;
+
+&lt;p&gt;I think it's important to be cognizant of software paradigms and use
+them where they make sense. It's also important to recognize when
+practices are being ignored because &quot;celebrities&quot; aren't touting them.&lt;/p&gt;
+
+&lt;p&gt;It is still valuable, however, to keep a fresh eye on old assumptions. Don't
+always take things as gospel just because that's the way they have
+always been. One
+of the things I love about the Ruby community is how willing people are
+to rock the boat &amp;amp; try something new.&lt;/p&gt;
+</content>
+  </entry>
   
   <entry>
     <title>When viewWillAppear: Isn't Called</title>
