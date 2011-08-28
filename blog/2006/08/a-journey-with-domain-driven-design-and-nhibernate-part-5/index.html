@@ -1,0 +1,371 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Fickle Bits: A Journey with Domain Driven Design (and NHibernate) - Part 5</title>
+  <meta name="author" content="Ben Scheirman">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="canonical" href="http://benscheirman.com/blog/2006/08/a-journey-with-domain-driven-design-and-nhibernate-part-5/"/>
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/ficklebits" rel="alternate" title="Fickle Bits" type="application/atom+xml"/>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-210379-10']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">Fickle Bits</a></h1>
+  
+    <h2>You're doing it wrong.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/ficklebits" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:benscheirman.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry">
+  
+  <header>
+    
+      <h1 class="entry-title">A Journey With Domain Driven Design (and NHibernate) - Part 5</h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2006-08-23 00:00:00 -0500" pubdate  updated >Aug 23<span>rd</span>, 2006</time>
+
+
+</p>
+    
+  </header>
+
+
+<div class="entry-content"><p>…And we’re back again in Part 5 of the series.&nbsp; We’ve come to a decent, functioning (yet small) domain model.&nbsp; We did it by focusing on the domain and the requirements, and were not heavily influenced by persistence related concerns.</p>
+
+
+<p>Let’s create a database structure to support persistence of our domain model.</p>
+
+
+<p>When creating the database, you might realize that the database has no notion of class inheritance.&nbsp; This is a serious impedance mismatch and represents one (of many) difficulties with object-relational mapping.&nbsp; There are 3 main approaches to solve this problem (outlined in more detail in <a title="amazon book" href="http://www.amazon.com/exec/obidos/ASIN/193239415X/hiberthejavao-20/104-6802848-1905563" target="_blank">Hibernate In Action</a>&nbsp;) :</p>
+
+
+<ul><li><strong>Table Per Concrete Class</strong> – In this approach you ignore the inheritance and just map each type to it’s own table, including all columns contained in the superclass.</li><li><strong>Table Per Class Hierarchy</strong> – This options dictates that you should collapse the hierarchy into a single table, and use a “type” column to determine what kind of record it is.&nbsp; This is called a <em>discriminator</em> in NHibernate.&nbsp; Some people prefer this for performance reasons (<em>no joins required to fetch a child object).</em></li><li><strong>Table Per Subclass</strong> – Create a shared key between a child table and the parent table, and define the columns separated by class.&nbsp; This is the approach I prefer.&nbsp; It’s the most normalized and also happens to be quite easy to work with in NHibernate.&nbsp; If I call <strong>Load</strong> on a Video to get it from the database, NHibernate will know to grab <em>Name</em> and <em>UPC </em>from the Items table, and the rest of the properties from the Videos table.</li></ul>
+
+
+<p>Here’s our Item inheritance hierarchy mapped to the database:</p>
+
+
+<p><img src="/images/CropperCapture%5B23%5D_small_.jpg" alt="CropperCapture[23]"  border="1" /></p>
+
+
+<p>This option is completely normalized and maps elegantly (as you’ll see) with NHibernate.</p>
+
+
+<p>Here’s the rest of the initial database structure (click to enlarge):</p>
+
+
+<p>&nbsp;<a href="http://www.flux88.com/uploads/CropperCapture%5B24%5D.Jpg"><img src="/images/CropperCapture%5B24%5D_thumb_.jpg" alt="CropperCapture[24]"  border="1" /></a></p>
+
+
+<p>Take a minute to understand the table structure.&nbsp; I’m sure there’s some room for improvement, but this will suit us for now.&nbsp; You’ll notice that I kept a few things de-normalized for ease of querying and performance.&nbsp; For example a Transaction’s balance is the sum of the rentals, but if we control the adding and removing of rentals then we can keep this data in sync.&nbsp; We can then avoid querying for all of a transaction’s rentals just to get the total (think of displaying this data in a grid with transaction summaries… we’d avoid loading all of the rentals for each line in the grid).&nbsp; The same concept is applied to the Accounts table.&nbsp; An account’s balance is the combination of transaction totals, plus tax, minus any money paid.&nbsp; Late fees will also modify this amount.&nbsp; I chose to omit this kind of data to keep the example somewhat simple.</p>
+
+
+<p>If you look at this ER diagram in comparison to the object diagrams in previous steps you’ll see first-hand the impedance mismatch of a relational model vs. an object-oriented model.&nbsp; By this point I hope you’ll agree with me that an object-oriented model is much more expressive and&nbsp;intuitive to work with.&nbsp; A well designed model will have a fluent interface and read very close to the language of the domain.</p>
+
+
+<p><em>As a side note, this concept goes beyond just thinking in the typical “pick out the nouns – those are your objects” line of thought.&nbsp; Don’t get me wrong, that’s a great place to start… however you’ll get more benefit if you develop a model that makes perfect sense to business users.&nbsp; They will understand it and help you build it.&nbsp;&nbsp;They will likely find flaws in the model and help clarify.&nbsp; This bridge between developer speak and business lingo is what Eric Evans calls <strong>The Ubiquitous Language</strong>.&nbsp; For more on this topic I highly recommend his book <a title="book's website" href="http://domaindrivendesign.org/book/" target="_blank">Domain Driven Design</a>.</em></p>
+
+
+<p>To get our objects persisted to the database we need to map the objects to their relational tables.&nbsp; We need to support some common operations such as loading, querying, inserting updating, and deleting.&nbsp; And we’d like to do it without writing mundane, repetitive SQL statements or stored procedures.&nbsp; We need an <em>object relational mapper</em>.&nbsp; </p>
+
+
+<p>Enter NHibernate.&nbsp;</p>
+
+
+<p>Like I said in the beginning, I’m going to focus on getting started with NHibernate in a real project, and not to go over the easy stuff in too much detail.&nbsp; To use NHibernate, first you need to download the latest release from <a title="NHibernate at SourceForge" href="http://sourceforge.net/projects/nhibernate/" target="_blank">SourceForge</a>.&nbsp;&nbsp;Remember: NHibernate is a persistence concern, so we should only add&nbsp;a&nbsp;reference to the NHibernate.dll in our data access project.</p>
+
+
+<p>I’ve created a class library project called&nbsp;<strong>Flux88.Videocracy.Persistence </strong>which will hold all of our persistence related classes.&nbsp; I also created a project to house our tests for these classes.&nbsp; Here’s the solution now:</p>
+
+
+<p><img src="/images/CropperCapture%5B25%5D_small_.jpg" alt="solution structure"  border="1" /></p>
+
+
+<p>Ok, let’s switch gears for a moment and talk about how NHibernate works.&nbsp; Like most complex components, NHibernate requires configuration to work properly.&nbsp; You can do this through code, but I’ve found that it’s more flexible and easier to maintain&nbsp;when you add it to the application’s configuration file.&nbsp; We’ll get to that in just a moment.</p>
+
+
+<p>We don’t have a UI yet, so we’ll really be calling all of this code in our test project.&nbsp; Since our test project uses these classes, it also needs to provide a&nbsp;configuration file.&nbsp; Configuration for test projects is pretty much the same as a WinForms project;&nbsp;all you need is an app.config.</p>
+
+
+<p>I’ve created an App.config file inside <strong>Flux88.Videocracy.Persistence.Tests</strong>.&nbsp; Here’s a basic config file with a configuration section for NHibernate:</p>
+
+
+<div style="border: 1px solid rgb(51, 51, 51); background: white none repeat scroll 0%; font-size: 9pt; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; color: black; font-family: Consolas;"><p style="margin: 0px;"><span style="color: blue;">&lt;?</span><span style="color: maroon;">xml</span><span style="color: blue;"> </span><span style="color: red;">version</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">1.0</span>&#8221;<span style="color: blue;">?&gt;</span></p><p style="margin: 0px;"><span style="color: blue;">&lt;</span><span style="color: maroon;">configuration</span><span style="color: blue;">&gt;</span></p><p style="margin: 0px;"><span style="color: blue;">&nbsp; &lt;</span><span style="color: maroon;">configSections</span><span style="color: blue;">&gt;</span></p><p style="margin: 0px;"><span style="color: blue;">&nbsp; &nbsp; &lt;!&#8211;</span><span style="color: green;"> we define the standard name/value section for nhibernate, see below </span><span style="color: blue;">&#8211;&gt;</span></p><p style="margin: 0px;"><span style="color: blue;">&nbsp; &nbsp; &lt;</span><span style="color: maroon;">section</span><span style="color: blue;"> </span><span style="color: red;">name</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">nhibernate</span>&#8221;<span style="color: blue;"> </span><span style="color: red;">type</span><span style="color: blue;">=</span>
+&#8221;<span style="color: blue;">System.Configuration.NameValueSectionHandler, </span></p><p style="margin: 0px;"><span style="color: blue;">&nbsp; &nbsp; &nbsp; &nbsp; System, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</span>&#8221;<span style="color: blue;">/&gt;&nbsp; &nbsp; </span></p><p style="margin: 0px;"><span style="color: blue;">&nbsp; &lt;/</span><span style="color: maroon;">configSections</span><span style="color: blue;">&gt;</span></p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;"><span style="color: blue;">&nbsp; &lt;</span><span style="color: maroon;">nhibernate</span><span style="color: blue;">&gt;&nbsp; &nbsp; </span></p><p style="margin: 0px;"><span style="color: blue;">&nbsp; &nbsp; &lt;</span><span style="color: maroon;">add</span><span style="color: blue;"> </span><span style="color: red;">key</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">hibernate.connection.provider</span>&#8221;<span style="color: blue;"> </span></p><p style="margin: 0px;"><span style="color: blue;">&nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: red;">value</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">NHibernate.Connection.DriverConnectionProvider</span>&#8221;<span style="color: blue;">&nbsp; /&gt;</span></p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;"><span style="color: blue;">&nbsp; &nbsp; &lt;!&#8211;</span><span style="color: green;"> unless you need a stricter isolation level, leave this as is</span><span style="color: blue;">&#8211;&gt;</span></p><p style="margin: 0px;"><span style="color: blue;">&nbsp; &nbsp; &lt;</span><span style="color: maroon;">add</span><span style="color: blue;"> </span><span style="color: red;">key</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">hibernate.connection.isolation</span>&#8221;<span style="color: blue;"> </span></p><p style="margin: 0px;"><span style="color: blue;">&nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: red;">value</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">ReadCommitted</span>&#8221;<span style="color: blue;"> /&gt;</span></p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;"><span style="color: blue;">&nbsp; &nbsp; &lt;!&#8211;</span><span style="color: green;"> by specifying a default schema, nhibernate&#8217;s dynamic sql queries </span></p><p style="margin: 0px;"><span style="color: green;">&nbsp; &nbsp; &nbsp; &nbsp; benefit from caching </span><span style="color: blue;">&#8211;&gt;</span></p><p style="margin: 0px;"><span style="color: blue;">&nbsp; &nbsp; &lt;</span><span style="color: maroon;">add</span><span style="color: blue;"> </span><span style="color: red;">key</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">hibernate.default_schema</span>&#8221;<span style="color: blue;"> </span><span style="color: red;">value</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">Videocracy.dbo</span>&#8221;<span style="color: blue;"> /&gt;</span></p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;"><span style="color: blue;">&nbsp; &nbsp; &lt;!&#8211;</span><span style="color: green;"> here the database dialect and connection provider are specified</span><span style="color: blue;">&#8211;&gt;</span></p><p style="margin: 0px;"><span style="color: blue;">&nbsp; &nbsp; &lt;</span><span style="color: maroon;">add</span><span style="color: blue;"> </span><span style="color: red;">key</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">hibernate.dialect</span>&#8221;<span style="color: blue;"> </span><span style="color: red;">value</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">NHibernate.Dialect.MsSql2000Dialect</span>&#8221;<span style="color: blue;"> /&gt;</span></p><p style="margin: 0px;"><span style="color: blue;">&nbsp; &nbsp; &lt;</span><span style="color: maroon;">add</span><span style="color: blue;"> </span><span style="color: red;">key</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">hibernate.connection.driver_class</span>&#8221;<span style="color: blue;"> </span></p><p style="margin: 0px;"><span style="color: blue;">&nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: red;">value</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">NHibernate.Driver.SqlClientDriver</span>&#8221;<span style="color: blue;"> /&gt;</span></p><p style="margin: 0px;"><span style="color: blue;">&nbsp; &nbsp; &lt;</span><span style="color: maroon;">add</span><span style="color: blue;"> </span><span style="color: red;">key</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">hibernate.connection.connection_string</span>&#8221;<span style="color: blue;"> </span></p><p style="margin: 0px;"><span style="color: blue;">&nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: red;">value</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">Server=localhost; Initial Catalog=Videocracy; Integrated Security=SSPI;</span>&#8221;<span style="color: blue;"> /&gt;</span></p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;"><span style="color: blue;">&nbsp; &nbsp; &lt;!&#8211;</span><span style="color: green;"> tell nhibernate to log the actual sql that is executed </span><span style="color: blue;">&#8211;&gt;</span></p><p style="margin: 0px;"><span style="color: blue;">&nbsp; &nbsp; &lt;</span><span style="color: maroon;">add</span><span style="color: blue;"> </span><span style="color: red;">key</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">hibernate.show_sql</span>&#8221;<span style="color: blue;"> </span><span style="color: red;">value</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">true</span>&#8221;<span style="color: blue;"> /&gt;</span></p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;"><span style="color: blue;">&nbsp; &lt;/</span><span style="color: maroon;">nhibernate</span><span style="color: blue;">&gt;</span></p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;"><span style="color: blue;">&lt;/</span><span style="color: maroon;">configuration</span><span style="color: blue;">&gt;</span></p></div>
+
+
+<p>This is pretty standard configuration for NHibernate.&nbsp; I received some excellent tips on&nbsp;configuration from <a title="codeproject.com" href="http://www.codeproject.com/aspnet/NHibernateBestPractices.asp" target="_blank">Billy McCafferty’s article on NHibernate Best Practices at&nbsp;CodeProject</a>.</p>
+
+
+<p>The next step is to read this configuration and instantiate a SessionFactory.&nbsp; Let’s stop and think about this for a minute.&nbsp; A SessionFactory exists solely to take the configuration and hand our ISessions to work with the database.&nbsp; This is expensive to create, so we only need to do it once for the entire application lifecycle.&nbsp;&nbsp;&nbsp; I also want to wrap the NHibernate details as much as possible so that I can provide a very thin coupling to it.</p>
+
+
+<p>I’ll start this one out with a test.&nbsp; I’ll create a&nbsp;<strong>SessionSource</strong> class (to borrow&nbsp;a name from an <a title="Jeffrey Palermo" href="http://www.jeffreypalermo.com/" target="_blank">influential developer</a>)<strong>&nbsp;</strong>that will wrap the SessionFactory.&nbsp; It will need to be initalized before use and be able to return Sessions when we need them.</p>
+
+
+<p>Here’s a test for the initialization:</p>
+
+
+<div style="border: 1px solid rgb(51, 51, 51); background: white none repeat scroll 0%; font-size: 9pt; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; color: black; font-family: Consolas;"><p style="margin: 0px;">[<span style="color: teal;">Test</span>]</p><p style="margin: 0px;"><span style="color: blue;">public</span> <span style="color: blue;">void</span> CanInitializeSessionSource()</p><p style="margin: 0px;">{</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp; <span style="color: teal;">Assert</span>.IsFalse(<span style="color: teal;">SessionSource</span>.Current.IsInitialized);</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp; <span style="color: teal;">SessionSource</span>.Current.Initialize();</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp; <span style="color: teal;">Assert</span>.IsTrue(
+<span style="color: teal;">SessionSource</span>.Current.IsInitialized);</p><p style="margin: 0px;">}</p></div>
+
+
+<!--EndFragment-->
+
+
+<p>It’s a simple enough test, but it actually tests <strong>a lot</strong>.&nbsp; In order to initialize our session source we must read the configuration file.&nbsp; Each required property must be set in order for the session factory to be created.&nbsp;&nbsp; </p>
+
+
+<p><em>I had to add a reference to the DomainModel project and the Persistence project in my Persistence Tests project to get the configuration to be able to read the “Flux88.Videocracy.DomainModel” assembly reference.</em></p>
+
+
+<p>Combined with my configuration above, this is the code that satisfies the test:</p>
+
+
+<div style="border: 1px solid rgb(51, 51, 51); background: white none repeat scroll 0%; font-size: 9pt; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; color: black; font-family: Consolas;">&nbsp;<span style="color: gray;">///</span><span style="color: green;"> </span><span style="color: gray;">&lt;summary&gt;</span> <p style="margin: 0px;">&nbsp;<span style="color: gray;">///</span><span style="color: green;"> Reads the NHibernate configuration and builds the session factory.</span></p><p style="margin: 0px;">&nbsp;<span style="color: gray;">///</span><span style="color: green;"> </span><span style="color: gray;">&lt;/summary&gt;</span></p><p style="margin: 0px;">&nbsp;<span style="color: blue;">public</span> <span style="color: blue;">void</span> Initialize()</p><p style="margin: 0px;">&nbsp;{</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: teal;">Configuration</span> config = <span style="color: blue;">new</span> <span style="color: teal;">Configuration</span>();</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; config.AddAssembly(<span style="color: maroon;">&#8220;Flux88.Videocracy.DomainModel&#8221;</span>);</p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _factory = config.BuildSessionFactory();</p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _initialized = <span style="color: blue;">true</span>;</p><p style="margin: 0px;">&nbsp;}</p></div>
+
+
+<p>We can either explicitly call Initialize when our application starts, or we can defer it until it is first needed, either one.&nbsp; I like to have this flexibility because it helps out in testing and also makes it easy to work with in our application as well.</p>
+
+
+<p>Next up we actually need to be able to return an NHibernate ISession to be able to do any work with the database, so we have:</p>
+
+
+<div style="border: 1px solid rgb(51, 51, 51); background: white none repeat scroll 0%; font-size: 9pt; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; color: black; font-family: Consolas;"><p style="margin: 0px;">&nbsp;<span style="color: gray;">///</span><span style="color: green;"> </span><span style="color: gray;">&lt;summary&gt;</span></p><p style="margin: 0px;">&nbsp;<span style="color: gray;">///</span><span style="color: green;"> Gets an open NHibernate ISession for work with the database.</span></p><p style="margin: 0px;">&nbsp;<span style="color: gray;">///</span><span style="color: green;"> </span><span style="color: gray;">&lt;/summary&gt;</span><span style="color: green;">&nbsp; &nbsp; &nbsp; &nbsp; </span></p><p style="margin: 0px;">&nbsp;<span style="color: gray;">///</span><span style="color: green;"> </span><span style="color: gray;">&lt;returns&gt;</span><span style="color: green;">ISession</span><span style="color: gray;">&lt;/returns&gt;</span></p><p style="margin: 0px;">&nbsp;<span style="color: blue;">public</span> <span style="color: teal;">ISession</span> GetSession()</p><p style="margin: 0px;">&nbsp;{</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: green;">//if we aren&#8217;t initialized, do it</span></p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: blue;">if</span> (!_initialized)</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Initialize();</p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: blue;">return</span> _factory.OpenSession();</p><p style="margin: 0px;">&nbsp;}</p></div>
+
+
+<p>Here we show the lazy initialization (if needed) and just a call to open a new session.&nbsp; I also included an overload (not shown) to accept a custom IInterceptor and pass it into the factory’s OpenSession call.&nbsp; We’ll talk about IInterceptors at length in a later article.&nbsp; And before I go any further in code, I need some code to test this method.</p>
+
+
+<div style="border: 1px solid rgb(51, 51, 51); background: white none repeat scroll 0%; font-size: 9pt; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; color: black; font-family: Consolas;">&nbsp;[<span style="color: teal;">Test</span>] <p style="margin: 0px;">&nbsp;<span style="color: blue;">public</span> <span style="color: blue;">void</span> OpenSessionInitializesFactory()</p><p style="margin: 0px;">&nbsp;{</p><p style="margin: 0px;">&nbsp; &nbsp; NHibernate.<span style="color: teal;">ISession</span> session = <span style="color: teal;">SessionSource</span>.Current.GetSession();</p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp; <span style="color: teal;">Assert</span>.IsTrue(<span style="color: teal;">SessionSource</span>.Current.IsInitialized, </p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: maroon;">&#8220;Opening a session should initialize the factory&#8221;</span>);</p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp; <span style="color: teal;">Assert</span>.IsNotNull(session, <span style="color: maroon;">&#8220;Opening a session should return an object&#8221;</span>);&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </p><p style="margin: 0px;">}</p></div>
+
+
+<p>So at this point we’ve covered the database tables, NHibernate table mapping strategies, NHibernate configuration, and a simple NHibernate helper class to assist with the usage of NHibernate.</p>
+
+
+<p>This is a good place to stop for now.&nbsp; We’ll build off of this SessionSource next time, as well as introduce Repositories for our domain entities.</p>
+
+
+<p>As always I’d love to hear feedback on these articles.&nbsp; Are you finding them helpful?&nbsp; Are they too simple, too confusing, too fast, too slow?</p>
+
+
+<p><strong>Now playing:</strong> <a href="http://phobos.apple.com/WebObjects/MZSearch.woa/wa/advancedSearchResults?artistTerm=Modest%20Mouse">Modest Mouse</a> - <a href="http://phobos.apple.com/WebObjects/MZSearch.woa/wa/advancedSearchResults?songTerm=Bury%20Me%20With%20It&amp;artistTerm=Modest%20Mouse">Bury Me With It</a></p>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ben Scheirman</span></span>
+
+      
+
+
+
+
+<time datetime="2006-08-23 00:00:00 -0500" pubdate  updated >Aug 23<span>rd</span>, 2006</time>
+
+
+
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://benscheirman.com/blog/2006/08/a-journey-with-domain-driven-design-and-nhibernate-part-5/" data-via="subdigital" data-counturl="http://benscheirman.com/blog/2006/08/a-journey-with-domain-driven-design-and-nhibernate-part-5/" >Tweet</a>
+  
+  
+  <g:plusone size="medium"></g:plusone>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread"><div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_shortname = 'subdigital';
+  var disqus_identifier = 'http://benscheirman.com/blog/2006/08/a-journey-with-domain-driven-design-and-nhibernate-part-5/';
+  var disqus_url = 'http://benscheirman.com/blog/2006/08/a-journey-with-domain-driven-design-and-nhibernate-part-5/';
+  //var disqus_developer = 1;
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside role=sidebar>
+  
+    <section>
+  <h1>Who am I?</h1>
+  <p>I&#8217;m Ben Scheirman. I make Rails &amp; iPhone apps for <a href="http://chaione.com" target="_blank">ChaiONE</a> in Houston, TX.</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/08/vim---could-not-invoke-jslint/">Vim - Could Not Invoke JSLint</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/is-rails-exempt-from-software-principles/">Is Rails Exempt?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/when-viewwillappear-isnt-called/">When viewWillAppear: Isn&#8217;t Called</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/moving-my-blog/">Moving My Blog</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/my-vim-journey/">My Vim Journey</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("subdigital", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/subdigital" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @subdigital</a>
+  
+</section>
+
+
+<section>
+  <h1>On Delicious</h1>
+  <script type="text/javascript" src="http://feeds.delicious.com/v2/js/subdigital?title=&count=3&sort=date&extended"></script>
+  <p><a href="http://delicious.com/subdigital">My Delicious Bookmarks &raquo;</a></p>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer>
+<a style="display:block; float: right" title="Real Time Analytics" href="http://getclicky.com/66470389"><img alt="Real Time Analytics" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
+<script src="//static.getclicky.com/js" type="text/javascript"></script>
+<script type="text/javascript">try{ clicky.init(66470389); }catch(e){}</script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/66470389ns.gif" /></p></noscript>
+
+<p>
+  Copyright &copy; 2011 - Ben Scheirman -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+</body>
+</html>

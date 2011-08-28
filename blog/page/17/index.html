@@ -1,0 +1,813 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Fickle Bits</title>
+  <meta name="author" content="Ben Scheirman">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="canonical" href="http://benscheirman.com/blog/page/17/index.html"/>
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/ficklebits" rel="alternate" title="Fickle Bits" type="application/atom+xml"/>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-210379-10']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">Fickle Bits</a></h1>
+  
+    <h2>You're doing it wrong.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/ficklebits" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:benscheirman.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/01/testing-tempdata-in-asp-net-mvc/">Testing TempData in ASP.NET MVC</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2008-01-30 00:00:00 -0600" pubdate  updated >Jan 30<span>th</span>, 2008</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Eventually when testing your controllers you will come across an action that sets TempData.</p>
+
+
+<p>If you didn’t know, TempData is a session-backed temporary storage dictionary that is available for one single request.&nbsp; It’s great to pass messages between controllers.</p>
+
+
+<p>Our Controller classes that we derive from have this as a member property.&nbsp; However, when testing the controller, this always came up as null.</p>
+
+
+<p>Reflector is our friend here, so I fired it up and loaded the Controller class.&nbsp; Then I located the TempData member, and looked at the setter.&nbsp; It’s marked as internal, so somebody inside this assembly is responsible for creating it.&nbsp; By using the Reflector Analyze feature, I was able to find exactly where the setter is called.&nbsp; It’s in the Execute() method.&nbsp; (this is the general “pipeline” method that all `IController` implementations must override)</p>
+
+
+<p>Think about that for a second.&nbsp; At runtime, the TempData dictionary is set because all requests flow through `Execute()`.&nbsp; But in my test, I am specifically calling my action method.&nbsp; There is no `Execute()` in my test.</p>
+
+
+<p>To top it off, I can’t set this guy to a new TempDataDictionary because the setter is marked as internal.</p>
+
+
+<p><a href="http://haacked.com/" target="_blank">Phil Haack</a> tells me they’re working on this issue so we’ll likely see an improvement soon.&nbsp; In the meantime you can get around the issue by using reflection to set the value.&nbsp; But first, can we create one?</p>
+
+
+<p>TempData is stored in session, so it needs a reference to IHttpContext.&nbsp; Thankfully, we can mock this, however we have to make sure and mock the right parts.</p>
+
+
+<p>First, create a mock for IHttpContext, create the return values for mocked IHttpRequest &amp; IHttpResponse.&nbsp; Finally setup return values for IHttpSession as well.&nbsp; I’ve done all of this in a helper method of my test (though it could be an extention method on the MockRepository ala Phil, but whatever you like).</p>
+
+
+<p>&#8220;</p>
+
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>private IHttpContext GetHttpContext(string requestUrl){  IHttpRequest request = _mocks.DynamicMock&lt;IHttpRequest&gt;();    SetupResult.For(request.Url).Return(new Uri(requestUrl));   IHttpResponse response = _mocks.DynamicMock&lt;IHttpResponse&gt;(); IHttpSessionState session = _mocks.DynamicMock&lt;IHttpSessionState&gt;();IHttpContext httpContext = _mocks.DynamicMock&lt;IHttpContext&gt;();  SetupResult.For(httpContext.Session).Return(session);   SetupResult.For(httpContext.Request).Return(request);   SetupResult.For(httpContext.Response).Return(response);_mocks.Replay(request);_mocks.Replay(response);_mocks.Replay(httpContext);&lt;br>&lt;br>_tempData = new TempDataDictionary(httpContext);&lt;br>SetupResult.For(session[null]).IgnoreArguments().Return(_tempData);           &lt;br>_mocks.Replay(session);&lt;br>&lt;br> &nbsp;return httpContext;}</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p></p>
+
+
+<p>This code is a little verbose, but this is something you write once and use in all of your tests. You should notice that the `_tempData` property is a local field on my test class. I can then take this `_tempData` variable and inject it (via reflection) onto the controller under test. Here&#8217;s how:</p>
+
+
+<p>&#8220;</p>
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>typeof(FooController).GetProperty("TempData").SetValue(controller, _tempData, null);</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>And now we can easily test that messages are set in TempData before redirecting or rendering a view.</p>
+
+
+<p><b>*update*:&nbsp; Will Shaver notified me of a typo in the code.&nbsp; It has been fixed.&nbsp; Thanks Will!*</b><br></p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2008/01/testing-tempdata-in-asp-net-mvc/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/01/interviewing-developers/">Interviewing Developers</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2008-01-23 00:00:00 -0600" pubdate  updated >Jan 23<span>rd</span>, 2008</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Part of my job is interviewing developers to assess their technical skills.&nbsp; The majority of these interviews are at the Junior and Senior levels and I have accumulated quite a bank of questions I like to ask to get to the root of technical problems and see how the candidate responds.</p>
+
+
+<p><img src="/images/business_business_suit_237357_l_small_.jpg" hspace="5"  border="0"  /></p>
+
+
+<p>ASP.NET is a usual topic of discussion because of the vast amount of work that we do and the wide spread adoption of it amongst developers.&nbsp; </p>
+
+
+<p>So, let&rsquo;s say you want to see how much the candidate knows about ViewState.&nbsp; I start with an example&hellip;</p>
+
+
+<p><em>Say you have a page with a dropdown on it.&nbsp; Listed in the dropdown are various types of fruit that come from the database.&nbsp; To prevent multiple queries for the same data, the code that loads the fruit is inside an if(! IsPostBack) { } block.&nbsp; With me?</em></p>
+
+
+<p><em>&hellip;.yes.</em></p>
+
+
+<p><em>So what happens when we click a button and postback?</em></p>
+
+
+<p>It is amazing to me to see how many developers differ in their answers just on this alone.&nbsp; Some people tell me that the values are cleared, some tell me they stay there but they can&rsquo;t tell me why, and some mention viewstate but they have no idea how it works.</p>
+
+
+<p>For those who mention ViewState, I inevitably ask, &ldquo;What happens when we turn it off?&rdquo;&nbsp;&nbsp; Of course the values are erased.&nbsp; &ldquo;How can we get around that&rdquo;</p>
+
+
+<p>Again, many candidates just don&rsquo;t know what to do in this scenario.&nbsp; They fail to understand how ASP.NET works on top of HTML, or they have forgotten how the web works, however it may be, those are two very beginner questions, and about 80% of the people that I talk to on the phone struggle there at least some way.</p>
+
+
+<p>Now granted, some of our candidates are college grads and folks who haven&rsquo;t done much (or any) .NET.&nbsp; I don&rsquo;t hold this against them.</p>
+
+
+<p>Another area I like to explore is to the various forms of ASP.NET state management (such as cookies, session, cache, application, request) and this filters out another large portion.&nbsp; Some suggest storing global data (like US States) in a Session variable.&nbsp; Others can&rsquo;t tell me how Session works at all.</p>
+
+
+<p>I find it very difficult to give my recommendation to most of the folks I talk to.&nbsp; I know there are lots of smart folks out there, and infinitely more not-so-smart ones, but if you&rsquo;re going to be interviewed by me I will treat it as if you were joining my team.</p>
+
+
+<p>At the end of my interviews I always ask a question along the lines of &ldquo;What&rsquo;s your favorite book?&rdquo;&nbsp; to see if they have gotten excited about a programming book (or any book for that matter).&nbsp; If they say &ldquo;Teach yourself X in 24 Hours&rdquo; I will thank them for their time and hang up.</p>
+
+
+<p>The technical responsibility we have is too great to leave in the hands of those who don&rsquo;t know what they are doing and refuse to learn.</p>
+
+
+<p>What about you?&nbsp; Do you interview other developers?&nbsp; How do you weed out the cruft and get to the cream?&nbsp; Is it simply a numbers game?</p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2008/01/interviewing-developers/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/01/the-texas-tour-of-asp-net-mvc-comes-to-a-close/">The Texas Tour of ASP.NET MVC Comes to a Close</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2008-01-17 00:00:00 -0600" pubdate  updated >Jan 17<span>th</span>, 2008</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><font style="BACKGROUND-COLOR: #f4f4f4">It&rsquo;s been an exciting two weeks.&nbsp; I visited user groups in San Antonio, Houston, Austin, and Fort Worth, and I got to meet and connect with a lot of interested developers about the new ASP.NET MVC framework.</font></p>
+
+
+<p>Two of the events were recorded, so if I ever get my hands on the recorded bits, I&rsquo;ll post them here in an easily watchable format.&nbsp; (Don&rsquo;t hold your breath though.)</p>
+
+
+<p>My presentation had a minimal amount of PowerPoint.&nbsp; I decided to focus on real code.&nbsp; <em>And people have thanked me for it!</em>&nbsp; </p>
+
+
+<p>I covered:</p>
+
+
+<ul><li>Basics of MVC</li><li>Default Routes</li><li>Simple Controller / Action</li><li>Passing data to the views</li><li>passing strongly typed view data</li><li>Custom Routes</li><li>new/edit form for an entity</li><li>writing tests for controllers</li><li>rhino mocks for mocking out dependencies</li><li>dependency injection for controllers (using Windsor)</li><li>ajax integration with prototype</li></ul>
+
+
+<p>This is a lot to tackle in my 1/1.5 hour time slot.&nbsp; And I do get a lot of blank stares when I talk about mock objects and dependency injection, but I think more presentations need to present realistic code, rather than simple examples.&nbsp; The feedback I&rsquo;ve gotten about this has been overwhelmingly positive, and I&rsquo;m really glad people liked it.</p>
+
+
+<p>Some questions that were asked during my tour&hellip;</p>
+
+
+<p><em><strong>&ldquo;Ben, you are phenominally good-looking?&nbsp; Are you available?&rdquo;<br /></strong></em><em>&mdash;</em>umm no, I&rsquo;m married (and now terrified)</p>
+
+
+<p><strong>&ldquo;<em>What is that cool zoomey tool you used?&nbsp; That&rsquo;s awesome!&rdquo;<br />&mdash;</em></strong>that is called <a href="http://technet.microsoft.com/en-us/sysinternals/bb897434.aspx" target="_blank">ZoomIt</a>, by sysinternals.</p>
+
+
+<p>&ldquo;<em><strong>What are you using for data access on your entities?&rdquo;<br /></strong>&mdash;</em>It&rsquo;s called <a href="http://castleproject.org/" target="_blank">Castle ActiveRecord</a>, which uses <a href="http://www.nhibernate.org/" target="_blank">NHibernate</a> underneath.</p>
+
+
+<p>&ldquo;<strong><em>Can I use ASP.NET validators?&rdquo;<br /></em></strong>&mdash;Well not really.&nbsp; The validators have viewstate, which won&rsquo;t work.&nbsp; Your validation definitely belongs in the Model, so you could just do server-side if you want.&nbsp; If you want clientside validation, you could accomplish a similar result by using marker css classes and some clever javascript&nbsp; (think &lt;input type=&rdquo;text&rdquo; class=&rdquo;required&rdquo; name=&rdquo;address1&rdquo; /&gt;&lt;span class=&rdquo;error_message&rdquo;&gt;This is required&lt;/span&gt;</p>
+
+
+<p>&ldquo;<strong><em>If we use this on IIS6, will performance suffer?&rdquo;<br /></em></strong>&mdash; Probably.&nbsp; On IIS 5/6 you have to send all requests through ASP.NET, which can be slower.&nbsp; I&rsquo;m not an expert in this area, so definitely do your research before making any rash decisions.&nbsp; When we have Windows Server 2008 and IIS7, expect vast improvements.</p>
+
+
+<p>&ldquo;<strong><em>Do you know Justice Gray?&rdquo;<br /></em></strong>&mdash;Sure do.&nbsp; I&rsquo;m a bona-fide potential friend of Justice Gray, and even have the certificate to prove it.&nbsp; It&rsquo;s serial number marked 00000000000003.&nbsp; I carry it with me at all times for just such a question.</p>
+
+
+<p>&ldquo;<strong><em>Can you use co-exist with webforms?&rdquo;<br /></em></strong>&mdash;Yes!&nbsp; If you hit a page with the .aspx extension, the PageHandlerFactory will pick it up and you will be in WebForms Land.&nbsp; If you instead hit a route, you&rsquo;ll be in MVC Land.&nbsp; Learn to know the difference and you&rsquo;ll be fine.</p>
+
+
+<p>&ldquo;<strong><em>Isn&rsquo;t it dangerous to output strings directly like that?&rdquo;<br /></em></strong>&mdash;Yes it is.&nbsp; Read my <a href="http://www.flux88.com/BeCarefulOutputtingStringsInASPNETMVC.aspx" target="_blank">post about html encoding your values</a>.</p>
+
+
+<p><strong>&ldquo;<em>Your hair is impeccable?&nbsp; What kind of gel do you use?&rdquo;<br /></em></strong>&mdash; It&rsquo;s called Fructis something-or-other&hellip; and it&rsquo;s awesome!</p>
+
+
+<p>&ldquo;<strong><em>So Microsoft has two methods of developing web applications?&nbsp; Which should I choose?&rdquo;<br /></em></strong>&mdash;If you like the rich eventing model and the ability to save state and mimick a smart client ui, then choose web forms.&nbsp; If you value clean html, urls, separation of concerns, and testability, then choose MVC.&nbsp; I will be choosing MVC more often than not from here on out.</p>
+
+
+<p>&ldquo;<strong><em>When will it be released&rdquo;<br /></em></strong>&mdash;Gawsh, I don&rsquo;t know?&nbsp; Fall 2008?&nbsp; As soon as I know I&rsquo;ll post it here.</p>
+
+
+<p>(<em>admittedly, a couple of those questions were not asked &mdash; I&rsquo;ll let you guess which ones)</em></p>
+
+
+<p>You can download the code and the presentation here:</p>
+
+
+<p><a href="http://www.flux88.com/uploads/save_20the_20world_20with_20asp.net_20mvc.zip" target="_blank">File Attachment: save the world with asp.net mvc.zip (1612 KB)</a></p>
+
+
+<p>I&rsquo;d like to thank the user group leaders for having me speak, it was certainly a pleasure.&nbsp; Where will the next tour be?</p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2008/01/the-texas-tour-of-asp-net-mvc-comes-to-a-close/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/01/thank-you-adnug-and-fwdnug/">Thank You ADNUG and FWDNUG</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2008-01-16 00:00:00 -0600" pubdate  updated >Jan 16<span>th</span>, 2008</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I got the chance to meet an enthusiastic bunch of folks in Austin and Fort Worth this week, and I wrapped up my Texas Tour of MVC.&nbsp; I really want to say thanks to groups for having me.&nbsp; It was a pleasure to speak and connect with fellow developers in Texas.</p>
+
+
+<p>I&rsquo;ll be posting a massive recap this week that includes the code and powerpoint that I delivered.&nbsp; I&rsquo;d appreciate any and all feedback.</p>
+
+
+<p>Now for that long drive home&hellip;</p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2008/01/thank-you-adnug-and-fwdnug/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/01/visual-studio-2008-css-support-not-quite/">Visual Studio 2008 CSS Support - Not Quite</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2008-01-12 00:00:00 -0600" pubdate  updated >Jan 12<span>th</span>, 2008</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>One of the often-touted new features of VS 2008 is the improved CSS support.</p>
+
+
+<p>I like having intellisense for CSS, sure, but I dont&rsquo; want to have a warning for classes that don&rsquo;t exist&hellip;. like this:</p>
+
+
+<p><img src="/images/vs2008_2Dcss_2Dwarning_small_.jpg" hspace="5"  border="0"  /></p>
+
+
+<p>That green squiggly indicates a compiler warning.&nbsp; It can&rsquo;t find the CSS class, (which <em>is</em> referenced in the Master Page).&nbsp; </p>
+
+
+<p>But there are other reasons why you might want to define a class without defining an associated style.&nbsp; You might be using it to distinctly select elements from the DOM using javascript.&nbsp; </p>
+
+
+<p>The ever-so-awesome <a href="http://www.prototypejs.org/" target="_blank">prototype</a> framework introduced this syntax:</p>
+
+
+<p>$$(&lsquo;.info&rsquo;)</p>
+
+
+<p>which would select all of the elements with a class name of &ldquo;info&rdquo; for you to work with.</p>
+
+
+<p>Just about every other javascript library out there now supports this syntax (or a similar one).</p>
+
+
+<p>If this bugs you, you can turn it off by checking this box (in Tools -&gt; Options) :</p>
+
+
+<p><img src="/images/vs2008_2Dturn_2Doff_2Dhtml_2Derrors_.png" hspace="5"  border="0"  /></p>
+
+
+<p>You may not want to do this, though&hellip;&nbsp; it could potentially save you time if you&rsquo;re looking for a rendering bug.</p>
+
+
+<p>Another part of VS 2008 that I don&rsquo;t really care about is this CSS designer.&nbsp; I can&rsquo;t imagine anyone who would actually use this.</p>
+
+
+<p>I mean, come on&hellip; look at it!</p>
+
+
+<p><img src="/images/vs2008_2Dcss_2Dbuilder_small_.jpg" hspace="5"  border="0"  /></p>
+
+
+<p>I guess if you don&rsquo;t know CSS very well, you might want some options.&nbsp; But that form is more confusing to me than <strong>border-top: solid 1px #999;</strong>.</p>
+
+
+<p>(and one could argue, if you don&rsquo;t know CSS, should you be defining styles at all?)</p>
+
+
+<p>I really applaud Microsoft&rsquo;s attempt to bring a better CSS development experience to the masses, but I think they missed the mark on this one.</p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2008/01/visual-studio-2008-css-support-not-quite/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/01/thank-you-hdnug/">Thank You HDNUG!</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2008-01-11 00:00:00 -0600" pubdate  updated >Jan 11<span>th</span>, 2008</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I enjoyed giving the presentation on ASP.NET MVC tonight to about 90 eager developers at HDNUG here in Houston.</p>
+
+
+<p>There were a few people that had played with the framework before, a lot who had heard of it, and about 1/3 of the room had never heard of it.&nbsp; Awesome!</p>
+
+
+<p>There&rsquo;s always a balance between how intro a talk should be, but one of my goals with this talk is to show <em>real</em> application code; to show how you <em>actually</em> test these things, and what types of practices and tools that can enable this and make it easy.</p>
+
+
+<p>I hope that the talk was well received.&nbsp; If you went, I&rsquo;d love to hear your feedback in the comments!</p>
+
+
+<p>Some links from the talk:</p>
+
+
+<ul><li><a href="http://castleproject.org/container" target="_blank">Castle Windsor</a></li><li><a href="http://castleproject.org/activerecord" target="_blank">Castle ActiveRecord</a></li><li><a href="http://www.ayende.com/projects/rhino-mocks/downloads.aspx" target="_blank">Rhino Mocks</a></li><li><a href="http://www.codeplex.com/MVCContrib" target="_blank">MVCContrib</a></li><li><a href="http://blog.wekeroad.com/2007/12/05/aspnet-mvc-preview-using-the-mvc-ui-helpers/" target="_blank">MVCToolkit</a> @ Rob Conery&rsquo;s blog</li><li><a href="http://haacked.com/" target="_blank">Phil Haack&rsquo;s blog</a></li><li><a href="http://weblogs.asp.net/scottgu" target="_blank">Scott Guthrie&rsquo;s blog</a></li></ul>
+
+
+<p>I&rsquo;m sending the code over to be posted at HDNUG right now.&nbsp; After my tour ends next week, I&rsquo;ll post a large recap that includes code and hopefully answers to common questions that I&rsquo;ve been hearing.</p>
+
+
+<p>They also recorded the talk, so once I get my hands on the video, I&rsquo;ll throw it up here so others can have a look.</p>
+
+
+<p>Thanks for having me HDNUG!</p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2008/01/thank-you-hdnug/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/01/the-uber-usb-cable/">The Ãber USB Cable</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2008-01-10 00:00:00 -0600" pubdate  updated >Jan 10<span>th</span>, 2008</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><font style="BACKGROUND-COLOR: #f4f4f4">While shopping for a presentation clicker at Best Buy,&nbsp;I ran across this little gem.</font></p>
+
+
+<p><font style="BACKGROUND-COLOR: #f4f4f4">It&rsquo;s a flippin&rsquo; USB cable for $41.99!&nbsp; It&rsquo;s labeled as a &ldquo;Microsoft Vista Migration Cable.&rdquo;</font></p>
+
+
+<p><font style="BACKGROUND-COLOR: #f4f4f4"><img src="/images/IMAGE_027_small_.jpg" alt="IMAGE_027"  border="0"  /></font></p>
+
+
+<p><img src="/images/IMAGE_028_small_.jpg" alt="IMAGE_028"  border="0"  /></p>
+
+
+<p>Too bad it wasn&rsquo;t gold plated, otherwise I would have jumped all over it.</p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2008/01/the-uber-usb-cable/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/01/thank-you-alamo-coders-net/">Thank You Alamo Coders .NET!</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2008-01-09 00:00:00 -0600" pubdate  updated >Jan 9<span>th</span>, 2008</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Last night I kicked off my <a href="http://www.flux88.com/ASPNETMVCTourOfTexas.aspx" target="_blank">Texas Tour of MVC</a> at <a href="http://www.alamocoders.net/" target="_blank">Alamo Coders</a> in San Antonio.</p>
+
+
+<p>The room was pretty small and they filled it up with about 25 people.&nbsp; It was a bit more personal and cozy than the Houston .NET User&rsquo;s Group that I&rsquo;m used to.</p>
+
+
+<p>I ran a bit short on time, but luckily I had my ready-baked turkey in another folder so I was able to show my ajax portion of the presentation and I think it went well.</p>
+
+
+<p>I got some feedback from a few people who found the talk to be covering too much.&nbsp; (In addition to ASP.NET MVC, I&nbsp;covered inversion of control, mock objects, and a few other things).&nbsp; I wish I had a bit more time to explain these things in more detail, as it can be like drinking from the firehose, however I think they are important topics, and necessary to understand if you expect to properly unit testing on your controllers.</p>
+
+
+<p>For those of you that were there, here are the relevant links for more information&hellip;</p>
+
+
+<p>Inversion of Control:</p>
+
+
+<ul><li>Excellent article by Martin Fowler explaining the concept &ndash; <a href="http://martinfowler.com/articles/injection.html">http://martinfowler.com/articles/injection.html</a>&nbsp; &ndash; </li><li>Castle Windsor &ndash; <a href="http://castleproject.org/container/index.html">http://castleproject.org/container/index.html</a>&nbsp;<br />(this was the container I was using)</li><li>StructureMap &ndash; <a href="http://structuremap.sourceforge.net/Default.htm">http://structuremap.sourceforge.net/Default.htm</a>&nbsp; (another excellent one)</li><li>Spring.NET &ndash; <a href="http://www.springframework.net/">http://www.springframework.net/</a>&nbsp; (the likely choice if you&rsquo;ve used Spring from Java)</li></ul>
+
+
+<p>Mock Objects:</p>
+
+
+<ul><li>Martin Fowler&rsquo;s article on the subject: <a href="http://martinfowler.com/articles/mocksArentStubs.html">http://martinfowler.com/articles/mocksArentStubs.html</a></li><li>RhinoMocks &ndash; <a href="http://www.ayende.com/projects/rhino-mocks/downloads.aspx">http://www.ayende.com/projects/rhino-mocks/downloads.aspx</a></li></ul>
+
+
+<p>The javascript library I was using was prototype, available here: <a href="http://www.prototypejs.org/">http://www.prototypejs.org</a>.<br /></p>
+
+
+<p>Thanks again to Alamo Coders for having me!</p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2008/01/thank-you-alamo-coders-net/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/01/be-careful-outputting-strings-in-asp-net-mvc/">Be Careful Outputting Strings in ASP.NET MVC</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2008-01-09 00:00:00 -0600" pubdate  updated >Jan 9<span>th</span>, 2008</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><font style="BACKGROUND-COLOR: #f4f4f4">During my presentation at Alamo Coders last night, someon mentioned that it is unsafe to output user-entered strings like this:</font></p>
+
+
+<p><font color="#0000ff"><p>&lt;</font><font color="#a31515">h2</font><font color="#0000ff">&gt;</font>&lt;%<font color="#0000ff">=</font> college.Name %&gt;<font color="#0000ff">&lt;/</font><font color="#a31515">h2</font><font color="#0000ff">&gt;</p></font><p>The reason is, of course, that the user could be malicious and enter in a string such as this:</p><p>&ldquo;&lt;script&gt;alert(&lsquo;I am evil&rsquo;);&lt;/script&gt;&rdquo;</p><p>And it would evaluated on the page and all of your users would get an alert box.&nbsp; This is leaving your door wide-open to clever attacks known as <a href="http://en.wikipedia.org/wiki/Cross_site_scripting" target="_blank">Cross Site Scripting</a>&nbsp;and is very dangerous.</p><p>Instead, we should escape these strings so that they aren&rsquo;t rendered as HTML or javascript, but rather textual characters.&nbsp; That means that &lt; will be translated to &amp;lt; and so on.</p><p>To do that, the Html helpers that ship with the framework give you an Encode method, letting you do something like:</p><font color="#0000ff"><p>&lt;</font><font color="#a31515">h2</font><font color="#0000ff">&gt;</font>&lt;%<font color="#0000ff">=</font> Html.Encode(college.Name) %&gt;<font color="#0000ff">&lt;/</font><font color="#a31515">h2</font><font color="#0000ff">&gt;</p></font><p>But the syntax is a bit cumbersome for <strong>every outputted value on a page.</strong>&nbsp; I prefer the way Rails handles it&hellip; like this:</p><font color="#0000ff"><p>&lt;</font><font color="#a31515">h2</font><font color="#0000ff">&gt;</font>&lt;%<font color="#0000ff">=</font> h(college.Name) %&gt;<font color="#0000ff">&lt;/</font><font color="#a31515">h2</font><font color="#0000ff">&gt;</p></font><p>And it turns out that you can add this extension method somewhere and be done with it:</p><p>`</p>
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>public static string h(this ViewPage page, string input){ return new HtmlHelper(page.ViewContext).Encode(input);}`</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>And that&rsquo;s it!&nbsp; Just remember to take this precaution, or you&rsquo;ll regret it later.</p>
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2008/01/be-careful-outputting-strings-in-asp-net-mvc/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/12/asp-net-mvc-tour-of-texas/">ASP.NET MVC Tour of Texas</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-12-31 00:00:00 -0600" pubdate  updated >Dec 31<span>st</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><font style="BACKGROUND-COLOR: #f4f4f4">Want to see what the hype is all about with the new ASP.NET MVC Framework?</font></p>
+
+
+<p>I&rsquo;ll be touring Texas speaking about it.&nbsp; If you live in Texas, come check out my talk &ldquo;ASP.NET MVC &ndash; Save the Developer, Save the World.&rdquo;</p>
+
+
+<p>Here&rsquo;s the confirmed schedule:</p>
+
+
+<ul><li>January 8<sup>th</sup> &ndash; Alamo Coders (San Antonio)</li><li>January 10th &ndash; HDNUG (Houston)</li><li>January 14<sup>th</sup> &ndash; ADNUG (Austin)</li><li>January 15<sup>th</sup> &ndash; FWDNUG (Fort Worth)</li></ul>
+
+
+<p>We&rsquo;ll take a look at the new framework, the design goals, and dig into some code.</p>
+
+
+<p>Hope to see you there!</p>
+
+
+<p>&nbsp;</p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2007/12/asp-net-mvc-tour-of-texas/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+<nav role="pagination">
+  <div>
+    
+      <a class="prev" href="/blog/page/18/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/16/">Newer &rarr;</a>
+    
+  </div>
+</nav>
+
+<script type="text/javascript">
+    var disqus_shortname = 'subdigital';
+    (function () {
+      var s = document.createElement('script'); s.async = true;
+      s.type = 'text/javascript';
+      s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+      (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+
+</div>
+<aside role=sidebar>
+  
+    <section>
+  <h1>Who am I?</h1>
+  <p>I&#8217;m Ben Scheirman. I make Rails &amp; iPhone apps for <a href="http://chaione.com" target="_blank">ChaiONE</a> in Houston, TX.</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/08/vim---could-not-invoke-jslint/">Vim - Could Not Invoke JSLint</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/is-rails-exempt-from-software-principles/">Is Rails Exempt?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/when-viewwillappear-isnt-called/">When viewWillAppear: Isn&#8217;t Called</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/moving-my-blog/">Moving My Blog</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/my-vim-journey/">My Vim Journey</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("subdigital", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/subdigital" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @subdigital</a>
+  
+</section>
+
+
+<section>
+  <h1>On Delicious</h1>
+  <script type="text/javascript" src="http://feeds.delicious.com/v2/js/subdigital?title=&count=3&sort=date&extended"></script>
+  <p><a href="http://delicious.com/subdigital">My Delicious Bookmarks &raquo;</a></p>
+</section>
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer>
+<a style="display:block; float: right" title="Real Time Analytics" href="http://getclicky.com/66470389"><img alt="Real Time Analytics" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
+<script src="//static.getclicky.com/js" type="text/javascript"></script>
+<script type="text/javascript">try{ clicky.init(66470389); }catch(e){}</script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/66470389ns.gif" /></p></noscript>
+
+<p>
+  Copyright &copy; 2011 - Ben Scheirman -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+</body>
+</html>

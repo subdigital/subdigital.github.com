@@ -1,0 +1,399 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Fickle Bits: A Journey with Domain Driven Design (and NHibernate) - Part 8</title>
+  <meta name="author" content="Ben Scheirman">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="canonical" href="http://benscheirman.com/blog/2006/12/a-journey-with-domain-driven-design-and-nhibernate-part-8/"/>
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/ficklebits" rel="alternate" title="Fickle Bits" type="application/atom+xml"/>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-210379-10']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">Fickle Bits</a></h1>
+  
+    <h2>You're doing it wrong.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/ficklebits" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:benscheirman.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry">
+  
+  <header>
+    
+      <h1 class="entry-title">A Journey With Domain Driven Design (and NHibernate) - Part 8</h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2006-12-14 00:00:00 -0600" pubdate  updated >Dec 14<span>th</span>, 2006</time>
+
+
+</p>
+    
+  </header>
+
+
+<div class="entry-content"><p>We left off last time with our first association mapped and tested.&nbsp; Let&rsquo;s dig in a bit deeper with NHibernate mapping.&nbsp; </p>
+
+
+<p>Today I decided to separate my inherited classes into their own mapping file.&nbsp; This was as easy as creating the new files and &lt;hibernate-mapping&gt; root elements, copying the &lt;joined-subclass&gt; elements over.&nbsp; </p>
+
+
+<p>I created the <strong>Item.hbm.xml:</strong></p>
+
+
+<div style="FONT-SIZE: 9pt; BACKGROUND: white; COLOR: black; FONT-FAMILY: Consolas"><p style="MARGIN: 0px"><span style="COLOR: blue">&lt;</span><span style="COLOR: maroon">hibernate-mapping</span><span style="COLOR: blue"> </span><span style="COLOR: red">xmlns</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">urn:nhibernate-mapping-2.0</SPAN>&#8221;<span style="COLOR: blue"> </span><span style="COLOR: red">assembly</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">Flux88.Videocracy.DomainModel</SPAN>&#8221;<span style="COLOR: blue"> </span><span style="COLOR: red">namespace</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">Flux88.Videocracy.DomainModel</SPAN>&#8221;<span style="COLOR: blue"> </span><span style="COLOR: red">default-lazy</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">false</SPAN>&#8221;<span style="COLOR: blue">&gt;</span></p><p style="MARGIN: 0px"><span style="COLOR: blue">&nbsp; &lt;</span><span style="COLOR: maroon">class</span><span style="COLOR: blue"> </span><span style="COLOR: red">name</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">Item</SPAN>&#8221;<span style="COLOR: blue"> </span><span style="COLOR: red">table</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">Items</SPAN>&#8221;<span style="COLOR: blue">&gt;</span></p><p style="MARGIN: 0px"><span style="COLOR: blue">&nbsp; &nbsp; &lt;</span><span style="COLOR: maroon">id</span><span style="COLOR: blue"> </span><span style="COLOR: red">name</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">Id</SPAN>&#8221;<span style="COLOR: blue"> </span><span style="COLOR: red">column</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">itemId</SPAN>&#8221;<span style="COLOR: blue">&gt;</span></p><p style="MARGIN: 0px"><span style="COLOR: blue">&nbsp; &nbsp; &nbsp; &lt;</span><span style="COLOR: maroon">generator</span><span style="COLOR: blue"> </span><span style="COLOR: red">class</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">identity</SPAN>&#8221;<span style="COLOR: blue"> /&gt;&nbsp; </span></p><p style="MARGIN: 0px"><span style="COLOR: blue">&nbsp; &nbsp; &lt;/</span><span style="COLOR: maroon">id</span><span style="COLOR: blue">&gt;</span></p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px"><span style="COLOR: blue">&nbsp; &nbsp; &lt;</span><span style="COLOR: maroon">property</span><span style="COLOR: blue"> </span><span style="COLOR: red">name</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">Name</SPAN>&#8221;<span style="COLOR: blue"> </span><span style="COLOR: red">not-null</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">true</SPAN>&#8221;<span style="COLOR: blue"> /&gt;</span></p><p style="MARGIN: 0px"><span style="COLOR: blue">&nbsp; &nbsp; &lt;</span><span style="COLOR: maroon">property</span><span style="COLOR: blue"> </span><span style="COLOR: red">name</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">Upc</SPAN>&#8221;<span style="COLOR: blue"> </span><span style="COLOR: red">not-null</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">true</SPAN>&#8221;<span style="COLOR: blue"> /&gt;</span></p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px"><span style="COLOR: blue">&nbsp; &lt;/</span><span style="COLOR: maroon">class</span><span style="COLOR: blue">&gt;&nbsp; </span></p><p style="MARGIN: 0px"><span style="COLOR: blue">&lt;/</span><span style="COLOR: maroon">hibernate-mapping</span><span style="COLOR: blue">&gt;</span></p></div>
+
+
+<!--EndFragment-->
+
+
+<p>and <strong>Video.hbm.xml:</strong></p>
+
+
+<div style="FONT-SIZE: 9pt; BACKGROUND: white; COLOR: black; FONT-FAMILY: Consolas"><p style="MARGIN: 0px"><span style="COLOR: blue">&lt;</span><span style="COLOR: maroon">joined-subclass</span><span style="COLOR: blue"> </span><span style="COLOR: red">name</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">Video</SPAN>&#8221;<span style="COLOR: blue"> </span><span style="COLOR: red">extends</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">Item</SPAN>&#8221;<span style="COLOR: blue"> </span><span style="COLOR: red">table</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">Videos</SPAN>&#8221;<span style="COLOR: blue">&gt;</span></p><p style="MARGIN: 0px"><span style="COLOR: blue">&nbsp; &nbsp; &lt;</span><span style="COLOR: maroon">key</span><span style="COLOR: blue"> </span><span style="COLOR: red">column</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">itemId</SPAN>&#8221;<span style="COLOR: blue"> /&gt;</span></p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px"><span style="COLOR: blue">&nbsp; &nbsp; &lt;</span><span style="COLOR: maroon">many-to-one</span><span style="COLOR: blue"> </span><span style="COLOR: red">name</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">Movie</SPAN>&#8221;<span style="COLOR: blue"> </span><span style="COLOR: red">class</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">Movie</SPAN>&#8221;<span style="COLOR: blue"> </span><span style="COLOR: red">column</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">movieId</SPAN>&#8221;<span style="COLOR: blue"> /&gt;</span></p><p style="MARGIN: 0px"><span style="COLOR: blue">&nbsp; &nbsp; &lt;</span><span style="COLOR: maroon">property</span><span style="COLOR: blue"> </span><span style="COLOR: red">name</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">Format</SPAN>&#8221;<span style="COLOR: blue"> </span><span style="COLOR: red">type</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">Int32</SPAN>&#8221;<span style="COLOR: blue"> </span><span style="COLOR: red">column</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">videoFormatId</SPAN>&#8221;<span style="COLOR: blue"> /&gt;</span></p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px"><span style="COLOR: blue">&nbsp; &lt;/</span><span style="COLOR: maroon">joined-subclass</span><span style="COLOR: blue">&gt;</span></p></div>
+
+
+<!--EndFragment-->
+
+
+<p>In the video mapping, you can see how it inherits from the Item class.&nbsp; If you recall back to where I explained how inheritance works, you can see it in action here.&nbsp;&nbsp; Each video will have it&rsquo;s Name and UPC stored in the&nbsp;Items table, and the Format and MovieId in the Videos table.&nbsp; The <strong>Movie.hbm.xml</strong> is below:</p>
+
+
+<div style="FONT-SIZE: 9pt; BACKGROUND: white; COLOR: black; FONT-FAMILY: Consolas"><p style="MARGIN: 0px"><span style="COLOR: blue">&nbsp; &lt;</span><span style="COLOR: maroon">class</span><span style="COLOR: blue"> </span><span style="COLOR: red">name</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">Movie</SPAN>&#8221;<span style="COLOR: blue"> </span><span style="COLOR: red">table</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">Movies</SPAN>&#8221;<span style="COLOR: blue">&gt;</span></p><p style="MARGIN: 0px"><span style="COLOR: blue">&nbsp; &nbsp; &lt;</span><span style="COLOR: maroon">id</span><span style="COLOR: blue"> </span><span style="COLOR: red">name</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">Id</SPAN>&#8221;<span style="COLOR: blue"> </span><span style="COLOR: red">column</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">movieId</SPAN>&#8221;<span style="COLOR: blue"> </span><span style="COLOR: red">access</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">nosetter.camelcase-underscore</SPAN>&#8221;<span style="COLOR: blue">&gt;</span></p><p style="MARGIN: 0px"><span style="COLOR: blue">&nbsp; &nbsp; &nbsp; &lt;</span><span style="COLOR: maroon">generator</span><span style="COLOR: blue"> </span><span style="COLOR: red">class</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="
+color: blue">identity</SPAN>&#8221;<span style="COLOR: blue"> /&gt;</span></p><p style="MARGIN: 0px"><span style="COLOR: blue">&nbsp; &nbsp; &lt;/</span><span style="COLOR: maroon">id</span><span style="COLOR: blue">&gt;</span></p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px"><span style="COLOR: blue">&nbsp; &nbsp; &lt;</span><span style="COLOR: maroon">property</span><span style="COLOR: blue"> </span><span style="COLOR: red">name</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">Name</SPAN>&#8221;<span style="COLOR: blue"> </span><span style="COLOR: red">not-null</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">true</SPAN>&#8221;<span style="COLOR: blue"> /&gt;</span></p><p style="MARGIN: 0px"><span style="COLOR: blue">&nbsp; &nbsp; &lt;</span><span style="COLOR: maroon">property</span><span style="COLOR: blue"> </span><span style="COLOR: red">name</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">Year</SPAN>&#8221;<span style="COLOR: blue"> </span><span style="COLOR: red">not-null</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">true</SPAN>&#8221;<span style="COLOR: blue"> /&gt;</span></p><p style="MARGIN: 0px"><span style="COLOR: blue">&nbsp; &nbsp; &lt;</span><span style="COLOR: maroon">property</span><span style="COLOR: blue"> </span><span style="COLOR: red">name</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">VideoReleaseDate</SPAN>&#8221;<span style="COLOR: blue"> </span><span style="COLOR: red">not-null</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">true</SPAN>&#8221;<span style="COLOR: blue"> /&gt;</span></p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px"><span style="COLOR: blue">&nbsp; &nbsp; &lt;</span><span style="COLOR: maroon">property</span><span style="COLOR: blue"> </span><span style="COLOR: red">name</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">Category</SPAN>&#8221;<span style="COLOR: blue"> </span><span style="COLOR: red">type</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">Int32</SPAN>&#8221;<span style="COLOR: blue"> </span><span style="COLOR: red">column</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">categoryId</SPAN>&#8221;<span style="COLOR: blue"> </span><span style="COLOR: red">not-null</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">true</SPAN>&#8221;<span style="COLOR: blue"> /&gt;&nbsp; &nbsp; </span></p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px"><span style="COLOR: blue">&nbsp; &lt;/</span><span style="COLOR: maroon">class</span><span style="COLOR: blue">&gt;</span></p></div>
+
+
+<!--EndFragment-->
+
+
+<p>This should give you an idea on how to map your entities.</p>
+
+
+<p>I also did a little refactoring on the naming of my classes.&nbsp; I didn&rsquo;t like the naming of <strong>VideoGame</strong> because I thought it was better represented as a <strong>GameTitle.&nbsp; </strong>I also renamed <strong>Transaction </strong>to <strong>RentalTransaction</strong>.&nbsp; This will help avoid confusion when talking about database transactions.&nbsp; I realize that not everything will be a rental (obviously most video stores also sell movies and candy, etc) but this name will suffice for now.&nbsp; Since I am backed up by tests, I can refactor often and with complete confidence that I haven&rsquo;t broken any old code.</p>
+
+
+<p>So let&rsquo;s revisit our feature list</p>
+
+
+<ul><li><strike>Add new Customer / Account</strike></li><li><strike>Add other members to an account</strike></li><li>Restrict Certain members from renting certain content</li><li>Query for a customer by customer # (swipe card, etc), phone number, or last name</li><li><strike>Add new rental item (move game, console, vcr, etc)</strike></li><li><strike>Rent an item to a customer</strike></li><li>Check Items Back in</li><li>Get movies checked out for a customer</li><li>Query for an item, see who has it</li></ul>
+
+
+<p>Some of the remaining things on the list involve querying, so we&rsquo;ll create a class to assist in that.&nbsp; Listed below is the overview of a class called <strong>Repository.</strong>&nbsp;&nbsp; </p>
+
+
+<p><img src="/images/CropperCapture%5B5%5D_small_.jpg" alt="CropperCapture[5]"  border="0"  /></p>
+
+
+<p>Repository takes advantage of generics to avoid a lot of duplicate code.&nbsp; This is a quick implementation of the Repository pattern, you&rsquo;ll find more in-depth implementations in Ayende Rahien&rsquo;s <a href="http://wiki.ayende.com/wiki/index.php?title=Rhino.Commons" target="_blank">Rhino Commons</a>&nbsp;and Dave Donaldson&rsquo;s <a href="http://www.arcware.net/archive/2006/11/09/Sample-Usage-of-NHibernateRepository.aspx" target="_blank">NHibernate Repository</a>.&nbsp; The main point here is that we can abstract 90% of NHibernates functionality in an easy to use class.&nbsp; If we need to do something complex, we can either expose some more methods here, or we can expose the session to the rest of your project.&nbsp; This is a design choice that is really up to you.&nbsp; I generally choose to hide NHibernate from UI developers, especially junior developers.</p>
+
+
+<p>I provided some static members for just retrieving data, however to save data and participate in transactions, I created instance methods.&nbsp; This class will serve most all of our data access needs.&nbsp; It is the single communication point with our persistence layer to the presentation layer.</p>
+
+
+<p><em>One side-note.&nbsp; I have not written any tests for this class (shame on me!).&nbsp; I find it difficult to test it without duplicating what I have already done with the integration/persistence tests.&nbsp; I imagine that I could use a mocking framework like NMock or RhinoMocks, however this would distract from the series and frankly I am not very skilled at mocking.&nbsp; If someone would like to inject a few words about this in the comments, I&rsquo;d love to hear them.</em></p>
+
+
+<p>Ok, back to our list.&nbsp; I&rsquo;ll tackle <em>Restrict Certain Members from renting certain content.</em>&nbsp; This basically means that minors shouldn&rsquo;t be able to rent rated R movies.&nbsp; </p>
+
+
+<p>The ratings for our items apply not to the items themselves, but to the <strong>Movie</strong> and <strong>GameTitle</strong> classes.&nbsp; So to validate that the customer can rent one of these items, we must inspect the rating.</p>
+
+
+<p>A naïve approach would be like this:</p>
+
+
+<div style="FONT-SIZE: 9pt; BACKGROUND: white; COLOR: black; FONT-FAMILY: Consolas"><p style="MARGIN: 0px"><span style="COLOR: blue">public</span> <span style="COLOR: blue">void</span> AddRental(<span style="COLOR: teal">Rental</span> r)</p><p style="MARGIN: 0px">{</p><p style="MARGIN: 0px">&nbsp; &nbsp; <span style="COLOR: green">//don&#8217;t allow the same rental to be added twice</span></p><p style="MARGIN: 0px">&nbsp; &nbsp; <span style="COLOR: blue">if</span> (_rentals.Contains(r)) <span style="COLOR: blue">return</span>;</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp;<strong> &nbsp; <span style="COLOR: blue">if</span>(r.Item <span style="COLOR: blue">is</span> <span style="COLOR: teal">Video</span>)</strong></p><p style="MARGIN: 0px"><strong>&nbsp; &nbsp; &nbsp; &nbsp; <span style="COLOR: blue">if</span>(!((<span style="COLOR: teal">Video</span>)r.Item).Movie.Rating &gt; _customer.RentalRestriction)</strong></p><p style="MARGIN: 0px"><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="COLOR: blue">throw</span> <span style="COLOR: blue">new</span> <span style="COLOR: teal">ApplicationException</span>(<span style="COLOR: maroon">&#8220;Customer cannot rent this movie.&#8221;</span>);</strong></p><p style="MARGIN: 0px"><strong>&nbsp;</strong></p><p style="MARGIN: 0px"><strong>&nbsp; &nbsp; <span style="COLOR: blue">if</span>(r.Item <span style="COLOR: blue">is</span> <span style="COLOR: teal">Game</span>)</strong></p><p style="MARGIN: 0px"><strong>&nbsp; &nbsp; &nbsp; &nbsp; <span style="COLOR: blue">if</span>(!((<span style="COLOR: teal">Game</span>)r.Item).GameTitle.Rating &gt; _customer.RentalRestriction)</strong></p><p style="MARGIN: 0px"><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="COLOR: blue">throw</span> <span styl
+e="COLOR: blue">new</span> <span style="COLOR: teal">ApplicationException</span>(<span style="COLOR: maroon">&#8220;Customer cannot rent this game.&#8221;</span>);</strong></p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp; &nbsp; _rentals.Add(r);</p><p style="MARGIN: 0px">&nbsp; &nbsp; _subTotal += r.RentalPrice;&nbsp; </p><p style="MARGIN: 0px">}</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px"></p></div>
+
+
+<p>The bold portion is what I added to check for the rating.&nbsp; This code should never see the light of day.&nbsp; Each new type of item needs another cryptic if statement here.&nbsp; A better solution is to use the <strong>Template Method&nbsp;</strong>design pattern.&nbsp; We&rsquo;ll leave it up to the item to setup a construct for verifying that rentals are allowed.</p>
+
+
+<p>By default, we won&rsquo;t restrict rentals.&nbsp; In the item class, we&rsquo;ll provide a virtual method that returns true always.&nbsp; Inherited classes can make their own decisions by overriding the method.</p>
+
+
+<div style="FONT-SIZE: 9pt; BACKGROUND: white; COLOR: black; FONT-FAMILY: Consolas"><span style="COLOR: blue"><div style="FONT-SIZE: 9pt; BACKGROUND: white; COLOR: black; FONT-FAMILY: Consolas"><p style="MARGIN: 0px"><span style="COLOR: blue">public</span> <span style="COLOR: blue">virtual</span> <span style="COLOR: blue">bool</span> CanRentFor(<span style="COLOR: teal">Customer</span> customer)</p><p style="MARGIN: 0px">{</p><p style="MARGIN: 0px">&nbsp; &nbsp; <span style="COLOR: blue">return</span> <span style="COLOR: blue">true</span>;</p><p style="MARGIN: 0px">}</p></div><!--EndFragment--></span></div>
+
+
+<p>In our Video class, we need to base our decision off of the Movie&rsquo;s rating.</p>
+
+
+<div style="FONT-SIZE: 9pt; BACKGROUND: white; COLOR: black; FONT-FAMILY: Consolas"><p style="MARGIN: 0px"><span style="COLOR: blue">public</span> <span style="COLOR: blue">override</span> <span style="COLOR: blue">bool</span> CanRentFor(<span style="COLOR: teal">Customer</span> customer)</p><p style="MARGIN: 0px">{</p><p style="MARGIN: 0px">&nbsp; &nbsp; <span style="COLOR: blue">return</span> _movie.Rating &lt;= customer.RentalRestriction;</p><p style="MARGIN: 0px">}</p></div>
+
+
+<!--EndFragment-->
+
+
+<p>In our Game class, we need to base the decision on the GameTitle&rsquo;s rating.</p>
+
+
+<div style="FONT-SIZE: 9pt; BACKGROUND: white; COLOR: black; FONT-FAMILY: Consolas"><p style="MARGIN: 0px"><span style="COLOR: blue">public</span> <span style="COLOR: blue">override</span> <span style="COLOR: blue">bool</span> CanRentFor(<span style="COLOR: teal">Customer</span> customer)</p><p style="MARGIN: 0px">{</p><p style="MARGIN: 0px">&nbsp; &nbsp; <span style="COLOR: blue">return</span> _gameTitle.Rating &lt;= customer.RentalRestriction;</p><p style="MARGIN: 0px">}</p></div>
+
+
+<p><img src="/images/CropperCapture%5B6%5D_small_.jpg" alt="unit test results"  border="1"  /></p>
+
+
+<p>For another Item we might create, say <strong>Console</strong>, we can&nbsp;choose to accept the default behavior or write our own.&nbsp; This will ensure that certain customers do not rent items that they are not allowed to rent.</p>
+
+
+<p>I&rsquo;ve added a few tests and ensure they are passing.</p>
+
+
+<p>Now I&rsquo;ll switch gears and look at the next item on the list, which is <em>Can Query for Account by # (swipe card) or customer phone number</em>.&nbsp; This requirement will allow us to bring up the customer&rsquo;s account when they are at the counter.&nbsp; We would normally extend this requirement to add many more search options, however to be brief, we&rsquo;ll just implement the two of them.</p>
+
+
+<p>For this we can make excellent use of the Repository class we wrote earlier.&nbsp; This test will involve the database, so we will place it in the Persistence test project.</p>
+
+
+<p>&nbsp;I want to keep the database related code out of the DomainModel class.&nbsp; I created a class that can hold any of our queries for us.&nbsp; This way we keep a clean separation between the model and persistence.&nbsp; Remember, we cannot have a dll reference to the persistence project in the domain model project.&nbsp; (This would lead to circular references &ndash; not to mention a bad design idea).</p>
+
+
+<p>Here is the <strong>AccountFinder </strong>class:</p>
+
+
+<div style="FONT-SIZE: 9pt; BACKGROUND: white; COLOR: black; FONT-FAMILY: Consolas"><p style="MARGIN: 0px"><span style="COLOR: blue">public</span> <span style="COLOR: blue">class</span> <span style="COLOR: teal">AccountFinder</span> </p><p style="MARGIN: 0px">{</p><p style="MARGIN: 0px">&nbsp; &nbsp; <span style="COLOR: teal">Repository</span>&lt;<span style="COLOR: teal">Account</span>&gt; _repository;</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp; &nbsp; <span style="COLOR: blue">public</span> AccountFinder(<span style="COLOR: teal">ISession</span> session)</p><p style="MARGIN: 0px">&nbsp; &nbsp; {</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; _repository = <span style="COLOR: blue">new</span> <span style="COLOR: teal">Repository</span>&lt;<span style="COLOR: teal">Account</span>&gt;(session);</p><p style="MARGIN: 0px">&nbsp; &nbsp; }</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp; &nbsp; <span style="COLOR: blue">public</span> <span style="COLOR: teal">Account</span> FindById(<span style="COLOR: blue">int</span> id)</p><p style="MARGIN: 0px">&nbsp; &nbsp; {</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; <span style="COLOR: blue">return</span> _repository.Session.Get&lt;<span style="COLOR: teal">Account</span>&gt;(id);&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </p><p style="MARGIN: 0px">&nbsp; &nbsp; }</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp; &nbsp; <span style="COLOR: blue">public</span> <span style="COLOR: teal">IList</span>&lt;<span style="COLOR: teal">Account</span>&gt; FindByCustomerPhone(<span style="COLOR: blue">string</span> phone)</p><p style="MARGIN: 0px">&nbsp; &nbsp; {</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; <span style="COLOR: blue">string</span> hql = <span style="COLOR: maroon">&#8220;SELECT a FROM Account a JOIN a.Members c WHERE c.HomePhone LIKE :phone&#8221;</span>;</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; <span style="COLOR: teal">IQuery</span> query = _repository.Session.CreateQuery(hql);</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; <span style="COLOR: green">//this will set our parameter named :phone</span></p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; query.SetString(<span style="COLOR: maroon">&#8220;phone&#8221;</span>, phone);</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; <span style="COLOR: blue">return</span> query.List&lt;<span style="COLOR: teal">Account</span>&gt;();</p><p style="MARGIN: 0px">&nbsp; &nbsp; }</p><p style="MARGIN: 0px">}</p></div>
+
+
+<!--EndFragment-->
+
+
+<p>Here I am allowing you to specify the session to use in the constructor. This way we can easily supply a session with a transaction (which will come in handy for the test).&nbsp; In the first method we simply defer the call to Session.Get().&nbsp; The second method takes advantage of HQL, or <em>Hibernate Query Language</em>.&nbsp; This allows us to write queries easily, using familiar syntax, only we speak in terms of our objects.&nbsp; You don&rsquo;t see any database columns here.&nbsp; HQL is very powerful, but can take some getting used to, because the results of your queries go directly into objects.&nbsp; I&rsquo;ve found that the best reference so far for HQL is <u>Hibernate in Action</u> book.</p>
+
+
+<p>I created 2 tests to verify the above functionality:</p>
+
+
+<div style="FONT-SIZE: 8pt; BACKGROUND: white; COLOR: black; FONT-FAMILY: Consolas"><p style="MARGIN: 0px">[<span style="COLOR: teal">Test</span>]</p><p style="MARGIN: 0px"><span style="COLOR: blue">public</span> <span style="COLOR: blue">void</span> CanQueryForAccountByIdWithRepository()</p><p style="MARGIN: 0px">{</p><p style="MARGIN: 0px">&nbsp; &nbsp; <span style="COLOR: blue">using</span> (<span style="COLOR: teal">ISession</span> session = <span style="COLOR: teal">SessionSour
+ce</span>.Current.GetSession())</p><p style="MARGIN: 0px">&nbsp; &nbsp; {</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; <span style="COLOR: blue">using</span> (<span style="COLOR: teal">ITransaction</span> tx = session.BeginTransaction())</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; {</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="COLOR: teal">Account</span> acct = <span style="COLOR: blue">new</span> <span style="COLOR: teal">Account</span>();</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="COLOR: teal">Customer</span> customer = <span style="COLOR: blue">new</span> <span style="COLOR: teal">Customer</span>(<span style="COLOR: maroon">&#8220;Some&#8221;</span>, <span style="COLOR: maroon">&#8220;Dude&#8221;</span>);&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; customer.HomePhone = <span style="COLOR: maroon">&#8220;212-224-3456&#8221;</span>;</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; customer.Address = <span style="COLOR: blue">new</span> <span style="COLOR: teal">Address</span>();&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; acct.AddMember(customer);</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; session.SaveOrUpdate(acct);</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; session.Flush();&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="COLOR: blue">int</span> id = acct.Id;</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="COLOR: teal">AccountFinder</span> finder = <span style="COLOR: blue">new</span> <span style="COLOR: teal">AccountFinder</span>(session);</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="COLOR: teal">Assert</span>.AreEqual(acct, finder.FindById(id));&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; tx.Rollback();</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; }</p><p style="MARGIN: 0px">&nbsp; &nbsp; }</p><p style="MARGIN: 0px">}</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">[<span style="COLOR: teal">Test</span>]</p><p style="MARGIN: 0px"><span style="COLOR: blue">public</span> <span style="COLOR: blue">void</span> CanQueryForAccountByCustomerPhoneWithRepository()</p><p style="MARGIN: 0px">{</p><p style="MARGIN: 0px">&nbsp; &nbsp; <span style="COLOR: blue">using</span> (<span style="COLOR: teal">ISession</span> session = <span style="COLOR: teal">SessionSource</span>.Current.GetSession())</p><p style="MARGIN: 0px">&nbsp; &nbsp; {</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; <span style="COLOR: blue">using</span> (<span style="COLOR: teal">ITransaction</span> tx = session.BeginTransaction())</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; {</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="COLOR: teal">Account</span> acct = <span style="COLOR: blue">new</span> <span style="COLOR: teal">Account</span>();</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="COLOR: teal">Customer</span> customer = <span style="COLOR: blue">new</span> <span style="COLOR: teal">Customer</span>(<span style="COLOR: maroon">&#8220;Some&#8221;</span>, <span style="COLOR: maroon">&#8220;Dude&#8221;</span>);</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; customer.HomePhone = <span style="COLOR: maroon">&#8220;212-224-3456&#8221;</span>;</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; acct.AddMember(customer);</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; session.SaveOrUpdate(acct);</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; session.Flush();</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="COLOR: blue">int</span> id = acct.Id;</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="COLOR: teal">AccountFinder</span> finder = <span style="COLOR: blue">new</span> <span style="COLOR: teal">AccountFinder</span>(session);</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="COLOR: teal">IList</span>&lt;<span style="COLOR: teal">Account</span>&gt; matches = finder.FindByCustomerPhone(customer.HomePhone);</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="COLOR: teal">Assert</span>.IsTrue(matches.Contains(acct));&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; tx.Rollback();</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; }</p><p style="MARGIN: 0px">&nbsp; &nbsp; }</p><p style="MARGIN: 0px">}<br /></p><p style="MARGIN: 0px">&nbsp;</p></div>
+
+
+<p style="MARGIN: 0px">And they are both passing!&nbsp; We&rsquo;ve come to a good stopping point here.&nbsp; I&rsquo;d like to wrap up our feature list next time, then start on a basic UI.</p>
+
+
+<p style="MARGIN: 0px">&nbsp;</p>
+
+
+<p style="MARGIN: 0px">I&rsquo;ve gotten a lot of positive feedback so far with this series, and I always welcome more!&nbsp; If you haven&rsquo;t downloaded the code to follow along I encourage you to do so.</p>
+
+
+<p style="MARGIN: 0px">&nbsp;</p>
+
+
+<p style="MARGIN: 0px">Here is the latest source: <a href="http://www.flux88.com/uploads/Videocracy_08.zip">Videocracy - Part 8</a></p>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ben Scheirman</span></span>
+
+      
+
+
+
+
+<time datetime="2006-12-14 00:00:00 -0600" pubdate  updated >Dec 14<span>th</span>, 2006</time>
+
+
+
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://benscheirman.com/blog/2006/12/a-journey-with-domain-driven-design-and-nhibernate-part-8/" data-via="subdigital" data-counturl="http://benscheirman.com/blog/2006/12/a-journey-with-domain-driven-design-and-nhibernate-part-8/" >Tweet</a>
+  
+  
+  <g:plusone size="medium"></g:plusone>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread"><div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_shortname = 'subdigital';
+  var disqus_identifier = 'http://benscheirman.com/blog/2006/12/a-journey-with-domain-driven-design-and-nhibernate-part-8/';
+  var disqus_url = 'http://benscheirman.com/blog/2006/12/a-journey-with-domain-driven-design-and-nhibernate-part-8/';
+  //var disqus_developer = 1;
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside role=sidebar>
+  
+    <section>
+  <h1>Who am I?</h1>
+  <p>I&#8217;m Ben Scheirman. I make Rails &amp; iPhone apps for <a href="http://chaione.com" target="_blank">ChaiONE</a> in Houston, TX.</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/08/vim---could-not-invoke-jslint/">Vim - Could Not Invoke JSLint</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/is-rails-exempt-from-software-principles/">Is Rails Exempt?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/when-viewwillappear-isnt-called/">When viewWillAppear: Isn&#8217;t Called</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/moving-my-blog/">Moving My Blog</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/my-vim-journey/">My Vim Journey</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("subdigital", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/subdigital" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @subdigital</a>
+  
+</section>
+
+
+<section>
+  <h1>On Delicious</h1>
+  <script type="text/javascript" src="http://feeds.delicious.com/v2/js/subdigital?title=&count=3&sort=date&extended"></script>
+  <p><a href="http://delicious.com/subdigital">My Delicious Bookmarks &raquo;</a></p>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer>
+<a style="display:block; float: right" title="Real Time Analytics" href="http://getclicky.com/66470389"><img alt="Real Time Analytics" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
+<script src="//static.getclicky.com/js" type="text/javascript"></script>
+<script type="text/javascript">try{ clicky.init(66470389); }catch(e){}</script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/66470389ns.gif" /></p></noscript>
+
+<p>
+  Copyright &copy; 2011 - Ben Scheirman -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+</body>
+</html>

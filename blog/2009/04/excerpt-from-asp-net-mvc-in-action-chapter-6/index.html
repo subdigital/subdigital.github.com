@@ -1,0 +1,682 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Fickle Bits: Excerpt from ASP.NET MVC in Action Chapter 6</title>
+  <meta name="author" content="Ben Scheirman">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="canonical" href="http://benscheirman.com/blog/2009/04/excerpt-from-asp-net-mvc-in-action-chapter-6/"/>
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/ficklebits" rel="alternate" title="Fickle Bits" type="application/atom+xml"/>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-210379-10']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">Fickle Bits</a></h1>
+  
+    <h2>You're doing it wrong.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/ficklebits" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:benscheirman.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry">
+  
+  <header>
+    
+      <h1 class="entry-title">Excerpt From ASP.NET MVC in Action Chapter 6</h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2009-04-09 00:00:00 -0500" pubdate  updated >Apr 9<span>th</span>, 2009</time>
+
+
+</p>
+    
+  </header>
+
+
+<div class="entry-content"><p><i>Extending URL Routing in ASP.NET MVC</i>  <p>Excerpted from  <p><img src="/images/clip_image004_e87da01d-98f6-479d-b891-3b4df10d5fa6_.jpg" alt="clip_image004"  height="238" />  <p><a href="http://manning.com/palermo/">ASP.NET MVC in Action</a>  <p><img src="/images/clip_image005_1ad1421a-e8c2-4bda-8544-5d3dfff458b6_.gif" alt="clip_image005"  height="24" />  <p><b>Jeffrey Palermo, Ben Scheirman, and Jimmy Bogard</b>  <blockquote> <p>This article is taken from the book <a href="http://manning.com/palermo/">ASP.NET MVC in Action</a> from Manning Publications. One of the greatest aspects of ASP.NET MVC is its flexibility. Among other things, this gives us the capability to customize standard components. In this article, we&#8217;ll take a look at how URL routing functions, and then explore how to enhance it to behave differently. For the book’s table of contents, the Author Forum, and other resources, go to <a href="http://manning.com/palermo/">http://manning.com/palermo/</a>.</p></blockquote> <p>The UrlRouteModule is an HttpModule and represents the entry point into the ASP.NET MVC Framework. This module examines each request, builds up the RouteData for the request, finds an appropriate IRouteHandler for the given route matched, and finally redirects the request to the IRouteHandler&#8217;s IHttpHandler. Make sense?  <p>Our default route looks like Listing 1. The MapRoute method is actually a simplified way of specifying routes. The same route can be specified with more detail, as is shown in Listing 2.  <p><strong>Listing 1 – a simple way of specifying routes</strong></p>
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>routes.MapRoute("default", "{controller}/{action}/{id}",
+</div><div class='line'>new { Controller="home", Action="index", id=""});</div></code></pre></td></tr></table></div></figure></div>
+
+<p><strong>Listing 2 – a more detailed way of specifying routes</strong></p>
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>routes.Add(new Route("{controller}/{action}/{id}",
+</div><div class='line'>new RouteValueDictionary(new { Controller = "home", Action = "index", id = "" }),
+</div><div class='line'>new MvcRouteHandler()));</div></code></pre></td></tr></table></div></figure></div>
+
+<p>That third argument in Listing 2 is telling the framework which `IRouteHandler` to use for this route. We are using the built-in MvcRouteHandler that ships with the framework. By default we are using this class when using the MapRoute method. We can change this to be a custom route handler and take control in interesting ways. An IRouteHandler&#8217;s responsibility is to create an appropriate IHttpHandler to handle the request given the details of the request. This is a good place to change the way routing works, or perhaps to gain control extremely early in the request pipeline. The MvcRouteHandler simply constructs an MvcHandler to handle a request, passing it a RequestContext, which contains the RouteData and IHttpContext.
+<p>A quick example will help illustrate the need for a custom route handler. When starting out defining your routes, you&#8217;ll sometimes run across errors. Let&#8217;s assume you also have the route shown in Listing 3 defined.
+<p><strong>Listing 3 – Adding another route</strong> 
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>routes.MapRoute(&lt;span class="str">"conferenceKey"&lt;/span>, &lt;span class="str">"{conferenceKey}/{action}"&lt;/span>,
+</div><div class='line'>&lt;span class="kwrd">new&lt;/span> { Controller = &lt;span class="str">"Conference"&lt;/span>, Action=&lt;span class="str">"index"&lt;/span> });</div></code></pre></td></tr></table></div></figure></div>
+
+<style type="text/css">.csharpcode, .csharpcode pre
+{
+font-size: small;
+color: black;
+font-family: consolas, &#8220;Courier New&#8221;, courier, monospace;
+background-color: #ffffff;
+/*white-space: pre;*/
+}
+.csharpcode pre { margin: 0em; }
+.csharpcode .rem { color: #008000; }
+.csharpcode .kwrd { color: #0000ff; }
+.csharpcode .str { color: #006080; }
+.csharpcode .op { color: #0000c0; }
+.csharpcode .preproc { color: #cc6633; }
+.csharpcode .asp { background-color: #ffff00; }
+.csharpcode .html { color: #800000; }
+.csharpcode .attr { color: #ff0000; }
+.csharpcode .alt
+{
+background-color: #f4f4f4;
+width: 100%;
+margin: 0em;
+}
+.csharpcode .lnum { color: #606060; }
+</style>
+<p>Here we’ve added a new custom route at the top position. What does it do? This will accept URLs like /HoustonCodeCamp2008/register and use the conference controller and call the register action on it, passing in the conferenceKey as a parameter to the action.
+<p><strong>Listing 4 – a controller action that handles the new route </strong>
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+<span class='line'>6</span>
+<span class='line'>7</span>
+<span class='line'>8</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>&lt;span class="kwrd">public&lt;/span> &lt;span class="kwrd">class&lt;/span> ConferenceController : Controller
+</div><div class='line'>{
+</div><div class='line'>&lt;span class="rem">/* snip */&lt;/span>
+</div><div class='line'>&lt;span class="kwrd">public&lt;/span> ActionResult Register(&lt;span class="kwrd">string&lt;/span> conferenceKey)
+</div><div class='line'>{
+</div><div class='line'>&lt;span class="kwrd">return&lt;/span> View();
+</div><div class='line'>}
+</div><div class='line'>}</div></code></pre></td></tr></table></div></figure></div>
+
+<style type="text/css">.csharpcode, .csharpcode pre
+{
+font-size: small;
+color: black;
+font-family: consolas, &#8220;Courier New&#8221;, courier, monospace;
+background-color: #ffffff;
+/*white-space: pre;*/
+}
+.csharpcode pre { margin: 0em; }
+.csharpcode .rem { color: #008000; }
+.csharpcode .kwrd { color: #0000ff; }
+.csharpcode .str { color: #006080; }
+.csharpcode .op { color: #0000c0; }
+.csharpcode .preproc { color: #cc6633; }
+.csharpcode .asp { background-color: #ffff00; }
+.csharpcode .html { color: #800000; }
+.csharpcode .attr { color: #ff0000; }
+.csharpcode .alt
+{
+background-color: #f4f4f4;
+width: 100%;
+margin: 0em;
+}
+.csharpcode .lnum { color: #606060; }
+</style>
+<p>This is a good example of a custom route that makes your URLs a lot more readable.
+<p>Now let&#8217;s assume that we have another controller called Home. HomeController has an index action to show the start page.
+<p><strong>Listing 5 – A controller action to respond to the default route </strong>
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+<span class='line'>6</span>
+<span class='line'>7</span>
+<span class='line'>8</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>&lt;span class="kwrd">public&lt;/span> &lt;span class="kwrd">class&lt;/span> HomeController : Controller
+</div><div class='line'>{
+</div><div class='line'>&lt;span class="kwrd">public&lt;/span> ActionResult Index()
+</div><div class='line'>{
+</div><div class='line'>&lt;span class="kwrd">return&lt;/span> View();
+</div><div class='line'>}
+</div><div class='line'>&lt;span class="rem">/* snip */&lt;/span>
+</div><div class='line'>}</div></code></pre></td></tr></table></div></figure></div>
+
+<style type="text/css">.csharpcode, .csharpcode pre
+{
+font-size: small;
+color: black;
+font-family: consolas, &#8220;Courier New&#8221;, courier, monospace;
+background-color: #ffffff;
+/*white-space: pre;*/
+}
+.csharpcode pre { margin: 0em; }
+.csharpcode .rem { color: #008000; }
+.csharpcode .kwrd { color: #0000ff; }
+.csharpcode .str { color: #006080; }
+.csharpcode .op { color: #0000c0; }
+.csharpcode .preproc { color: #cc6633; }
+.csharpcode .asp { background-color: #ffff00; }
+.csharpcode .html { color: #800000; }
+.csharpcode .attr { color: #ff0000; }
+.csharpcode .alt
+{
+background-color: #f4f4f4;
+width: 100%;
+margin: 0em;
+}
+.csharpcode .lnum { color: #606060; }
+</style>
+<p>We&#8217;d like the URL for the action in Listing 4 to look like /home/index. If we try this URL, we&#8217;ll get a 404 error, as shown in figure 1. Why?
+<p><img src="/images/clip_image007_7c3f0a18-341c-45ed-9a52-5a5d8db8e413_.jpg" alt="clip_image007"  height="476" />
+<p><strong>Figure 1 - This message doesn’t tell us much about what’s wrong. An action couldn’t be found on the controller, but which one?. </strong>
+<p>It&#8217;s not apparent from that error message what the problem is. We certainly have a controller called HomeController, and it has an action method called Index(). If you dig deep and take a look at the routes we can deduce that this URL was picked up by the first route, /{conferenceKey}/{action}, which was not what we intended. We should be able to indentify quickly when we have a routing mismatch, so that we can fix it more quickly.
+<p>With lots of custom routes, it is easy for a URL to be caught by the wrong route. Wouldn&#8217;t it be nice if we had a diagnostics tool to display which routes are being matched (and used) for quickly catching these types of errors?
+<p>What we’d like to do is have an extra query string parameter that we can tack on if we want to see the route information. The current route information is stored in an object called RouteData, which is available to us in the IRouteHandler interface. The route handler is also first to get control of the request, so it is a great place to intercept and alter the behavior for any route.
+<p><strong>Listing 6 – A custom route handler creates an associated IHttpHandler </strong>
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+<span class='line'>6</span>
+<span class='line'>7</span>
+<span class='line'>8</span>
+<span class='line'>9</span>
+<span class='line'>10</span>
+<span class='line'>11</span>
+<span class='line'>12</span>
+<span class='line'>13</span>
+<span class='line'>14</span>
+<span class='line'>15</span>
+<span class='line'>16</span>
+<span class='line'>17</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>&lt;span class="kwrd">public&lt;/span> &lt;span class="kwrd">class&lt;/span> CustomRouteHandler : IRouteHandler
+</div><div class='line'>{
+</div><div class='line'>&lt;span class="kwrd">public&lt;/span> IHttpHandler GetHttpHandler(RequestContext requestContext)
+</div><div class='line'>{
+</div><div class='line'>&lt;span class="kwrd">if&lt;/span>(HasQueryStringKey(&lt;span class="str">"routeInfo"&lt;/span>, requestContext.HttpContext.Request))
+</div><div class='line'>{
+</div><div class='line'>OutputRouteDiagnostics(requestContext.RouteData, requestContext.HttpContext);
+</div><div class='line'>}
+</div><div class='line'>var handler = &lt;span class="kwrd">new&lt;/span> CustomMvcHandler(requestContext);
+</div><div class='line'>&lt;span class="kwrd">return&lt;/span> handler;
+</div><div class='line'>}
+</div><div class='line'>&lt;span class="kwrd">private&lt;/span> &lt;span class="kwrd">bool&lt;/span> HasQueryStringKey(&lt;span class="kwrd">string&lt;/span> keyToTest, HttpRequestBase request)
+</div><div class='line'>{
+</div><div class='line'>&lt;span class="kwrd">return&lt;/span> Regex.IsMatch(request.Url.Query, &lt;span class="kwrd">string&lt;/span>.Format(&lt;span class="str">@"^\?{0}$"&lt;/span>, keyToTest));
+</div><div class='line'>}
+</div><div class='line'>&lt;span class="rem">/* snip */&lt;/span>
+</div><div class='line'>}</div></code></pre></td></tr></table></div></figure></div>
+
+<style type="text/css">.csharpcode, .csharpcode pre
+{
+font-size: small;
+color: black;
+font-family: consolas, &#8220;Courier New&#8221;, courier, monospace;
+background-color: #ffffff;
+/*white-space: pre;*/
+}
+.csharpcode pre { margin: 0em; }
+.csharpcode .rem { color: #008000; }
+.csharpcode .kwrd { color: #0000ff; }
+.csharpcode .str { color: #006080; }
+.csharpcode .op { color: #0000c0; }
+.csharpcode .preproc { color: #cc6633; }
+.csharpcode .asp { background-color: #ffff00; }
+.csharpcode .html { color: #800000; }
+.csharpcode .attr { color: #ff0000; }
+.csharpcode .alt
+{
+background-color: #f4f4f4;
+width: 100%;
+margin: 0em;
+}
+.csharpcode .lnum { color: #606060; }
+</style>
+<p>A route handler’s normal responsibility is to construct and hand-off the IHttpHandler that will handle this request. By default, this is MvcHandler. In our CustomRouteHandler we first check to see if the query string parameter is present (we do this with a simple regular expression on the URL query section). The OutputRouteDiagnostics method is shown in Listing 7.
+<p><strong>Listing 7 – Rendering route diagnostics information to the response stream</strong> 
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+<span class='line'>6</span>
+<span class='line'>7</span>
+<span class='line'>8</span>
+<span class='line'>9</span>
+<span class='line'>10</span>
+<span class='line'>11</span>
+<span class='line'>12</span>
+<span class='line'>13</span>
+<span class='line'>14</span>
+<span class='line'>15</span>
+<span class='line'>16</span>
+<span class='line'>17</span>
+<span class='line'>18</span>
+<span class='line'>19</span>
+<span class='line'>20</span>
+<span class='line'>21</span>
+<span class='line'>22</span>
+<span class='line'>23</span>
+<span class='line'>24</span>
+<span class='line'>25</span>
+<span class='line'>26</span>
+<span class='line'>27</span>
+<span class='line'>28</span>
+<span class='line'>29</span>
+<span class='line'>30</span>
+<span class='line'>31</span>
+<span class='line'>32</span>
+<span class='line'>33</span>
+<span class='line'>34</span>
+<span class='line'>35</span>
+<span class='line'>36</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>&lt;span class="kwrd">private&lt;/span> &lt;span class="kwrd">void&lt;/span> OutputRouteDiagnostics(RouteData routeData, HttpContextBase context)
+</div><div class='line'>{
+</div><div class='line'>var response = context.Response;
+</div><div class='line'>response.Write(
+</div><div class='line'>&lt;span class="str">@"&lt;style&gt;body {font-family: Arial;}
+</div><div class='line'>table th {background-color: #359; color: #fff;}
+</div><div class='line'>&lt;/style&gt;
+</div><div class='line'>&lt;h1&gt;Route Data:&lt;/h1&gt;
+</div><div class='line'>&lt;table border='1' cellspacing='0' cellpadding='3'&gt;
+</div><div class='line'>&lt;tr&gt;&lt;th&gt;Key&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/tr&gt;"&lt;/span>); &lt;strong>#1&lt;/strong>
+</div><div class='line'>&lt;span class="kwrd">foreach&lt;/span> (var pair &lt;span class="kwrd">in&lt;/span> routeData.Values)
+</div><div class='line'>{
+</div><div class='line'>response.Write(&lt;span class="kwrd">string&lt;/span>.Format(&lt;span class="str">"&lt;tr&gt;&lt;td&gt;{0}&lt;/td&gt;&lt;td&gt;{1}&lt;/td&gt;&lt;/tr&gt;"&lt;/span>,
+</div><div class='line'>pair.Key, pair.Value));
+</div><div class='line'>}
+</div><div class='line'>response.Write(&lt;span class="str">@"&lt;/table&gt;
+</div><div class='line'>&lt;h1&gt;Routes:&lt;/h1&gt;
+</div><div class='line'>&lt;table border='1' cellspacing='0' cellpadding='3'&gt;
+</div><div class='line'>&lt;tr&gt;&lt;th&gt;&lt;/th&gt;&lt;th&gt;Route&lt;/th&gt;&lt;/tr&gt;"&lt;/span>); &lt;strong>#2&lt;/strong>
+</div><div class='line'>&lt;span class="kwrd">bool&lt;/span> foundRouteUsed = &lt;span class="kwrd">false&lt;/span>;
+</div><div class='line'>&lt;span class="kwrd">foreach&lt;/span>(Route r &lt;span class="kwrd">in&lt;/span> RouteTable.Routes)
+</div><div class='line'>{
+</div><div class='line'>response.Write(&lt;span class="str">"&lt;tr&gt;&lt;td&gt;"&lt;/span>);
+</div><div class='line'>&lt;span class="kwrd">bool&lt;/span> matches = r.GetRouteData(context) != &lt;span class="kwrd">null&lt;/span>;
+</div><div class='line'>&lt;span class="kwrd">string&lt;/span> backgroundColor = matches ? &lt;span class="str">"#bfb"&lt;/span> : &lt;span class="str">"#fbb"&lt;/span>; &lt;strong>#3&lt;/strong>
+</div><div class='line'>&lt;span class="kwrd">if&lt;/span>(matches &amp;&amp; !foundRouteUsed)
+</div><div class='line'>{
+</div><div class='line'>response.Write(&lt;span class="str">"&amp;raquo;"&lt;/span>); &lt;strong>#4&lt;/strong>
+</div><div class='line'>foundRouteUsed = &lt;span class="kwrd">true&lt;/span>;
+</div><div class='line'>}
+</div><div class='line'>response.Write(&lt;span class="kwrd">string&lt;/span>.Format(
+</div><div class='line'>&lt;span class="str">"&lt;/td&gt;&lt;td style='font-family: Courier New; background-color:{0}'&gt;{1}&lt;/td&gt;&lt;/tr&gt;"&lt;/span>,
+</div><div class='line'>backgroundColor, r.Url));
+</div><div class='line'>}
+</div><div class='line'>response.End();
+</div><div class='line'>}</div></code></pre></td></tr></table></div></figure></div>
+
+<style type="text/css">.csharpcode, .csharpcode pre
+{
+font-size: small;
+color: black;
+font-family: consolas, &#8220;Courier New&#8221;, courier, monospace;
+background-color: #ffffff;
+/*white-space: pre;*/
+}
+.csharpcode pre { margin: 0em; }
+.csharpcode .rem { color: #008000; }
+.csharpcode .kwrd { color: #0000ff; }
+.csharpcode .str { color: #006080; }
+.csharpcode .op { color: #0000c0; }
+.csharpcode .preproc { color: #cc6633; }
+.csharpcode .asp { background-color: #ffff00; }
+.csharpcode .html { color: #800000; }
+.csharpcode .attr { color: #ff0000; }
+.csharpcode .alt
+{
+background-color: #f4f4f4;
+width: 100%;
+margin: 0em;
+}
+.csharpcode .lnum { color: #606060; }
+</style>
+<p><em>1. Create an HTML table to display the route values for the current request. <br>2. Create an HTML table to display the routes <br>3. Green if it matches, Red if it doesn&#8217;t <br>4. Places a chevron character (») next to the route selected for the request </em></p>
+<p>This method outputs two tables, one for the current route data, and one for the routes in the system. Each route will return null for GetRouteData if the route doesn’t match the current request. The table is then colored to show which routes matched, and a little arrow indicates which route is the one in use for the current URL. The response is then ended to prevent any further rendering.
+<p>To finalize this change, we have to alter the current routes to use our new handler.
+<p><strong>Listing 8 – Assigning routes to our custom route handler </strong>
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+<span class='line'>6</span>
+<span class='line'>7</span>
+<span class='line'>8</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>RouteTable.Routes.Add(
+</div><div class='line'>&lt;span class="kwrd">new&lt;/span> Route(&lt;span class="str">"{conferenceKey}/{action}"&lt;/span>,
+</div><div class='line'>&lt;span class="kwrd">new&lt;/span> RouteValueDictionary( &lt;span class="kwrd">new&lt;/span> { Controller=&lt;span class="str">"Conference"&lt;/span> }),
+</div><div class='line'>&lt;span class="kwrd">new&lt;/span> CustomRouteHandler()));
+</div><div class='line'>RouteTable.Routes.Add(
+</div><div class='line'>&lt;span class="kwrd">new&lt;/span> Route(&lt;span class="str">"{controller}/{action}/{id}"&lt;/span>,
+</div><div class='line'>&lt;span class="kwrd">new&lt;/span> RouteValueDictionary( &lt;span class="kwrd">new&lt;/span> { Action=&lt;span class="str">"Index"&lt;/span>, id=(&lt;span class="kwrd">string&lt;/span>)&lt;span class="kwrd">null&lt;/span> }),
+</div><div class='line'>&lt;span class="kwrd">new&lt;/span> CustomRouteHandler()));</div></code></pre></td></tr></table></div></figure></div>
+
+<style type="text/css">.csharpcode, .csharpcode pre
+{
+font-size: small;
+color: black;
+font-family: consolas, &#8220;Courier New&#8221;, courier, monospace;
+background-color: #ffffff;
+/*white-space: pre;*/
+}
+.csharpcode pre { margin: 0em; }
+.csharpcode .rem { color: #008000; }
+.csharpcode .kwrd { color: #0000ff; }
+.csharpcode .str { color: #006080; }
+.csharpcode .op { color: #0000c0; }
+.csharpcode .preproc { color: #cc6633; }
+.csharpcode .asp { background-color: #ffff00; }
+.csharpcode .html { color: #800000; }
+.csharpcode .attr { color: #ff0000; }
+.csharpcode .alt
+{
+background-color: #f4f4f4;
+width: 100%;
+margin: 0em;
+}
+.csharpcode .lnum { color: #606060; }
+</style>
+<p>The end result (shown in Listing 2) is incredibly helpful. Let’s use the /home/index URL (that resulted in a 404 in Listing 1) but this time we’ll add the ?routeInfo to the query string. We can see in the route data table that the value “home” was picked up as a conference key, as shown in figure 2. The route table confirms that the conference key route was picked up first, since it matched.
+<p><img src="/images/clip_image009_09a4468a-13c8-4b55-8ff9-41601fe8f767_.jpg" alt="clip_image009"  height="480" />
+<p><strong>Listing 2 – appending ?routeInfo gives us detailed information about the current request’s route. We can easily see now that the wrong route was chosen. </strong>
+<p>Now you can immediately tell that the current route used is not the one we intended. We can also tell whether or not other routes match this request by the color of the cell: Both of the rows are green. We now quickly identify the issue as a routing problem and can fix it accordingly. In this case, if we add constraints to the first route such that conferenceKey isn’t the same as one of our controllers, the problem is resolved. Remember that order matters! The first route matched is the one used.
+<p>Of course you wouldn’t want this information to be visible in a deployed application, so only use to aid your development. You could also build a switch that changes the routes to the CustomRouteHandler if you’re in debug mode, which would be a more automated solution. I’ll leave this as an exercise for the reader.
+<blockquote>
+<p><strong>Inspired by Phil Haack’s Route Debugger </strong>
+<p>This example was inspired by Phil Haack’s route debugger that he posted on his blog when the ASP.NET MVC Framework was in Preview 2. It is a great example of what you can do with the information provided to you by the routing system. You can see his original example of this here:
+<p><a href="http://haacked.com/archive/2008/03/13/url-routing-debugger.aspx">http://haacked.com/archive/2008/03/13/url-routing-debugger.aspx</a>. </p></blockquote>
+<p>Another potential use of a custom route handler would be to append a specific identifier to the query string automatically. This could be useful in scenarios where you rely on cookie-less sessions or maybe you have a company identifier that limits what is displayed on the screen (your author has interfaced with such a framework). An IHttpHandler that would satisfy this requirement might look like this:
+<p><strong>Listing 9 – An MvcHandler that can enforce query string parameters</strong> 
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+<span class='line'>6</span>
+<span class='line'>7</span>
+<span class='line'>8</span>
+<span class='line'>9</span>
+<span class='line'>10</span>
+<span class='line'>11</span>
+<span class='line'>12</span>
+<span class='line'>13</span>
+<span class='line'>14</span>
+<span class='line'>15</span>
+<span class='line'>16</span>
+<span class='line'>17</span>
+<span class='line'>18</span>
+<span class='line'>19</span>
+<span class='line'>20</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>&lt;span class="kwrd">public&lt;/span> &lt;span class="kwrd">class&lt;/span> EnsureCompanyKeyHandler : MvcHandler
+</div><div class='line'>{
+</div><div class='line'>&lt;span class="kwrd">public&lt;/span> EnsureCompanyKeyHandler(RequestContext requestContext)
+</div><div class='line'>: &lt;span class="kwrd">base&lt;/span>(requestContext)
+</div><div class='line'>{
+</div><div class='line'>}
+</div><div class='line'>&lt;span class="kwrd">protected&lt;/span> &lt;span class="kwrd">override&lt;/span> &lt;span class="kwrd">void&lt;/span> ProcessRequest(HttpContextBase context)
+</div><div class='line'>{
+</div><div class='line'>var controller = (&lt;span class="kwrd">string&lt;/span>) RequestContext.RouteData.Values[&lt;span class="str">"controller"&lt;/span>];
+</div><div class='line'>var company = context.Request.QueryString[&lt;span class="str">"company"&lt;/span>];
+</div><div class='line'>&lt;span class="kwrd">if&lt;/span> (controller != &lt;span class="str">"login"&lt;/span> &amp;&amp; company == &lt;span class="kwrd">null&lt;/span>)
+</div><div class='line'>{
+</div><div class='line'>context.Response.Redirect(&lt;span class="str">"~/login"&lt;/span>); &lt;strong>#1&lt;/strong>
+</div><div class='line'>}
+</div><div class='line'>&lt;span class="kwrd">else&lt;/span>
+</div><div class='line'>{
+</div><div class='line'>&lt;span class="kwrd">base&lt;/span>.ProcessRequest(context); &lt;strong>#2&lt;/strong>
+</div><div class='line'>}
+</div><div class='line'>}
+</div><div class='line'>}</div></code></pre></td></tr></table></div></figure></div>
+
+<style type="text/css">.csharpcode, .csharpcode pre
+{
+font-size: small;
+color: black;
+font-family: consolas, &#8220;Courier New&#8221;, courier, monospace;
+background-color: #ffffff;
+/*white-space: pre;*/
+}
+.csharpcode pre { margin: 0em; }
+.csharpcode .rem { color: #008000; }
+.csharpcode .kwrd { color: #0000ff; }
+.csharpcode .str { color: #006080; }
+.csharpcode .op { color: #0000c0; }
+.csharpcode .preproc { color: #cc6633; }
+.csharpcode .asp { background-color: #ffff00; }
+.csharpcode .html { color: #800000; }
+.csharpcode .attr { color: #ff0000; }
+.csharpcode .alt
+{
+background-color: #f4f4f4;
+width: 100%;
+margin: 0em;
+}
+.csharpcode .lnum { color: #606060; }
+</style>
+<p><em>1. Force them to login <br>2. The URL contains a company key, so we can continue </em>
+<p>In this example, every request must have a company key. The ProcessRequest method will not continue unless the URL contains this.
+<p>Hopefully you noticed how easy it was to extend the framework. Since most of the objects that you interact with are either interfaces or abstract base classes, it allows you to completely (or almost completely) substitute behavior for your own. It is in this level of flexibility where you will see the ASP.NET MVC Framework really shine.</p>
+<blockquote>
+<p>This article is taken from the book <a href="http://manning.com/palermo/">ASP.NET MVC in Action</a> from Manning Publications.</p></blockquote>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ben Scheirman</span></span>
+
+      
+
+
+
+
+<time datetime="2009-04-09 00:00:00 -0500" pubdate  updated >Apr 9<span>th</span>, 2009</time>
+
+
+
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://benscheirman.com/blog/2009/04/excerpt-from-asp-net-mvc-in-action-chapter-6/" data-via="subdigital" data-counturl="http://benscheirman.com/blog/2009/04/excerpt-from-asp-net-mvc-in-action-chapter-6/" >Tweet</a>
+  
+  
+  <g:plusone size="medium"></g:plusone>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread"><div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_shortname = 'subdigital';
+  var disqus_identifier = 'http://benscheirman.com/blog/2009/04/excerpt-from-asp-net-mvc-in-action-chapter-6/';
+  var disqus_url = 'http://benscheirman.com/blog/2009/04/excerpt-from-asp-net-mvc-in-action-chapter-6/';
+  //var disqus_developer = 1;
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside role=sidebar>
+  
+    <section>
+  <h1>Who am I?</h1>
+  <p>I&#8217;m Ben Scheirman. I make Rails &amp; iPhone apps for <a href="http://chaione.com" target="_blank">ChaiONE</a> in Houston, TX.</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/08/vim---could-not-invoke-jslint/">Vim - Could Not Invoke JSLint</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/is-rails-exempt-from-software-principles/">Is Rails Exempt?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/when-viewwillappear-isnt-called/">When viewWillAppear: Isn&#8217;t Called</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/moving-my-blog/">Moving My Blog</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/my-vim-journey/">My Vim Journey</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("subdigital", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/subdigital" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @subdigital</a>
+  
+</section>
+
+
+<section>
+  <h1>On Delicious</h1>
+  <script type="text/javascript" src="http://feeds.delicious.com/v2/js/subdigital?title=&count=3&sort=date&extended"></script>
+  <p><a href="http://delicious.com/subdigital">My Delicious Bookmarks &raquo;</a></p>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer>
+<a style="display:block; float: right" title="Real Time Analytics" href="http://getclicky.com/66470389"><img alt="Real Time Analytics" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
+<script src="//static.getclicky.com/js" type="text/javascript"></script>
+<script type="text/javascript">try{ clicky.init(66470389); }catch(e){}</script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/66470389ns.gif" /></p></noscript>
+
+<p>
+  Copyright &copy; 2011 - Ben Scheirman -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+</body>
+</html>

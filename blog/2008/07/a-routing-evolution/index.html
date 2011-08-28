@@ -1,0 +1,365 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Fickle Bits: A Routing Evolution</title>
+  <meta name="author" content="Ben Scheirman">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="canonical" href="http://benscheirman.com/blog/2008/07/a-routing-evolution/"/>
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/ficklebits" rel="alternate" title="Fickle Bits" type="application/atom+xml"/>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-210379-10']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">Fickle Bits</a></h1>
+  
+    <h2>You're doing it wrong.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/ficklebits" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:benscheirman.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry">
+  
+  <header>
+    
+      <h1 class="entry-title">A Routing Evolution</h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2008-07-30 00:00:00 -0500" pubdate  updated >Jul 30<span>th</span>, 2008</time>
+
+
+</p>
+    
+  </header>
+
+
+<div class="entry-content"><p><a href="http://flux88.com/uploads/ARoutingEvolution_12D7B/216624forkinroadposters.jpg"><img src="/images/216624forkinroadposters_thumb_.jpg" alt="216624fork-in-road-posters"  border="0" /></a> When the ASP.NET MVC framework was first released, two open source projects sprung up immediately:&nbsp; <a href="http://mvccontrib.org" target="_blank">MVCContrib</a> and <a href="http://codecampserver.org" target="_blank">Code Camp Server</a>.&nbsp; I quickly jumped on Code Camp Server as a lead contributor because I wanted to get some hands on experience on the ASP.NET MVC Framework.</p>
+
+
+<p> <p>In the first example you see when you install the new MVC templates, you see that the default routing rules are defined like this:</p></p>
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>{controller}/{action}/{id}</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>This works well for a lot of applications, where you&#8217;d end up with URLs like:</p>
+
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>/customers/list&lt;br>/customers/delete/12&lt;br>/products/show/5&lt;br>/products/edit/5</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>It&#8217;s quite easy to see how each of those map to the components of the route.&nbsp; In Code Camp Server, we wanted the system to support many code camps, so your URL will look like this:</p>
+
+
+<p>/austinCodeCamp/details<br>/houstonTechFest/directions</p>
+
+
+<p>So we ended up with a default route that looked like this:</p>
+
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>routes.MapRoute("conference", "{conferenceKey}/{action}", new { controller="conference", action="details });</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>Here we omitted the controller as it was <em>implied</em>.&nbsp; Everything was placed on ConferenceController, and it worked pretty well to start out.&nbsp; Then we started adding actions like Sessions, and ListAttendees, and started to notice that those things probably belong on their own controllers.&nbsp; </p>
+
+
+<p>But we had a problem&#8230; if I have a URL like this:</p>
+
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>/houstonTechFest/sessions</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>this will translate to an action called &#8220;sessions&#8221; on the conference controller.&nbsp; That&#8217;s not what we want.&nbsp; So we started to hard code these specific instances like this&#8230;.</p>
+
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>routes.MapRoute("speakers", "{conferenceKey}/speakers/{action}", new {controller = "speaker", action = "list"});&lt;br>routes.MapRoute("schedule", "{conferenceKey}/schedule/{action}", new {controller = "schedule", action = "index"});&lt;br>routes.MapRoute("sessions", "{conferenceKey}/sessions/{action}", new {controller = "session", action = "list"});&lt;br>routes.MapRoute("sponsors", "{conferenceKey}/sponsors/{action}", new {controller = "sponsor", action = "list"});</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>YUCK.&nbsp; Things are starting to get really hairy now.</p>
+
+
+<p>So, after a phone call with <a href="http://jeffreypalermo.com/" target="_blank">Jeffrey Palermo</a>, he raised the question:</p>
+
+
+<blockquote><p><em>&#8220;Why even have the default point to conference controller?&nbsp; The only common action on that is Details.&nbsp; All of the rest are separate controllers.&#8221;</em></p></blockquote>
+
+
+<p>And then it clicked.&nbsp; We can now change the route definition to this:</p>
+
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>routes.MapRoute("standard", "{conferenceKey}/{controller}/{action}/{id}", new { controller="conference", action="index", id=(string)null});</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>Which produces these very acceptable URLs:</p>
+
+
+<table cellspacing="0" cellpadding="2" width="400" border="1"><tbody><tr><td valign="top" width="100"><strong>URL</strong></td><td valign="top" width="100"><strong>Controller</strong></td><td valign="top" width="100"><strong>Action</strong></td><td valign="top" width="100"><strong>Id</strong></td></tr><tr><td valign="top" width="100">/houstonTechFest</td><td valign="top" width="100">Conference</td><td valign="top" width="100">Index</td><td valign="top" width="100">&nbsp;</td></tr><tr><td valign="top" width="100">/houstonTechFest/sessions</td><td valign="top" width="100">Sessions</td><td valign="top" width="100">Index</td><td valign="top" width="100">&nbsp;</td></tr><tr><td valign="top" width="100">/houstonTechFest/sessions/add</td><td valign="top" width="100">Sessions</td><td valign="top" width="100">Add</td><td valign="top" width="100">&nbsp;</td></tr><tr><td valign="top" width="100">/houstonTechFest/sponsors/edit/5</td><td valign="top" width="100">Sponsors</td><td valign="top" width="100">Edit</td><td valign="top" width="100">5</td></tr></tbody></table>
+
+
+<p>there are a few extra cases where we don&#8217;t want to start with a conference key (for example, /conference/list, /conference/current, /login, /admin, etc&#8230;).&nbsp; These URLs all work with the standard route, so we can define that just below our first route.</p>
+
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>routes.MapRoute("conference", "{controller}/{action}/{id}",&lt;br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; new {controller="conference", action="list"});</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>Now the URL /conference/list (and the others) will get routed properly with this definition.&nbsp; </p>
+
+
+<p>Now there&#8217;s just one final problem.&nbsp; Can you see it?&nbsp; If we define the other route first, then the first token of the route will get picked up as a conference key!&nbsp; We certainly don&#8217;t want that.&nbsp; So we&#8217;ll add a constraint to the first route to match everything except the controllers we want to address specifically.&nbsp; Our route now looks like&#8230;</p>
+
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>routes.MapRoute("confkey", "{conferenceKey}/{controller}/{action}/{id}",new { controller="conference", action="index", id=(string)null },new { conferenceKey="(?!conference|admin|login).*"});routes.MapRoute("standard", "{controller}/{action}/{id}",new { controller="conference", action="index", id=(string)null });</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>The first route will grab everything except those URLs that start with &#8220;conference&#8221;, &#8220;admin&#8221;, or &#8220;login.&#8221;&nbsp; There might be other controllers, but this is all we need for now.&nbsp; Those URLS get picked up by the 2nd route and everything works fine after that.</p>
+
+
+<p>Coming up with a clear set of routes that don&#8217;t conflict with each other is very difficult once you stray away from the norm.&nbsp; The more route definitions you have, the more care you have to take to ensure that the new rule doesn&#8217;t break a whole slew of existing URLs.&nbsp;&nbsp; This is critically important if you already have an application in production.&nbsp; A simple change in the Global.asax file can change all of the URL&#8217;s for your application!&nbsp; That&#8217;s like <a href="http://en.wikipedia.org/wiki/Paraquat" target="_blank">paraquat</a> for <a href="http://c2.com/cgi/wiki?GoogleJuice" target="_blank">Google Juice</a>.</p>
+
+
+<h3>Testing the Routes</h3>
+
+
+<p>Unit tests can surely help here.&nbsp; For these examples, I followed a simple technique for testing my routes.&nbsp; First is the method to fake out the actual request:</p>
+
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>&lt;span class="kwrd">private&lt;/span> &lt;span class="kwrd">static&lt;/span> RouteData getMatchingRouteData(&lt;span class="kwrd">string&lt;/span> appRelativeUrl){RouteTable.Routes.Clear();var configurator = &lt;span class="kwrd">new&lt;/span> RouteConfigurator();configurator.RegisterRoutes();RouteData routeData;var mocks = &lt;span class="kwrd">new&lt;/span> MockRepository(); var httpContext = mocks.DynamicMock&lt;HttpContextBase&gt;();var request = mocks.DynamicMock&lt;HttpRequestBase&gt;();&lt;span class="kwrd">using&lt;/span> (mocks.Record()){SetupResult.For(httpContext.Request).Return(request);mocks.Replay(httpContext);SetupResult.For(httpContext.Request.AppRelativeCurrentExecutionFilePath).Return(appRelativeUrl);SetupResult.For(httpContext.Request.PathInfo).Return(&lt;span class="kwrd">string&lt;/span>.Empty);}&lt;span class="kwrd">using&lt;/span> (mocks.Playback()){routeData = RouteTable.Routes.GetRouteData(httpContext);}&lt;span class="kwrd">return&lt;/span> routeData;}</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>Now we can have a simple helper method for asserting that are routes produce the right tokens:</p>
+
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>&lt;span class="kwrd">private&lt;/span> &lt;span class="kwrd">void&lt;/span> AssertRoute(&lt;span class="kwrd">string&lt;/span> virtualPath, &lt;span class="kwrd">string&lt;/span> expectedController, &lt;span class="kwrd">string&lt;/span> expectedAction, IDictionary&lt;&lt;span class="kwrd">string&lt;/span>,&lt;span class="kwrd">string&lt;/span>&gt; expectedTokens){var routeData = get
+</div><div class='line'>MatchingRouteData(virtualPath);Assert.That(routeData.GetRequiredString(&lt;span class="str">"controller"&lt;/span>), Is.EqualTo(expectedController));Assert.That(routeData.GetRequiredString(&lt;span class="str">"action"&lt;/span>), Is.EqualTo(expectedAction));&lt;span class="kwrd">foreach&lt;/span> (var pair &lt;span class="kwrd">in&lt;/span> expectedTokens){Assert.That(routeData.GetRequiredString(pair.Key), Is.EqualTo(pair.Value));}}</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>And finally the tests that I&#8217;m running to ensure these routes are working properly&#8230;<p><!-- code formatted by http://manoli.net/csharpformat/ -->
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>[Test]&lt;span class="kwrd">public&lt;/span> &lt;span class="kwrd">void&lt;/span> TestSiteRoutes(){AssertRoute(&lt;span class="str">"~/austinCodeCamp2008"&lt;/span>, &lt;span class="str">"conference"&lt;/span>, &lt;span class="str">"index"&lt;/span>,&lt;span class="kwrd">new&lt;/span> Dictionary&lt;&lt;span class="kwrd">string&lt;/span>, &lt;span class="kwrd">string&lt;/span>&gt; );AssertRoute(&lt;span class="str">"~/login"&lt;/span>, &lt;span class="str">"login"&lt;/span>, &lt;span class="str">"index"&lt;/span>);AssertRoute(&lt;span class="str">"~/conference/new"&lt;/span>, &lt;span class="str">"conference"&lt;/span>, &lt;span class="str">"new"&lt;/span>);AssertRoute(&lt;span class="str">"~/conference/current"&lt;/span>, &lt;span class="str">"conference"&lt;/span>, &lt;span class="str">"current"&lt;/span>);AssertRoute(&lt;span class="str">"~/admin"&lt;/span>, &lt;span class="str">"admin"&lt;/span>, &lt;span class="str">"index"&lt;/span>);AssertRoute(&lt;span class="str">"~/houstonTechFest/sessions/add"&lt;/span>, &lt;span class="str">"sessions"&lt;/span>, &lt;span class="str">"add"&lt;/span>,&lt;span class="kwrd">new&lt;/span> Dictionary&lt;&lt;span class="kwrd">string&lt;/span>,&lt;span class="kwrd">string&lt;/span>&gt; );}</div></code></pre></td></tr></table></div></figure></div>
+<p>This is only half of the story though.&nbsp; You should also test that the routes you ask for (like with Html.ActionLink and Url.Action) produce the intended URLs.&nbsp; Otherwise you may have URLs that match routes, but routes that don&#8217;t match your intended URLs.</p><p>Testing these is a bit harder, and it&#8217;s 1am now&#8230; so I&#8217;ll take the ultimate cop-out and <em>leave it as an exercise to the reader</em>. </p>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ben Scheirman</span></span>
+
+      
+
+
+
+
+<time datetime="2008-07-30 00:00:00 -0500" pubdate  updated >Jul 30<span>th</span>, 2008</time>
+
+
+
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://benscheirman.com/blog/2008/07/a-routing-evolution/" data-via="subdigital" data-counturl="http://benscheirman.com/blog/2008/07/a-routing-evolution/" >Tweet</a>
+  
+  
+  <g:plusone size="medium"></g:plusone>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread"><div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_shortname = 'subdigital';
+  var disqus_identifier = 'http://benscheirman.com/blog/2008/07/a-routing-evolution/';
+  var disqus_url = 'http://benscheirman.com/blog/2008/07/a-routing-evolution/';
+  //var disqus_developer = 1;
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside role=sidebar>
+  
+    <section>
+  <h1>Who am I?</h1>
+  <p>I&#8217;m Ben Scheirman. I make Rails &amp; iPhone apps for <a href="http://chaione.com" target="_blank">ChaiONE</a> in Houston, TX.</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/08/vim---could-not-invoke-jslint/">Vim - Could Not Invoke JSLint</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/is-rails-exempt-from-software-principles/">Is Rails Exempt?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/when-viewwillappear-isnt-called/">When viewWillAppear: Isn&#8217;t Called</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/moving-my-blog/">Moving My Blog</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/my-vim-journey/">My Vim Journey</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("subdigital", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/subdigital" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @subdigital</a>
+  
+</section>
+
+
+<section>
+  <h1>On Delicious</h1>
+  <script type="text/javascript" src="http://feeds.delicious.com/v2/js/subdigital?title=&count=3&sort=date&extended"></script>
+  <p><a href="http://delicious.com/subdigital">My Delicious Bookmarks &raquo;</a></p>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer>
+<a style="display:block; float: right" title="Real Time Analytics" href="http://getclicky.com/66470389"><img alt="Real Time Analytics" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
+<script src="//static.getclicky.com/js" type="text/javascript"></script>
+<script type="text/javascript">try{ clicky.init(66470389); }catch(e){}</script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/66470389ns.gif" /></p></noscript>
+
+<p>
+  Copyright &copy; 2011 - Ben Scheirman -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+</body>
+</html>

@@ -1,0 +1,406 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Fickle Bits: .NET Database Migration Tool Roundup</title>
+  <meta name="author" content="Ben Scheirman">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="canonical" href="http://benscheirman.com/blog/2008/06/net-database-migration-tool-roundup/"/>
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/ficklebits" rel="alternate" title="Fickle Bits" type="application/atom+xml"/>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-210379-10']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">Fickle Bits</a></h1>
+  
+    <h2>You're doing it wrong.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/ficklebits" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:benscheirman.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry">
+  
+  <header>
+    
+      <h1 class="entry-title">.NET Database Migration Tool Roundup</h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2008-06-05 00:00:00 -0500" pubdate  updated >Jun 5<span>th</span>, 2008</time>
+
+
+</p>
+    
+  </header>
+
+
+<div class="entry-content"><p>A very long time ago <a href="http://www.flux88.com/DatabaseMigrationsForNET.aspx" target="_blank">I posted</a> about my excitement that the .NET community was starting to see some love in terms of database migrations.</p>
+
+
+<p>Fast forward more than a year and we have the following options for doing database migrations in .NET.</p>
+
+
+<ul><li><a href="http://wiki.rubyonrails.org/rails/pages/HowtoConnectToMicrosoftSQLServer" target="_blank">Rails Migrations running on SQL Server</a></li><li><a href="http://www.rikware.com/RikMigrations.html" target="_blank">RikMigrations</a></li><li><a href="http://code.google.com/p/tarantino/" target="_blank">Tarantino</a></li><li><a href="http://code.google.com/p/migratordotnet/" target="_blank">Migrator.NET</a></li><li><a href="http://blog.eleutian.com/2008/04/25/AFirstLookAtMachineMigrations.aspx" target="_blank">Machine Migrations</a><a href="http://blog.eleutian.com/2008/04/25/AFirstLookAtMachineMigrations.aspx" target="_blank"></a></li><li><a href="http://blog.wekeroad.com/2007/10/03/subsonic-migrate-me/" target="_blank">Subsonic Migrations</a></li><li><a href="http://dbdeploy.com/2007/09/25/dbdeploynet-v10-officially-released/" target="_blank">dbDeploy.NET</a></li></ul>
+
+
+<p><em>If I’ve left off one, I apologize.</em></p>
+
+
+<p>That’s a crazy amount of options, and of course it beg’s the question: <strong><em>Which one should I use?</em></strong></p>
+
+
+<p>There are pros and cons of each, and for my specific needs I wound up choosing Migrator.NET.&nbsp; I thought I’d post my thoughts on each tool here.</p>
+
+
+<p><strong>Rails Migrations</strong></p>
+
+
+<p>When I first raised the question of the lack of good migration tools for .NET a few people pointed out that there’s nothing stopping me from running the standard Rails migrations on SQL Server.&nbsp; This is done through installing a gem.&nbsp; However at 90% of my clients (or more) the use of Ruby is way too Alpha Geek to actually gain buy-in from the business.&nbsp; This is a shame, but a current reality.&nbsp; In addition, Rails migrations get really powerful when you leverage ActiveRecord classes within your migrations.&nbsp; Since we aren’t using Rails at all, this isn’t possible.&nbsp; Additionally, earlier versions of Rails migrations <em>did not support foreign keys</em>.&nbsp; That’s a serious killer for a lot of folks.&nbsp; I’m not sure if it has changed.</p>
+
+
+<p>Rails Migrations look like this:</p>
+
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>class AddSystemSettings &lt; ActiveRecord::Migrationdef self.upcreate_table :system_settings do |t|t.string:namet.string:labelt.text:valuet.string:typet.integer:positionendSystemSetting.create :name =&gt; "notice", :label =&gt; "Use notice?", :value =&gt; 1enddef self.downdrop_table :system_settingsendend&lt;br></div></code></pre></td></tr></table></div></figure></div>
+
+
+<p><br><em>taken from: <a href="http://api.rubyonrails.org/classes/ActiveRecord/Migration.html">http://api.rubyonrails.org/classes/ActiveRecord/Migration.html</a></em> </p>
+
+
+<p>Running migrations is as easy as the command: </p>
+
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>rake db:migrate&nbsp;</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p><strong>RikMigrations</strong></p>
+
+
+<p>RikMigrations was the first one I tried.&nbsp; They have an excellent fluent API, and allows you to build tables and columns by chaining together commands.&nbsp; Unfortunately, they didn’t seem to have SQL 2005 Schema support and that is something that I require.&nbsp; I could probably send them a patch, but I decided to continue my search.</p>
+
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>&lt;span style="color: blue;">using &lt;/span>RikMigrations;[assembly: &lt;span style="color: rgb(43, 145, 175);">Migration&lt;/span>(&lt;span style="color: blue;">typeof&lt;/span>(BlogMigration1), 1)][assembly: &lt;span style="color: rgb(43, 145, 175);">Migration&lt;/span>(&lt;span style="color: blue;">typeof&lt;/span>(BlogMigration2), 2)]&lt;span style="color: blue;">namespace &lt;/span>Blog.Migrations{&lt;span style="color: blue;">public class &lt;/span>&lt;span style="color: rgb(43, 145, 175);">BlogMigration1 &lt;/span>: &lt;span style="color: rgb(43, 145, 175);">IMigration&lt;/span>{&lt;span style="color: blue;">&lt;/span>&lt;span style="color: blue;">public void &lt;/span>Up(&lt;span style="color: rgb(43, 145, 175);">DbProvider &lt;/span>db){&lt;span style="color: rgb(43, 145, 175);">Table &lt;/span>t = db.AddTable(&lt;span style="color: rgb(163, 21, 21);">"Blog"&lt;/span>);t.AddColumn(&lt;span style="color: rgb(163, 21, 21);">"ID"&lt;/span>, &lt;span style="color: blue;">typeof&lt;/span>(&lt;span style="color: blue;">int&lt;/span>)).PrimaryKey().AutoGenerate();t.AddColumn(&lt;span style="color: rgb(163, 21, 21);">"Name"&lt;/span>, &lt;span style="color: blue;">typeof&lt;/span>(&lt;span style="color: blue;">string&lt;/span>), 64);t.Save();}&lt;span style="color: blue;">&lt;br>&lt;/span>&lt;span style="color: blue;">public void &lt;/span>Down(&lt;span style="color: rgb(43, 145, 175);">DbProvider &lt;/span>db){ db.DropTable(&lt;span style="color: rgb(163, 21, 21);">"Blog"&lt;/span>);}&lt;br>}&lt;span style="color: blue;">&lt;/span></div></code></pre></td></tr></table></div></figure></div>
+
+
+
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>&lt;span style="color: blue;">public class &lt;/span>&lt;span style="color: rgb(43, 145, 175);">BlogMigration2 &lt;/span>: &lt;span style="color: rgb(43, 145, 175);">IMigration&lt;/span>{&lt;span style="color: blue;">&lt;/span>&lt;span style="color: blue;"> public void &lt;/span>Up(&lt;span style="color: rgb(43, 145, 175);">DbProvider &lt;/span>db) {&lt;span style="color: rgb(43, 145, 175);"> Table &lt;/span>t = db.AlterTable(&lt;span style="color: rgb(163, 21, 21);">"Blog"&lt;/span>); t.AddColumn(&lt;span style="color: rgb(163, 21, 21);">"Description"&lt;/span>, &lt;span style="color: blue;">typeof&lt;/span>(&lt;span style="color: blue;">string&lt;/span>), &lt;span style="color: blue;">int&lt;/span>.MaxValue); t.Save(); }&lt;span style="color: blue;"> &lt;br> public void &lt;/span>Down(&lt;span style="color: rgb(43, 145, 175);">DbProvider &lt;/span>db) {&lt;span style="color: rgb(43, 145, 175);"> Table &lt;/span>t = db.AlterTable(&lt;span style="color: rgb(163, 21, 21);">"Blog"&lt;/span>); t.DropColumn(&lt;span style="color: rgb(163, 21, 21);">"Description"&lt;/span>); t.Save(); }&lt;font color="#0000ff"> &lt;/font>}}</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>Running this migration is done like so:</p>
+
+
+<p><img src="/images/rikmigrations_2Dcmd_2Dline_small_.jpg" alt="Rikmigrations-cmd-line"  border="0" /></p>
+
+
+<p>Question:&nbsp; How did it know which migrations to run?&nbsp; Answer:&nbsp; They created a table to keep track of it for you…</p>
+
+
+<p><img src="/images/rik_2Dmigrations_2Dmodule_2Dversions_small_.jpg" alt="Rik-migrations-module-versions"  border="0" /></p>
+
+
+<p>The cool thing about RikMigrations is you can have versions of different modules, which could really help if you have unrelated areas of the application that each need their own version.&nbsp; My current project could use something like this to separate unrelated application schemas, while maintaing only a single migration process.</p>
+
+
+<p><br><strong>Tarantino</strong></p>
+
+
+<p>Tarantino also seemed compelling, and it’s the tool we’re using with <a href="http://codecampserver.org/" target="_blank">CodeCampServer</a>, however I think that using a fluent API in C# is a little more compelling (however you’re at the whim of the API’s feature-set, unless they let you execute raw sql <strong>also</strong>, which many do).&nbsp; Tarantino works by storing scripts that are named like&nbsp;<strong>0001_add_customers_table.sql</strong> and it runs them in the right sequence.&nbsp; This works well if you would like to continue to leverage your GUI tools such as SQL Server Management Studio.&nbsp; Then you leverage a tool such as <a href="http://www.red-gate.com/" target="_blank">RedGate SQL Compare</a>&nbsp;to generate the change scripts.&nbsp; These scripts are generally large and not very readable, however this method is quite common and effective.</p>
+
+
+<p>Here an example of what this looks like:</p>
+
+
+<p><img src="/images/tarantino_2Dscripts_small_.jpg" alt="Tarantino-scripts"  border="0" /></p>
+
+
+<p>And these files are run using a NAnt task…</p>
+
+
+<p><img src="/images/tarantino_2Dnant_2Dtask_small_.jpg" alt="Tarantino-nant-task"  border="0" /></p>
+
+
+<p>Running this task gives output similar to this:</p>
+
+
+<p><img src="/images/tarantino_2Dcmd_2Dline_small_.jpg" alt="Tarantino-cmd-line"  border="0" /></p>
+
+
+<p>You can see that it – like RikMigrations – knew that it had already exceuted Versi
+on 1 of the database schema, so it could safely skip the script.&nbsp; This is done in a similar manner to the other tools by using a table to record the current version of the database.</p>
+
+
+<p><strong>SubSonic Migrations</strong></p>
+
+
+<p>SubSonic migrations seemed like the perfect choice for my project, since we use Subsonic already.&nbsp; However I’m running a bastardized version and it’s preventing me from updating to the latest trunk.&nbsp; Having two different versions of Subsonic as dependencies feels dirty and confusing to other developers.</p>
+
+
+<p>With Subsonic Migrations you don’t have a project that contains your migrations, you just have a folder with classes.&nbsp; The filename carries the weight here, not the class name or attribute.&nbsp; This appeals to me and feels a bit liberating, with my rails-envy and all.&nbsp; However it does feel a bit unnatural to handle migrations outside of a project in our solution.</p>
+
+
+<p>The API in Subsonic migrations is my least favorite so far, but not by much.&nbsp; All of these tools have similar API’s, it just took me longer to grok this one.</p>
+
+
+<p>For an intro on how to use this tool, check out <a href="http://blog.wekeroad.com/2007/10/03/subsonic-migrate-me/" target="_blank">Rob Conery’s post</a> on the subject.</p>
+
+
+<p><strong>Migrator.NET</strong></p>
+
+
+<p>This project has had an… interesting lifecycle.&nbsp; Originally I believe it was part of the <a href="http://castleproject.org/" target="_blank">Castle Project</a>, maintained by <a href="http://macournoyer.wordpress.com/2007/09/18/the-migrations-for-net-project-is-not-dead-yet/" target="_blank">Macournoyer</a>, then it drifted over to <a href="http://monkeyb.wordpress.com/2007/09/18/maintaining-migratornet/" target="_blank">Nick Hemsley</a>.&nbsp; The project is now up at <a href="http://code.google.com/p/migratordotnet/" target="_blank">google code</a>.&nbsp; Migrator.NET was easy to get into and the API was very simple and easy to grok.</p>
+
+
+<p>The API for Migrator.NET isn’t as fluent as RikMigrations, but it did have builtin schema support for SQL Server 2005, which I needed.&nbsp; The Attribute on the class also seemed a lot cleaner than the assembly attribute in RikMigrations.</p>
+
+
+<p><img src="/images/migratordotnet_2Dsyntax_.png" alt="Migratordotnet-syntax"  border="0" /></p>
+
+
+<p>Running the migrations was easy as well with the Migrator.Console.exe command line utility.&nbsp; The output is nothing new, so I’ll spare you the screenshot.</p>
+
+
+<p><strong>Machine Migrations</strong></p>
+
+
+<p>This one looks pretty good, however not as mature as some of the other tools (I think it’s the newest on the scene).&nbsp; Machine Migration relies on an MSBuild task to migrate your database.&nbsp;<strike> It is .NET 3.5 only and thus, not available for my project</strike> <font color="#ff0000">It is 2.0, my mistake!</font>.&nbsp; <a href="http://hammett.castleproject.org/?p=290" target="_blank">Hammet has a short review here</a>, and <a href="http://hammett.castleproject.org/?p=292" target="_blank">subsequently patched it to provide a few additional features</a>.</p>
+
+
+<p>I may start using Machine Migrations on a side-project I’m working on so that I can get a better idea of the differences it has with other frameworks.</p>
+
+
+<p><strong>Where’s DB Pro / Data Dude / Visual Studio 2005 Team Edition for Database Professionals ?</strong></p>
+
+
+<p>Ahh, the tool that loves to piss me off continually is somehow missing from this list?&nbsp; That’s because this tool just doesn’t facilitate a good evolutionary style of database development.&nbsp; I have honestly tried to work effectively with it&nbsp;and it consistently adds friction to our process.&nbsp; I’ve talked to a bunch of other users and they all pretty much say the same thing:&nbsp; <strong>it doesn’t work like that</strong>.&nbsp; And that’s really sad, because 2008 is no different.&nbsp; Sure it’s better, and as far as MSFT V2 products go I think this will be the poster child for v1 suckage, but 2008 still doesn’t have migrations.&nbsp; Today I saw on <a href="http://blogs.msdn.com/gertd/archive/2008/06/03/vsts-2008-database-edition-gdr-june-ctp.aspx" target="_blank">Gert Draper’s blog some info on the latest out of band release</a>, which includes some awesome changes, however there is no peep of anything resembling evolutionary development with the database.</p>
+
+
+<p>This omission tells me that the DB Pro team is only listening to one community (the large enterprise customer) and completely ignoring what’s going on in the agile camp.&nbsp; Maybe Phil Haack &amp; Scott Gu could take over once MVC ships and provide some real change in that organization.</p>
+
+
+<p>Anyway, rant over.</p>
+
+
+<p>Migrations are an effective tool for frictionless automation &amp; evolutionary database development <em>especially with multiple developers.&nbsp; </em>With all of these tools out there, it’s hard to choose which one will fit your process.&nbsp; I think the best advice is to just pick a tool and spike it, see what works and what’s painful.</p>
+
+
+<div class="bjtags">Tags:<a rel="tag" href="http://technorati.com/tag/database+migrations">database+migrations</a></div>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ben Scheirman</span></span>
+
+      
+
+
+
+
+<time datetime="2008-06-05 00:00:00 -0500" pubdate  updated >Jun 5<span>th</span>, 2008</time>
+
+
+
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://benscheirman.com/blog/2008/06/net-database-migration-tool-roundup/" data-via="subdigital" data-counturl="http://benscheirman.com/blog/2008/06/net-database-migration-tool-roundup/" >Tweet</a>
+  
+  
+  <g:plusone size="medium"></g:plusone>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread"><div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_shortname = 'subdigital';
+  var disqus_identifier = 'http://benscheirman.com/blog/2008/06/net-database-migration-tool-roundup/';
+  var disqus_url = 'http://benscheirman.com/blog/2008/06/net-database-migration-tool-roundup/';
+  //var disqus_developer = 1;
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside role=sidebar>
+  
+    <section>
+  <h1>Who am I?</h1>
+  <p>I&#8217;m Ben Scheirman. I make Rails &amp; iPhone apps for <a href="http://chaione.com" target="_blank">ChaiONE</a> in Houston, TX.</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/08/vim---could-not-invoke-jslint/">Vim - Could Not Invoke JSLint</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/is-rails-exempt-from-software-principles/">Is Rails Exempt?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/when-viewwillappear-isnt-called/">When viewWillAppear: Isn&#8217;t Called</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/moving-my-blog/">Moving My Blog</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/my-vim-journey/">My Vim Journey</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("subdigital", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/subdigital" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @subdigital</a>
+  
+</section>
+
+
+<section>
+  <h1>On Delicious</h1>
+  <script type="text/javascript" src="http://feeds.delicious.com/v2/js/subdigital?title=&count=3&sort=date&extended"></script>
+  <p><a href="http://delicious.com/subdigital">My Delicious Bookmarks &raquo;</a></p>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer>
+<a style="display:block; float: right" title="Real Time Analytics" href="http://getclicky.com/66470389"><img alt="Real Time Analytics" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
+<script src="//static.getclicky.com/js" type="text/javascript"></script>
+<script type="text/javascript">try{ clicky.init(66470389); }catch(e){}</script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/66470389ns.gif" /></p></noscript>
+
+<p>
+  Copyright &copy; 2011 - Ben Scheirman -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+</body>
+</html>

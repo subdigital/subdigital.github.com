@@ -1,0 +1,362 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Fickle Bits: A Journey with Domain Driven Design (and NHibernate) - Part 9</title>
+  <meta name="author" content="Ben Scheirman">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="canonical" href="http://benscheirman.com/blog/2007/06/a-journey-with-domain-driven-design-and-nhibernate-part-9/"/>
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/ficklebits" rel="alternate" title="Fickle Bits" type="application/atom+xml"/>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-210379-10']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">Fickle Bits</a></h1>
+  
+    <h2>You're doing it wrong.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/ficklebits" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:benscheirman.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry">
+  
+  <header>
+    
+      <h1 class="entry-title">A Journey With Domain Driven Design (and NHibernate) - Part 9</h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-06-03 00:00:00 -0500" pubdate  updated >Jun 3<span>rd</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+<div class="entry-content"><p><em>Back by popular demand&hellip; (and WAY too late, I might add&hellip;)</em></p>
+
+
+<p>In this article, part 9 of the series, we&rsquo;re going to wrap up our initial feature list and focus on building a user-interface for our video store, named Videocracy.</p>
+
+
+<p>Here is our feature list:</p>
+
+
+<ul><li><strike>Add new Customer / Account</strike></li><li><strike>Add other members to an account</strike></li><li><strike>Restrict Certain members from renting certain content</strike></li><li><strike>Query for a customer by customer # (swipe card, etc), phone number, or last name</strike></li><li><strike>Add new rental item (move game, console, vcr, etc)</strike></li><li><strike>Rent an item to a customer</strike></li><li>Check Items Back in</li><li>Get movies checked out for a customer</li><li>Query for an item, see who has it</li></ul>
+
+
+<p>Let&rsquo;s implement <em>Check Items Back In</em>.</p>
+
+
+<p>What is the use case here?&nbsp; Typically a customer drops off a movie, either in the slot from the outside of the store, or directly to an employee.&nbsp; Either case starts with the movie, or the <strong>Item</strong>.</p>
+
+
+<p>So the employee is going to scan the item.&nbsp; At this time, they are going to need to see the details of who and when the item was checked out (the <strong>Rental </strong>object), and then have a confirmation button to finalize the check-in (which will update the <strong>Rental </strong>object).</p>
+
+
+<p>In order to facilitate scanning the item, we need to be able to query the database for a particular UPC.</p>
+
+
+<p><em>In implementing this next test I noticed a large problem with my domain.&nbsp; Our Item class defines a name property with a mapped column in the database.&nbsp; The problem with this is that not all items have names of their own.&nbsp; They might have display names that are a combination of other properties.&nbsp; For example, a video copy of the movie The Matrix shouldn&rsquo;t have a name of &lsquo;The Matrix&rsquo; (it really belongs to the <strong>Movie</strong> class).&nbsp; Typically the text on the outside of a video rental is the movie name followed by maybe the year, and the format that the movie is in.&nbsp; These are deferred properties, so there is no more need for a database column in the item class.&nbsp; I still provide a read-only Name property, and inherited classes have to provide this information.&nbsp; Would you have made a large change like this so eagerly in your project?&nbsp; If you did, how would you know if you broke some existing functionality?&nbsp; As I always say, it&rsquo;s a good thing I have the tests to back me up&hellip;</em></p>
+
+
+<p>Here&rsquo;s our next test:</p>
+
+
+<div style="FONT-WEIGHT: bold; FONT-SIZE: 8pt; BACKGROUND: white; COLOR: black; FONT-FAMILY: Consolas"><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; [<span style="FONT-WEIGHT: normal; COLOR: teal">Test</span>]</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; <span style="FONT-WEIGHT: normal; COLOR: blue">public</span> <span style="FONT-WEIGHT: normal; COLOR: blue">void</span> Can_Check_In_Item()</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; {</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="FONT-WEIGHT: normal; COLOR: teal">Item</span> i = <span style="FONT-WEIGHT: normal; COLOR: teal">TestHelper</span><span style="FONT-WEIGHT: normal">.CreateTestItem(</span><span style="FONT-WEIGHT: normal; COLOR: maroon">&#8220;Test_ITEM123&#8221;</span>, <span style="FONT-WEIGHT: normal; COLOR: maroon">&#8220;1234_UPC&#8221;</span>);</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="FONT-WEIGHT: normal; COLOR: teal">Customer</span> c = <span style="FONT-WEIGHT: normal; COLOR: teal">TestHelper</span><span style="FONT-WEIGHT: normal">.GetTestCustomer();</span></p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="FONT-WEIGHT: normal; COLOR: teal">Employee</span> empl = <span style="FONT-WEIGHT: normal; COLOR: teal">TestHelper</span><span style="FONT-WEIGHT: normal">.CreateTestEmployee();</span></p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="FONT-WEIGHT: normal; COLOR: blue">using</span> (<span style="FONT-WEIGHT: normal; COLOR: teal">ISession</span> session = <span style="FONT-WEIGHT: normal; COLOR: teal">SessionSource</span><span style="FONT-WEIGHT: normal">.Current.GetSession())</span></p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="FONT-WEIGHT: normal; COLOR: blue">using</span> (<span style="FONT-WEIGHT: normal; COLOR: teal">ITransaction</span> tx = session.BeginTransaction())</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="FONT-WEIGHT: normal; COLOR: green">//store the customer and employees</span></p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; session.Save(c);</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; session.Save(empl);</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="FONT-WEIGHT: normal; COLOR: green">//check the item out to the customer</span></p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="FONT-WEIGHT: normal; COLOR: teal">Rental</span> r = <span style="FONT-WEIGHT: normal; COLOR: blue">new</span> <span style="FONT-WEIGHT: normal; COLOR: teal">Rental</span>(i, 2.30f);</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="FONT-WEIGHT: normal; COLOR: teal">RentalTransaction</span> trans = c.CreateTransaction();</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; trans.Employee = empl;</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; trans.AddRental(r);</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; session.Save(c);</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; session.Save(trans);</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; tx.Commit();</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="FONT-WEIGHT: normal; COLOR: green">//item is checked out, can we check it back in?</span></p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="FONT-WEIGHT: normal; COLOR: teal">Item</span> i2 = <span style="FONT-WEIGHT: normal; COLOR: teal">Repository</span><span style="FONT-WEIGHT: normal">&lt;</span><span style="FONT-WEIGHT: normal; COLOR: teal">Item</span><span style="FONT-WEIGHT: normal">&gt;.FindSingleByProperty(</span><span style="FONT-WEIGHT: normal; COLOR: maroon">&#8220;UPC&#8221;</span>, <span style="FONT-WEIGHT: normal; COLOR: maroon">&#8220;1234_UPC&#8221;</span>);</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="FONT-WEIGHT: normal; COLOR: teal">Assert</span><span style="FONT-WEIGHT: normal">.IsNotNull(i2); </span><span style="FONT-WEIGHT: normal; COLOR: green">//just a sanity check.&nbsp; Item exists in the table.</span></p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="FONT-WEIGHT: normal; COLOR: green">//we need to get the rental by the item upc</span></p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="FONT-WEIGHT: normal; COLOR: teal">Rental</span> r2 = <span style="FONT-WEIGHT: normal; COLOR: blue">new</span> <span style="FONT-WEIGHT: normal; COLOR
+: teal">RentalFinder</span>().FindByItemUPC(i2.Upc);</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="FONT-WEIGHT: normal; COLOR: teal">Assert</span><span style="FONT-WEIGHT: normal">.IsNotNull(r2, </span><span style="FONT-WEIGHT: normal; COLOR: maroon">&#8220;Rental was null!&#8221;</span>);</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; }</p></div>
+
+
+<p>There is a lot going on in this test, so let&rsquo;s break it up and take a look at each part.</p>
+
+
+<div style="FONT-WEIGHT: bold; FONT-SIZE: 8pt; BACKGROUND: white; COLOR: black; FONT-FAMILY: Consolas"><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="FONT-WEIGHT: normal; COLOR: teal">Item</span> i = <span style="FONT-WEIGHT: normal; COLOR: teal">TestHelper</span><span style="FONT-WEIGHT: normal">.CreateTestItem(</span><span style="FONT-WEIGHT: normal; COLOR: maroon">&#8220;Test_ITEM123&#8221;</span>, <span style="FONT-WEIGHT: normal; COLOR: maroon">&#8220;1234_UPC&#8221;</span>);</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="FONT-WEIGHT: normal; COLOR: teal">Customer</span> c = <span style="FONT-WEIGHT: normal; COLOR: teal">TestHelper</span><span style="FONT-WEIGHT: normal">.GetTestCustomer();</span></p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="FONT-WEIGHT: normal; COLOR: teal">Employee</span> empl = <span style="FONT-WEIGHT: normal; COLOR: teal">TestHelper</span><span style="FONT-WEIGHT: normal">.CreateTestEmployee();</span></p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="FONT-WEIGHT: normal; COLOR: blue">using</span> (<span style="FONT-WEIGHT: normal; COLOR: teal">ISession</span> session = <span style="FONT-WEIGHT: normal; COLOR: teal">SessionSource</span><span style="FONT-WEIGHT: normal">.Current.GetSession())</span></p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="FONT-WEIGHT: normal; COLOR: blue">using</span> (<span style="FONT-WEIGHT: normal; COLOR: teal">ITransaction</span> tx = session.BeginTransaction())</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="FONT-WEIGHT: normal; COLOR: green">//store the customer and employees</span></p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; session.Save(c);</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; session.Save(empl);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#8230; </p></div>
+
+
+<!--EndFragment-->
+
+
+<p>Here we setup our environment.&nbsp; We have to have a lot of entities that already exist in order to test our new funtionality.&nbsp; We need an item, a customer, and employee, and an account.&nbsp; We create all of those and save them.&nbsp; (Remember all of this happens within a transaction that is rolled back, so this doesn&rsquo;t stay in the database).</p>
+
+
+<div style="FONT-WEIGHT: bold; FONT-SIZE: 8pt; BACKGROUND: white; COLOR: black; FONT-FAMILY: Consolas"><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="FONT-WEIGHT: normal; COLOR: green">//check the item out to the customer</span></p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="FONT-WEIGHT: normal; COLOR: teal">Rental</span> r = <span style="FONT-WEIGHT: normal; COLOR: blue">new</span> <span style="FONT-WEIGHT: normal; COLOR: teal">Rental</span>(i, 2.30f);</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="FONT-WEIGHT: normal; COLOR: teal">RentalTransaction</span> trans = c.CreateTransaction();</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; trans.Employee = empl;</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; trans.AddRental(r);</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; session.Save(c);</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; session.Save(trans);</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; tx.Commit();</p><p style="MARGIN: 0px">&nbsp;</p></div>
+
+
+<!--EndFragment-->
+
+
+<p>Here we setup the rental and perform the rental transaction.&nbsp; This is how the UI will structure the business process.&nbsp; Once everything is saved, it&rsquo;s time to verify that we can retrieve the data solely based on the item&rsquo;s upc code.</p>
+
+
+<div style="FONT-WEIGHT: bold; FONT-SIZE: 8pt; BACKGROUND: white; COLOR: black; FONT-FAMILY: Consolas"><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <span style="FONT-WEIGHT: normal; COLOR: green">//item is checked out, can we check it back in?</span></p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="FONT-WEIGHT: normal; COLOR: teal">Item</span> i2 = <span style="FONT-WEIGHT: normal; COLOR: teal">Repository</span><span style="FONT-WEIGHT: normal">&lt;</span><span style="FONT-WEIGHT: normal; COLOR: teal">Item</span><span style="FONT-WEIGHT: normal">&gt;.FindSingleByProperty(</span><span style="FONT-WEIGHT: normal; COLOR: maroon">&#8220;UPC&#8221;</span>, <span style="FONT-WEIGHT: normal; COLOR: maroon">&#8220;1234_UPC&#8221;</span>);</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="FONT-WEIGHT: normal; COLOR: teal">Assert</span><span style="FONT-WEIGHT: normal">.IsNotNull(i2); </span><span style="FONT-WEIGHT: normal; COLOR: green">//just a sanity check.&nbsp; Item exists in the table.</span></p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="FONT-WEIGHT: normal; COLOR: green">//we need to get the rental by the item upc</span></p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="FONT-WEIGHT: normal; COLOR: teal">Rental</span> r2 = <span style="FONT-WEIGHT: normal; COLOR: blue">new</span> <span style="FONT-WEIGHT: normal; COLOR: teal">RentalFinder</span>().FindByItemUPC(i2.Upc);</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="FONT-WEIGHT: normal; COLOR: teal">Assert</span><span style="FONT-WEIGHT: normal">.IsNotNull(r2, </span><span style="FONT-WEIGHT: normal; COLOR: maroon">&#8220;Rental was null!&#8221;</span>);</p></div>
+
+
+<p>The Rental Finder class will encapsultate common queries so that we can reuse them across the application.&nbsp; Here&rsquo;s the code for that method:</p>
+
+
+<div style="FONT-WEIGHT: bold; FONT-SIZE: 8pt; BACKGROUND: white; COLOR: black; FONT-FAMILY: Consolas"><p style="MARGIN: 0px"><span style="FONT-WEIGHT: normal; COLOR: blue">public</span> <span style="FONT-WEIGHT: normal; COLOR: teal">Rental</span> FindByItemUPC(<span style="FONT-WEIGHT: normal; COLOR: blue">string</span> upc)</p><p style="MARGIN: 0px">{</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; <span style="FONT-WEIGHT: normal; COLOR: teal">Rental</span> r = <span style="FONT-WEIGHT: normal; COLOR: teal">Repository</span><span style="FONT-WEIGHT: normal">&lt;</span><span style="FONT-WEIGHT: normal; COLOR: teal">Rental</span><span style="FONT-WEIGHT: normal">&gt;.FindSingleByQuery(</span><span style="FONT-WEIGHT: normal; COLOR: maroon">&#8220;from Rental r where r.Item.Upc = :upc and r.DateReturned is null&#8221;</span>, <span style="FONT-WEIGHT: normal; COLOR: blue">new</span> <span style="FONT-WEIGHT: normal; COLOR: teal">Parameter</span>(<span style="FONT-WEIGHT: normal; COLOR: maroon">&#8220;upc&#8221;</span>, upc));</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; <span style="FONT-WEIGHT: normal; COLOR: blue">return</span> r;</p><p style="MARGIN: 0px">}</p></div
+>
+
+
+<!--EndFragment-->
+
+
+<p>There is a lot going on here in this test, but what you need to get from this is that we are setting up the stage for our scenario.&nbsp; As our tests get more involved we are verifying that business cases are being met.&nbsp; If we make drastic changes later on, we will know if we have broken existing business functionality.</p>
+
+
+<p>The next thing to check is to make sure that we can check the item back in.&nbsp; I add a .Return() method on the rental, which doesn&rsquo;t exist yet, so I need some additional tests.</p>
+
+
+<p>I also need to be able to calculate late fees in a central place to make that easy to change later.&nbsp; I add a few tests for this as well.</p>
+
+
+<p>It turns out that the Return() method is easy to implement.&nbsp; All we need to do is set the return date and calculate the late fee and save it.</p>
+
+
+<div style="FONT-WEIGHT: bold; FONT-SIZE: 8pt; BACKGROUND: white; COLOR: black; FONT-FAMILY: Consolas"><p style="MARGIN: 0px">[<span style="FONT-WEIGHT: normal; COLOR: teal">Test</span>]</p><p style="MARGIN: 0px"><span style="FONT-WEIGHT: normal; COLOR: blue">public</span> <span style="FONT-WEIGHT: normal; COLOR: blue">void</span> CanReturnItem()</p><p style="MARGIN: 0px">{</p><p style="MARGIN: 0px">&nbsp; &nbsp; <span style="FONT-WEIGHT: normal; COLOR: teal">Rental</span> r1 = GetTestRental(<span style="FONT-WEIGHT: normal; COLOR: teal">DateTime</span><span style="FONT-WEIGHT: normal">.Now.AddDays(-6));</span></p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp; &nbsp; r1.Return();</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp; &nbsp; <span style="FONT-WEIGHT: normal; COLOR: teal">Assert</span><span style="FONT-WEIGHT: normal">.IsTrue(r1.DateReturned.HasValue);</span></p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp; &nbsp; <span style="FONT-WEIGHT: normal; COLOR: green">//it&#8217;s 1 day late, so expect the right late fee</span></p><p style="MARGIN: 0px">&nbsp; &nbsp; <span style="FONT-WEIGHT: normal; COLOR: blue">float</span> lateFee = <span style="FONT-WEIGHT: normal; COLOR: teal">Utility</span><span style="FONT-WEIGHT: normal">.LATE_FEE_PER_DAY;</span></p><p style="MARGIN: 0px">&nbsp; &nbsp; <span style="FONT-WEIGHT: normal; COLOR: teal">Assert</span><span style="FONT-WEIGHT: normal">.AreEqual(lateFee, r1.LateFee);</span></p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">}</p></div>
+
+
+<!--EndFragment-->
+
+
+<p>which leads to the following code in the Rental class&hellip;</p>
+
+
+<div style="FONT-WEIGHT: bold; FONT-SIZE: 8pt; BACKGROUND: white; COLOR: black; FONT-FAMILY: Consolas"><p style="MARGIN: 0px"><span style="FONT-WEIGHT: normal; COLOR: blue">public</span> <span style="FONT-WEIGHT: normal; COLOR: blue">void</span> Return()</p><p style="MARGIN: 0px">{</p><p style="MARGIN: 0px">&nbsp; &nbsp; <span style="FONT-WEIGHT: normal; COLOR: blue">this</span><span style="FONT-WEIGHT: normal">.DateReturned = </span><span style="FONT-WEIGHT: normal; COLOR: teal">DateTime</span><span style="FONT-WEIGHT: normal">.Now;</span></p><p style="MARGIN: 0px">&nbsp; &nbsp; <span style="FONT-WEIGHT: normal; COLOR: blue">this</span><span style="FONT-WEIGHT: normal">.LateFee = </span><span style="FONT-WEIGHT: normal; COLOR: teal">Utility</span><span style="FONT-WEIGHT: normal">.CalculateLateFee(_dateDue, _dateReturned.Value);</span></p><p style="MARGIN: 0px">}</p></div>
+
+
+<p>Now we need to finish the original test and verify that we can save the rental.</p>
+
+
+<div style="FONT-WEIGHT: bold; FONT-SIZE: 8pt; BACKGROUND: white; COLOR: black; FONT-FAMILY: Consolas"><p style="MARGIN: 0px">&nbsp;r2.Return();</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp;<span style="FONT-WEIGHT: normal; COLOR: green">//save the rental</span></p><p style="MARGIN: 0px">&nbsp;<span style="FONT-WEIGHT: normal; COLOR: blue">using</span> (<span style="FONT-WEIGHT: normal; COLOR: teal">ISession</span> session = <span style="FONT-WEIGHT: normal; COLOR: teal">SessionSource</span><span style="FONT-WEIGHT: normal">.Current.GetSession())</span></p><p style="MARGIN: 0px">&nbsp;{</p><p style="MARGIN: 0px">&nbsp; &nbsp; <span style="FONT-WEIGHT: normal; COLOR: blue">using</span> (<span style="FONT-WEIGHT: normal; COLOR: teal">ITransaction</span> tx = session.BeginTransaction())</p><p style="MARGIN: 0px">&nbsp; &nbsp; {</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; session.SaveOrUpdate(r2);</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; tx.Commit();</p><p style="MARGIN: 0px">&nbsp; &nbsp; }</p><p style="MARGIN: 0px">&nbsp;}</p></div>
+
+
+<p>This test passes and we&rsquo;ve implemented our feature!</p>
+
+
+<p>I think I&rsquo;m at a point where I have demonstrated how we can work on core business features for an application test-first, using NHibernate along the way for persistence.&nbsp; A lot more work has to be done to complete our domain model, but that will be left as an excercise for the reader.</p>
+
+
+<p>Instead, I would like to focus my efforts on getting a basic UI in place using ASP.NET.&nbsp; I said in part 1 that I wanted to demonstrate how to work with the NHibernate Session in a web environment, so that&rsquo;s where I will pick up next time.</p>
+
+
+<p>Until then, you can download and view the current project here:</p>
+
+
+<p><a href="http://www.flux88.com/uploads/Videocracy_09.zip" target="_blank">File Attachment: Videocracy_09.zip (3442 KB)</a></p>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ben Scheirman</span></span>
+
+      
+
+
+
+
+<time datetime="2007-06-03 00:00:00 -0500" pubdate  updated >Jun 3<span>rd</span>, 2007</time>
+
+
+
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://benscheirman.com/blog/2007/06/a-journey-with-domain-driven-design-and-nhibernate-part-9/" data-via="subdigital" data-counturl="http://benscheirman.com/blog/2007/06/a-journey-with-domain-driven-design-and-nhibernate-part-9/" >Tweet</a>
+  
+  
+  <g:plusone size="medium"></g:plusone>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread"><div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_shortname = 'subdigital';
+  var disqus_identifier = 'http://benscheirman.com/blog/2007/06/a-journey-with-domain-driven-design-and-nhibernate-part-9/';
+  var disqus_url = 'http://benscheirman.com/blog/2007/06/a-journey-with-domain-driven-design-and-nhibernate-part-9/';
+  //var disqus_developer = 1;
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside role=sidebar>
+  
+    <section>
+  <h1>Who am I?</h1>
+  <p>I&#8217;m Ben Scheirman. I make Rails &amp; iPhone apps for <a href="http://chaione.com" target="_blank">ChaiONE</a> in Houston, TX.</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/08/vim---could-not-invoke-jslint/">Vim - Could Not Invoke JSLint</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/is-rails-exempt-from-software-principles/">Is Rails Exempt?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/when-viewwillappear-isnt-called/">When viewWillAppear: Isn&#8217;t Called</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/moving-my-blog/">Moving My Blog</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/my-vim-journey/">My Vim Journey</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("subdigital", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/subdigital" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @subdigital</a>
+  
+</section>
+
+
+<section>
+  <h1>On Delicious</h1>
+  <script type="text/javascript" src="http://feeds.delicious.com/v2/js/subdigital?title=&count=3&sort=date&extended"></script>
+  <p><a href="http://delicious.com/subdigital">My Delicious Bookmarks &raquo;</a></p>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer>
+<a style="display:block; float: right" title="Real Time Analytics" href="http://getclicky.com/66470389"><img alt="Real Time Analytics" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
+<script src="//static.getclicky.com/js" type="text/javascript"></script>
+<script type="text/javascript">try{ clicky.init(66470389); }catch(e){}</script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/66470389ns.gif" /></p></noscript>
+
+<p>
+  Copyright &copy; 2011 - Ben Scheirman -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+</body>
+</html>

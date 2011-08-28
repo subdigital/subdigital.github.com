@@ -1,0 +1,274 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Fickle Bits: Slaying the Six-Headed SOA Beast</title>
+  <meta name="author" content="Ben Scheirman">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="canonical" href="http://benscheirman.com/blog/2007/05/slaying-the-six-headed-soa-beast/"/>
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/ficklebits" rel="alternate" title="Fickle Bits" type="application/atom+xml"/>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-210379-10']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">Fickle Bits</a></h1>
+  
+    <h2>You're doing it wrong.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/ficklebits" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:benscheirman.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry">
+  
+  <header>
+    
+      <h1 class="entry-title">Slaying the Six-Headed SOA Beast</h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-05-24 00:00:00 -0500" pubdate  updated >May 24<span>th</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+<div class="entry-content"><p class="MsoNormal" style="MARGIN: 0in 0in 10pt"><font face="Calibri" size="3">For the past several years people have been hearing about Service Oriented Architecture through various mediums across the internet.<span style="mso-spacerun: yes">&nbsp; </span>Most of what you would read would be academic material that was difficult to think about in concrete terms.</font></p>
+
+
+<p class="MsoNormal" style="MARGIN: 0in 0in 10pt"><font face="Calibri" size="3">Still today there are numerous articles and books on the subject that talk so much in theory that there isn&rsquo;t enough good direction on where to go.<span style="mso-spacerun: yes">&nbsp; </span>For Joe Developer at Company XYZ, how can he take advantage of these seemingly great ideas on his next .NET (or whatever) project?</font></p>
+
+
+<p class="MsoNormal" style="MARGIN: 0in 0in 10pt"><font face="Calibri" size="3">Unfortunately, this lack of good direction has led to a misconception about what SOA is and how it should be implemented.</font></p>
+
+
+<p class="MsoNormal" style="MARGIN: 0in 0in 10pt"><font size="3"><font face="Calibri">At its heart, SOA is the next evolution of development.<span style="mso-spacerun: yes">&nbsp; </span>Just as we had objects to encapsulate our behavior and compose applications of objects, we now can encapsulate core functionality as services so that they are reusable across the enterprise, or even to our customers.<span style="mso-spacerun: yes">&nbsp; </span></font></font></p>
+
+
+<p class="MsoNormal" style="MARGIN: 0in 0in 10pt"><font face="Calibri" size="3">We can also take these services and compose them to create more complex services, and this can be taken to the extreme where you model every process that the business performs as a service.<span style="mso-spacerun: yes">&nbsp; </span>The idea is that new applications can be built without the need to deal with implementation, it can be done completely by composing services.<span style="mso-spacerun: yes">&nbsp; </span>Want to change the way the business functions?<span style="mso-spacerun: yes">&nbsp; </span>Rewire the business process services in a way that better suits the business.</font></p>
+
+
+<p class="MsoNormal" style="MARGIN: 0in 0in 10pt"><font face="Calibri" size="3">Unfortunately, when you talk this high level, you often gloss over the technical guidance and people take the advice and run in any direction.<span style="mso-spacerun: yes">&nbsp; </span>It&rsquo;s like a scavenger hunt where the treasure map is handed out and it contains details about the glorious treasure, but not the direction on how to get there.</font></p>
+
+
+<p class="MsoNormal" style="MARGIN: 0in 0in 10pt"><font face="Calibri" size="3">This also leads to the misconception that SOA == Web Services, which is not the case.<span style="mso-spacerun: yes">&nbsp; </span>More on this in a minute.</font></p>
+
+
+<p class="MsoNormal" style="MARGIN: 0in 0in 10pt"><font size="3"><font face="Calibri">So back at Company XYZ, Joe Developer is implementing his next project with an SOA.<span style="mso-spacerun: yes">&nbsp; </span>His management has also read about SOA and knows that it&rsquo;s the right thing to do.<span style="mso-spacerun: yes">&nbsp; </span>In fact, they may even be pushing him in this direction.<span style="mso-spacerun: yes">&nbsp; </span>He creates his business logic, he creates his UI.<span style="mso-spacerun: yes">&nbsp; </span>Next comes the service layer.<span style="mso-spacerun: yes">&nbsp; </span>Joe thinks to himself, what better way to implement services than to be the first consumer!<span style="mso-spacerun: yes">&nbsp; </span>It will be perfect!<span style="mso-spacerun: yes">&nbsp; </span>Then any new application can access the functionality and everything will be great.<span style="mso-spacerun: yes">&nbsp; </span>I&rsquo;ll have an SOA Seal of Approval on my app because I used web services and my management will be happy.<span style="mso-spacerun: yes">&nbsp; </span>And my application will be unnecessarily SLOW.<span style="mso-spacerun: yes">&nbsp; </span>And complicated.<span style="mso-spacerun: yes">&nbsp; </span><b style="mso-bidi-font-weight: normal">For no reason.<?xml:namespace prefix ="" o ns ="" "urn:schemas-microsoft-com:office:office" /><o:p></o:p></b></font></font></p><p class="MsoNormal" style="MARGIN: 0in 0in 10pt"><font face="Calibri" size="3">The reality is that Web Services are meant for interoperability.<span style="mso-spacerun: yes">&nbsp; </span>They are meant to be accessed across a variety of mediums and ports.<span style="mso-spacerun: yes">&nbsp; </span>They are great for platform interoperability and cross-political communication between applications.<span style="mso-spacerun: yes">&nbsp; </span>They are not suitable for inter-company, .NET to .NET interaction.<span style="mso-spacerun: yes">&nbsp; </span>The overhead of WSDL, SOAP, XML, etc is wasted in this scenario.<span style="mso-spacerun: yes">&nbsp; </span>Consuming a web service is not efficient.<span style="mso-spacerun: yes">&nbsp; </span>To combat this overhead, it is advised to make your remote calls as coarse-grained as possible.<span style="mso-spacerun: yes">&nbsp; </span>Chatty remote calls will <b style="mso-bidi-font-weight: normal">kill</b> an applications performance.<span style="mso-spacerun: yes">&nbsp; </span>So now we are designing <b style="mso-bidi-font-weight: normal">our (!) </b>application around the limitation of a heavyweight service layer.</font></p><p class="MsoNormal" style="MARGIN: 0in 0in 10pt"><font face="Calibri" size="3">This is something that I see all too often. </font></p><p class="MsoNormal" style="MARGIN: 0in 0in 10pt"><o:p><font face="Calibri" size="3"><strong>UI<br />SERVICE AGENTS<br />WEB SERVICE LAYER<br />BUSINESS&nbsp;LOGIC LAYER<br />DATA ACCESS LAYER</strong></font></o:p><o:p><font size="+0"><strong><br /></strong></font></o:p><font size="3"><font face="Calibri"><o:p>&nbsp;<br /></o:p>A better solution would be to design your application the way that good software engineering principles have taught you.<span style="mso-spacerun: yes">&nbsp; </span>Separate responsibilities.<span style="mso-spacerun: yes">&nbsp; </span>Create a domain model that represents your problem domain.<span style="mso-spacerun: yes">&nbsp; </span>Speak in terms of your domain.<span style="mso-spacerun: yes">&nbsp; </span>Leverage object oriented programming.</font></font></p><p class="MsoNormal" style="MARGIN: 0in 0in 10pt"><font face="Calibri" size="3">Then, when management decides that the functionality that you have created would be suitable to expose outside the company, or to their Java project that is currently underway, you can introduce a service layer.<span style="mso-spacerun: yes">&nbsp; </span>The service layer consumes your existing business logic layer.<span style="mso-spacerun: yes">&nbsp; </span>The idea is to introduce a more coarse-grained interface suitable for remote calls.<span style="mso-spacerun: yes">&nbsp; </span>You create Data Transfer Objects that aggregate your domain objects and are more stable for a service contract.</font></p><p class="MsoNormal" style="MARGIN: 0in 0in 10pt"><font face="Calibri" size="3">This is a much better approach, because we take into account the fact that we <b style="mso-bidi-font-weight: normal">can</b> expose the functionality of services, but we should not shoot ourselves in the foot to do so.</font></p><p class="MsoNormal" style="MARGIN: 0in 0in 10pt"><font face="Calibri" size="3">Now getting back to the misconception of SOA == Web Services.<span style="mso-spacerun: yes">&nbsp; </span>Why is this so common to see?<span style="mso-spacerun: yes">&nbsp; </span>First, the term Web Services is probably partially to blame.<span style="mso-spacerun: yes">&nbsp; </span>A service can be native .NET code, it can be a remoting interface, it can be SOAP over HTTP.<span style="mso-spacerun: yes">&nbsp; </span>A more effective service oriented architecture (especially one <i style="mso-bidi-font-style: normal">within</i> an application) is achieved by choosing the best medium for the circumstances.</font></p><p class="MsoNormal" style="MARGIN: 0in 0in 10pt"><font face="C
+alibri" size="3">I think it&rsquo;s time for an example.<span style="mso-spacerun: yes">&nbsp; </span>Say we are writing an application that calculates massive financial data for our enterprise.<span style="mso-spacerun: yes">&nbsp; </span>One component of this will calculate the exchange rate for many currencies.<span style="mso-spacerun: yes">&nbsp; </span>Ignoring the specifics of the implementation, how should we reuse this component so that the entire enterprise can access it?<span style="mso-spacerun: yes">&nbsp; </span>We want to take advantage of a plain .NET to .NET inter-process call because it&rsquo;s the fastest.<span style="mso-spacerun: yes">&nbsp; </span>We&rsquo;d also like to expose this to other .NET applications within our corporation.<span style="mso-spacerun: yes">&nbsp; </span>Finally we want to use this service in our Java system as well.<span style="mso-spacerun: yes">&nbsp; </span>How can we accomplish all of these without just resorting to the lowest common denominator?</font></p><p class="MsoNormal" style="MARGIN: 0in 0in 10pt"><font face="Calibri" size="3">One of the great things that I learned while studying Enterprise SOA in Paris was what the IBM guys call a Service Component Architecture, or SCA.<span style="mso-spacerun: yes">&nbsp; </span>This architecture is enables services to be composable.<span style="mso-spacerun: yes">&nbsp;&nbsp; </span>The WebSphere Integration Developer emphasizes modeling all of your business processes as composable services.<span style="mso-spacerun: yes">&nbsp; </span>Most of these will be Java to Java calls, but some may not.<span style="mso-spacerun: yes">&nbsp; </span>What they do is have you design your interface using a GUI, which spits out the WSDL interfaced and the Java interface.<span style="mso-spacerun: yes">&nbsp; </span><i style="mso-bidi-font-style: normal">The best flavor of interface is chosen</i> depending on the circumstances.</font></p><p class="MsoNormal" style="MARGIN: 0in 0in 10pt"><font face="Calibri" size="3">So we can solve the above problem by having one single interface, with both a .NET and WSDL versions.<span style="mso-spacerun: yes">&nbsp; </span>The configuration can determine which is used to achieve the best results.</font></p><p class="MsoNormal" style="MARGIN: 0in 0in 10pt"><font face="Calibri" size="3">Hopefully I&rsquo;m not leaving out some core SOA concepts (I&rsquo;m sure I am).<span style="mso-spacerun: yes">&nbsp; </span>What about you?<span style="mso-spacerun: yes">&nbsp; </span>Do you see too many mis-uses of SOA like I do?<span style="mso-spacerun: yes">&nbsp; </span>What other techniques can help bring the industry back to reality?</font></p><p class="MsoNormal" style="MARGIN: 0in 0in 10pt"><font face="Calibri" size="3">(I also must apologize for such a long-winded post.<span style="mso-spacerun: yes">&nbsp; </span>My bus is stuck on an HOV lane (one single lane with walls) in rush hour traffic.<span style="mso-spacerun: yes">&nbsp; </span>I&rsquo;ve been here for over an hour already.)</font></p><div class="bjtags">Tags:<a rel="tag" href="http://technorati.com/tag/SOA">SOA</a></div>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ben Scheirman</span></span>
+
+      
+
+
+
+
+<time datetime="2007-05-24 00:00:00 -0500" pubdate  updated >May 24<span>th</span>, 2007</time>
+
+
+
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://benscheirman.com/blog/2007/05/slaying-the-six-headed-soa-beast/" data-via="subdigital" data-counturl="http://benscheirman.com/blog/2007/05/slaying-the-six-headed-soa-beast/" >Tweet</a>
+  
+  
+  <g:plusone size="medium"></g:plusone>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread"><div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_shortname = 'subdigital';
+  var disqus_identifier = 'http://benscheirman.com/blog/2007/05/slaying-the-six-headed-soa-beast/';
+  var disqus_url = 'http://benscheirman.com/blog/2007/05/slaying-the-six-headed-soa-beast/';
+  //var disqus_developer = 1;
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside role=sidebar>
+  
+    <section>
+  <h1>Who am I?</h1>
+  <p>I&#8217;m Ben Scheirman. I make Rails &amp; iPhone apps for <a href="http://chaione.com" target="_blank">ChaiONE</a> in Houston, TX.</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/08/vim---could-not-invoke-jslint/">Vim - Could Not Invoke JSLint</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/is-rails-exempt-from-software-principles/">Is Rails Exempt?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/when-viewwillappear-isnt-called/">When viewWillAppear: Isn&#8217;t Called</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/moving-my-blog/">Moving My Blog</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/my-vim-journey/">My Vim Journey</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("subdigital", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/subdigital" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @subdigital</a>
+  
+</section>
+
+
+<section>
+  <h1>On Delicious</h1>
+  <script type="text/javascript" src="http://feeds.delicious.com/v2/js/subdigital?title=&count=3&sort=date&extended"></script>
+  <p><a href="http://delicious.com/subdigital">My Delicious Bookmarks &raquo;</a></p>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer>
+<a style="display:block; float: right" title="Real Time Analytics" href="http://getclicky.com/66470389"><img alt="Real Time Analytics" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
+<script src="//static.getclicky.com/js" type="text/javascript"></script>
+<script type="text/javascript">try{ clicky.init(66470389); }catch(e){}</script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/66470389ns.gif" /></p></noscript>
+
+<p>
+  Copyright &copy; 2011 - Ben Scheirman -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+</body>
+</html>

@@ -1,0 +1,254 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Fickle Bits: Upgrading Code Camp Server to Preview 4</title>
+  <meta name="author" content="Ben Scheirman">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="canonical" href="http://benscheirman.com/blog/2008/07/upgrading-code-camp-server-to-preview-4/"/>
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/ficklebits" rel="alternate" title="Fickle Bits" type="application/atom+xml"/>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-210379-10']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">Fickle Bits</a></h1>
+  
+    <h2>You're doing it wrong.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/ficklebits" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:benscheirman.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry">
+  
+  <header>
+    
+      <h1 class="entry-title">Upgrading Code Camp Server to Preview 4</h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2008-07-17 00:00:00 -0500" pubdate  updated >Jul 17<span>th</span>, 2008</time>
+
+
+</p>
+    
+  </header>
+
+
+<div class="entry-content"><p>I&#8217;m currently upgrading <a href="http://codecampserver.org">Code Camp Server</a> to <a href="http://codeplex.com/aspnet">Preview 4</a>, and I thought it might be useful to some to see how to go about managing a (somewhat) volatile upgrade to a project.</p>
+
+
+<p> <h2>Step 1: Create a branch for your work</h2> <p>You don&#8217;t want these changes to break the build or anyone else&#8217;s pending changes.&nbsp; Often times in a long, complicated upgrade there will be many parts that need fixing and you can&#8217;t do it in one sitting.&nbsp; Creating a branch for your changes isolates you from the trunk.</p> <p>First this to do is make sure your local working copy is up to date and has no pending changes.&nbsp; I created a branch called <strong>mvcpreview4upgrade</strong> and switched my working copy to that branch.</p> <p><a href="http://flux88.com/uploads/UpgradingCodeCampServertoPreview4_13E84/mvcpreview4upgradebranch.png"><img src="/images/mvcpreview4upgradebranch_thumb_.png" alt="mvcpreview4upgrade-branch"  border="0" /></a> </p> <p>Now we&#8217;re free to make some breaking changes.</p> <h2>Step 2:&nbsp; Upgrade the binaries to the new version of the framework</h2> <p>In Code Camp Server, all external dependencies are placed in the bin folder:</p> <p><a href="http://flux88.com/uploads/UpgradingCodeCampServertoPreview4_13E84/upgradingbinaries.png"><img src="/images/upgradingbinaries_thumb_.png" alt="upgrading-binaries"  border="0" /></a> </p> <p>All of the projects get their references from here.&nbsp; We will definitely have to update <a href="http://mvccontrib.org">MVCContrib</a> to their latest once it is upgraded to Preview 4.&nbsp; I&#8217;ll leave this to last.</p> <h2>Step 3:&nbsp; Get it compiling</h2> <p>Normally I&#8217;d suggest the command line NAnt build because it will run all the tests, but I&#8217;m fully expecting compile errors and I want to be able to double click on them and navigate directly to it.</p> <p>Here are the issues I notice immediately:</p> <ul> <li>ComponentController has been removed completely.&nbsp; This hasn&#8217;t been updated in a long while and we kind of expected this to happen.&nbsp; Unfortunately we had 2 components that used this, so we have to re-implement them using another mechanism (I think I see one already, but I need to investigate more).</li> <li>TempDataDictionary now has a default constructor, so we don&#8217;t have to create a fake http context to build it.&nbsp; Finally!</li></ul> <p>That seems to be it, I fixed these issues and it compiles.&nbsp; Now to run the NAnt build (with all tests).</p> <h2>Step 4: Get the tests passing</h2> <p><em>Note to self:&nbsp; need to upgrade all the old mocking syntax to the new RhinoMocks syntax.</em></p> <p><a href="http://flux88.com/uploads/UpgradingCodeCampServertoPreview4_13E84/nantbuild.png"><img src="/images/nantbuild_thumb_.png" alt="nant-build"  border="0" /></a> </p> <p>We can see that a unit test is failing (and we can also see a couple tests that I&#8217;m ignoring for now because ComponentController was removed).</p> <p>Since the FlashMessageComponent needs to be changed anyway, I&#8217;ll just ignore this test for now until we can finish the upgrade.</p> <p>Another test was failing in the IntegrationTests assembly which was fixed by deleting this line:</p> <p><a href="http://flux88.com/uploads/UpgradingCodeCampServertoPreview4_13E84/testresolvingcomponentcontroller.png"><img src="/images/testresolvingcomponentcontroller_thumb_.png" alt="test-resolving-component-controller"  border="0" /></a> </p> <p>This test is used to make sure that we can build all controllers (with dependencies) at runtime.</p> <p>After fixing this we are now all passing!</p> <p><a href="http://flux88.com/uploads/UpgradingCodeCampServertoPreview4_13E84/buildsucceeding.png"><img src="/images/buildsucceeding_thumb_.png" alt="build-succeeding"  border="0" /></a> </p> <p>Now it&#8217;s time to take a look at the changed features&#8230;</p> <h2>Step 5:&nbsp; Implement the new changes</h2> <p>Browsing the readme that is included with the release, we can see some changes in the following areas:</p> <ul> <li>New Membership</li> <ul> <li>not sure if we want to take advantage of this since we&#8217;ve already implemented it</li></ul> <li>Routes</li> <ul> <li>They are now namespaced to avoid issues with reflecting over the entire assembly</li></ul> <li>AuthorizationFilter</li> <ul> <li>I can remove the custom one we have</li></ul> <li>ErrorHandling Filter</li> <ul> <li>We were going to end up using [Rescue] from MVCContrib, but now I think we can use this</li></ul> <li>OutputCache Filter</li> <ul> <li>This will be better used once we have the functionality completed and we know where the best places to implement caching will be</li></ul> <li>Ajax</li> <ul> <li>These look like ASP.NET Ajax improvements.&nbsp; Not sure if they&#8217;ll apply to us since we use jquery.</li></ul> <li>ActionInvoker</li> <ul> <li>GetFiltersForAction method</li> <ul> <li>We can probably better test the integration of custom action filters with this</li></ul></ul> <li>ViewData</li> <ul> <li>Eval - we&#8217;ll probably just stick to ViewDataExtensions from MVCContrib for strong typing</li></ul> <li>ComponentController has been removed in favor on a RenderAction method on the view</li> <ul> <li>this means we can probably replace the sponsorcomponent controller with a standard Controller implementation</li></ul></ul> <p>Updating routes:</p> <p><a href="http://flux88.com/uploads/UpgradingCodeCampServertoPreview4_13E84/updatingroutenamspaces.png"><img src="/images/updatingroutenamspaces_thumb_.png" alt="updating-route-namspaces"  border="0" /></a> </p> <p>I removed another remnant of ComponentController (looks like this came from MVCContrib).&nbsp; I also added the new namespace reference here.</p> <p>For authorization we had previously created 2 attributes, [AdminOnly], and [RequireLogin].&nbsp; RequireLogin will be replaced with the new [Authorize] attribute, however our AdminOnly attribute works a little differently, so some more work will be needed to get this to work with just a role name.</p> <p>Our implementation won&#8217;t be complete until we get MVCContrib integrated, so that&#8217;ll have to wait.&nbsp; But for now we&#8217;re at a good place to commit our work!</p> <h2>Why go through all this pain?</h2> <p>Upgrading projects to frequently released dependencies can be a pain, but I think it&#8217;s a small price to pay for the constant flow of improvements we&#8217;re getting from ASP.NET MVC releases.&nbsp; When the framework settles a bit more these updates will be mostly topical&#8230; meaning they won&#8217;t sweep the carpet out from under your feet.</p></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ben Scheirman</span></span>
+
+      
+
+
+
+
+<time datetime="2008-07-17 00:00:00 -0500" pubdate  updated >Jul 17<span>th</span>, 2008</time>
+
+
+
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://benscheirman.com/blog/2008/07/upgrading-code-camp-server-to-preview-4/" data-via="subdigital" data-counturl="http://benscheirman.com/blog/2008/07/upgrading-code-camp-server-to-preview-4/" >Tweet</a>
+  
+  
+  <g:plusone size="medium"></g:plusone>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread"><div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_shortname = 'subdigital';
+  var disqus_identifier = 'http://benscheirman.com/blog/2008/07/upgrading-code-camp-server-to-preview-4/';
+  var disqus_url = 'http://benscheirman.com/blog/2008/07/upgrading-code-camp-server-to-preview-4/';
+  //var disqus_developer = 1;
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside role=sidebar>
+  
+    <section>
+  <h1>Who am I?</h1>
+  <p>I&#8217;m Ben Scheirman. I make Rails &amp; iPhone apps for <a href="http://chaione.com" target="_blank">ChaiONE</a> in Houston, TX.</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/08/vim---could-not-invoke-jslint/">Vim - Could Not Invoke JSLint</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/is-rails-exempt-from-software-principles/">Is Rails Exempt?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/when-viewwillappear-isnt-called/">When viewWillAppear: Isn&#8217;t Called</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/moving-my-blog/">Moving My Blog</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/my-vim-journey/">My Vim Journey</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("subdigital", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/subdigital" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @subdigital</a>
+  
+</section>
+
+
+<section>
+  <h1>On Delicious</h1>
+  <script type="text/javascript" src="http://feeds.delicious.com/v2/js/subdigital?title=&count=3&sort=date&extended"></script>
+  <p><a href="http://delicious.com/subdigital">My Delicious Bookmarks &raquo;</a></p>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer>
+<a style="display:block; float: right" title="Real Time Analytics" href="http://getclicky.com/66470389"><img alt="Real Time Analytics" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
+<script src="//static.getclicky.com/js" type="text/javascript"></script>
+<script type="text/javascript">try{ clicky.init(66470389); }catch(e){}</script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/66470389ns.gif" /></p></noscript>
+
+<p>
+  Copyright &copy; 2011 - Ben Scheirman -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+</body>
+</html>

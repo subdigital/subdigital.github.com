@@ -1,0 +1,760 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Fickle Bits</title>
+  <meta name="author" content="Ben Scheirman">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="canonical" href="http://benscheirman.com/blog/page/22/index.html"/>
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/ficklebits" rel="alternate" title="Fickle Bits" type="application/atom+xml"/>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-210379-10']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">Fickle Bits</a></h1>
+  
+    <h2>You're doing it wrong.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/ficklebits" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:benscheirman.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/08/elegant-asp-net-caching/">Elegant ASP.NET Caching</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-08-16 00:00:00 -0500" pubdate  updated >Aug 16<span>th</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>So you have a central method that returns some common data, say for example US States.</p>
+
+
+<div style="FONT-SIZE: 10pt; BACKGROUND: white; COLOR: black; FONT-FAMILY: Courier New"><p style="MARGIN: 0px"><span style="COLOR: blue">public</span> <span style="COLOR: #2b91af">IList</span>&lt;<span style="COLOR: #2b91af">State</span>&gt; GetUsStates()</p><p style="MARGIN: 0px">{</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; <span style="COLOR: #2b91af">List</span>&lt;<span style="COLOR: #2b91af">State</span>&gt; states = <span style="COLOR: blue">new</span> <span style="COLOR: #2b91af">List</span>&lt;<span style="COLOR: #2b91af">State</span>&gt;();</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; <span style="COLOR: blue">using</span>(<span style="COLOR: #2b91af">IDataReader</span> dr = <span style="COLOR: #2b91af">DataAccess</span>.ExecuteReader(<span style="COLOR: #a31515">&#8220;SELECT * FROM US_STATES&#8221;</span>))</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; {</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="COLOR: #2b91af">State</span> theState = <span style="COLOR: #2b91af">State</span>.Fetch(dr);</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; states.Add(theState);</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; }</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; <span style="COLOR: blue">return</span> states;</p><p style="MARGIN: 0px">}</p></div>
+
+
+<!--EndFragment-->
+
+
+<p>Pretty simple stuff, loop over a datareader, building &ldquo;State&rdquo; objects based on a row in the database.</p>
+
+
+<p>Well since this data hardly ever changes and is the same for every user, it is a prime target for caching.&nbsp; <em>(Psst, if you didn&rsquo;t know, caching can be one of the most effective performance tuning techniques you can perform &mdash; if done correctly).</em></p>
+
+
+<p>Now that we want to enable caching, we can create a little helper class that makes it a bit easier to work with&hellip;</p>
+
+
+<p><em>This is a watered down version of the cache API, but it solves 90% of the cases.</em></p>
+
+
+<div style="FONT-SIZE: 10pt; BACKGROUND: white; COLOR: black; FONT-FAMILY: Courier New"><p style="MARGIN: 0px"><span style="COLOR: blue">public</span> <span style="COLOR: blue">class</span> <span style="COLOR: #2b91af">CacheHelper</span></p><p style="MARGIN: 0px">{</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; <span style="COLOR: blue">public</span> <span style="COLOR: blue">static</span> <span style="COLOR: blue">bool</span> ItemExists(<span style="COLOR: blue">string</span> key)</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; {</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="COLOR: blue">return</span> <span style="COLOR: #2b91af">HttpContext</span>.Current.Cache[key] != <span style="COLOR: blue">null</span>;</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; }</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; <span style="COLOR: blue">public</span> <span style="COLOR: blue">static</span> <span style="COLOR: blue">void</span> Insert(<span style="COLOR: blue">string</span> key, <span style="COLOR: blue">object</span> obj)</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; {</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="COLOR: #2b91af">TimeSpan</span> oneHour = <span style="COLOR: blue">new</span> <span style="COLOR: #2b91af">TimeSpan</span>(1,0,0);</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Insert(key, obj, oneHour);</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; }</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; <span style="COLOR: blue">public</span> <span style="COLOR: blue">static</span> <span style="COLOR: blue">void</span> Insert(<span style="COLOR: blue">string</span> key, <span style="COLOR: blue">object</span> obj, <span style="COLOR: #2b91af">TimeSpan</span> span)</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; {</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="COLOR: #2b91af">HttpContext</span>.Current.Cache.Add(</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; key, </p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; obj, </p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="COLOR: blue">null</span>, <span style="COLOR: green">//no dependencies</span></p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="COLOR: #2b91af">DateTime</span>.Now.Add(span), </p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="COLOR: #2b91af">Cache</span>.NoSlidingExpiration, </p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="COLOR: #2b91af">CacheItemPriority</span>.Normal, </p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="COLOR: blue">null</span> <span style="COLOR: green">//no remove callback</span></p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; );</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; }</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; <span style="COLOR: blue">public</span> <span style="COLOR: blue">static</span> T Retrieve&lt;T&gt;(<span style="COLOR: blue">string</span> key)</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; {</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="COLOR: blue">return</span> (T)<span style="COLOR: #2b91af">HttpContext</span>.Current.Cache[key];</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; }</p><p style="MARGIN: 0px">}</p></div>
+
+
+<!--EndFragment-->
+
+
+<p>Now that we have the utility methods in place, we can alter our US States function to enable caching:</p>
+
+
+<div style="FONT-SIZE: 10pt; BACKGROUND: white; COLOR: black; FONT-FAMILY: Courier New"><p style="MARGIN: 0px"><span style="COLOR: blue">public</span> <span style="COLOR: #2b91af">IList</span>&lt;<span style="COLOR: #2b91af">State</span>&gt; GetUsStates()</p><p style="MARGIN: 0px">{</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; <span style="COLOR: blue">string</span> statesKey = <span style="COLOR: #a31515">&#8220;US_STATES&#8221;</span>;</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; <span style="COLOR: blue">if</span> (!<span style="COLOR: #2b91af">CacheHelper</span>.ItemExists(statesKey))</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; {</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="COLOR: green">//add it</span></p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="COLOR: #2b91af">List</span>&lt;<span style="COLOR: #2b91af">State</span>&gt; states = <span style="COLOR: blue">new</span> <span style="COLOR: #2b91af">List</span>&lt;<span style="COLOR: #2b91af">State</span>&gt;();</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="COLOR: blue">using</span> (<span style="COLOR: #2b91af">IDataReader</span> dr = <span style="COLOR: #2b91af">DataAccess</span>.ExecuteReader(<span style="COLOR: #a31515">&#8220;SELECT * FROM US_STATES&#8221;</span>))</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="COLOR: #2b91af">State</span> theState = <span style="COLOR: #2b91af">State</span>.Fetch(dr);</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; states.Add(theState);</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="COLOR: #2b91af">CacheHelper</span>.Insert(statesKey, states);</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; }</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; <span style="COLOR: green">//now it definitely exists in cache</span></p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; <span style="COLOR: blue">return</span> <span style="COLOR: #2b91af">CacheHelper</span>.Retrieve&lt;<span style="COLOR: #2b91af">IList</span>&lt;<span style="COLOR: #2b91af">State</span>&gt;&gt;(statesKey);</p><p style="MARGIN: 0px">}</p></div
+>
+
+
+<!--EndFragment-->
+
+
+<p>This code quickly gets repetetive and ugly, but it gets the job done.&nbsp; How can we do better?</p>
+
+
+<p>We need to be able to provide the <em>means</em> of getting the data, but without actually executing it every time.&nbsp; This sounds like a good use for a delegate!</p>
+
+
+<p>In our CacheHelper class we define the delegate:</p>
+
+
+<div style="FONT-SIZE: 10pt; BACKGROUND: white; COLOR: black; FONT-FAMILY: Courier New"><p style="MARGIN: 0px">&nbsp;<span style="COLOR: blue">public</span> <span style="COLOR: blue">delegate</span> <span style="COLOR: blue">object</span> <span style="COLOR: #2b91af">RetrieveDelegate</span>();</p></div>
+
+
+<!--EndFragment-->
+
+
+<p>It&rsquo;s just a method signature that returns an object.</p>
+
+
+<p>Then we define another method that will first check the cache, and execute the delegate if the data is not there:</p>
+
+
+<div style="FONT-SIZE: 10pt; BACKGROUND: white; COLOR: black; FONT-FAMILY: Courier New"><p style="MARGIN: 0px"><span style="COLOR: blue">public</span> <span style="COLOR: blue">static</span> T GetAndCache(<span style="COLOR: blue">string</span> key, <span style="COLOR: #2b91af">RetrieveDelegate</span> retrieveObject, <span style="COLOR: #2b91af">TimeSpan</span> span)</p><p style="MARGIN: 0px">{</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; <span style="COLOR: blue">if</span> (!ItemExists(key))</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; {</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="COLOR: blue">object</span> value = retrieveObject(); <span style="COLOR: green">//this makes the call to the database</span></p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Insert(key, value, span);</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; }</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; <span style="COLOR: blue">return</span> Retrieve&lt;T&gt;(key);</p><p style="MARGIN: 0px">}</p></div>
+
+
+<!--EndFragment-->
+
+
+<p>Now we have a method that can be smart about caching, but it is completely agnostic of what data to cache.&nbsp; Now we can refactor our GetStates() method to this:</p>
+
+
+<div style="FONT-SIZE: 10pt; BACKGROUND: white; COLOR: black; FONT-FAMILY: Courier New"><p style="MARGIN: 0px"><span style="COLOR: blue">public</span> <span style="COLOR: #2b91af">IList</span>&lt;<span style="COLOR: #2b91af">State</span>&gt; GetUsStates()</p><p style="MARGIN: 0px">{</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; <span style="COLOR: blue">return</span> <span style="COLOR: #2b91af">CacheHelper</span>.GetAndCache&lt;<span style="COLOR: #2b91af">IList</span>&lt;<span style="COLOR: #2b91af">State</span>&gt;&gt;(</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="COLOR: #a31515">&#8220;US_STATES&#8221;</span>,</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="COLOR: blue">delegate</span> {</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="COLOR: #2b91af">List</span>&lt;<span style="COLOR: #2b91af">State</span>&gt; states = <span style="COLOR: blue">new</span> <span style="COLOR: #2b91af">List</span>&lt;<span style="COLOR: #2b91af">State</span>&gt;();</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="COLOR: blue">using</span> (<span style="COLOR: #2b91af">IDataReader</span> dr = <span style="COLOR: #2b91af">DataAccess</span>.ExecuteReader(<span style="COLOR: #a31515">&#8220;SELECT * FROM US_STATES&#8221;</span>))</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="COLOR: #2b91af">State</span> theState = <span style="COLOR: #2b91af">State</span>.Fetch(dr);</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; states.Add(theState);</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="COLOR: blue">return</span> states;</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; },</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="COLOR: #2b91af">TimeSpan</span>.FromDays(1));</p><p style="MARGIN: 0px">}</p></div>
+
+
+<!--EndFragment-->
+
+
+<p>We only have to interact with the CacheHelper once, thus we only use the cache key once as well.&nbsp; There are no if statements here either.&nbsp; Just a single function call that excepts an anonymous method.</p>
+
+
+<p>This is pretty clean and it makes caching in your application easier.&nbsp; What do you think?&nbsp; Do you have any ideas for improvement?&nbsp; Let&rsquo;s hear in the comments!</p>
+
+
+<div class="bjtags">Tags:<a rel="tag" href="http://technorati.com/tag/ASP.NET">ASP.NET</a>, <a rel="tag" href="http://technorati.com/tag/Cache">Cache</a></div>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2007/08/elegant-asp-net-caching/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/08/see-you-at-houston-tech-fest/">See You at Houston Tech Fest</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-08-15 00:00:00 -0500" pubdate  updated >Aug 15<span>th</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>If you&#8217;re going to <a href="http://houstontechfest.com">HoustonTechFest</a>, then be sure to check out my presentations:<br><ul><li>Advanced CSS and Javascript</li><li>ORM with NHibernate</li></ul>It&#8217;s all going down August 25th at the University of Houston.&nbsp; See you there!<br><p></p></p>
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2007/08/see-you-at-houston-tech-fest/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/08/dasblog-2-0-released/">dasBlog 2.0 Released!</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-08-15 00:00:00 -0500" pubdate  updated >Aug 15<span>th</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>The team has been working like mad to get this release out the door and now it’s ready!</p>
+
+
+<p><a href="http://dasblog.info/">http://dasblog.info/</a></p>
+
+
+<p>This is a full ASP.NET 2.0 release!&nbsp;&nbsp; Along with the new release comes a new look for the dasBlog website (designed by me).</p>
+
+
+<p>Check out the release notes to see all of the great new features.</p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2007/08/dasblog-2-0-released/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/08/blue-october-august-4th/">Blue October - August 4th</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-08-09 00:00:00 -0500" pubdate  updated >Aug 9<span>th</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Me, My wife, and daughter went to go see Blue October play at the Sam Houston Race Park.&nbsp; It was my 2<sup>nd</sup> time to see the band (the first being at a venue that only held 300 people).&nbsp; There were a few thousand people there and it was really great to see how big the band has gotten.</p>
+
+
+<p><em>Me and my baby at the Race Track before the concert<br></em><img src="/images/IMG_5495_small_.jpg" alt="Me and my baby"  border="0" /></p>
+
+
+<p><em>My 2 favorite girls…<br></em><img src="/images/IMG_5490_small_.jpg" alt="IMG_5490"  border="0" /></p>
+
+
+<p><em>Rocking out before the concert…<br></em><img src="/images/IMG_5509_small_.jpg" alt="IMG_5509"  border="0" /></p>
+
+
+<p><em>Goofing around…<br><img src="/images/IMG_5512_small_.jpg" alt="IMG_5512"  border="0" /></em></p>
+
+
+<p><em>No, I’m not stoned in this picture…<br><img src="/images/IMG_5551_small_.jpg" alt="My JP Boodhoo Pose"  border="0" /></em></p>
+
+
+<p><em>We’re Hungry…<br><img src="/images/IMG_5554_small_.jpg" alt="IMG_5554"  border="0" /></em></p>
+
+
+<p><em>Finally, they arrive…<br><img src="/images/IMG_5570_small_.jpg" alt="IMG_5570"  border="0" /></em></p>
+
+
+<p>They played mostly songs from their new album, Foiled (which is my least favorite to be honest).&nbsp; I much prefer The Answers or Consent to Treatment.</p>
+
+
+<p><em><img src="/images/IMG_5603_small_.jpg" alt="IMG_5603"  border="0" /></em></p>
+
+
+<p><em></em>&nbsp;</p>
+
+
+<p>Blue October always puts on such a great show.&nbsp; The band is full of energy and Justin’s vocals seem to never end.&nbsp; I don’t know how he does it… I was singing along all night and nearly lost my voice.&nbsp; I guess I can let go of my hopes of being a rock god <img src="http://www.flux88.com/uploads/smile1.gif">.&nbsp; Well, there’s always Guitar Hero.</p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2007/08/blue-october-august-4th/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/08/professional-gender-transmogriphier/">Professional Gender Transmogriphier</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-08-08 00:00:00 -0500" pubdate  updated >Aug 8<span>th</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>The other day, my cube-mate <a href="http://pseale.com/blog" target="_blank">Peter Seale</a>, posed the following question:</p>
+
+
+<blockquote>Do you ever wonder why the Experts Exchange website url has a dash in it? </blockquote>
+
+
+<p>Well, no I didn&#8217;t before&#8230; but I now I am&#8230; why? (at this moment I pause for a second and think about what the url would be&#8230; )</p>
+
+
+<p><strong>expertsexchange dot com</strong></p>
+
+
+<p>That just might send the wrong message&#8230; whaddyathink?</p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2007/08/professional-gender-transmogriphier/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/08/html-5-sneak-peek/">HTML 5 Sneak Peek</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-08-08 00:00:00 -0500" pubdate  updated >Aug 8<span>th</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Check out&nbsp;the article over at IBM on <a href="http://www.ibm.com/developerworks/library/x-html5/?ca=dgr-lnxw01NewHTML" target="_blank">New Elements in HTML 5</a>.</p>
+
+
+<p>Everyone who knows me knows that I loathe using tables for layout.&nbsp; My biggest beef with it (there are many) are that it usually renders an unnecessary amount of markup for simple things.&nbsp;&nbsp;Good CSS design reduces this drastically but there are occasions when you have a layout that ends up being as bloated as using tables.</p>
+
+
+<p>If you need to style two sections of divs that have a similar or convoluted hierarchy, you usually have to resort to adding classes.&nbsp; Classes add to the visual weight of the HTML, so I generally prefer not to use them if I can select the element using CSS.</p>
+
+
+<p>New tags in HTML 5 will help with this even further.&nbsp; These are all semantic structural tags that encourage proper design using HTML:</p>
+
+
+<ul><li>section</li><li>header</li><li>footer</li><li>nav</li><li>article</li></ul>
+
+
+<p>A &lt;`section&gt; `element will denote regions of the page that can easily be selected. Who knows, &lt;`section&gt; `might even replace &lt;`div&gt;`.</p>
+
+
+<p>You&rsquo;ll also notice a trend where tags have no visual representation at all.&nbsp; They might be styled differently by CSS, but that&rsquo;s not the point.&nbsp; a &lt;time&gt; element could be used for programs to easily distinguish the time of a post, or the time that the page was last rendered, for example.</p>
+
+
+<p>Check out the article, it is worth a read.&nbsp; These changes are long overdue and will help raise the bar on web standards usage even further.&nbsp; Let&rsquo;s just hope IE plays nice this time (I think they will).</p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2007/08/html-5-sneak-peek/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/08/e-goes-gold/">E Goes Gold</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-08-08 00:00:00 -0500" pubdate  updated >Aug 8<span>th</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><div><p>My favorite text editor for HTML, CSS, JavaScript, Ruby/Rails, etc development just announced its 1.0 stable release.&nbsp; The beta versions were very good and I rarely ran into issues.</p><p></p><p>If you aren’t using e, you should check it out:</p><p><img src="/images/image001___.jpg" alt="e"  border="0" /></p><p>If you’re like me and jealous of the Mac crowd who gets to use TextMate ( /drool ) then this is the best alternative for Windows.&nbsp; (I hear there is a Linux version coming soon).</p><p></p><p>But if you’re not privy to what coolness awaits you, allow me to tantalize you with some e-excellence:</p><ul><li>Keep looking up the exact doctype syntax?&nbsp; Type <strong>doctype&lt;TAB&gt;</strong> and a context menu appears allowing you to select your doctype (XHTML 1.0 Transitional for example).&nbsp; &nbsp;(And you <strong>should be using a doctype</strong> header).</li><li>Type head&lt;TAB&gt;, it creates the header section for you, places the cursor right where you put the title, press &lt;TAB&gt; again and you&#8217;re ready to enter scripts and style sheets.</li><li>Want more?Try link, style, body, div, table, ul li &#8230; the list goes on. </li></ul><p>These are just the HTML bundles.There are a crap-ton of bundles that already exist for TextMate, and they are supported with e.</p><p>So head on over to <a href="http://www.e-texteditor.com/" target="_blank">http://www.e-texteditor.com</a> and pick up a trial copy.If you like it, consider buying it.The time you save will surpass the measly $35 you spent in no time.time.</p><div class="bjtags">Tags:<a rel="tag" href="http://technorati.com/tag/Tools">Tools</a></div></div>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2007/08/e-goes-gold/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/08/dear-vsts-testi-hate-you/">Dear VSTS Test:I Hate You</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-08-06 00:00:00 -0500" pubdate  updated >Aug 6<span>th</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I cannot even count the ways that VSTS Test is inferior to NUnit (or MbUnit).</p>
+
+
+<p>I&rsquo;ve been running my tests via TestDriven.NET (right-click, Run Test) and it has been working just fine.&nbsp; The tests run, I get my results.&nbsp; The reason I do this is because the built-in test runner <strike>sucks</strike> leaves something to be desired.</p>
+
+
+<p>I went to a teammates machine the other day and he ran the test suite and most of the tests failed.&nbsp; In fact, any test that hit the database failed.&nbsp; All of them had the same error message:&nbsp; </p>
+
+
+<p><em><strong>ConfigurationException:&nbsp; Could not load the&nbsp;configSource &lsquo;local-connectionStrings.config&rsquo;</strong>.</em></p>
+
+
+<p>This file is copied (via pre-build event) from a root location, to the output directory.&nbsp; This file is, by nature, different for each developer.&nbsp; It contains connection strings that are specific to the machine.</p>
+
+
+<p>Using FileMon I was able to see that the VSTS Test Runner was looking in the <strong>..&#46;.\TestResults\{TIMESTAMP FOLDER HERE}\Out\</strong> directory.&nbsp; The VSTS product team claims that this is for remote running of tests, but I suspect that it is just a poor solution to the problem.&nbsp; Anyway, there is no way that I can (via a batch file) copy the config file to this folder.&nbsp; So Pre-Build events are out.</p>
+
+
+<p>I read up on the issue and find that it is possible to have items copied to the Test Results folder.&nbsp; You have to add this attribute to a test method:</p>
+
+
+<p><strong>[DeployItem(&ldquo;local-connectionStrings.config&rdquo;)]</strong></p>
+
+
+<p>&hellip;and yes, I said to a <em>test method</em>.&nbsp; It will not work on a [TestInitialize] or [TestClass].&nbsp; So basically if I want to use this feature, I have to retro fit around 80 tests to include this attribute, then tell my whole team to do it as well.&nbsp; No thank you.</p>
+
+
+<p>You can also add the Deployment Item to the localtestrun.testrunconfig file (under Solution Items).&nbsp; This file says &ldquo;local&rdquo; but it is checked into source control, so it is not clear if this change will be applied to everyone&rsquo;s working copy or my own.</p>
+
+
+<p>This is a stupid, hacky solution to a problem that doesn&rsquo;t even exist with the other unit test frameworks.&nbsp; Since we aren&rsquo;t really using any TFS test features yet (Web Tests will come) &mdash;I&rsquo;m tempted to just rewrite them all for NUnit.&nbsp; Of course I will get pushback from management, but these little issues are becoming a hinderance.&nbsp; </p>
+
+
+<p><strong>If it is cumbersome to test, developers won&rsquo;t write unit tests.</strong></p>
+
+
+<p>(Oh, and <a href="http://www.jetbrains.com/">JetBrains</a>:&nbsp; when will you release support for the VSTS Tests?&nbsp; I&rsquo;m dying over here!)</p>
+
+
+<div class="bjtags">Tags:<a rel="tag" href="http://technorati.com/tag/VSTS">VSTS</a>, <a rel="tag" href="http://technorati.com/tag/Unit+Test">Unit+Test</a></div>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2007/08/dear-vsts-testi-hate-you/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/08/resharper-coolness-move-methods/">ReSharper Coolness - Move Methods</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-08-03 00:00:00 -0500" pubdate  updated >Aug 3<span>rd</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Every once and a while I come across a new feature that just makes me stop and think &ldquo;<a href="http://jetbrains.com/resharper" target="_blank">ReSharper</a>, I love you MAN!&rdquo;</p>
+
+
+<p>If you have your cursor on a method, press <strong>CTRL+ALT+SHIFT&nbsp; </strong>and the <strong>Up</strong> or <strong>Down</strong> arrow keys.</p>
+
+
+<p>Here it is in action:</p>
+
+
+<p><img src="/images/resharper_movemethod_.gif" alt="Resharper:move method"  border="0"  /></p>
+
+
+<div class="bjtags">Tags:<a rel="tag" href="http://technorati.com/tag/ReSharper">ReSharper</a>, <a rel="tag" href="http://technorati.com/tag/Tools">Tools</a></div>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2007/08/resharper-coolness-move-methods/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/08/decorator-the-cool-pattern-with-the-stupid-name/">Decorator - the Cool Pattern With the Stupid Name</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-08-03 00:00:00 -0500" pubdate  updated >Aug 3<span>rd</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>So I have a logging class that is implementation agnostic.&nbsp; Under the hood it uses an <a href="http://www.dofactory.com/Patterns/PatternAdapter.aspx" target="_blank">Adapter</a> for <a href="http://msdn2.microsoft.com/en-us/library/aa480453.aspx" target="_blank">Enterprise Library</a> Logging, however we could easily switch it out for <a href="http://logging.apache.org/log4net/" target="_blank">log4net</a> if needed without changing the code.</p>
+
+
+<p>So you can imagine that I have an interface that looks like this:</p>
+
+
+<div style="FONT-SIZE: 10pt; BACKGROUND: white; COLOR: black; FONT-FAMILY: Courier New"><p style="MARGIN: 0px"><span style="COLOR: blue">public</span> <span style="COLOR: blue">interface</span> <span style="COLOR: #2b91af">ILogger</span></p><p style="MARGIN: 0px">{</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; <span style="COLOR: blue">void</span> Write(<span style="COLOR: blue">string</span> text);</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; <span style="COLOR: blue">void</span> Warn(<span style="COLOR: blue">string</span> text);</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; <span style="COLOR: blue">void</span> Error(<span style="COLOR: blue">string</span> text, <span style="COLOR: #2b91af">Exception</span> msg);</p><p style="MARGIN: 0px">}</p></div>
+
+
+<!--EndFragment-->
+
+
+<p>&hellip; and there is currently an implementation of this class called EntLibLogger:</p>
+
+
+<div style="FONT-SIZE: 10pt; BACKGROUND: white; COLOR: black; FONT-FAMILY: Courier New"><p style="MARGIN: 0px"><span style="COLOR: blue">public</span> <span style="COLOR: blue">class</span> <span style="COLOR: #2b91af">EntLibLogger</span> : <span style="COLOR: #2b91af">ILogger</span></p><p style="MARGIN: 0px">{&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; </p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; <span style="COLOR: blue">public</span> <span style="COLOR: blue">void</span> Write(<span style="COLOR: blue">string</span> text)</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; {</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="COLOR: green">//ent. lib write log entry</span></p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; }</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; <span style="COLOR: blue">public</span> <span style="COLOR: blue">void</span> Warn(<span style="COLOR: blue">string</span> text)</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; {</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="COLOR: green">//ent. lib warn</span></p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; }</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; <span style="COLOR: blue">public</span> <span style="COLOR: blue">void</span> Error(<span style="COLOR: blue">string</span> text, <span style="COLOR: #2b91af">Exception</span> msg)</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; {</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="COLOR: green">//ent. lib error</span></p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; }&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; </p><p style="MARGIN: 0px">}</p></div>
+
+
+<!--EndFragment-->
+
+
+<p>The specific logger that is used is abstracted behind a factory of course.&nbsp; However, some of the applications that use this component will not have the logging configuration.&nbsp; It is perfectly feasible to ignore logging in this scenario (ie: swallow exceptions) however this is something that any logging component would do.&nbsp; I don&rsquo;t want to add it to each and every implementation of ILogger.</p>
+
+
+<p>So here&rsquo;s where the decorator comes in.&nbsp; This pattern could really use a better name, but I can&rsquo;t think of one, so I&rsquo;ll leave that up to you.</p>
+
+
+<p>A Decorator implements the same interface, however it wraps each method with its own behavior before deferring the call to an inner implementation.&nbsp; Wow, that doesn&rsquo;t really make much sense, so how about an example&hellip;</p>
+
+
+<div style="FONT-SIZE: 10pt; BACKGROUND: white; COLOR: black; FONT-FAMILY: Courier New"><p style="MARGIN: 0px"><span style="COLOR: blue">public</span> <span style="COLOR: blue">class</span> <span style="COLOR: #2b91af">SilentlyFailLoggingDecorator</span> : <span style="COLOR: #2b91af">ILogger</span></p><p style="MARGIN: 0px">{</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; <span style="COLOR: blue">private</span> <span style="COLOR: blue">readonly</span> <span style="COLOR: #2b91af">ILogger</span> _innerLogger;</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; <span style="COLOR: blue">public</span> SilentlyFailLoggingDecorator(<span style="COLOR: #2b91af">ILogger</span> innerLogger)</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; {</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; _innerLogger = innerLogger;</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; }</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; <span style="COLOR: blue">public</span> <span style="COLOR: blue">void</span> Write(<span style="COLOR: blue">string</span> text)</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; {</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="COLOR: blue">try</span></p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; _innerLogger.Write(text);</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="COLOR: blue">catch</span></p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="COLOR: green">//swallow exception</span></p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; }</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; <span style="COLOR: blue">public</span> <span style="COLOR: blue">void</span> Warn(<span style="COLOR: blue">string</span> text)</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; {</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="COLOR: blue">try</span> </p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; </p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; _innerLogger.Warn(text);&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; </p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="COLOR: blue">catch</span></p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="COLOR: green">//swallow exception&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; </span></p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; }</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; <span style="COLOR: blue">public</span> <span style="COLOR: blue">void</span> Error(<span style="COLOR: blue">string</span> text, <span style="COLOR: #2b91af">Exception</span> exc)</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; {</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="COLOR: blue">try</span></p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; _innerLogger.Error(text, exc);</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="COLOR: blue">catch</span></p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="COLOR: green">//swallow</span></p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; }</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGI
+N: 0px">}</p></div>
+
+
+<p>All of the actual implementation comes from whatever ILogger is sent via the constructor.&nbsp; All this class does is &ldquo;decorate&rdquo; the method calls with additional behavior.&nbsp; (This time, we&rsquo;re choosing to silently ignore errors rather than throw exceptions that cause the program to stop)</p>
+
+
+<p>To wire this up, wherever the factory method resides that creates the actual logger, you&rsquo;d write&hellip;</p>
+
+
+<div style="FONT-SIZE: 10pt; BACKGROUND: white; COLOR: black; FONT-FAMILY: Courier New"><p style="MARGIN: 0px"><span style="COLOR: blue">public</span> <span style="COLOR: blue">static</span> <span style="COLOR: #2b91af">ILogger</span> GetLogger()</p><p style="MARGIN: 0px">{</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; <span style="COLOR: green">//via IoC or just hard-coding</span></p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; <span style="COLOR: blue">return</span> <span style="COLOR: blue">new</span> <span style="COLOR: #2b91af">SilentlyFailLoggingDecorator</span>(</p><p style="MARGIN: 0px"><font color="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font><span style="COLOR: blue">new</span> <span style="COLOR: #2b91af">EntLibLogger</span>()</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp;&nbsp;);</p><p style="MARGIN: 0px">}</p></div>
+
+
+<!--EndFragment-->
+
+
+<p>So there you have it!&nbsp; The decorator pattern can do all kinds of Aspect-Oriented things such as Log a message each time a method is called, or possibly massage parameters before sending them to an inner class.</p>
+
+
+<div class="bjtags">Tags:<a rel="tag" href="http://technorati.com/tag/Decorator">Decorator</a>, <a rel="tag" href="http://technorati.com/tag/Enterprise+Library">Enterprise+Library</a>, <a rel="tag" href="http://technorati.com/tag/log4net">log4net</a></div>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2007/08/decorator-the-cool-pattern-with-the-stupid-name/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+<nav role="pagination">
+  <div>
+    
+      <a class="prev" href="/blog/page/23/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/21/">Newer &rarr;</a>
+    
+  </div>
+</nav>
+
+<script type="text/javascript">
+    var disqus_shortname = 'subdigital';
+    (function () {
+      var s = document.createElement('script'); s.async = true;
+      s.type = 'text/javascript';
+      s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+      (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+
+</div>
+<aside role=sidebar>
+  
+    <section>
+  <h1>Who am I?</h1>
+  <p>I&#8217;m Ben Scheirman. I make Rails &amp; iPhone apps for <a href="http://chaione.com" target="_blank">ChaiONE</a> in Houston, TX.</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/08/vim---could-not-invoke-jslint/">Vim - Could Not Invoke JSLint</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/is-rails-exempt-from-software-principles/">Is Rails Exempt?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/when-viewwillappear-isnt-called/">When viewWillAppear: Isn&#8217;t Called</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/moving-my-blog/">Moving My Blog</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/my-vim-journey/">My Vim Journey</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("subdigital", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/subdigital" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @subdigital</a>
+  
+</section>
+
+
+<section>
+  <h1>On Delicious</h1>
+  <script type="text/javascript" src="http://feeds.delicious.com/v2/js/subdigital?title=&count=3&sort=date&extended"></script>
+  <p><a href="http://delicious.com/subdigital">My Delicious Bookmarks &raquo;</a></p>
+</section>
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer>
+<a style="display:block; float: right" title="Real Time Analytics" href="http://getclicky.com/66470389"><img alt="Real Time Analytics" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
+<script src="//static.getclicky.com/js" type="text/javascript"></script>
+<script type="text/javascript">try{ clicky.init(66470389); }catch(e){}</script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/66470389ns.gif" /></p></noscript>
+
+<p>
+  Copyright &copy; 2011 - Ben Scheirman -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+</body>
+</html>

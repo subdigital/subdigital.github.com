@@ -1,0 +1,379 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Fickle Bits: Cage Match: Gantt Charts vs. Burndowns</title>
+  <meta name="author" content="Ben Scheirman">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="canonical" href="http://benscheirman.com/blog/2008/05/cage-match-gantt-charts-vs-burndowns/"/>
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/ficklebits" rel="alternate" title="Fickle Bits" type="application/atom+xml"/>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-210379-10']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">Fickle Bits</a></h1>
+  
+    <h2>You're doing it wrong.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/ficklebits" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:benscheirman.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry">
+  
+  <header>
+    
+      <h1 class="entry-title">Cage Match: Gantt Charts vs. Burndowns</h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2008-05-11 00:00:00 -0500" pubdate  updated >May 11<span>th</span>, 2008</time>
+
+
+</p>
+    
+  </header>
+
+
+<div class="entry-content"><p>A large majority of the projects that I come into contact with start out with some sort of Gantt Chart.&#160; Whether it comes in the form of Microsoft Project or just Excel, this is something that is very common in the software development industry.</p>
+
+
+<p>A typical project plan looks like this:</p>
+
+
+<p><a href="http://flux88.com/content/binary/WindowsLiveWriter/CageMatchGanttChartsvs.Burndowns_1355B/project-plan_4.jpg"><img style="border-top-width: 0px; border-left-width: 0px; border-bottom-width: 0px; border-right-width: 0px" height="119" alt="project-plan" src="http://flux88.com/content/binary/WindowsLiveWriter/CageMatchGanttChartsvs.Burndowns_1355B/project-plan_thumb_1.jpg" width="546" border="0" /></a> </p>
+
+
+<p>There&#8217;s a list of tasks on the left, which are things like &quot;Create Component X&quot; or &quot;Build Customer Search Screen.&quot;&#160; The next column shows the estimated duration of the task.&#160; These are time estimates that somebody (or some group) decided on at some point in defining the project.&#160; The chart shows the critical path of tasks in order to get an estimate of when the project will be completed.&#160; You can see that some tasks can be run in parallel, so sometimes delays on these will not result in delays of the overall project.</p>
+
+
+<p>What&#8217;s wrong with this?&#160; Under the right environment, one could argue that this would be very effective.&#160; This &quot;right environment&quot; generally looks something like this:</p>
+
+
+<ul> <li>You know exactly what you&#8217;re going to build </li><li>You know exactly how long each task will take </li><li>The project won&#8217;t change while it&#8217;s underway </li> </ul>
+
+
+<p>Hrm, this sounds a lot like bridge-building to me.&#160; But software development is different.&#160; We aren&#8217;t building the same thing over and over again.&#160; If we were, custom software development would be almost non-existent.&#160; We don&#8217;t know what we&#8217;re going to build because our customers often don&#8217;t know what they want!</p>
+
+
+<p>There&#8217;s a large component missing from this diagram.&#160; Something that our customers care <strong>deeply </strong>about.&#160; Do you know what it is?&#160; That&#8217;s right, it&#8217;s <strong>business value</strong>!&#160; Where is the business value depicted in this chart?&#160; Surely it&#8217;s important.&#160; How else can we make scope changes and reorder the work if things aren&#8217;t going as planned.&#160; This graph has everything already ordered.&#160; According to <strong>Gantt charts the business value only comes at the end of the project</strong>.&#160; Our customer doesn&#8217;t know what &quot;Code Component X&quot; means.&#160; This is a developer task, and has no value statement associated with it.</p>
+
+
+<p>Instead, what if we were to organize our work in terms of features.&#160; A feature certainly has some notion of value.&#160; You customer can easily tell you whether one feature is more important than another.</p>
+
+
+<p>One could imagine a conversation like this:</p>
+
+
+<blockquote> <p><strong>You:</strong>&#160; <em>George, we&#8217;re looking at our current progress and it looks like we&#8217;re not going to meet our May 18th deadline for your demo with the VC guys.&quot;</em></p><p><strong>Customer:</strong> <em>What?!&#160; Oh no this is terrible!&#160; They might cut our funding!&#160; We have to demo this stuff!</em></p><p><strong>You:</strong>&#160; <em>Well, if we were to remove one of these 3 features, we could finish on time and have a demo ready.&#160; Which one of these can wait a bit?</em></p><p><strong>Customer:<em> </em></strong><em>Well, it&#8217;s critical that we are able to cancel a reservation.&#160; And I think that we also really need to be able to see the most recent reservations placed, as that is something that the client will do daily, but searching reservations seems like it will be important, but not critical.&#160; For now they can just find the reservations from the list.</em></p> </blockquote>
+
+
+<p>Did you see what happened?&#160; <strong>Magic just happened</strong>, that&#8217;s what.&#160; You and your customer just had a conversation about features and value.&#160; You&#8217;re able to adapt to the project&#8217;s progress and work on the most critical features first.&#160; The demo with the VC guys will happen and the most valuable features will be there.</p>
+
+
+<p>How could this have happened in the Gantt chart above?&#160; We might be in the middle of &quot;Code Component X&quot; when the demo comes.&#160; Can we have the same conversation?</p>
+
+
+<p><strong>Lesson #1:&#160; Task-based plans don&#8217;t convey business value.&#160; Feature-based plans do.</strong></p>
+
+
+<p>Okay, so now we have a list of features instead of tasks.&#160; Don&#8217;t we still need to know what is required to implement each feature?&#160; Well yes, but not necessarily at the start of the project.&#160; Breaking features down into tasks is an ongoing activity throughout the life of the project.</p>
+
+
+<p>What&#8217;s next?&#160; Let&#8217;s say we have 2 tasks on our project plan that look like this:</p>
+
+
+<ul> <li>Build the New Reservation screen (3 days) </li><li>Build the New Booking screen (3 days) </li> </ul>
+
+
+<p>Bookings and Reservations seemed like similar concepts, so we estimated them the same.&#160; So we go off and build the New Reservation screen and we get hit with some complexity.&#160; It takes us 5 days instead of 3.&#160; What do we do about the New Booking Screen?&#160; Is it likely that this screen will take us 5 days as well?&#160; Or do we suck it in and try and work twice as fast to get this one done in 1 day, so our project plan doesn&#8217;t go off track?</p>
+
+
+<p><strong>Once an estimate proves incorrect, any other estimate based on that one is now incorrect</strong>.&#160; We can assume with high probability that building the Booking screen will take 5 days just like the similar Reservation screen.&#160; The problem here is that we&#8217;ve estimated these tasks in duration rather than size.</p>
+
+
+<p>Instead, let&#8217;s give the Reservation screen an arbitrary number, like 5.&#160; 5 What?&#160; I don&#8217;t know&#8230;&#160; 5 Bananas.&#160; 5 Gummy Bears.&#160; 5 Stars.&#160; Whatever it is, a 5 should mean something.&#160; What&#8217;s a 5?&#160; It&#8217;s about the size of that Reservation screen.&#160; Oh ok, so this Booking screen must also be a 5.&#160; And this Order Fulfillment screen, that&#8217;s twice as big, so let&#8217;s call that a 10.&#160; What we&#8217;re doing here is estimating in relative complexity, which far more stable a number. </p>
+
+
+<p>Human beings can discern the size of something much more effectively than the time it will take to build it.&#160; And as things progress on our project, the size generally stays constant.&#160; We won&#8217;t have to re-estimate these tasks unless the size changes.</p>
+
+
+<p><strong>Lesson 2:&#160; Estimate in size, not duration.</strong></p>
+
+
+<p>OK, I can already hear you saying &quot;But how can we tell our customer how long it will take if we don&#8217;t estimate in duration?&quot;&#160; &#8211; Well we do estimate in duration, but we also convey the confidence in this estimate. </p>
+
+
+<blockquote> <p><strong>Customer</strong>:&#160; <em>So how long will this take?</em></p><p><strong>You</strong>:&#160; <em>I don&#8217;t know, we still don&#8217;t have enough information about what to build, so I can&#8217;t give you a firm number.</em></p><p><strong>Customer</strong>:&#160; <em>Well I have to know, how long do you think it will take?</em></p><p><strong>You</strong>:&#160; <em>My best guess?&#160; 3-6 months.</em></p><p><strong>Customer</strong>:&#160; <em>3-6 months?&#160; That&#8217;s a big difference!</em></p><p><strong>You</strong>:&#160; <em>Absolutely.&#160; We are estimating this at the worst possible position in the project.&#160; Let&#8217;s assume it will take 6 months for now.&#160; After every iteration (2-4 weeks, typically) we will give you a more educated guess.</em></p> <strong><em></em></strong></blockquote>
+
+
+<p>Granted, not all customers will be willing to do this, but you can spend more time discussing the process than I have here.</p>
+
+
+<p>This is where Burndown charts become so effective.&#160; A Burndown chart looks something like this:</p>
+
+
+<p><a href="http://flux88.com/content/binary/WindowsLiveWriter/CageMatchGanttChartsvs.Burndowns_1355B/burndown.jpg"><img style
+="border-top-width: 0px; border-left-width: 0px; border-bottom-width: 0px; border-right-width: 0px" height="345" alt="burndown" src="http://flux88.com/content/binary/WindowsLiveWriter/CageMatchGanttChartsvs.Burndowns_1355B/burndown_thumb.jpg" width="574" border="0" /></a> </p>
+
+
+<p>This chart shows the hours remaining to complete the work during a given iteration.&#160; Let&#8217;s assume we attempted to complete 67 points (or Gummy Bears, whatever you decided on) of features.&#160; When planning for hour iteration we broke these down into tasks and the team estimated 420 hours worth of work.&#160; At the end of each day, the developers estimated how many hours remained on the tasks they were working on.&#160; This continues every day.&#160; Sometimes we uncover hidden work and this chart goes upward, as you can see in the picture.&#160; Regardless of what we planned to do with our best intentions, we want to see actual performance.&#160; If you were managing this project, would you feel comfortable with the current progress?</p>
+
+
+<p>Try plotting a slope line on this image to see where we&#8217;re headed.&#160; Also plot the ideal line if we were to be on track.</p>
+
+
+<p><a href="http://flux88.com/content/binary/WindowsLiveWriter/CageMatchGanttChartsvs.Burndowns_1355B/burndown-projected_2.jpg"><img style="border-top-width: 0px; border-left-width: 0px; border-bottom-width: 0px; border-right-width: 0px" height="345" alt="burndown-projected" src="http://flux88.com/content/binary/WindowsLiveWriter/CageMatchGanttChartsvs.Burndowns_1355B/burndown-projected_thumb.jpg" width="572" border="0" /></a> </p>
+
+
+<p>We&#8217;re about 1/3 done with our first iteration, and we can already make solid assumptions of where we&#8217;re headed.&#160; It&#8217;s clear that we aren&#8217;t going to make our target, so it&#8217;s time to have that conversation with our customer on what to pull.&#160; This graph might also depict that we&#8217;ll finish way too early, in which case the customer would be invited to select an extra feature to be developed in that iteration (provided the feature would fit in the slack room we had).</p>
+
+
+<p>This chart shows clearly what is going on in the project, and you can easily expand this chart to encompass the overall project, not just the current iteration.&#160; What if this graph represented the overall project and we were 1/3 done.&#160; What would you do?</p>
+
+
+<ul> <li>you could cancel the project &#8211; it sucks, but it&#8217;s better to get out now than to start&#160; a death march project that ultimately won&#8217;t finish in time and won&#8217;t help the business.&#160; Better to lose $150k than $500k any day of the week.<img style="border-top-width: 0px; border-left-width: 0px; border-bottom-width: 0px; margin: 0px 0px 0px 10px; border-right-width: 0px" height="147" alt="icon-cornflower-blue" src="http://flux88.com/content/binary/WindowsLiveWriter/CageMatchGanttChartsvs.Burndowns_1355B/icon-cornflower-blue_1.jpg" width="109" align="right" border="0" /> </li><li>you could cut scope &#8211; maybe changing the icons to cornflower blue wasn&#8217;t as crucial to the business as we thought. </li><li>you could remove impediments &#8211; what if you found that the developers are all experienced <a href="http://www.jetbrains.com/resharper" target="_blank">ReSharper</a> users and they could be more productive if they all had licenses?&#160; What if we had trouble getting a hold of the domain experts and we were waiting too long to get answers?&#160; We could make some changes there to streamline the process.&#160; Most business have a ton of fat in the process.&#160; We just need to find it and cut it out. </li><li>you could add more resources &#8211; if the end date is firm, then we might add some new folks to the project.&#160; This is a bit of a dangerous move, as adding too many people to a project tends to make it later, but in a lot of cases, and extra pair of hands will help.&#160; We can ask the team what type of person they need and try to fill that role. </li> </ul>
+
+
+<p><img style="border-top-width: 0px; border-left-width: 0px; border-bottom-width: 0px; margin: 0px 10px 0px 0px; border-right-width: 0px" height="244" alt="ed-harris-apollo-13" src="http://flux88.com/content/binary/WindowsLiveWriter/CageMatchGanttChartsvs.Burndowns_1355B/ed-harris-apollo-13_1.jpg" width="162" align="left" border="0" />This type of actual progress vs. planned progress reminds me of that great scene in Apollo 13, where Ed Harris&#8217; character is asking whether or not a spacecraft could do what they were asking.&#160; A squeemish representative cowardly states, &quot;The LM was not designed for this&#8230;&quot; </p>
+
+
+<p>&quot;I don&#8217;t care what it was <em>designed </em>to do, I wanna know what it <em>can</em> do!&quot;</p>
+
+
+<p>The original plan is only useful enough until it doesn&#8217;t represent reality any more.&#160; What is useful is our empirical data.&#160; Our actual progress.&#160; That allows us to make informed decisions about what to do next.</p>
+
+
+<p><strong>Lesson 3:&#160; Actual progress is infinitely more important than planned progress.</strong></p>
+
+
+<p>At the end of a few iterations we&#8217;ll get a pretty good idea of how many points we can complete in an iteration.&#160; This number is our velocity.</p>
+
+
+<p>If we have identified 600 points of features to complete until we&#8217;re &quot;done,&quot; and we&#8217;re completing an average of 60 points per iteration, then it doesn&#8217;t take a rocket scientist to tell that we&#8217;ll be done in 10 iterations.&#160; That&#8217;s a powerful statement.&#160; After a few iterations you can tell your customer, &quot;based on our current velocity and the amount of work we&#8217;ve identified, we&#8217;ll be done July 27th.&quot;&#160; The next iteration this date will get closer and closer to the <em>actual</em> &quot;done&quot; date.</p>
+
+
+<p><strong>Lesson 4:</strong>&#160; Calculate your velocity and use that to plan for the future.</p>
+
+
+<p>Burdowns (along with other related practices and ideas) are an incredibly effective tool to help you reign in your out of control projects.&#160; Plans, road-maps, and timelines are all effective tools until they&#8217;re not reality.&#160; Learn from your past performance and project this onto the future.</p>
+
+
+<p>I&#8217;ve only scratched the surface on how to effectively use burndowns on a project.&#160; Some other important aspects are defining what &quot;done&quot; means and continuously improving the process.&#160; If you&#8217;re interested in implementing burndowns, I highly recommend you read these books:</p>
+
+
+<ul> <li><a href="http://www.amazon.com/Agile-Project-Management-Microsoft-Professional/dp/073561993X" target="_blank">Agile Project Management with Scrum</a> by Ken Schwaber </li><li><a href="http://www.amazon.com/Agile-Estimating-Planning-Robert-Martin/dp/0131479415" target="_blank">Agile Estimating and Planning</a> by Mike Cohn </li> </ul>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ben Scheirman</span></span>
+
+      
+
+
+
+
+<time datetime="2008-05-11 00:00:00 -0500" pubdate  updated >May 11<span>th</span>, 2008</time>
+
+
+
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://benscheirman.com/blog/2008/05/cage-match-gantt-charts-vs-burndowns/" data-via="subdigital" data-counturl="http://benscheirman.com/blog/2008/05/cage-match-gantt-charts-vs-burndowns/" >Tweet</a>
+  
+  
+  <g:plusone size="medium"></g:plusone>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread"><div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_shortname = 'subdigital';
+  var disqus_identifier = 'http://benscheirman.com/blog/2008/05/cage-match-gantt-charts-vs-burndowns/';
+  var disqus_url = 'http://benscheirman.com/blog/2008/05/cage-match-gantt-charts-vs-burndowns/';
+  //var disqus_developer = 1;
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside role=sidebar>
+  
+    <section>
+  <h1>Who am I?</h1>
+  <p>I&#8217;m Ben Scheirman. I make Rails &amp; iPhone apps for <a href="http://chaione.com" target="_blank">ChaiONE</a> in Houston, TX.</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/08/vim---could-not-invoke-jslint/">Vim - Could Not Invoke JSLint</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/is-rails-exempt-from-software-principles/">Is Rails Exempt?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/when-viewwillappear-isnt-called/">When viewWillAppear: Isn&#8217;t Called</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/moving-my-blog/">Moving My Blog</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/my-vim-journey/">My Vim Journey</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("subdigital", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/subdigital" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @subdigital</a>
+  
+</section>
+
+
+<section>
+  <h1>On Delicious</h1>
+  <script type="text/javascript" src="http://feeds.delicious.com/v2/js/subdigital?title=&count=3&sort=date&extended"></script>
+  <p><a href="http://delicious.com/subdigital">My Delicious Bookmarks &raquo;</a></p>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer>
+<a style="display:block; float: right" title="Real Time Analytics" href="http://getclicky.com/66470389"><img alt="Real Time Analytics" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
+<script src="//static.getclicky.com/js" type="text/javascript"></script>
+<script type="text/javascript">try{ clicky.init(66470389); }catch(e){}</script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/66470389ns.gif" /></p></noscript>
+
+<p>
+  Copyright &copy; 2011 - Ben Scheirman -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+</body>
+</html>

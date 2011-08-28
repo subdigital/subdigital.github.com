@@ -1,0 +1,665 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Fickle Bits</title>
+  <meta name="author" content="Ben Scheirman">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="canonical" href="http://benscheirman.com/blog/page/16/index.html"/>
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/ficklebits" rel="alternate" title="Fickle Bits" type="application/atom+xml"/>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-210379-10']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">Fickle Bits</a></h1>
+  
+    <h2>You're doing it wrong.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/ficklebits" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:benscheirman.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/02/case-insensitive-string-comparison-is-teh-suck/">Case Insensitive String Comparison Is Teh Suck</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2008-02-29 00:00:00 -0600" pubdate  updated >Feb 29<span>th</span>, 2008</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Why is it so verbose to compare two strings in C# and see if they are equal, while ignoring case?<br><br>What I mean is this:&nbsp; <b><i>(&#8220;Apples&#8221; == &#8220;apples&#8221;)&nbsp; =&gt; false</i></b><br><br>Take the following examples, each of which does what I want it to, however <b>there is so much noise code here</b> that it really takes away from the readability of the code:<br><br></p>
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>&lt;span style="color: Black; background-color: transparent; font-family: Courier New; font-size: 11px;">Assert.That(matches[0].Email.Equals(email, StringComparison.InvariantCultureIgnoreCase));&lt;br>Assert.That(matches[0].Email.ToLower().Equals(email.ToLower()));&lt;br>Assert.That(&lt;span style="color: Blue; background-color: transparent; font-family: Courier New; font-size: 11px;">string&lt;/span>.Compare(matches[0].Email, email) == 0);&lt;br>Assert.That(Regex.Match(matches[0].Email, email, RegexOptions.IgnoreCase).Success);&lt;/span></div></code></pre></td></tr></table></div></figure></div>
+
+
+<br>Each one of these works, but I really wish this was a language feature.&nbsp; Wouldn&#8217;t it be nice to have a new operator syntax?<br>
+
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>&lt;span style="color: Black; background-color: transparent; font-family: Courier New; font-size: 11px;">Assert.That(matches[0].Email ==? email);&lt;br>//or&lt;br>Assert.That(matches[0].Email ==~ email);&lt;/span></div></code></pre></td></tr></table></div></figure></div>
+
+
+<p><b>It turns out that we&#8217;re not alone.</b>&nbsp; Ruby and Python have the same problem, however their regular expressions option is much more elegant looking (due to the languages having regex as a core feature).&nbsp; This seems like such a common need that I&#8217;m surprised that this type of thing isn&#8217;t built into the core of most languages.<br><br>Granted, there are concerns about how each one of these would behave, for example, how do you compare strings from two different cultures?&nbsp; In my case I&#8217;m always dealing with English characters, but I fully understand the need to support internationalization.<br><br>What do you think?&nbsp; Would you welcome a new operator to save your self some typing and improve readability?<br><p></p></p>
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2008/02/case-insensitive-string-comparison-is-teh-suck/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/02/windows-not-recognizing-free-space/">Windows Not Recognizing Free Space</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2008-02-28 00:00:00 -0600" pubdate  updated >Feb 28<span>th</span>, 2008</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I&rsquo;ve been having problems lately with my primary hard drive filling up.&nbsp; Every once in a while Windows will tell me that I am running out of space on drive C: with only 500mb!&nbsp; After I cough up my tongue I run <a href="http://ccleaner.com/" target="_blank">CCleaner</a> and do a quick <a href="http://windirstat.info/" target="_blank">WinDirStat</a> report to see my big offenders.&nbsp; Nothing glaring ever shows up in the report and I end up just deleting a bunch of old programs and other piddly files that probably only total to 1gb.&nbsp; But Windows shuts up and I move on.</p>
+
+
+<p>The last time this happened I took my World of Warcraft directory and manually (and painfully) moved it over to another drive.&nbsp; This should have freed up 8gb.&nbsp; It didn&rsquo;t.</p>
+
+
+<p>Today I started digging.&nbsp; Windows correctly sees my drive size as 69.2GB, and reports that I only have 3.15GB free.&nbsp; That must mean that ~65GB are in use.&nbsp; However, <a href="http://www.jgoodies.com/freeware/jdiskreport/" target="_blank">JDiskReport</a> (and WinDirStat) is showing that only 24gb are in use.</p>
+
+
+<p><img src="/images/explorer_2Ddrive_2Dspace_small_.jpg" alt="Explorer-drive-space"  border="0"  /></p>
+
+
+<p><img src="/images/jdisk_2Dreport_small_.jpg" alt="Jdisk-report"  border="0"  /></p>
+
+
+<p>I ran <strong>chkdsk</strong> to get a raw view of the drive&nbsp;(and to see if there are any errors) and everything came out clean.&nbsp; It reports that I have 15gb free!</p>
+
+
+<p><img src="/images/chkdsk_2Ddrive_2Dspace_small_.jpg" alt="Chkdsk-drive-space"  border="0"  /></p>
+
+
+<p>Defrag is scheduled to run weekly and windows tells me that it doesn&rsquo;t need a defrag.&nbsp; At this point I&rsquo;m wondering whether the drive is faulty or do I just need to reformat this drive&hellip; (I&rsquo;d rather not do this, of course)</p>
+
+
+<p>Any ideas?&nbsp; I&rsquo;m out of rope at this point.</p>
+
+
+<p>&nbsp;</p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2008/02/windows-not-recognizing-free-space/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/02/shame-on-me/">Shame on Me</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2008-02-27 00:00:00 -0600" pubdate  updated >Feb 27<span>th</span>, 2008</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Someone decided to publicly criticize my example code in my previous post by saying that it was &ldquo;bad.&rdquo;&nbsp; While I don&rsquo;t agree with the nature of the criticism (my blog *does* have comments, you know) I totally agree with the message.&nbsp; It was bad code.&nbsp; I would never place that in a production application.</p>
+
+
+<p>The intent of the post was to demonstrate some ajax techniques, not to talk about how to write testable, decoupled&nbsp;controllers.&nbsp; I suppose that example code should come with a bit of a disclaimer that says <em>&ldquo;hey, we are doing this here for simplicity&rsquo;s sake, but obviously you&rsquo;d abstract this out.&rdquo;&nbsp; </em>Ideally I would have commented out the entire flickr section, because it&rsquo;s totally not important in the context of the example.</p>
+
+
+<p>In light of this topic, here is how a perfectly testable PhotosController might be written:</p>
+
+
+<p>`
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>public class PhotosController : Controller{private readonly IPhotoRepository _photoRepository;public PhotosController(IPhotoRepository photoRepository){_photoRepository = photoRepository;}[ControllerAction]public void Search(){RenderView("Search", new Photo[] { });}[ControllerAction]public void Find(string query, bool? ajax){ var photos = _photoRepository.SearchPhotos(query);ViewData["query"] = query;ViewData["photos"] = photos;if(ajax == true){RenderView("_images", photos);}else{RenderView("results");}}}</div></code></pre></td></tr></table></div></figure></div>
+`<p>Here you can clearly see our dependency on IPhotoRepository.&nbsp; This guy can be anything we want, from a Flickr implementation, google images implementation, a file system directory, or even (gasp) a TEST implementation for writing unit tests!</p><p>Here is the IPhotoRepository, that we are using in the example:</p><p>`
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>public interface IPhotoRepository{Photo[] SearchPhotos(string query);&lt;p>asdf&lt;/p>}</div></code></pre></td></tr></table></div></figure></div>
+`<p>This returns a Photo object (that I defined), which means whatever implementation you choose, you need to map to this object. This is a good thing because it removed my dependency on &#8220;FlickrPhoto&#8221; in the view itself.</p><p>Our FlickrPhotoRepository now looks like this:</p>`
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>public class FlickrPhotoRepository : IPhotoRepository{private readonly IConfigSource _ConfigSource;public FlickrPhotoRepository(IConfigSource configSource){_ConfigSource = configSource;}public Photo[] SearchPhotos(string query){var flickr = new Flickr(_ConfigSource.GetSetting("flickr.api.key"));var results = flickr.PhotosSearch(query, TagMode.AnyTag, query, 40, 1);var photos = new List&lt;Photo&gt;();foreach (var item in results.PhotoCollection){photos.Add(new Photo(item.SquareThumbnailUrl, item.Title, item.PhotoId));}return photos.ToArray();}}</div></code></pre></td></tr></table></div></figure></div>
+`<p>Wait a minute! This class now has it&#8217;s own dependency on IConfigSource? Craziness! In our example code from before, I had accessed the Configuration singleton directly, which is punishable by hand-removal in Albonia. Thank goodness I don&#8217;t live there. Now this class is decoupled from the actual configuration implementation and it could really be coming from a text file or database (whatever you want). <p>Wiring all this up is easy.&nbsp; You could do it via XML, but I chose to do it directly in code: `
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>private void InitializeWindsor(){_container = new WindsorContainer();_container.AddComponent("config-source", typeof(IConfigSource), typeof(AppDomainConfigSource));foreach(Type type in Assembly.GetExecutingAssembly().GetTypes()){ if(type.IsSubclassOf(typeof(Controller))){_container.AddComponent(type.Name, type);}}}</div></code></pre></td></tr></table></div></figure></div>
+`<p>Also note that I&#8217;m using WindsorControllerFactory from MVCContrib, so now my controller can be created (and each of it&#8217;s dependencies ( and their dependencies (and their Dependencies)))&#8230; I think you get the idea.</p><p>And there you have it.&nbsp; A perfectly decoupled and testable modification for my previous example code.&nbsp; <em>As you were&hellip;.</em></p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2008/02/shame-on-me/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/02/updatepanel-who/">UpdatePanel, Who?</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2008-02-24 00:00:00 -0600" pubdate  updated >Feb 24<span>th</span>, 2008</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I don&rsquo;t know why people are so enamoured with ASP.NET AJAX.&nbsp; Sure it works and is developed by Microsoft, but what&rsquo;s wrong with the dozen other alternatives out there?&nbsp; Many developers I talk to will say &ldquo;yeah I used Ajax on this&rdquo; (with a capital A) and what they are referring to is ASP.NET AJAX.&nbsp; While I don&rsquo;t think it is a <em>horrible</em> framework (I use it on occasion), I think it <em>is</em> too complicated and requires too much to get a simple example started.&nbsp; When people say they have ASP.NET AJAX experience, it means to me that they have experience with declarative controls and &lt;ScriptManager&gt; tags.&nbsp; It doesn&rsquo;t necessarily mean they know how ajax works <strong>and it definitely doesn&rsquo;t mean they know anything about javascript</strong>.&nbsp; This worries me.</p>
+
+
+<p>I often talk about how awesome <a href="http://prototypejs.org/" target="_blank">prototype</a> is (and lately I&rsquo;ve been digging <a href="http://jquery.com/" target="_blank">jquery</a>) and inevitably someone tells me it&rsquo;s just eaiser to wrap your sections in an UpdatePanel and be done with it.&nbsp; It is sometimes hard to argue with that, even though it is the most inefficient way of doing ajax.&nbsp; In addition, this can cause side-effects in WebForms because the entire lifecycle is being executed, even though only part of the page is rendered.&nbsp; This method is actually called &ldquo;partial html replacement&rdquo; or &ldquo;partial page rendering&rdquo; and can be achieved easily without needing ASP.NET AJAX.</p>
+
+
+<p>Now that ASP.NET MVC is out, which doesn&rsquo;t work with ASP.NET AJAX (not the full stack) people are foaming at the mouth for their UpdatePanel equivalent.&nbsp; (<em>I think we&rsquo;ll see an update for this in the coming weeks that will show ASP.NET AJAX working specifically in the MVC environment, but this point still stands.&nbsp; You don&rsquo;t have to use it.</em>)</p>
+
+
+<p>I&rsquo;m going to use <a href="http://www.jquery.com/" target="_blank">jquery</a> in my sample, but the technique will apply to <a href="http://prototypejs.org/" target="_blank">prototype</a>, <a href="http://mochikit.com/" target="_blank">mochikit</a>, and others.&nbsp; In this sample we will take a functioning page and turn it into an ajax enabled page, while preserving the non-ajax scenario (if javascript is disabled).</p>
+
+
+<p>For our example, I will borrow from an <a href="http://media.rubyonrails.org/video/flickr-rails-ajax.mov" target="_blank">impressive rails tutorial</a> [Quicktime] and implement the same thing in ASP.NET MVC.&nbsp; The&nbsp;basic concept is this:&nbsp;&nbsp;Search for flickr photos and display them on the page using ajax.&nbsp;</p>
+
+
+<p>We have our page:</p>
+
+
+<p><a href="http://www.flux88.com/uploads/photo_2Dsearch_2Dform.png"><img src="/images/photo_2Dsearch_2Dform_thumb_.jpg" hspace="10"  border="0"  /></a></p>
+
+
+<p>if you search for &ldquo;flowers&rdquo;, you are taken to another action (physically) that shows you the results:</p>
+
+
+<p><a href="http://www.flux88.com/uploads/photo_2Dsearch_2Dresults.png"><img src="/images/photo_2Dsearch_2Dresults_thumb_.jpg" hspace="10"  border="0"  /></a></p>
+
+
+<p>Now let&rsquo;s assume that you want this to happen with ajax.&nbsp; We&rsquo;d like the results to be displayed directly on the same page as the query.</p>
+
+
+<p>Here&rsquo;s the form from that first action:</p>
+
+
+<p>
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>&lt;span class="kwrd">&lt;&lt;/span>&lt;span class="html">h1&lt;/span>&lt;span class="kwrd">&gt;&lt;/span>Photo Search&lt;span class="kwrd">&lt;/&lt;/span>&lt;span class="html">h1&lt;/span>&lt;span class="kwrd">&gt;&lt;/span>&lt;span class="kwrd">&lt;&lt;/span>&lt;span class="html">div&lt;/span> &lt;span class="attr">class&lt;/span>&lt;span class="kwrd">="box"&lt;/span>&lt;span class="kwrd">&gt;&lt;/span>&lt;span class="kwrd">&lt;&lt;/span>&lt;span class="html">form&lt;/span> &lt;span class="attr">id&lt;/span>&lt;span class="kwrd">="search-form"&lt;/span> &lt;span class="attr">method&lt;/span>&lt;span class="kwrd">="get"&lt;/span> &lt;span class="attr">action&lt;/span>&lt;span class="kwrd">="/photos/find"&lt;/span>&lt;span class="kwrd">&gt;&lt;/span> &lt;span class="kwrd">&lt;&lt;/span>&lt;span class="html">label&lt;/span> &lt;span class="attr">for&lt;/span>&lt;span class="kwrd">="query"&lt;/span>&lt;span class="kwrd">&gt;&lt;/span>Query:&lt;span class="kwrd">&lt;/&lt;/span>&lt;span class="html">label&lt;/span>&lt;span class="kwrd">&gt;&lt;/span>&lt;span class="kwrd">&lt;&lt;/span>&lt;span class="html">input&lt;/span> &lt;span class="attr">type&lt;/span>&lt;span class="kwrd">="text"&lt;/span> &lt;span class="attr">id&lt;/span>&lt;span class="kwrd">="query"&lt;/span> &lt;span class="attr">name&lt;/span>&lt;span class="kwrd">="query"&lt;/span> &lt;span class="kwrd">/&gt;&lt;/span>&lt;span class="kwrd">&lt;&lt;/span>&lt;span class="html">input&lt;/span> &lt;span class="attr">type&lt;/span>&lt;span class="kwrd">="submit"&lt;/span> &lt;span class="attr">id&lt;/span>&lt;span class="kwrd">="search"&lt;/span> &lt;span class="attr">value&lt;/span>&lt;span class="kwrd">="search"&lt;/span> &lt;span class="kwrd">/&gt;&lt;/span>&lt;span class="kwrd">&lt;&lt;/span>&lt;span class="html">img&lt;/span> &lt;span class="attr">id&lt;/span>&lt;span class="kwrd">="indicator"&lt;/span> &lt;span class="attr">style&lt;/span>&lt;span class="kwrd">="display:none"&lt;/span> &lt;span class="attr">src&lt;/span>&lt;span class="kwrd">="../../content/load.gif"&lt;/span> &lt;span class="attr">alt&lt;/span>&lt;span class="kwrd">="loading...."&lt;/span> &lt;span class="kwrd">/&gt;&lt;/span>&lt;span class="kwrd">&lt;/&lt;/span>&lt;span class="html">form&lt;/span>&lt;span class="kwrd">&gt;&lt;/span>&lt;span class="kwrd">&lt;/&lt;/span>&lt;span class="html">div&lt;/span>&lt;span class="kwrd">&gt;&lt;/span></div></code></pre></td></tr></table></div></figure></div>
+<p>And the action that the form submits to:</p><p>
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>[ControllerAction]&lt;span class="kwrd">public&lt;/span> &lt;span class="kwrd">void&lt;/span> Find(&lt;span class="kwrd">string&lt;/span> query, &lt;span class="kwrd">string&lt;/span> format){var flickr = &lt;span class="kwrd">new&lt;/span> Flickr(ConfigurationManager.AppSettings[&lt;span class="str">"flickr.api.key"&lt;/span>]); var photos = flickr.PhotosSearch(query, TagMode.AnyTag, query, 40, 1); ViewData[&lt;span class="str">"query"&lt;/span>] = query; ViewData[&lt;span class="str">"photos"&lt;/span>] = photos; RenderView(&lt;span class="str">"results"&lt;/span>);}</div></code></pre></td></tr></table></div></figure></div>
+<p></p><p><em>(This uses the <a href="http://www.codeplex.com/FlickrNet" target="_blank">FlickrNet</a> library available on CodePlex)</em></p><p>In order to translate this into an ajax-enabled page (while preserving no-javascript behavior) we have to do 2 things.&nbsp; </p><ul><li>Prevent the form from posting, so that the browser doesn&rsquo;t take us off the page</li><li>Make the Find() action render <em>only</em> the partial html for the images (in the case of an ajax call</li></ul><p>Let&rsquo;s solve the first problem first.&nbsp; Using jquery, we can capture the form submit by doing this:</p>
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>function init(){$(&lt;span class="str">'#search-form'&lt;/span>).submit(function() {$(&lt;span class="str">'#photos'&lt;/span>).hide();$(&lt;span class="str">'#indicator'&lt;/span>).show();hijack(&lt;span class="kwrd">this&lt;/span>, loadPhotos, &lt;span class="str">"html"&lt;/span>), &lt;span class="kwrd">return&lt;/span> &lt;span class="kwrd">false&lt;/span>;});}$(document).ready(init);</div></code></pre></td></tr></table></div></figure></div>
+<p>When the document has been loaded, init() is called.&nbsp; This finds our form and adds an onsubmit handler to it.&nbsp; Next, we hide the photos div (in case there were pictures there already) and then we start the ajax indicator.&nbsp; <strong>For the love of all that is good and holy, let the user know that you&rsquo;re doing something!</strong>&nbsp; Ok next up is this strange hijack() function.&nbsp; This guy takes the form and submits it via ajax instead.&nbsp; It accepts the form, the method to call when the result comes back (callback), and the data type of the return value.&nbsp; Finally, to cancel the browser from actually submitting the form, we return false.</p><p>Here is that &ldquo;photos&rdquo; div I mentioned a second ago:&nbsp; <em>(I put this directly under our form)</em></p>
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>&lt;span class="kwrd">&lt;&lt;/span>&lt;span class="html">div&lt;/span> &lt;span class="attr">id&lt;/span>&lt;span class="kwrd">="photos"&lt;/span> &lt;span class="attr">class&lt;/span>&lt;span class
+</div><div class='line'>="kwrd">="box"&lt;/span> &lt;span class="attr">style&lt;/span>&lt;span class="kwrd">="display: none"&lt;/span>&lt;span class="kwrd">&gt;&lt;/span>&lt;span class="kwrd">&lt;/&lt;/span>&lt;span class="html">div&lt;/span>&lt;span class="kwrd">&gt;&lt;/span></div></code></pre></td></tr></table></div></figure></div>
+<p>It&rsquo;s initially hidden because it will be empty when the page physically loads.</p><p>hijack() is a generic javascript function, and&nbsp;is defined as:</p>
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>function hijack(form, callback, &lt;span class="kwrd">params&lt;/span>, format){ &lt;span class="kwrd">try&lt;/span> {$.ajax({url:form.action,type: form.method,data: $(form).serialize() + &lt;span class="str">"&amp;ajax=true"&lt;/span>,dataType: format,success:callback,failure:function(e) { alert(&lt;span class="str">"error! "&lt;/span> + e); }});} &lt;span class="kwrd">catch&lt;/span>(e) { alert(e);}}</div></code></pre></td></tr></table></div></figure></div>
+<p>This is pretty basic ajax stuff in jquery.&nbsp; The only thing different that I am doing here is notifying the controller that this is an ajax call, so that we may make it behave a little differently.&nbsp; After all, we don&rsquo;t want it to return a full html document&hellip; we only want the images!</p><p>That&rsquo;s the essense of issue #2.&nbsp; If we revisit our controller action, we can make the following change:</p>
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>[ControllerAction]&lt;span class="kwrd">public&lt;/span> &lt;span class="kwrd">void&lt;/span> Find(&lt;span class="kwrd">string&lt;/span> query, &lt;b>&lt;span class="kwrd">bool&lt;/span>? ajax&lt;/b>){ var flickr = &lt;span class="kwrd">new&lt;/span> Flickr(ConfigurationManager.AppSettings[&lt;span class="str">"flickr.api.key"&lt;/span>]);var photos = flickr.PhotosSearch(query, TagMode.AnyTag, query, 40, 1);ViewData[&lt;span class="str">"query"&lt;/span>] = query;ViewData[&lt;span class="str">"photos"&lt;/span>] = photos;&lt;b>&lt;span class="kwrd">if&lt;/span>(ajax.HasValue &amp;&amp; ajax.Value){RenderView(&lt;span class="str">"_images"&lt;/span>, photos);}&lt;span class="kwrd">else&lt;/span>{RenderView(&lt;span class="str">"results"&lt;/span>);}&lt;/b> }</div></code></pre></td></tr></table></div></figure></div>
+<p>We&rsquo;ve added an optional parameter for the action to check for.&nbsp; There are a number of other ways you might accomplish the same thing by embedding this into the controller itself.&nbsp; You could make a convention that allows a base Controller class set an IsAjax boolean property to true if it detects this variable in form variables or querystring.&nbsp; Whatever you find the cleanest.</p><p>And, Here is our new form!</p><p><a href="http://www.flux88.com/uploads/photo_2Dsearch_2Dajax.png"><img src="/images/photo_2Dsearch_2Dajax_thumb_.jpg" hspace="10"  border="0"  /></a></p><p>You couldn&rsquo;t see it in that still image, but there was an animated ajax indicator, and a nice slide down effect on the photo div.&nbsp; If you turn off javascript, the whole thing still works.</p><p>This entire process is basically what you get with UpdatePanel.&nbsp; The same techniques are used to accomplish partial page rendering.&nbsp; Granted, UpdatePanel works slightly different (it&rsquo;s parts of the same page that get updated) but you could easily return a full html document from the action and snip out the html you want to update.&nbsp; Or you might have a specific ViewFactory that knows to only serialize HTML starting with an element root.</p><p>With some conventions and a tiny bit of javascript, you could easily achieve partial page rendering with out any fuss.&nbsp; Plus you get to work with jquery, which is much mor enjoyable than ASP.NET AJAX.</p><p><strong>UPDATE:&nbsp; Download the code below.&nbsp; You&rsquo;ll need your own flickr api key (you can get one instantly from flickr.com).&nbsp; Place it in the web.config.</strong></p><p><a href="http://www.flux88.com/uploads/PhotoSearch.zip" target="_blank">PhotoSearch.zip (124 KB)</a>.&nbsp; </p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2008/02/updatepanel-who/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/02/asp-net-mvc-in-action-early-access-pdfs/">ASP.NET MVC in Action - Early Access PDFs</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2008-02-23 00:00:00 -0600" pubdate  updated >Feb 23<span>rd</span>, 2008</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><img src="/images/palermo_cover150_.jpg" hspace="20"  border="0"  />The cat is out of the bag now!&nbsp; I&rsquo;m writing a book on ASP.NET MVC for Manning Press entitled ASP.NET MVC in Action.&nbsp; I really thrilled to be part of this along with my co-authors <a href="http://jeffreypalermo.com/" target="_blank">Jeffrey Palermo</a> and <a href="http://daveverwer.com/" target="_blank">Dave Verwer</a>.</p>
+
+
+<p>So far 3 chapters are available on <a href="http://manning.com/palermo/" target="_blank">Manning&rsquo;s Early Access Program</a>.&nbsp; We&rsquo;d love to hear your feedback on the book so far.</p>
+
+
+<p>Writing a book is much harder than I originally thought, but I think that blogging for four years has definitely helped.&nbsp; With a book, everything has to be much more &ldquo;polished,&rdquo; so finishing up chapters tends to take a while.&nbsp; This might explain my drop in posting frequency, but I hope to add tidbits of information that I&rsquo;m working on to give you guys a peek at what the book will be like.</p>
+
+
+<p>Our target release date will be October 2008.</p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2008/02/asp-net-mvc-in-action-early-access-pdfs/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/02/more-downtime-local-activation-permissions-on-dcom/">More Downtime - Local Activation Permissions on DCOM</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2008-02-21 00:00:00 -0600" pubdate  updated >Feb 21<span>st</span>, 2008</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>What luck.&nbsp; My server went down last night and didn&#8217;t come back up until this morning.&nbsp; I eventually had to request a power cycle from my host and then remote desktop in to see what went wrong.<br><br>The root cause of the error was this:<br><br>The application-specific permission settings do not grant Local Activation permission for the COM Server application with CLSID &#8230;&#8230; to the user NT AUTHORITY\NETWORK SERVICE.<br><br>This caused a few other errors to occur in rapid succession and Windows decided to shut down my application pool.&nbsp; You can clearly see the issue here:<br><br><img src=""><br><p></p><img src="http://flux88.com/content/binary/server-error.png" border="0"><br><br>I read up on the error and found a solution.&nbsp; Apparently after Server 2003 SP1 came out, this issue started appearing on servers with a specific Group Policy (I&#8217;m not sure what).&nbsp; They suggested to add NETWORK SERVICE to the DCOM Users group.<br><br>So far it is working fine.&nbsp; We&#8217;ll see!<br><br>I wonder how much <a href="http://www.faqs.org/docs/jargon/G/google-juice.html">google juice</a> I lost during the 12 hour outage.&nbsp; :(<br></p>
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2008/02/more-downtime-local-activation-permissions-on-dcom/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/02/yikesi-spoke-too-soon/">Yikes!I Spoke Too Soon!</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2008-02-19 00:00:00 -0600" pubdate  updated >Feb 19<span>th</span>, 2008</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I previously noted that I was outgrowing shared hosting and I migrated to a VPS account with VPSLAND.&nbsp;</p>
+
+
+<p>I spoke too soon.&nbsp; <strong>Their prices are the lowest for a reason</strong>.</p>
+
+
+<p>VPSLAND&rsquo;s support was good for the first 24&ndash;hours, but after that they neglected me.&nbsp; I opened a critical ticket because my sites (including this blog) were down for over an hour.&nbsp; I eventually fixed it on my own by some strange combination of disabling services and rebooting the server 3 or 4 times.&nbsp; 6 hours later a tech chimes in and says &ldquo;we checked your sites and everything is fine!&rdquo;&nbsp; &mdash; yeah, great help.</p>
+
+
+<p><img alt="servers" hspace="10" src="http://www.flux88.com/uploads/480552_cmts.jpg" align="left" vspace="10" border="0" / /></p>
+
+
+<p>I inquire as to why the system won&rsquo;t even serve up an empty subtext application and they told me that I should upgrade to a 1GB RAM plan (from 512mb).&nbsp; I figured I&rsquo;d need it eventually, so I obliged.&nbsp; It took them 12 hours to respond to my request.&nbsp; Meanwhile, one of my sites was acting sluggish and I couldn&rsquo;t get my friend&rsquo;s blog started b/c subtext kept timing out.</p>
+
+
+<p>The next morning they told me my server was upgraded and everything was fine.&nbsp; But it wasn&rsquo;t.&nbsp; I was seeing the same sluggish behavior and subtext was continually timing out (at the database level &mdash; but remember, this is an empty database).&nbsp; This time I know it&rsquo;s not RAM because I have 700 freakin megabytes free.</p>
+
+
+<p>I eventually broke down and got a VPS plan at godaddy (512MB ram) for $37/month.&nbsp; It&rsquo;s a little more money, but they set it up in about 45 minutes and it&rsquo;s worked flawlessly so far!</p>
+
+
+<p>I also want to apologize to a certain reader who decided to go with VPSLAND after reading my post.&nbsp; He is also having troubles with them and I wish I had not posted such a glowing review so quickly after signing up.&nbsp; VPSLAND refunded my payment, so hopefully if you still have problems you can do the same.</p>
+
+
+<p>Anyway, I will say that so far godaddy&rsquo;s plan is good, but I will not give them my Seal of Approval (TM) until I&rsquo;ve used it for a couple months.</p>
+
+
+<p><em>(if you noticed the downtime, I apologize!)</em></p>
+
+
+<div class="bjtags">Tags:<a rel="tag" href="http://technorati.com/tag/godaddy">godaddy</a>, <a rel="tag" href="http://technorati.com/tag/vpsland">vpsland</a>, <a rel="tag" href="http://technorati.com/tag/vps">vps</a>, <a rel="tag" href="http://technorati.com/tag/hosting">hosting</a></div>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2008/02/yikesi-spoke-too-soon/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/02/instilling-quality-in-your-teams/">Instilling Quality in Your Teams</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2008-02-14 00:00:00 -0600" pubdate  updated >Feb 14<span>th</span>, 2008</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Quality is important.&nbsp; I think that deserves repeating.&nbsp; <b>Quality is important</b>.&nbsp; Quality of code, quality of process, quality of requirements, quality of communcation, quality of behavior, quality of teams, quality of customers.&nbsp; I tend to focus on the code side of things, but it is always important to remember that quality matters.<br><br>Often times (due to lack of quality in some of the other areas), quality can get pushed aside in the interest of getting things done.&nbsp; This is a balance that all of us must deal with.&nbsp; Ensuring good communication can put out fires long before they blow up in your face.&nbsp; Quality of code can ensure that future maintenance and development goes on without slowing to a crawl in productivity.&nbsp; Quality in process can guide you automate the tedious repeatable tasks to streamline your work.&nbsp; Any breakdown in these areas can be catastrophic to a team.<br><br>We had a meeting last night at Sogeti, and quality kept coming up as a topic.&nbsp; I was very proud to see the end result of the meeting:<br><br><p></p><img src="http://flux88.com/content/binary/quality.jpg" border="0"><br><br></p>
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2008/02/instilling-quality-in-your-teams/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/02/a-new-host/">A New Host</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2008-02-13 00:00:00 -0600" pubdate  updated >Feb 13<span>th</span>, 2008</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><img src="http://flux88.com/content/binary/419970_front_rack_server.jpg" style="margin: 10px; float: right;" border="0">I&#8217;ve been hosted on <a href="http://www.webhost4life.com">webhost4life</a> for about 2 years now, and I was starting to see the pain with shared hosting.&nbsp; It starts out with a tempting $5/month, but then you want SQL Server 2005, and you want to point many domains to non-root folders and in the end it just isn&#8217;t that cheap.<br><br>It&#8217;s also really slow and I don&#8217;t have full control of the box.&nbsp; Doing a reverse ip check at <a href="http://yougetsignal.com">http://yougetsignal.com</a> (awesome site, hilarious name) i could see hundreds of sites that are on my same server.&nbsp; I&#8217;d rather not be sharing bandwidth and hardware resources with so many.<br><br>So I&#8217;ve made the switch to a VPS plan at <a href="http://vpsland.com">VPSLand</a>.&nbsp; VPS is Virtual Private Server, so basically they take a beefy server (8-core cpu, gobs of ram) and then run Virtual Server on it.&nbsp; They sell a limited amount of virtual machines per actual server, so you are sharing with far less people. VPS plans are a bit more expensive, but they are worth it.&nbsp; Why you ask?<br><ul><li>Remote Desktop into your box (no more crappy cpanel interfaces)<br></li><li>Install whatever-the-hell-you-want software (provided it&#8217;s legal)</li><li>Run your sites in .NET 2.0, 3.0, 3.5, 6.0, whatever (ASP.NET MVC sites here I come)</li><li>Run ASP.NET, Rails, PHP all on the same server (if you want)<br></li><li>No more Medium Trust nonsense</li><li>control your own DNS (if you want)</li><li>run your own mail server (I use <a href="http://google.com/a">GAFYD</a> however)</li><li>point as many domains to whatever folders you want</li></ul>The downside:<br><ul><li>I have to track my bandwidth now.&nbsp; I have 200gb/month, which is good enough for now, but it could get expensive if I go over.</li><li>I only have 5gb of storage space.&nbsp; The base install takes 2gb.&nbsp; Yikes!&nbsp; I plan on making this 10gb sometime soon.</li><li>a little more expensive.</li></ul>Ultimately, I&#8217;m paying about $10/month more than shared hosting, and I think it&#8217;s totally worth it.&nbsp; VPSLand&#8217;s support is stellar so far.<br><br>Oh, and I have a question for you all:&nbsp; I plan on tinkering with rails, and I&#8217;ve read the long steps to get rails to work in IIS but should I?&nbsp; Or should I just install apache or Lighttpd and run it on port 81?<br></p>
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2008/02/a-new-host/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/02/visual-studio-context-menu-the-himalayas-of-menus/">Visual Studio Context Menu - the Himalayas of Menus</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2008-02-05 00:00:00 -0600" pubdate  updated >Feb 5<span>th</span>, 2008</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>This is just ridiculous:</p>
+
+
+<p><img src="/images/vs_2Dcontext_2Dmenu_.png" hspace="10"  border="0"  /></p>
+
+
+<p>I could seriously eliminate about 10&ndash;12 items from there <strong>and never miss them again</strong>.&nbsp; For the others that I use occasionally, they would be better served on a top menu, not when I right-click.&nbsp; All of the source control things should be grouped in a sub-menu or something, because this thing is just way too crowded.</p>
+
+
+<p>Any way to control this chaos?</p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2008/02/visual-studio-context-menu-the-himalayas-of-menus/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+<nav role="pagination">
+  <div>
+    
+      <a class="prev" href="/blog/page/17/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/15/">Newer &rarr;</a>
+    
+  </div>
+</nav>
+
+<script type="text/javascript">
+    var disqus_shortname = 'subdigital';
+    (function () {
+      var s = document.createElement('script'); s.async = true;
+      s.type = 'text/javascript';
+      s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+      (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+
+</div>
+<aside role=sidebar>
+  
+    <section>
+  <h1>Who am I?</h1>
+  <p>I&#8217;m Ben Scheirman. I make Rails &amp; iPhone apps for <a href="http://chaione.com" target="_blank">ChaiONE</a> in Houston, TX.</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/08/vim---could-not-invoke-jslint/">Vim - Could Not Invoke JSLint</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/is-rails-exempt-from-software-principles/">Is Rails Exempt?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/when-viewwillappear-isnt-called/">When viewWillAppear: Isn&#8217;t Called</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/moving-my-blog/">Moving My Blog</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/my-vim-journey/">My Vim Journey</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("subdigital", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/subdigital" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @subdigital</a>
+  
+</section>
+
+
+<section>
+  <h1>On Delicious</h1>
+  <script type="text/javascript" src="http://feeds.delicious.com/v2/js/subdigital?title=&count=3&sort=date&extended"></script>
+  <p><a href="http://delicious.com/subdigital">My Delicious Bookmarks &raquo;</a></p>
+</section>
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer>
+<a style="display:block; float: right" title="Real Time Analytics" href="http://getclicky.com/66470389"><img alt="Real Time Analytics" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
+<script src="//static.getclicky.com/js" type="text/javascript"></script>
+<script type="text/javascript">try{ clicky.init(66470389); }catch(e){}</script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/66470389ns.gif" /></p></noscript>
+
+<p>
+  Copyright &copy; 2011 - Ben Scheirman -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+</body>
+</html>

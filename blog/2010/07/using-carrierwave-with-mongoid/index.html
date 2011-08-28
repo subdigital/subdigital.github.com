@@ -1,0 +1,300 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Fickle Bits: Using CarrierWave with Mongoid</title>
+  <meta name="author" content="Ben Scheirman">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="canonical" href="http://benscheirman.com/blog/2010/07/using-carrierwave-with-mongoid/"/>
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/ficklebits" rel="alternate" title="Fickle Bits" type="application/atom+xml"/>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-210379-10']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">Fickle Bits</a></h1>
+  
+    <h2>You're doing it wrong.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/ficklebits" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:benscheirman.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry">
+  
+  <header>
+    
+      <h1 class="entry-title">Using CarrierWave With Mongoid</h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2010-07-18 00:00:00 -0500" pubdate  updated >Jul 18<span>th</span>, 2010</time>
+
+
+</p>
+    
+  </header>
+
+
+<div class="entry-content"><p>I&#8217;m moving a side project over to Rails 3, and I purposely chose a set of technologies that I hadn&#8217;t used yet.</p>
+
+
+<ul>
+<li><a target="_blank" href="http://github.com/rails/rails">Rails 3</a></li>
+<li><a target="_blank" href="http://mongoid.org/">Mongoid</a> (hosted on MongoHQ)</li>
+<li><a target="_blank" href="http://haml-lang.com/">Haml</a></li>
+<li><a target="_blank" href="http://github.com/jnicklas/carrierwave">CarrierWave</a> (for file uploads)</li>
+</ul>
+
+
+<p>I&#8217;ll post about the general experience of this project later, but suffice it to say I&#8217;m liking this stack a lot. But this post is specifically about using CarrierWave to handle file uploads.</p>
+
+
+<p>CarrierWave is similar to Paperclip, however it already supported Rails 3 &amp; Mongoid, so I decided to check it out. It creates the notion of &quot;uploaders&quot; and places them in a folder next to your models, controllers, &amp; views. Each uploader class defines the settings &amp; post-processing options for these uploads. I like keeping these separate from the model (instead of how Paperclip does it).</p>
+
+
+<p>Here is a sample PicUploader that I&#8217;m using:</p>
+
+
+<pre xml:lang="ruby">
+class PicUploader &lt; CarrierWave::Uploader::Base
+include CarrierWave::RMagick<br />   storage :s3<br /><br />   # Use Heroku's temp folder for uploads<br />   def cache_dir<br />      &quot;#{Rails.root}/tmp/uploads&quot;<br />   end<br />   process :resize_to_fit =&gt; [600, 600]<br />   <br />   version :tiny_thumb do<br />     process :resize_to_fill =&gt; [50, 50]<br />   end
+version :thumb do<br />      process :resize_to_fill =&gt; [200, 200]<br />   end<br /><br />   def extension_white_list<br />      %w(jpg jpeg gif png)<br />   end<br />end
+{% endcodeblock %}
+<p>I'm storing these images in S3, but in order to process the file upload &amp; do post-processing on an image, it has to first be uploaded to a temp folder. I had to change this cache_dir to reflect heroku's temp folder.</p>
+<p>Note also that it has support for RMagick (or MiniMagick) in order to do post-processing on the file to resize it to your needs. Here I'm resizing the file to best-fit a 600x600 square (maintaining aspect ratio). I also have 2 thumbnail sizes that clip the image in order to fill an exact square. All of this happens for me when I upload an image.</p>
+<p>In order to utilize these files in your model, you have to import the necessary ORM adapter file so that when you save your model the filename gets saved with it. Here is an example model using the mongoid adapter.</p>
+<pre xml:lang="ruby">
+require 'app/uploaders/pic'
+require 'carrierwave/orm/mongoid'
+class Category
+include Mongoid::Document
+field :name, :type =&gt; String
+field :description, :type =&gt; String
+mount_uploader :photo, PicUploader
+references_many :items
+validates_presence_of :name, :description
+end
+{% endcodeblock %}
+<p>When a category is saved, the uploader processes all of the sizes we need &amp; stores them all in S3. The category can then access these image URLS simply by doing this:</p>
+<ul>
+<li>`category.photo.url` (Full size)</li>
+<li>`category.photo.thumb.url` (200x200)</li>
+<li>`category.photo.tiny_thumb.url` (50x50)</li>
+</ul>
+<p>If you need to handle images in your site, you can't really beat the simplicity of this.</p>
+<p>It hasn't all been sunshine &amp; roses, however. I have another model that accepts multiple images, so I made a Photo model in order to capture the file &amp; an associated caption. My Item model `embeds_many :photos`. It also is set up to `accept_nested_attributes_for :photos`, so that I can post multiple photos along with an item form.</p>
+<p>Unfortunately, the mongoid adapter which gives you the `mount_uploader` behavior, only works when you call `save` directly on that object. Since my photos were being saved by it's parent document, the upload never happened. I<a target="_blank" href="http://github.com/jnicklas/carrierwave/issues#issue/81">t looks like this is a bug with CarrierWave</a>, and I'm looking at potential ways of contributing a fix. Right now, I'm manually pulling out the photos &amp; saving them one-by-one after an item is saved, but that isn't a great solution.</p>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ben Scheirman</span></span>
+
+      
+
+
+
+
+<time datetime="2010-07-18 00:00:00 -0500" pubdate  updated >Jul 18<span>th</span>, 2010</time>
+
+
+
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://benscheirman.com/blog/2010/07/using-carrierwave-with-mongoid/" data-via="subdigital" data-counturl="http://benscheirman.com/blog/2010/07/using-carrierwave-with-mongoid/" >Tweet</a>
+  
+  
+  <g:plusone size="medium"></g:plusone>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread"><div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_shortname = 'subdigital';
+  var disqus_identifier = 'http://benscheirman.com/blog/2010/07/using-carrierwave-with-mongoid/';
+  var disqus_url = 'http://benscheirman.com/blog/2010/07/using-carrierwave-with-mongoid/';
+  //var disqus_developer = 1;
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside role=sidebar>
+  
+    <section>
+  <h1>Who am I?</h1>
+  <p>I&#8217;m Ben Scheirman. I make Rails &amp; iPhone apps for <a href="http://chaione.com" target="_blank">ChaiONE</a> in Houston, TX.</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/08/vim---could-not-invoke-jslint/">Vim - Could Not Invoke JSLint</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/is-rails-exempt-from-software-principles/">Is Rails Exempt?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/when-viewwillappear-isnt-called/">When viewWillAppear: Isn&#8217;t Called</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/moving-my-blog/">Moving My Blog</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/my-vim-journey/">My Vim Journey</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("subdigital", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/subdigital" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @subdigital</a>
+  
+</section>
+
+
+<section>
+  <h1>On Delicious</h1>
+  <script type="text/javascript" src="http://feeds.delicious.com/v2/js/subdigital?title=&count=3&sort=date&extended"></script>
+  <p><a href="http://delicious.com/subdigital">My Delicious Bookmarks &raquo;</a></p>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer>
+<a style="display:block; float: right" title="Real Time Analytics" href="http://getclicky.com/66470389"><img alt="Real Time Analytics" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
+<script src="//static.getclicky.com/js" type="text/javascript"></script>
+<script type="text/javascript">try{ clicky.init(66470389); }catch(e){}</script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/66470389ns.gif" /></p></noscript>
+
+<p>
+  Copyright &copy; 2011 - Ben Scheirman -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+</body>
+</html>

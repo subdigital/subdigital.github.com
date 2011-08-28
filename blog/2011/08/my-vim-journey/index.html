@@ -1,0 +1,467 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Fickle Bits: My Vim Journey</title>
+  <meta name="author" content="Ben Scheirman">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="canonical" href="http://benscheirman.com/blog/2011/08/my-vim-journey/"/>
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/ficklebits" rel="alternate" title="Fickle Bits" type="application/atom+xml"/>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-210379-10']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">Fickle Bits</a></h1>
+  
+    <h2>You're doing it wrong.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/ficklebits" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:benscheirman.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry">
+  
+  <header>
+    
+      <h1 class="entry-title">My Vim Journey</h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2011-08-17 23:53:00 -0500" pubdate  updated >Aug 17<span>th</span>, 2011</time>
+
+
+</p>
+    
+  </header>
+
+
+<div class="entry-content"><p>For my Rails work, I&#8217;ve largely leaned on <a href="http://macromates.org">TextMate</a>.  It&#8217;s used by many Rubyists, looks sexy,
+and is easily extended.</p>
+
+<p>I still use TextMate frequently, but I&#8217;ve been ramping up on my Vim
+skills and I&#8217;ve recently come to a point where I think I&#8217;m pretty
+productive in it.</p>
+
+<p>My initial frustrations with Vim were that it was too configurable.
+Talk to any Vim power-user and you&#8217;ll find a completely different set of
+plugins &amp; keyboard shortcuts.  If you snag a friend&#8217;s set of Vim
+configuration files (like I did) you might find yourself frustrated that
+there&#8217;s too much to learn and it&#8217;s difficult to know where various
+behaviors are coming from.</p>
+
+<p>In this post, I&#8217;ll attempt to demonstrate a very sane Vim setup that
+newcomers can use to get started and not be too overwhelmed.</p>
+
+<h2>Why Vim?</h2>
+
+<p>Before I get started with the basics of Vim, why would you use it in the
+first place?</p>
+
+<p>For me it boils down to this:  <em>I love staying on the keyboard</em>.
+Vim may not make you faster (<em>in fact initially you&#8217;ll be a lot slower</em>) but it can fit your workflow better.</p>
+
+<p>Another big differentiator of Vim is <em>Command Mode</em>.  The notion
+here is that you spend more time wrangling text rather than creating it
+from scratch.  That&#8217;s certainly true of my code.</p>
+
+<p>It is important, however, that in the larger software ecosystem,
+<em>typing is not the bottleneck</em>.  Don&#8217;t expect Vim to make you build
+the right software faster.</p>
+
+<p>Vim enables a keyboard-optimized workflow that <em>may</em> make you faster.
+YMMV.  If you&#8217;re fast with TextMate or Emacs or don&#8217;t want to spend the
+time to learn something new, then Vim may very well not be for you.</p>
+
+<p>Lastly, Vim is ubiquitous.  It&#8217;s on every platform and
+you can carry your configuration (or a very large set of it) everywhere.
+People frequently put their vim configurations on Github for themselves
+and others to utilize.</p>
+
+<h2>Getting MacVim</h2>
+
+<p>Almost all Unix-based systems (like Mac) include a terminal version of
+Vim.  The version included on OS X isn&#8217;t compiled with Ruby support, so
+some plugins won&#8217;t work.  In addition, it doesn&#8217;t have OS-level
+integration like Copy &amp; Paste in the same buffer.</p>
+
+<p>Most Vim users I know use MacVim, which comes pre-compiled with Ruby
+support, has tabs, and more.</p>
+
+<p>If you have <a href="http://mxcl.github.com/homebrew/">homebrew</a> installed, just
+type:</p>
+
+<p><code>
+brew install  macvim
+</code></p>
+
+<p>If you&#8217;d rather grab a pre-built binary, then head on over <a href="https://github.com/b4winckler/macvim">here</a>.</p>
+
+<p>You&#8217;ll also want to make sure that the <code>mvim</code> binary is in your path.</p>
+
+<h2>Basic Vim Navigation</h2>
+
+<p>I won&#8217;t cover everything you can do in Vim here, but here&#8217;s just enough
+to get you started:</p>
+
+<p>In Command Mode:</p>
+
+<ul>
+<li>Press <code>h</code>, <code>j</code>, <code>k</code>, <code>l</code> to move the cursor around.  It will feel weird, but you start to appreciate not
+lifting your hand off of the home row to reach for the arrow keys.</li>
+<li>Press <code>G</code> to go to the end of a document, <code>gg</code> to go to the top of
+the document.</li>
+<li>Press <code>i</code> to go to insert mode at the current position</li>
+<li>Press <code>I</code> to insert at the beginning of the line</li>
+<li>Press <code>a</code> to &#8220;append&#8221; content after the cursor</li>
+<li>Press <code>A</code> to &#8220;append&#8221; content at the end of a line</li>
+<li>Type <code>cw</code> (&#8220;change word&#8221;) to replace the current word and go into insert mode</li>
+<li>Type <code>dta</code> to (&#8220;delete &#8216;til the letter a&#8221;) in a line</li>
+</ul>
+
+
+<p>In Insert Mode:</p>
+
+<ul>
+<li>Press <code>esc</code> to go back to command mode.</li>
+</ul>
+
+
+<p>Commands:</p>
+
+<ul>
+<li>In Command Mode, you can type commands by prefixing them with <code>:</code>.</li>
+<li>To write the changes to the current buffer (save) type <code>:w</code> and hit
+<code>enter</code>.  Often times you&#8217;ll write &amp; quit in one command, with <code>:wq</code>.</li>
+</ul>
+
+
+<p>Feel free to use the mouse &amp; arrow-keys while you&#8217;re getting used to everything.  It
+will feel weird.</p>
+
+<p>For more Vim-fu, definitely check out this <a href="http://peepcode.com/products/smash-into-vim-i">PeepCode
+screencast</a>.</p>
+
+<h2>Installing a Base Set of Plugins with Janus</h2>
+
+<p>The real power of Vim is in the plugins, and fortunately Yehuda Katz &amp;
+Carl Lerche have put together an opinionated and useful set of plugins
+that are pre-configured and work well together.  Take a look at the plugins it includes
+<a href="https://github.com/carlhuda/janus">here</a>.</p>
+
+<p>Getting Janus installed is easy.  If you are super trust-worthy and
+don&#8217;t mind running a script blindly (I don&#8217;t recommend it) you can
+simply run:</p>
+
+<figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'><span class="n">curl</span> <span class="n">https:</span><span class="sr">//</span><span class="n">raw</span><span class="o">.</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="sr">/carlhuda/</span><span class="n">janus</span><span class="sr">/master/</span><span class="n">bootstrap</span><span class="o">.</span><span class="n">sh</span> <span class="o">-</span><span class="n">o</span> <span class="o">-</span> <span class="o">|</span> <span class="n">sh</span>
+</div></code></pre></td></tr></table></div></figure>
+
+<p>More explicit instructions for the paranoid can be found on <a href="http://github.com/carlhuda/janus">the github
+page</a>.</p>
+
+<p>Once you have Janus installed, your Vim will be on steroids. Don&#8217;t worry
+though, I&#8217;ll try to cover the most important things you&#8217;ll be using.</p>
+
+<h2>Getting a Decent Theme installed</h2>
+
+<p>MacVim installs a hundred nasty looking themes, but a few of them are
+worth taking a look at.  Here are some that I like:</p>
+
+<ul>
+<li>molokai</li>
+<li>railscasts</li>
+<li>vividchalk</li>
+<li>vibrantink</li>
+</ul>
+
+
+<p>If you want to install other themes (like this nice <a href="http://www.vim.org/scripts/script.php?script_id=2855">github</a> one) then you
+simply download it &amp; copy the <code>theme.vim</code> (or whatever the theme is
+called) to <code>~/.vim/colors</code>.</p>
+
+<p>To switch between the themes that are installed, you can use the menu,
+or you can type <code>:colorscheme &lt;scheme&gt;</code>.</p>
+
+<p>To set defaults for your installation, you&#8217;d normally add commands to
+<code>~/.vimrc</code> however Janus has taken that file over.  It instead reads
+your settings from <code>~/.vimrc.local</code>.  In order to provide settings for
+graphical Vim installations (like MacVim) there&#8217;s also a <code>~/.gvimrc</code>
+file.</p>
+
+<p>Open up that file (<code>:edit ~/.gvimrc</code>) and add the following commands:</p>
+
+<figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+</pre></td><td class='code' width='100%'><pre><code class='vim'><div class='line'><span class="k">colorscheme</span> github
+</div><div class='line'><span class="k">set</span> <span class="nb">guifont</span><span class="p">=</span>Menlo:h14
+</div></code></pre></td></tr></table></div></figure>
+
+<p>Feel free to tweak this to contain your favorite color scheme &amp; font.
+In order to see these changes you have to &#8220;source&#8221; the file:</p>
+
+<figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'><span class="p">:</span><span class="n">source</span> <span class="nv">%</span>
+</div></code></pre></td></tr></table></div></figure>
+
+<p>(<code>%</code> here means &#8220;current file&#8221;)</p>
+
+<p>You should see the changes take effect immediately.</p>
+
+<h2>Opening MacVim with a &#8220;Project&#8221;</h2>
+
+<p>One common thing in TextMate is to <code>cd</code> into a project and then type
+<code>mate .</code> which will open TextMate&#8217;s project drawer with all of the files
+in that directory loaded up.</p>
+
+<p>In MacVim, you can do the same.  Navigate to a folder with some content
+(like a Rails app) and type: <code>mvim .</code></p>
+
+<p>You should see something resembling a file navigator.  You can navigate
+these with the same movement commands from above.</p>
+
+<p>Once you&#8217;ve chosen a file, press <code>enter</code> to open it in the buffer.</p>
+
+<p><span class='has-pullquote' data-pullquote='The leader key is a special, configurable key used to create quick shortcut combinations.'>
+Janus comes with NERDTree, which has similar behavior to TextMate&#8217;s
+Project Drawer.  Open up the NERDTree pane by typing <code>&lt;leader&gt;-n</code> or <code>\n</code>. By default the leader key is set to backslash.
+The leader key is a special, configurable key used to create quick shortcut combinations.
+</span></p>
+
+<p>The NERDTree window can be collapsed by typing <code>&lt;leader&gt;-n</code> again.</p>
+
+<p>You might want to instead find the file by searching for it by name.
+For that, the aptly-named Command-T plugin can be hepful.</p>
+
+<p>Command-T can be activated (by default) with <code>&lt;leader&gt;-t</code>.  Start typing
+and it will auto complete the results.</p>
+
+<h2>Scared Yet?</h2>
+
+<p>Writing this reminds me of how hard it was to get started.  I can only
+offer some encouragement that with practice, Vim does start to feel like
+ you can leverage your fast typing skills to really.</p>
+
+<p>Practice only a couple of commands at a time.  Really learn what they
+are doing and then move one to the next command.  Print out a cheet
+sheet.  Pair with someone else who uses Vim.</p>
+
+<p>I hope you found this intro useful. I&#8217;ll cover some more Vim tricks as time goes on.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ben Scheirman</span></span>
+
+      
+
+
+
+
+<time datetime="2011-08-17 23:53:00 -0500" pubdate  updated >Aug 17<span>th</span>, 2011</time>
+
+
+
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/vim/'>vim</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://benscheirman.com/blog/2011/08/my-vim-journey/" data-via="subdigital" data-counturl="http://benscheirman.com/blog/2011/08/my-vim-journey/" >Tweet</a>
+  
+  
+  <g:plusone size="medium"></g:plusone>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread"><div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_shortname = 'subdigital';
+  var disqus_identifier = 'http://benscheirman.com/blog/2011/08/my-vim-journey/';
+  var disqus_url = 'http://benscheirman.com/blog/2011/08/my-vim-journey/';
+  //var disqus_developer = 1;
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside role=sidebar>
+  
+    <section>
+  <h1>Who am I?</h1>
+  <p>I&#8217;m Ben Scheirman. I make Rails &amp; iPhone apps for <a href="http://chaione.com" target="_blank">ChaiONE</a> in Houston, TX.</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/08/vim---could-not-invoke-jslint/">Vim - Could Not Invoke JSLint</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/is-rails-exempt-from-software-principles/">Is Rails Exempt?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/when-viewwillappear-isnt-called/">When viewWillAppear: Isn&#8217;t Called</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/moving-my-blog/">Moving My Blog</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/my-vim-journey/">My Vim Journey</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("subdigital", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/subdigital" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @subdigital</a>
+  
+</section>
+
+
+<section>
+  <h1>On Delicious</h1>
+  <script type="text/javascript" src="http://feeds.delicious.com/v2/js/subdigital?title=&count=3&sort=date&extended"></script>
+  <p><a href="http://delicious.com/subdigital">My Delicious Bookmarks &raquo;</a></p>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer>
+<a style="display:block; float: right" title="Real Time Analytics" href="http://getclicky.com/66470389"><img alt="Real Time Analytics" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
+<script src="//static.getclicky.com/js" type="text/javascript"></script>
+<script type="text/javascript">try{ clicky.init(66470389); }catch(e){}</script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/66470389ns.gif" /></p></noscript>
+
+<p>
+  Copyright &copy; 2011 - Ben Scheirman -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+</body>
+</html>

@@ -1,0 +1,254 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Fickle Bits: Is UITableViewController Useless?</title>
+  <meta name="author" content="Ben Scheirman">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="canonical" href="http://benscheirman.com/blog/2010/03/is-uitableviewcontroller-useless/"/>
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/ficklebits" rel="alternate" title="Fickle Bits" type="application/atom+xml"/>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-210379-10']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">Fickle Bits</a></h1>
+  
+    <h2>You're doing it wrong.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/ficklebits" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:benscheirman.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry">
+  
+  <header>
+    
+      <h1 class="entry-title">Is UITableViewController Useless?</h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2010-03-31 00:00:00 -0500" pubdate  updated >Mar 31<span>st</span>, 2010</time>
+
+
+</p>
+    
+  </header>
+
+
+<div class="entry-content"><p>In my experience writing iPhone apps, I’ve come to the conclusion that `UITableViewController` is useless.</p>
+
+
+<p>  <p>Since many of my readers aren’t iPhone developers, I’ll quickly describe what the <code>UITableViewController</code> is:<a href="http://flux88.com/files/media/image/WindowsLiveWriter/IsUITableViewControllerUseless_FC6C/Screen%20shot%202010-03-31%20at%205.56.09%20PM_5.png"><img src="/images/Screen%20shot%202010-03-31%20at%205.56.09%20PM_thumb_1_.png" align="right"  height="240"  /></a></p>  <blockquote>   <p>Almost all of the iPhone apps on your phone utilize some sort of table.&#160; The table (which actually looks like a list) is implemented using a <code>UITableView</code> class.&#160; This class has 2 properties that help define its behavior:</p>    <table border="1" cellspacing="0" cellpadding="10" width="400"><tbody>       <tr>         <td valign="top" width="200"><code>delegate</code></td>          <td valign="top" width="200"><code>datasource</code></td>       </tr>        <tr>         <td valign="top" width="200">           <p>The <code>delegate</code>is a reference to a class (any class) that implements methods that tell the table view how to react to user input, such as tapping or editing.&#160; All of these methods are optional.</p>         </td>          <td valign="top" width="200">           <p>The <code>datasource</code>is a reference to a class (any class) that implements methods that tell the table view how many rows it has, what the content for each row is, what the headers are (if any), sections, footers, etc.&#160; 2 of these methods are required, the rest are optional.</p>            <p></p>         </td>       </tr>     </tbody></table>    <p>Most of the time, the <code>delegate</code>and <code>datasource</code>properties will be set to <font face="Courier New">self</font> in the controller which basically says: <em>my view controller is providing all of this functionality</em>.</p>    <p>So when you are wiring up your views in Interface Builder (or in code) you’ll frequently set it up so that it looks like this:</p>    <p><img src="/images/Screen%20shot%202010-03-31%20at%206.09.43%20PM_3_.png" alt="Screen shot 2010-03-31 at 6.09.43 PM"  height="140"  />&#160; </p>    <p>This common scenario made a case for a reusable <font face="Courier New">UITableViewController </font>that set all of this up for you.&#160; The <font face="Courier New">UITableViewController </font>does all this for you:</p>    <p>&#160;<img src="/images/Screen%20shot%202010-03-31%20at%206.09.47%20PM%5B5%5D_.png" alt="Screen shot 2010-03-31 at 6.09.47 PM"  height="124"  />&#160; </p>    <p>So that’s what <font face="Courier New">UITableViewController </font>is. now back to my post…</p> </blockquote>  <p><font face="Courier New">UITableViewController </font>sounds great, right?&#160; Less code is good… of course!&#160; Well not if less code means you put the shackles on and can’t do something more advanced later on.</p>  <p>What if you want to add a toolbar to your view?&#160; </p>  <p><img src="/images/pt1-thumb_.png" align="right"   /></p>  <p>What if you want to have a transparent background so that you can have a custom image show through, similar to the way I did with Pocket Tabs?</p>  <p>Well it turns out that you can’t.&#160; Not easily anyway.&#160; If you add a toolbar as a subview of a table view, then your toolbar will scroll with the content.&#160; That’s not good.</p>  <p>Also if you try to get clever and <em>re-parent</em> the view controller class to point to a different <font face="Courier New">UIView </font>(one that has a toolbar &amp; background image set properly) then the <font face="Courier New">UITableViewController </font>complains.</p>  <p>It breaks a pretty well-known software rule:&#160; <a href="http://en.wikipedia.org/wiki/Liskov_substitution_principle" target="_blank">Liskov Substitution Principle</a>.&#160; <font face="Courier New">UITableViewController </font>inherits from UIViewController just like you’d expect.&#160; The problem is, <font face="Courier New">UITableViewController </font>enforces that its view property <em>be</em> a table view instance.&#160; It will crash at runtime if you set it to anything else.</p>  <p>&#160;</p>  <p><img src="/images/Screen%20shot%202010-03-31%20at%206.24.09%20PM_59027f6e-3b8a-4075-97ed-d6aeaf811b39_.png" alt="Screen shot 2010-03-31 at 6.24.09 PM"  height="216"  /> </p>  <p>Literally every time I figured I’d save some time by using <font face="Courier New">UITableViewController </font>it has come back to bite me.</p>  <p>Am I missing something?&#160; Do you find <font face="Courier New">UITableViewController </font>useful at all?</p></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ben Scheirman</span></span>
+
+      
+
+
+
+
+<time datetime="2010-03-31 00:00:00 -0500" pubdate  updated >Mar 31<span>st</span>, 2010</time>
+
+
+
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://benscheirman.com/blog/2010/03/is-uitableviewcontroller-useless/" data-via="subdigital" data-counturl="http://benscheirman.com/blog/2010/03/is-uitableviewcontroller-useless/" >Tweet</a>
+  
+  
+  <g:plusone size="medium"></g:plusone>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread"><div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_shortname = 'subdigital';
+  var disqus_identifier = 'http://benscheirman.com/blog/2010/03/is-uitableviewcontroller-useless/';
+  var disqus_url = 'http://benscheirman.com/blog/2010/03/is-uitableviewcontroller-useless/';
+  //var disqus_developer = 1;
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside role=sidebar>
+  
+    <section>
+  <h1>Who am I?</h1>
+  <p>I&#8217;m Ben Scheirman. I make Rails &amp; iPhone apps for <a href="http://chaione.com" target="_blank">ChaiONE</a> in Houston, TX.</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/08/vim---could-not-invoke-jslint/">Vim - Could Not Invoke JSLint</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/is-rails-exempt-from-software-principles/">Is Rails Exempt?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/when-viewwillappear-isnt-called/">When viewWillAppear: Isn&#8217;t Called</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/moving-my-blog/">Moving My Blog</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/my-vim-journey/">My Vim Journey</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("subdigital", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/subdigital" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @subdigital</a>
+  
+</section>
+
+
+<section>
+  <h1>On Delicious</h1>
+  <script type="text/javascript" src="http://feeds.delicious.com/v2/js/subdigital?title=&count=3&sort=date&extended"></script>
+  <p><a href="http://delicious.com/subdigital">My Delicious Bookmarks &raquo;</a></p>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer>
+<a style="display:block; float: right" title="Real Time Analytics" href="http://getclicky.com/66470389"><img alt="Real Time Analytics" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
+<script src="//static.getclicky.com/js" type="text/javascript"></script>
+<script type="text/javascript">try{ clicky.init(66470389); }catch(e){}</script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/66470389ns.gif" /></p></noscript>
+
+<p>
+  Copyright &copy; 2011 - Ben Scheirman -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+</body>
+</html>

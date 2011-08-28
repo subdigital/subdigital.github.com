@@ -1,0 +1,533 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Fickle Bits: Load Testing our Heroku app</title>
+  <meta name="author" content="Ben Scheirman">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="canonical" href="http://benscheirman.com/blog/2010/08/load-testing-our-heroku-app/"/>
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/ficklebits" rel="alternate" title="Fickle Bits" type="application/atom+xml"/>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-210379-10']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">Fickle Bits</a></h1>
+  
+    <h2>You're doing it wrong.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/ficklebits" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:benscheirman.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry">
+  
+  <header>
+    
+      <h1 class="entry-title">Load Testing Our Heroku App</h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2010-08-06 00:00:00 -0500" pubdate  updated >Aug 6<span>th</span>, 2010</time>
+
+
+</p>
+    
+  </header>
+
+
+<div class="entry-content"><p>I&#8217;ve said many times before how much I love Heroku. Though they&#8217;ve had an unusually large amount of downtime this week (~1 hour), I&#8217;m still loving their service. One of the applications that we&#8217;re building is expecting a large wave of traffic shortly following a blitz PR campaign. The golden question of the hour is: How much traffic can we handle?</p>
+
+<p>Currently we&#8217;re on the Koi 1 plan, which gives us a 20GB database (shared) and 1 dyno. A &#8220;dyno&#8221; is basically 1 concurrent request. It&#8217;s very similar to a super market. You get in line and you are served in the order in which you came. If some jackass has a cartload of Natural Light &amp; Cheeze Whiz in front of you, you&#8217;re gonna have to wait a while. Adding another Dyno is like opening a 2nd lane.</p>
+
+<p>The key to good performance on Heroku is to watch the Queue Depth. If you ever reach too many people in the queue at one time your app will stop serving up requests past that mark, you&#8217;ll get a Backlog Too Deep error. I&#8217;m not sure what the limit is, but I&#8217;m guessing it&#8217;s around 100 (which is HUGE).</p>
+
+<p>For more information on Heroku performance, see their <a href="http://docs.heroku.com/performance" target="_blank">excellent docs</a>.</p>
+
+<p>To perform my tests I&#8217;m using 2 tools: <a href="http://httpd.apache.org/docs/2.0/programs/ab.html" target="_blank">Apache Bench</a> &amp; <a href="http://www.newrelic.com/" target="_blank">New Relic RPM</a>. Both are stellar.</p>
+
+<h2>Test 1: Serving up the landing page (1 Dyno, 5000 requests, 20 at a time)</h2>
+
+
+<p>This is a simple GET request that the Heroku routing mesh likely caches heavily. There&#8217;s no database queries on the homepage and no logic.</p>
+
+<h1>Requests: 5000Concurrency: 20# of Requests/Sec: 85</h1>
+
+<p>This is pretty darn good. 50% of the requests are served in under 300ms and the max request took less than 1 second. No requests failed.</p>
+
+<h2>Test 2: A simple API read operation (1 Dyno, 5000 requests, 20 at a time)</h2>
+
+
+
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+<span class='line'>6</span>
+<span class='line'>7</span>
+<span class='line'>8</span>
+<span class='line'>9</span>
+<span class='line'>10</span>
+<span class='line'>11</span>
+<span class='line'>12</span>
+<span class='line'>13</span>
+<span class='line'>14</span>
+<span class='line'>15</span>
+<span class='line'>16</span>
+<span class='line'>17</span>
+<span class='line'>18</span>
+<span class='line'>19</span>
+<span class='line'>20</span>
+<span class='line'>21</span>
+<span class='line'>22</span>
+<span class='line'>23</span>
+<span class='line'>24</span>
+<span class='line'>25</span>
+<span class='line'>26</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>Concurrency Level: 20
+</div><div class='line'>Time taken for tests:   68.067 seconds
+</div><div class='line'>Complete requests:      5000
+</div><div class='line'>Failed requests:        0
+</div><div class='line'>Write errors:           0
+</div><div class='line'>Total transferred:      4276315 bytes
+</div><div class='line'>HTML transferred:       2665000 bytes
+</div><div class='line'>&lt;strong>Requests per second:    73.46 [#/sec] (mean)&lt;/strong>
+</div><div class='line'>Time per request:       272.267 [ms] (mean)
+</div><div class='line'>Time per request:       13.613 [ms] (mean, across all concurrent requests)
+</div><div class='line'>Transfer rate:          61.35 [Kbytes/sec] received
+</div><div class='line'>Connection Times (ms)min  mean[+/-sd] median
+</div><div class='line'>maxConnect:       68   75   4.2     74      97
+</div><div class='line'>Processing:    85  197  73.9    180     607
+</div><div class='line'>Waiting:       85  197  73.9    180     607
+</div><div class='line'>Total:        157  272  73.8    255     685
+</div><div class='line'>Percentage of the requests served within a certain time (ms)
+</div><div class='line'>50%    255
+</div><div class='line'>66%    291
+</div><div class='line'>75%    313
+</div><div class='line'>80%    325
+</div><div class='line'>90%    365
+</div><div class='line'>95%    407
+</div><div class='line'>98%    477
+</div><div class='line'>99%    535
+</div><div class='line'>100%    685 (longest request)</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>Again, great results. This is due to caching of course, but at least we know we can handle lots of requests on this API.</p>
+
+<h2>Test 3: A simple API write operation (1 Dyno, 5000 requests, 20 at a time)</h2>
+
+
+<p>This API operation inserts 2 records in the database. Again, 5000 requests, 20 at a time.</p>
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+<span class='line'>6</span>
+<span class='line'>7</span>
+<span class='line'>8</span>
+<span class='line'>9</span>
+<span class='line'>10</span>
+<span class='line'>11</span>
+<span class='line'>12</span>
+<span class='line'>13</span>
+<span class='line'>14</span>
+<span class='line'>15</span>
+<span class='line'>16</span>
+<span class='line'>17</span>
+<span class='line'>18</span>
+<span class='line'>19</span>
+<span class='line'>20</span>
+<span class='line'>21</span>
+<span class='line'>22</span>
+<span class='line'>23</span>
+<span class='line'>24</span>
+<span class='line'>25</span>
+<span class='line'>26</span>
+<span class='line'>27</span>
+<span class='line'>28</span>
+<span class='line'>29</span>
+<span class='line'>30</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>Concurrency Level:      20
+</div><div class='line'>Time taken for tests:   320.981 seconds
+</div><div class='line'>Complete requests:      5000
+</div><div class='line'>&lt;strong>Failed requests:        4165
+</div><div class='line'>&lt;/strong>   (Connect: 0, Receive: 0, Length: 4165, Exceptions: 0)
+</div><div class='line'>Write errors:           0
+</div><div class='line'>Total transferred:      4022365 bytes
+</div><div class='line'>Total POSTed:           1935387
+</div><div class='line'>HTML transferred:       2651618 bytes
+</div><div class='line'>Requests per second:    15.58 [#/sec] (mean)
+</div><div class='line'>Time per request:       1283.923 [ms] (mean)
+</div><div class='line'>Time per request:       64.196 [ms] (mean, across all concurrent requests)
+</div><div class='line'>Transfer rate:          12.24 [Kbytes/sec] received 5.89 kb/s sent  18.13 kb/s totalConnection 
+</div><div class='line'>
+</div><div class='line'>Times     (ms)min  mean[+/-sd] median
+</div><div class='line'>maxConnect:   68   71   3.9     70     104
+</div><div class='line'>Processing:   134 1210 865.8    975    5559
+</div><div class='line'>Waiting:      134 1210 865.8    975    5558
+</div><div class='line'>Total:        202 1281 865.7   1048    5627
+</div><div class='line'>
+</div><div class='line'>Percentage of the requests served within a certain time (ms)
+</div><div class='line'>50%   1048
+</div><div class='line'>66%   1364
+</div><div class='line'>75%   1638
+</div><div class='line'>80%   1819
+</div><div class='line'>90%   2430
+</div><div class='line'>95%   3176
+</div><div class='line'>98%   3898
+</div><div class='line'>99%   4248
+</div><div class='line'>100%   5627 (longest request)</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>You can see here that we failed 4165 requests. That&#8217;s not good! Let&#8217;s try adding a dyno and do it again.</p>
+
+<h2>Test 4: A simple API write operation (2 Dynos, 5000 requests, 20 at a time)</h2>
+
+
+
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+<span class='line'>6</span>
+<span class='line'>7</span>
+<span class='line'>8</span>
+<span class='line'>9</span>
+<span class='line'>10</span>
+<span class='line'>11</span>
+<span class='line'>12</span>
+<span class='line'>13</span>
+<span class='line'>14</span>
+<span class='line'>15</span>
+<span class='line'>16</span>
+<span class='line'>17</span>
+<span class='line'>18</span>
+<span class='line'>19</span>
+<span class='line'>20</span>
+<span class='line'>21</span>
+<span class='line'>22</span>
+<span class='line'>23</span>
+<span class='line'>24</span>
+<span class='line'>25</span>
+<span class='line'>26</span>
+<span class='line'>27</span>
+<span class='line'>28</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>Concurrency Level: 20
+</div><div class='line'>Time taken for tests:   135.882 seconds
+</div><div class='line'>Complete requests:      5000
+</div><div class='line'>Failed requests:        0
+</div><div class='line'>Write errors:           0
+</div><div class='line'>Total transferred:      4045448 bytes
+</div><div class='line'>Total POSTed:           1935774
+</div><div class='line'>HTML transferred:       2675000 bytes
+</div><div class='line'>Requests per second:    36.80 [#/sec] (mean)
+</div><div class='line'>Time per request:       543.530 [ms] (mean)
+</div><div class='line'>Time per request:       27.176 [ms] (mean, across all concurrent requests)
+</div><div class='line'>Transfer rate:          29.07 [Kbytes/sec] received
+</div><div class='line'>13.91 kb/s sent
+</div><div class='line'>42.99 kb/s totalConnection Times (ms)min  mean[+/-sd] median
+</div><div class='line'>maxConnect:       67   95  32.7     72     979
+</div><div class='line'>Processing:   121  448 162.4    420    1481
+</div><div class='line'>Waiting:      121  448 162.5    419    1481
+</div><div class='line'>Total:        199  543 154.4    515    1549
+</div><div class='line'>Percentage of the requests served within a certain time (ms)
+</div><div class='line'>50%    515
+</div><div class='line'>66%    580
+</div><div class='line'>75%    624
+</div><div class='line'>80%    654
+</div><div class='line'>90%    751
+</div><div class='line'>95%    840
+</div><div class='line'>98%    946
+</div><div class='line'>99%   1034
+</div><div class='line'>100%   1549 (longest request)</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>We&#8217;re getting a pretty healthy 36 requests per second now, and look, no errors!</p>
+
+<h2>Test 5: A simple API write operation (2 Dynos, 10000 requests, 20 at a time)</h2>
+
+
+
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+<span class='line'>6</span>
+<span class='line'>7</span>
+<span class='line'>8</span>
+<span class='line'>9</span>
+<span class='line'>10</span>
+<span class='line'>11</span>
+<span class='line'>12</span>
+<span class='line'>13</span>
+<span class='line'>14</span>
+<span class='line'>15</span>
+<span class='line'>16</span>
+<span class='line'>17</span>
+<span class='line'>18</span>
+<span class='line'>19</span>
+<span class='line'>20</span>
+<span class='line'>21</span>
+<span class='line'>22</span>
+<span class='line'>23</span>
+<span class='line'>24</span>
+<span class='line'>25</span>
+<span class='line'>26</span>
+<span class='line'>27</span>
+<span class='line'>28</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>Concurrency Level: 20
+</div><div class='line'>Time taken for tests:   326.317 seconds
+</div><div class='line'>Complete requests:      10000
+</div><div class='line'>Failed requests:        0
+</div><div class='line'>Write errors:           0
+</div><div class='line'>Total transferred:      8091062 bytes
+</div><div class='line'>Total POSTed:           3870000
+</div><div class='line'>HTML transferred:       5350000 bytes
+</div><div class='line'>Requests per second:    30.65 [#/sec] (mean)
+</div><div class='line'>Time per request:       652.634 [ms] (mean)
+</div><div class='line'>Time per request:       32.632 [ms] (mean, across all concurrent requests)
+</div><div class='line'>Transfer rate:          24.21 [Kbytes/sec] received
+</div><div class='line'>11.58 kb/s sent
+</div><div class='line'>35.80 kb/s totalConnection Times (ms)min  mean[+/-sd] median
+</div><div class='line'>maxConnect:       68   72  13.8     70    1004
+</div><div class='line'>Processing:   113  580 233.1    539    2145
+</div><div class='line'>Waiting:      113  580 233.1    539    2145
+</div><div class='line'>Total:        183  652 233.5    610    2213
+</div><div class='line'>Percentage of the requests served within a certain time (ms)
+</div><div class='line'>50%    610
+</div><div class='line'>66%    701
+</div><div class='line'>75%    771
+</div><div class='line'>80%    822
+</div><div class='line'>90%    971
+</div><div class='line'>95%   1103
+</div><div class='line'>98%   1254
+</div><div class='line'>99%   1374
+</div><div class='line'>100%   2213 (longest request)</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>We slipped a tad on overall throughput (down to 30 reqs/sec) but we still served up all of the requests in a reasonable time without any failures.
+Let&#8217;s check out New Relic &amp; See what it says.
+<img src="/images/newrelic-heroku-testing2_.png"  height="282"  /> In this graph you can see the overall HTTP Throughput (higher is better) against the Heroku backlog depth. The more dynos you have, the quicker your backlog is cleared out, equating to more throughput. You can clearly see that we are now hitting a limit on the throughput we can handle because the queue depth is increasing. We might choose to optimize the site or add another dyno to squeeze some more perf out of this.
+Also in the image if you were to mouseover on the queue stacks on the website, you&#8217;d see that my peak queue depth was 29. That&#8217;s pretty high, and you can definitely see a cap in the total # of requests that we can serve.
+In the end, I&#8217;m able to pretty reliably say that we can handle a 10k request spike when running on 2 dynos. I&#8217;d suggest more dynos if the client wanted to handle more than that.
+Gotta love tools that make investigation like this easy. Props to Heroku &amp; New Relic.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ben Scheirman</span></span>
+
+      
+
+
+
+
+<time datetime="2010-08-06 00:00:00 -0500" pubdate  updated >Aug 6<span>th</span>, 2010</time>
+
+
+
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://benscheirman.com/blog/2010/08/load-testing-our-heroku-app/" data-via="subdigital" data-counturl="http://benscheirman.com/blog/2010/08/load-testing-our-heroku-app/" >Tweet</a>
+  
+  
+  <g:plusone size="medium"></g:plusone>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread"><div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_shortname = 'subdigital';
+  var disqus_identifier = 'http://benscheirman.com/blog/2010/08/load-testing-our-heroku-app/';
+  var disqus_url = 'http://benscheirman.com/blog/2010/08/load-testing-our-heroku-app/';
+  //var disqus_developer = 1;
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside role=sidebar>
+  
+    <section>
+  <h1>Who am I?</h1>
+  <p>I&#8217;m Ben Scheirman. I make Rails &amp; iPhone apps for <a href="http://chaione.com" target="_blank">ChaiONE</a> in Houston, TX.</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/08/vim---could-not-invoke-jslint/">Vim - Could Not Invoke JSLint</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/is-rails-exempt-from-software-principles/">Is Rails Exempt?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/when-viewwillappear-isnt-called/">When viewWillAppear: Isn&#8217;t Called</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/moving-my-blog/">Moving My Blog</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/my-vim-journey/">My Vim Journey</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("subdigital", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/subdigital" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @subdigital</a>
+  
+</section>
+
+
+<section>
+  <h1>On Delicious</h1>
+  <script type="text/javascript" src="http://feeds.delicious.com/v2/js/subdigital?title=&count=3&sort=date&extended"></script>
+  <p><a href="http://delicious.com/subdigital">My Delicious Bookmarks &raquo;</a></p>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer>
+<a style="display:block; float: right" title="Real Time Analytics" href="http://getclicky.com/66470389"><img alt="Real Time Analytics" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
+<script src="//static.getclicky.com/js" type="text/javascript"></script>
+<script type="text/javascript">try{ clicky.init(66470389); }catch(e){}</script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/66470389ns.gif" /></p></noscript>
+
+<p>
+  Copyright &copy; 2011 - Ben Scheirman -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+</body>
+</html>

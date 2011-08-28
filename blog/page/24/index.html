@@ -1,0 +1,945 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Fickle Bits</title>
+  <meta name="author" content="Ben Scheirman">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="canonical" href="http://benscheirman.com/blog/page/24/index.html"/>
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/ficklebits" rel="alternate" title="Fickle Bits" type="application/atom+xml"/>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-210379-10']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">Fickle Bits</a></h1>
+  
+    <h2>You're doing it wrong.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/ficklebits" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:benscheirman.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/07/why-are-ruby-applications-so-elegant/">Why Are Ruby Applications So Elegant?</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-07-12 00:00:00 -0500" pubdate  updated >Jul 12<span>th</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I&rsquo;ve had a bad case&nbsp;of Mac/Ruby envy lately.&nbsp; I&rsquo;ll post more on the Mac thoughts later, this post is about <a href="http://www.rubyonrails.org/" target="_blank">Ruby on Rails</a>.</p>
+
+
+<p>If you don&rsquo;t know what RoR is, then maybe you should go to the website and take a look.</p>
+
+
+<p><img src="/images/tadalist1_small_.jpg" hspace="5"  border="0"  /></p>
+
+
+<p>I keep seeing these Ruby applications that are so simple, elegant, and <strong>useful</strong>.&nbsp; Take <a href="http://www.tadalist.com/" target="_blank">tadalist</a>&nbsp;for example.&nbsp; This is a painfully simple application but it works the way I want it to and it&rsquo;s&nbsp;always available.</p>
+
+
+<p>I use tadalist more than I&nbsp;use Outlook&rsquo;s todo list interface.</p>
+
+
+<p>It&rsquo;s just so much cleaner, it&rsquo;s always available, and it doesn&rsquo;t get in your way.</p>
+
+
+<p>Maybe this is due to the &ldquo;ruby way&rdquo; of thinking.&nbsp; I have seen countless applications written in JSP or ASP.NET that just look like someone vomited html all over the page.&nbsp; Where are all of the interaction designers in the .NET space?</p>
+
+
+<p>Another&nbsp;Ruby application that I have seen that I think is incredibly useful and elegant is <a href="http://www.basecamphq.com/" target="_blank">Basecamp</a>.&nbsp; This is a project management utility that is basically the Anti-Microsoft Project.&nbsp; They took all of the things that they didn&rsquo;t like about Project and built Basecamp, stripping down tons of features to boil down into the a simple, useful project collaboration application.&nbsp; Check out the screenshot to see what I mean.&nbsp; The interface is slick, and it has everything you need to know, right there.</p>
+
+
+<p><a href="http://www.flux88.com/uploads/basecamp1.jpg"><img src="/images/basecamp1_thumb_.jpg" hspace="5"  border="0"  /></a>I used this to collaborate on a small project and found it to be incredibly intuitive.</p>
+
+
+<p>It isn&rsquo;t intuitive because it was written in Rails.&nbsp; It is intuitive because the <a title="37 signals" href="http://37signals.com/" target="_blank">people behind it</a> are brilliant.&nbsp; And these particular brilliant people swear by&nbsp;Rails.</p>
+
+
+<p>Every time I try to use Project to get a hold of the overall picture of my current project I get lost, and I don&rsquo;t see much value in that beast of an application.</p>
+
+
+<p><a href="http://www.thoughtworks.com/" target="_blank">Thoughtworks</a> is jumping in as well into the ruby space.&nbsp; In&nbsp;a <a title="hanselminutes" href="http://hanselminutes.com/default.aspx?showID=82" target="_blank">recent interview</a> with <a href="http://martinfowler.com/" target="_blank">Martin Fowler</a>, he claimed that somewhere around 60% of their consulting work is in Ruby now.&nbsp; 60%!&nbsp; I find that very hard to ignore.&nbsp; Check out their newest online application for managing agile projects:&nbsp; it&rsquo;s called <a href="http://studios.thoughtworks.com/mingle-project-intelligence" target="_blank">Mingle</a>, and it looks awesome.</p>
+
+
+<p><a href="http://www.flux88.com/uploads/mingle.JPG"><img src="/images/mingle_thumb_.jpg" hspace="5"  border="0"  /></a></p>
+
+
+<p>I&rsquo;ve found 2 more ruby examples that I am really keen on:&nbsp; <a href="http://warehouseapp.com/" target="_blank">Warehouse</a>&nbsp;and <a href="http://lighthouseapp.com/" target="_blank">Lighthouse</a>.</p>
+
+
+<div><a href="http://www.flux88.com/uploads/warehouse1.JPG"><img src="/images/warehouse1_thumb_.jpg" hspace="5"  border="0"  /></a><a href="http://www.flux88.com/uploads/warehouse2.JPG"><img src="/images/warehouse2_thumb1_.jpg" hspace="5"  border="0"  /></a></div>
+
+
+<div><p>Warehouse is a subversion repository browser with a slick interface.&nbsp; It&rsquo;s only 30 bucks, too!</p><p>&nbsp;</p><p>&nbsp;</p><p>Lighthouse looks even cooler.&nbsp; It&rsquo;s a bug tracking application that integrates with subversion and email.&nbsp; I&rsquo;d really like to take this application for a spin.</p></div>
+
+
+<div><a href="http://www.flux88.com/uploads/lighthouse.JPG"><img src="/images/lighthouse_thumb_.jpg" hspace="5"  border="0"  /></a></div>
+
+
+<div>&nbsp;</div>
+
+
+<div>These applications do share a common interface style, but that doesn&rsquo;t exactly mean it&rsquo;s a bad thing.&nbsp; The design of these applications is simple, polished, and actually pleasing to look at.&nbsp; Try to think about those things with Team Foundation Server and see if you get the same feeling.</div>
+
+
+<div>&nbsp;</div>
+
+
+<div>This raises the question, Why are Ruby Applications so Elegant?&nbsp; Well, not all are&hellip; but the majority are.&nbsp;&nbsp; </div>
+
+
+<div>&nbsp;</div>
+
+
+<div>I&rsquo;d say, some major factors are:</div>
+
+
+<ul><li>The typical ruby developer is also a Mac user.</li><ul><li>the typical Mac user appreciates design.</li></ul><li>The mantra&nbsp;of &ldquo;less is more&rdquo; radiates from the language (Ruby), the web framework (Rails), and the interface.</li></ul>
+
+
+<p>I&rsquo;m really jealous of the&nbsp;work that some of these folks are doing.&nbsp;&nbsp;This is&nbsp;contributing to my Mac Envy, which I will post on later.</p>
+
+
+<p>Am I just becoming a fan-boy?&nbsp; What do you think?&nbsp;</p>
+
+
+<p><a href="http://www.flux88.com/uploads/warehouse2.JPG"></a><div class="bjtags">Tags:<a rel="tag" href="http://technorati.com/tag/Ruby">Ruby</a>, <a rel="tag" href="http://technorati.com/tag/Rails">Rails</a>, <a rel="tag" href="http://technorati.com/tag/Design">Design</a></div></p>
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2007/07/why-are-ruby-applications-so-elegant/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/07/see-you-at-the-oklahoma-city-code-camp/">See You at the Oklahoma City Code Camp</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-07-10 00:00:00 -0500" pubdate  updated >Jul 10<span>th</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I’ll be at the Oklahoma City Code Camp on July 27<sup>th</sup>, 2007.</p>
+
+
+<p>They’ve got a great speaker line-up and I’m truly excited to meet some people that I have only read or talked to over email.</p>
+
+
+<p>On the speaker list:</p>
+
+
+<ul><li><a href="http://codebetter.com/blogs/jean-paul_boodhoo" target="_blank">Jean-Paul Boodhoo</a></li><li><a href="http://laribee.com/" target="_blank">David Laribee</a></li><li><a href="http://codebetter.com/blogs/jeremy.miller/default.aspx" target="_blank">Jeremy Miller</a></li><li><a href="http://codebetter.com/blogs/scott.bellware/default.aspx" target="_blank">Scott Bellware</a></li><li>and more!</li></ul>
+
+
+<p>I don’t know where I’m staying yet, but I think there will be a group discount somewhere.&nbsp; If you’re going to attend, drop me a line and let me know what your agenda is.&nbsp; See you there!</p>
+
+
+<div class="bjtags">Tags:<a rel="tag" href="http://technorati.com/tag/Oklahoma+City">Oklahoma+City</a>, <a rel="tag" href="http://technorati.com/tag/Code+Camp">Code+Camp</a>, <a rel="tag" href="http://technorati.com/tag/Agility">Agility</a>, <a rel="tag" href="http://technorati.com/tag/.NET">.NET</a></div>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2007/07/see-you-at-the-oklahoma-city-code-camp/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/07/dasblog-theme-contest-deadline-extended/">dasBlog Theme Contest - Deadline Extended</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-07-10 00:00:00 -0500" pubdate  updated >Jul 10<span>th</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><font style="BACKGROUND-COLOR: #f4f4f4">I&rsquo;ve gotten a number of requests for this, so I&rsquo;ve decided to extend the deadline for the <a href="http://www.flux88.com/dasBlogthemeContext.aspx">dasBlog Theme Contest</a>&nbsp;until July 22<sup>nd</sup>, 2007.&nbsp; <strong>That gives 2 full weekends before the themes are due.</strong></font></p>
+
+
+<p>As a reminder, there is a <strong>$100</strong> shiny Amazon gift card with your name on it if you can submit a slick-looking theme that impresses us more than the rest.&nbsp; So far the response has been lower than expected, which means your chances of winning are better!</p>
+
+
+<p>Creating a theme is easy.&nbsp; It takes about 2 hours to get a fully working theme when you get used to the macros and the page layout, and maybe a few more to make sure that the site looks good in all major browsers.</p>
+
+
+<p>I&rsquo;ve also received a number of similar questions, so I&rsquo;ll answer them here:</p>
+
+
+<p><em>The rules for the contest state &lsquo;no licensed material&rsquo; &mdash; does that mean I can&rsquo;t use images under GPL, BSD, or Creative Commons?</em></p>
+
+
+<p><strong>No.&nbsp; I wrote that more as a CYA requirement.&nbsp; Basically as long as there are no restrictions in distributing the artifacts along with dasBlog we&rsquo;re OK with it.&nbsp; Just be sure to ask permission where warranted and always give credit.</strong></p>
+
+
+<p><em>I love the ________ theme from WordPress|MovableType|blogger|Subtext.&nbsp; Can I just port that?</em></p>
+
+
+<p><strong>Absolutely!&nbsp; As long as you follow the rule above, we&rsquo;d love to see some familiar professional themes on dasBlog.</strong></p>
+
+
+<p><em>I don&rsquo;t have a .NET environment to test out dasBlog&hellip; can I still participate?</em></p>
+
+
+<p><strong>I will help out as much as I can.&nbsp; If you can provide me with a solid HTML template with all of the required pieces in place, I will try to help out getting it on dasBlog.</strong></p>
+
+
+<p>&nbsp;</p>
+
+
+<p>Any other questions?</p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2007/07/dasblog-theme-contest-deadline-extended/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/07/introducing-lizard-lounge-for-dasblog/">Introducing Lizard Lounge for DasBlog</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-07-08 00:00:00 -0500" pubdate  updated >Jul 8<span>th</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>&nbsp;Introducing my submission for the <a href="http://www.flux88.com/dasBlogThemeContest.aspx">dasBlog Theme Contest</a>.&nbsp; <i>(Even though I can&#8217;t win, I thought it would be fun to submit an entry)</i><br /><br />The theme is called Lizard Lounge.&nbsp; This theme was inspired by the <a href="http://www.huddletogether.com/projects/lightbox2/">lighbox2 home page</a>.<br /><br />I&#8217;d love to hear what you think!&nbsp; Let me know in the comments!<a href="http://www.flux88.com/uploads/lizard_lounge.JPG"><img src="/images/lizard_lounge_thumb_.jpg" alt="Lizard_lounge"  border="0"  /></a></p>
+
+
+<p>You can download the theme here:<br /><a href="http://www.flux88.com/uploads/LizardLounge.zip">File Attachment: LizardLounge.zip (43 KB)</a></p>
+
+
+<p>Just unzip it into your themes directory and let me know if you have any issues.</p>
+
+
+<div class="bjtags">Tags:<a rel="tag" href="http://technorati.com/tag/dasBlog">dasBlog</a>, <a rel="tag" href="http://technorati.com/tag/Theme">Theme</a></div>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2007/07/introducing-lizard-lounge-for-dasblog/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/07/dasblog-theme-contest/">dasBlog Theme Contest!</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-07-03 00:00:00 -0500" pubdate  updated >Jul 3<span>rd</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>In an effort to get some more good quality themes ready for the next release of dasBlog, I&rsquo;m going to host a little contest.</p>
+
+
+<p>Introducing&#8230;</p>
+
+
+<h2>The dasBlog Theme Contest</h2>
+
+
+<p>The idea is simple.&nbsp; Submit a new dasBlog theme, created by you, using valid XHTML and CSS.&nbsp; Entries should be original and should be zipped up and sent to me at <a href="mailto:subdigital_AT_gmail_DOT_com">subdigital_AT_gmail_DOT_com.</p>
+
+
+<p></a>Are you ready for the prize?&nbsp; How about &hellip;</p>
+
+
+<h3>A <span>$100 (US)</span> Amazon Gift Card !</h3>
+
+
+<p>The rules:</p>
+
+
+<ul><li>Mockups do not count.&nbsp; They have to be either running online in dasBlog or submit the relevant files so that I can install them on a test blog.</li><li><em>Hint:&nbsp; we respect valid XHTML and CSS.&nbsp; Don&rsquo;t abuse tables!</em></li><li>Multiple entries may be sumitted by the same person</li><li>Entries must be submitted to <strong>me</strong> no later than Midnight, <strike>July 12<sup>th</sup>. (That doesn&rsquo;t leave much time!)</strike> <font color="#ff6600">The deadline has been extended to July 22<sup>nd</sup>, 2007.&nbsp; Get started!</font></li><li>Send them to my email address (above) with the subject line <strong>dasBlog Theme Contest Submission</strong></li><li>No&nbsp;licensed material on the&nbsp;theme &mdash; all images and artifacts must be made by you or publicly available</li><li>By submitting&nbsp; you agree to allow us to package the theme along with dasBlog, if we so desire</li><li>You are allowed to place a small link at the bottom of the page identifying you or company, but no logos</li><li>The dasBlog team will judge the designs and the winner will be announced <strike>July 16<sup>th</sup> </strike><font color="#ff6600">July 25<sup>th</sup>.</font></li></ul>
+
+
+<p>&nbsp;<em>The&nbsp;prize for this contest has been donated by <a href="http://www.computerzen.com/" target="_blank">Scott Hanselman</a> and myself.</em></p>
+
+
+<h3>So how do I create a theme?</h3>
+
+
+<p>Creating a theme is simple!&nbsp; The best way to learn is to open up one of the existing themes and take a look.&nbsp; The basic structure of a theme is this:</p>
+
+
+<p>Inside of your dasBlog directory there is a <strong>themes</strong> folder:</p>
+
+
+<p><img src="/images/blog_theme1_small_.jpg" alt="Blog_theme1"  border="0"  /></p>
+
+
+<p>Each theme that you want to create (or install) goes in its own folder.&nbsp; dasBlog ships with over 20 themes currently, so there are a lot to choose from as a starting point.&nbsp; If you open the directory and take a look, you&rsquo;ll see a folder for each.</p>
+
+
+<p><img src="/images/blog_theme2_small_.jpg" alt="Blog_theme2"  border="0"  /></p>
+
+
+<p>Let&rsquo;s take a look at <strong>mono</strong>.</p>
+
+
+<p>Inside of the specific theme&rsquo;s folder you&rsquo;ll find all artifacts for the theme.&nbsp; Any images, css, or template files go in here.</p>
+
+
+<p>As you can see, there isn&rsquo;t much to it&hellip;</p>
+
+
+<p><img src="/images/blog_theme3_small1_.jpg" alt="Blog_theme3"  border="0"  /></p>
+
+
+<p>&nbsp;Notice the <strong>theme.manifest</strong> file here.&nbsp; This is just a text file telling dasBlog that this folder is a theme and <em>mono</em> is its name.</p>
+
+
+<p><img src="/images/blog_theme4_small_.jpg" alt="Blog_theme4"  border="0"  /></p>
+
+
+<p>You also have the opportunity to add named images, but you don&rsquo;t have to do that if you don&rsquo;t want to.</p>
+
+
+<p>The next thing I want to open up are the 3 template files:</p>
+
+
+<ul><li><strong>homeTemplate.blogtemplate</strong> &ndash; this is the main site layout.&nbsp; This will be the most complicated template.<br /></li><li><strong>dayTemplate.blogtemplate</strong> &ndash; each day there are zero or more posts, usually with a date header at the top, but possibly other groupings by day.&nbsp; This template will be rendered once per day (as long as there are posts on that day).<br /></li><li><strong>itemTemplate.blogtemplate</strong> &ndash; this is the post template.&nbsp; Included is the template for the entire comments structure.</li></ul>
+
+
+<p>I will show the homeTemplate right here, just to give you an idea of what it&rsquo;s like to edit the themes.</p>
+
+
+<p><img src="/images/blog_theme5_small_.jpg" alt="Blog_theme5"  border="0"  /></p>
+
+
+<p>Most of this is standard XHTML, however you&rsquo;ll notice the macro tags marked with &lt;% %&gt;.&nbsp; These will be picked up by the renderer and replaced with whatever the macro calls for.&nbsp; For example, to tell dasBlog to output your administration bar at a certain location, you&rsquo;d write <strong>&lt;% newtelliigence.adminBar()%&gt;.</strong></p>
+
+
+<p>For a complete list of dasBlog macros, check John Forsythe&rsquo;s page on macros:&nbsp; <a href="http://www.jforsythe.com/jforsythe/projects/dasBlogMacros.html">http://www.jforsythe.com/jforsythe/projects/dasBlogMacros.html</a></p>
+
+
+<p>That&rsquo;s enough of an introduction to get you started, so&hellip;.</p>
+
+
+<h2>Good Luck!</h2>
+
+
+<div class="bjtags">Tags:<a rel="tag" href="http://technorati.com/tag/dasBlog">dasBlog</a>, <a rel="tag" href="http://technorati.com/tag/contest">contest</a>, <a rel="tag" href="http://technorati.com/tag/theme">theme</a>, <a rel="tag" href="http://technorati.com/tag/css">css</a>, <a rel="tag" href="http://technorati.com/tag/xhtml">xhtml</a></div>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2007/07/dasblog-theme-contest/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/06/10-steps-to-win-the-family-it-guy-award/">10 Steps to Win the Family IT Guy Award</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-06-28 00:00:00 -0500" pubdate  updated >Jun 28<span>th</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I&rsquo;m sure that most of my readers are the &ldquo;Family IT&rdquo; people&nbsp;to their relatives.&nbsp; You know, the kind of person that gets regular phone calls from parents, aunts, uncles, cousins, brothers, sisters, grandparents, kids, etc.</p>
+
+
+<p>I have filled that role since I was probably 13.&nbsp; Most of the time I would just get annoyed, but now, in my infinite maturity (<img src="/images/smile1______________________________.gif"   />), I have fully accepted this responsibility.&nbsp; Here are the 10 steps you (and I) should take to win the <strong>Family IT Guy</strong> award&hellip;&nbsp; come on, you know you want it!</p>
+
+
+<div style="TEXT-ALIGN: center"><p><img src="/images/family_it_guy_.gif" alt="Family_it_guy"  border="0"  /></p></div>
+
+
+<p><strong>Step 1:&nbsp; Get a Good Backup Strategy</strong></p>
+
+
+<p>It starts with a backup strategy.&nbsp; I have a 500GB Western Digital My Book that takes images of my home PCs and stores them.&nbsp; This pretty much works, except when my house burns down I have nothing.&nbsp; My wife has about 45 GB worth of family photos and digital scrapbooking material.&nbsp; It would be catastrophic to lose all that stuff.&nbsp; It&rsquo;s irreplaceable.&nbsp; Other data that is important to backup are digital scans of driver&rsquo;s licenses, social security cards, birth certificates, tax forms, etc.</p>
+
+
+<p>So I setup both of our computers (mine and my wife&rsquo;s) on Carbonite online backup.&nbsp; Carbonite installs a little background process that will backup your files behind the scenes.&nbsp; It&rsquo;s less than $50/year and you can store <strong>unlimited</strong> data.&nbsp; Your data is encrypted and uploaded and you can pull it down at any time.</p>
+
+
+<p>It also installs a little explorer overlay icon that shows you a blue, green, or yellow dot.&nbsp; Green means backed up, so your family knows they&rsquo;re safe.</p>
+
+
+<p><strong>Step 2:&nbsp; Keep Spare Parts Around</strong></p>
+
+
+<p>I can&rsquo;t begin to count how many times a family member has asked me for a network cable, or a sound card, or a network card, or just about any other piece of hardware that a computer needs.&nbsp; Since I do a lot of&nbsp;tinkering with computer hardware, I tend to have a lot of spare parts.</p>
+
+
+<p>Your uncle will appreciate not having to order a new sound card for $15 at the local computer shop or (gasp!) online at&nbsp;<a href="http://newegg.com/" target="_blank">newegg</a>.</p>
+
+
+<p><strong>Step 3:&nbsp; Keep a Digital Toolbelt on you &ndash; A 2GB USB&nbsp;Drive</strong></p>
+
+
+<p>I have a copy of&nbsp;every tool from <a href="http://sysinternals.com/" target="_blank">SysInternals</a> on my&nbsp;USB&nbsp;Key.&nbsp;They are invaluable when digging deep into Windows problems.</p>
+
+
+<p>I also put <a href="http://portableapps.com/" target="_blank">portable apps</a> such as <a href="http://portableapps.com/apps/internet/firefox_portable" target="_blank">Firefox Portable</a> my thumb drive.&nbsp; This allows me to run a better browser when nothing but IE 6 is installed.</p>
+
+
+<p>Also grab a copy of <a href="http://portableapps.com/apps/utilities/clamwin_portable" target="_blank">ClamWin Antivirus Portable</a><font color="#0066cc"> </font>(or <a href="http://www.clamwin.com/" target="_blank">regular version</a>)&nbsp;or another free AV program.&nbsp; You never know when you&rsquo;ll have a cousin jump out of the bushes and ask you to clean their laptop.</p>
+
+
+<p>Keeping a thumb drive on you will make it a lot easier to use a family member&rsquo;s computer.&nbsp; The last thing you want to do is <em>have to come back later</em> with the right tools!</p>
+
+
+<p><em>For a good list of essential tools, check out <a href="http://computerzen.com/tools" target="_blank">Scott Hanselman&rsquo;s Ultimate Tools List</a>.</em></p>
+
+
+<p><strong>Step 4:&nbsp; Setup Family Email</strong></p>
+
+
+<p>We&rsquo;re all tired of email addresses like <a href="mailto:JRod44222354@aol.com">JRod44222354@aol.com</a>. (Apologies if that is your email address.)&nbsp; I recently setup <strong>scheirman.com</strong> as my family domain name and gave most of my relatives their own email address.&nbsp; Most of them were pretty excited to have a <a href="mailto:firstname@lastname.com">firstname@lastname.com</a> email address.&nbsp; Of course if your last name is Smith, then you&rsquo;ll have to get creative.</p>
+
+
+<p>To host the email I&rsquo;m using Google Apps for Your Domain and it works like a charm.&nbsp; Not only do you get all the goodness of GMail, but you get a personal email address as well!&nbsp; Their interface is slick and easy to use.</p>
+
+
+<p><strong>Step 5:&nbsp; Advise on New Computer Purchases</strong></p>
+
+
+<p>Don&rsquo;t let your Grandmother buy that new computer from the neigbor kid down the street.&nbsp; If you see your cousin walk into the Sony Style store at the mall with an armload of cash, <strong>stop her</strong>.&nbsp; </p>
+
+
+<p>Computers are cheap.&nbsp; Unless you want a high-end gaming rig or a video processing machine, your standard Dell fare will do you just fine, and often times under $600.&nbsp; It comes with a warranty, which saves you a headache for at least a year <img src="http://www.flux88.com/uploads/smile1.gif" />.</p>
+
+
+<p><strong>Step 6:&nbsp; Get a Remote Access Plan</strong></p>
+
+
+<p>When your sister calls you from Montana and says she needs help adding a user to her computer, be ready.&nbsp; With some good remote access software it can be painless to just take control and do it for her.</p>
+
+
+<p><a href="http://copilot.com/" target="_blank">FogCreek Copilot</a> is supposed to be good.&nbsp; <a href="http://www.joelonsoftware.com/" target="_blank">Joel Spolsky</a><font color="#0066cc">&rsquo;s</font> company <a href="http://www.fogcreeksoftware.com/" target="_blank">Fog Creek Software</a> wrote it and I have heard good reviews.&nbsp; It&rsquo;s very cheap for about an hour of use and <em>&ldquo;it just works.&rdquo;</em></p>
+
+
+<p><img src="/images/crossloop_screenshot_small_.jpg" alt="Crossloop_screenshot_small"  border="0"  /></p>
+
+
+<p>CrossLoop is a tool I just tried out the other day, and it also &ldquo;just works.&rdquo;&nbsp; You and your relative can download this in less than a minute, run it, and be connected even behind firewalls.&nbsp; Best of all, it&rsquo;s free!</p>
+
+
+<p>I used this the other day when I was helping my wife upload some files to her blog with an FTP client.&nbsp; I didn&rsquo;t have much time and it was a bit difficult to explain over the phone, so I told her to download the client, click &ldquo;Host&rdquo;&nbsp;and then read me the number on the screen.&nbsp; </p>
+
+
+<p>That&rsquo;s all it took!</p>
+
+
+<p>&nbsp;</p>
+
+
+<p>&nbsp;</p>
+
+
+<p><strong>Step 7:&nbsp; Don&rsquo;t Get Annoyed</strong></p>
+
+
+<p>PC Enthusiasts frequently whine and moan about having to help their relatives about how to use the computer.&nbsp; It&rsquo;s easy for us because we use it everyday.&nbsp; Many non-techies perceive computer gurus like they do auto mechanics or lawyers.&nbsp; We don&rsquo;t want this kind of image!</p>
+
+
+<p>The next time you walk up to your computer, take a look at how many buttons there are.&nbsp; What if your Grandmother sat down for the first time to use a PC?&nbsp; It is incredibly intimidating and complicated.&nbsp; How did <em>you</em> react when you first got a virus?&nbsp; </p>
+
+
+<p>Cut your family some slack.&nbsp; <strong>Be Patient</strong>.</p>
+
+
+<p><strong>Step 8:&nbsp; Spread the word.&nbsp; </strong></p>
+
+
+<p>Get your peeps using Firefox instead of Internet Explorer.&nbsp; Tell them the wonders of GMail.&nbsp; Explain to them that there&rsquo;s more than the MSN home page.&nbsp; Getting the word out is the only way you can ever expect people to <em>see the light</em>.</p>
+
+
+<p>When someone forwards you an email with a taseless joke or a reason why you should thank the heavens for waking up in the morning, only in ALL CAPS&hellip; politely inform them of internet etiquette.&nbsp; Don&rsquo;t just push the SPAM button.</p>
+
+
+<p>I bought my dad a copy of the <a href="http://www.amazon.com/Lifehacker-Tech-Tricks-Turbocharge-Your/dp/0470050659" target="_blank">Lifehacker book</a> for Christmas last year.&nbsp; He lov
+ed it.&nbsp; It&rsquo;s full of useful tools and tricks to make your computer work for you.&nbsp; He&rsquo;s a computer guy, mind you&hellip; but not the typical person who would read <a href="http://www.lifehacker.com/">www.lifehacker.com</a> on a daily basis (though now he proabably does).</p>
+
+
+<p><strong>Step 9:&nbsp; Find a Protogé</strong></p>
+
+
+<p>You can&rsquo;t do this stuff forever.&nbsp; Look at the younger folks in your family that can help take the throne.&nbsp; Tell them, &ldquo;One day&hellip;.&nbsp; this will all be yours&hellip;&rdquo;</p>
+
+
+<p>Be a mentor about good computer usage and troubleshooting.&nbsp; Don&rsquo;t be stingy with The Badge.&nbsp; Pass it on.</p>
+
+
+<p><strong>Step 10:&nbsp; Let Your Family Know Your Other Interests</strong></p>
+
+
+<p>I enjoy playing guitar, swimming, grilling food with family, playing board games, reading books, watching movies and addicting TV shows.&nbsp; If all you talk about is World of Warcraft, <strong>people are going to think you are weird</strong>.&nbsp; Let your family know that you are at least a tad normal, and that you do enjoy sunlight once in a while.</p>
+
+
+<p>&nbsp;</p>
+
+
+<p>So there you have it, there are my 10 steps to becoming a good Family IT Guy.&nbsp; A lot of my Family IT Guy inspiration comes from <a href="http://computerzen.com/" target="_blank">Scott Hanselman</a>, who seems to have all this down pretty darn good.&nbsp; I hope his family knows how good they have it.</p>
+
+
+<div class="bjtags">Tags:<a rel="tag" href="http://technorati.com/tag/IT">IT</a>, <a rel="tag" href="http://technorati.com/tag/Support">Support</a>, <a rel="tag" href="http://technorati.com/tag/Family">Family</a>, <a rel="tag" href="http://technorati.com/tag/Backup">Backup</a>, <a rel="tag" href="http://technorati.com/tag/Remote">Remote</a>, <a rel="tag" href="http://technorati.com/tag/Tools">Tools</a></div>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2007/06/10-steps-to-win-the-family-it-guy-award/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/06/run-as-administrator-on-vista-to-fix-weird-program-issues/">Run as Administrator on Vista to Fix Weird Program Issues</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-06-22 00:00:00 -0500" pubdate  updated >Jun 22<span>nd</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I&rsquo;ve been running Vista for about&nbsp;6 months now, and I really like it.&nbsp; There are a lot of issues that I have run into, but some of the minor ones are easy to fix.</p>
+
+
+<p>For example, I downloaded <a href="http://e-texteditor.com/" target="_blank">e-texteditor</a>&nbsp;which is like TextMate for Windows.&nbsp; It uses Cygwin for some advanced features, so when you try to use then (like Alt-Shift-Comma for auto-wrapping html brackets and closing tags on a word) &mdash; E goes to install <a href="http://cygwin.com/" target="_blank">Cygwin</a>.&nbsp; Under Vista, clicking on &ldquo;Install&rdquo; does nothing.</p>
+
+
+<p><a href="http://www.flux88.com/uploads/e.JPG"><img src="/images/e_thumb_.jpg" alt="E - a TextMate clone for Windows"  border="0"  /></a></p>
+
+
+<p>The solution is to Run as Administrator.&nbsp; A lot of programs out there aren&rsquo;t testing on Vista so they don&rsquo;t realize that many of the features require elevated access, and if they silently suppress the issue, the user never knows what&rsquo;s going wrong.&nbsp; It&rsquo;s the fault of the application, not Vista.</p>
+
+
+<p>SQL Management Studio Express does this to me as well.&nbsp; I always have to run that program as Administrator.</p>
+
+
+<div class="bjtags">Tags:<a rel="tag" href="http://technorati.com/tag/Vista">Vista</a>, <a rel="tag" href="http://technorati.com/tag/UAC">UAC</a>, <a rel="tag" href="http://technorati.com/tag/Cygwin">Cygwin</a>, <a rel="tag" href="http://technorati.com/tag/E-TextEditor">E-TextEditor</a></div>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2007/06/run-as-administrator-on-vista-to-fix-weird-program-issues/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/06/vsts-db-pro-which-database-project/">VSTS Db Pro - Which Database Project?</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-06-19 00:00:00 -0500" pubdate  updated >Jun 19<span>th</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I installed Visual Studio Team Edition for Database Professionals the other day and I was about to create my first DB Pro project.</p>
+
+
+<p>Check out the New Project dialog box.&nbsp; This is with VSTS Developer,&nbsp;and DB Pro installed:</p>
+
+
+<p><img src="/images/image001__.jpg" alt="Image001"  border="0"  /></p>
+
+
+<p>and&hellip;</p>
+
+
+<p><img src="/images/image002_.jpg" alt="Image002"  border="0"  /></p>
+
+
+<p>Seeing as how I never used the standard database project in Visual Studio before, I couldn&rsquo;t tell which one I was supposed to choose.&nbsp; </p>
+
+
+<p>It turns out that you need to pick the one in the 2<sup>nd</sup> screenshot, the Microsoft SQL Server project.&nbsp; </p>
+
+
+<p>Wasn&rsquo;t very intuitive which project to choose.</p>
+
+
+<div class="bjtags">Tags:<a rel="tag" href="http://technorati.com/tag/VSTS">VSTS</a>, <a rel="tag" href="http://technorati.com/tag/DB+Pro">DB+Pro</a></div>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2007/06/vsts-db-pro-which-database-project/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/06/reflection-and-inheritance-with-generics/">Reflection and Inheritance With Generics</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-06-19 00:00:00 -0500" pubdate  updated >Jun 19<span>th</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I was working on some <a href="http://subsonicproject.com/" target="_blank">SubSonic</a> entities today and I wanted to access some of the properties of the generated classes, not knowing which database objects will exist.</p>
+
+
+<p>Basically&nbsp;I wanted to write a utility method that would pull out all of the ActiveRecord&lt;T&gt; types in a given assembly.</p>
+
+
+<p>This was my first attempt:</p>
+
+
+<p>`
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>public static Type[] GetActiveRecordTypes(Assembly assembly){    List&lt;Type&gt; types = new List&lt;Type&gt;();    foreach (Type type in assembly.GetTypes())  {       if(type.IsSubClassOf( &lt;b>typeof(ActiveRecord&lt;__WHAT_GOES_HERE_?__&gt;)&lt;/b> )           types.Add(type);    }   return types.ToArray();}</div></code></pre></td></tr></table></div></figure></div>
+`<p>The part in bold is where I got stuck. Sticking in `type` there doesn&#8217;t work. It won&#8217;t compile.&nbsp; I wouldn&#8217;t let that stop me, so I created a temporary solution like this:</p><p>`if(type.BaseType.Name.Contains(&#8220;ActiveRecord&#8221;)) { &#8230; }`</p><p>This works, but it&#8217;s a hack and it&#8217;s brittle. I asked a few friends and <a href="http://analog-man.blogspot.com/" target="_blank">Gary DeReese</a> came to my rescue with the following code:</p><p>`
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>Type baseType = type.BaseType;if(baseType.IsGenericType &amp;&amp;   baseType.GetGenericType() == typeof(ActiveRecord&lt;&gt;) &amp;&amp;    baseType.GetGenericParameter()[0] == type) { ... }</div></code></pre></td></tr></table></div></figure></div>
+`<p></p><p>It&#8217;s good to have smart friends you can reach out to in times like this where you just aren&#8217;t thinking about the problem the way the framework wants you to. Thanks Gary! </p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2007/06/reflection-and-inheritance-with-generics/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/06/asp-net-essentials-the-label/">ASP.NET Essentials - the Label</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-06-19 00:00:00 -0500" pubdate  updated >Jun 19<span>th</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>After talking to developers for a few days about basic HTML and ASP.NET topics, I find that I always focus on the <strong>Label</strong> control.</p>
+
+
+<p>More specifically, I&rsquo;m talking about the `&lt;label&gt;` tag in HTML.&nbsp; What does this tag do?&nbsp; Why should we care, when we can just write the text before an input control on the page?</p>
+
+
+<p>For starters, the label has semantic meaning.&nbsp; The `&lt;label&gt;` tag gives meaning to a textbox or a dropdown.&nbsp; If you were blind and browsing using a screen reader, you&rsquo;d appreciate the little semantic tidbits that give you an easier browser experience.</p>
+
+
+<p>Another benefit is that we can select and style the label easily, making the transition to table-less forms so much easier.</p>
+
+
+<p>A third and possibly more useful benefit is that the mouse stays as a pointer, and clicking on the text sets the focus to the corresponding control.</p>
+
+
+<p>The usage in standard HTML is like this:</p>
+
+
+<p>`
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>&lt;label for='user_name'&gt;User Name:&lt;/label&gt;&lt;input type='text' id='user_name' /&gt;</div></code></pre></td></tr></table></div></figure></div>
+`<p></p>This results in the following example: <p><label for="'user_name'">User Name:</label> <input id="'user_name'" type="'text'"> </p><p>(notice how the mouse cursor stays as a pointer, instead of the standard text cursor)</p><p>If you were a reasonable person, you&rsquo;d think that the `&lt;asp:label&gt;` control would render as an HTML `&lt;label&gt;`, but you&rsquo;d be wrong.&nbsp; ASP.NET renders a standard `&lt;asp:label&gt;` as a `&lt;span&gt;`.&nbsp; ASP.NET 2.0 fixed this, however you have to specify the `AssociatedControlID` property to change the rendering behavior.</p><p>This leads me to another point that I&rsquo;d like to make with the <strong>Label</strong> control.&nbsp; Often times we just want a static label, like in the example above.&nbsp; If we use the &lt;asp:label&gt; then we&rsquo;ll have a server-side component as well and a viewstate hit.</p><p><a href="http://www.flux88.com/uploads/label_render.JPG"><img src="/images/label_render_thumb_.jpg" alt="Label_render"  border="0"  /></a></p><p>We certainly don&rsquo;t need viewstate in this scenario,&nbsp; Often times we just neglect these things until they are a problem.&nbsp; </p><p>I can hear you say it now&hellip; &ldquo;but Ben, you can disable Viewstate by specifying EnableViewState=&rsquo;false&rsquo; &ldquo;&hellip;&nbsp; I know you can.&nbsp; But it&rsquo;s too easy to just leave it as is.&nbsp; There&rsquo;s also an easy alternative.</p><p>You can accomplish the same rendering without the viewstate issue by just typing this:</p><p>`&lt;label for=&#8217;&lt;%= txtUsername.ClientID %&gt;&#8217;&gt;User Name:&lt;/label&gt;`</p><p>This will render the same way, but also ensure that we get the generated ID of the control that we are associating with.&nbsp; This will not have any server-side component or any correlation to ViewState, and it is actually less characters to type.</p><p>Hope you find this information useful!</p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2007/06/asp-net-essentials-the-label/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+<nav role="pagination">
+  <div>
+    
+      <a class="prev" href="/blog/page/25/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/23/">Newer &rarr;</a>
+    
+  </div>
+</nav>
+
+<script type="text/javascript">
+    var disqus_shortname = 'subdigital';
+    (function () {
+      var s = document.createElement('script'); s.async = true;
+      s.type = 'text/javascript';
+      s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+      (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+
+</div>
+<aside role=sidebar>
+  
+    <section>
+  <h1>Who am I?</h1>
+  <p>I&#8217;m Ben Scheirman. I make Rails &amp; iPhone apps for <a href="http://chaione.com" target="_blank">ChaiONE</a> in Houston, TX.</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/08/vim---could-not-invoke-jslint/">Vim - Could Not Invoke JSLint</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/is-rails-exempt-from-software-principles/">Is Rails Exempt?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/when-viewwillappear-isnt-called/">When viewWillAppear: Isn&#8217;t Called</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/moving-my-blog/">Moving My Blog</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/my-vim-journey/">My Vim Journey</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("subdigital", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/subdigital" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @subdigital</a>
+  
+</section>
+
+
+<section>
+  <h1>On Delicious</h1>
+  <script type="text/javascript" src="http://feeds.delicious.com/v2/js/subdigital?title=&count=3&sort=date&extended"></script>
+  <p><a href="http://delicious.com/subdigital">My Delicious Bookmarks &raquo;</a></p>
+</section>
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer>
+<a style="display:block; float: right" title="Real Time Analytics" href="http://getclicky.com/66470389"><img alt="Real Time Analytics" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
+<script src="//static.getclicky.com/js" type="text/javascript"></script>
+<script type="text/javascript">try{ clicky.init(66470389); }catch(e){}</script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/66470389ns.gif" /></p></noscript>
+
+<p>
+  Copyright &copy; 2011 - Ben Scheirman -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+</body>
+</html>

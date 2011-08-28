@@ -1,0 +1,285 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Fickle Bits: Using ASP.NET MVC on IIS 6 without the .MVC Extension</title>
+  <meta name="author" content="Ben Scheirman">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="canonical" href="http://benscheirman.com/blog/2008/05/using-asp-net-mvc-on-iis-6-without-the-mvc-extension/"/>
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/ficklebits" rel="alternate" title="Fickle Bits" type="application/atom+xml"/>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-210379-10']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">Fickle Bits</a></h1>
+  
+    <h2>You're doing it wrong.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/ficklebits" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:benscheirman.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry">
+  
+  <header>
+    
+      <h1 class="entry-title">Using ASP.NET MVC on IIS 6 Without the .MVC Extension</h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2008-05-27 00:00:00 -0500" pubdate  updated >May 27<span>th</span>, 2008</time>
+
+
+</p>
+    
+  </header>
+
+
+<div class="entry-content"><p>One awesome features of ASP.NET MVC is the clean URLs.&nbsp; If you aren&#8217;t familiar with them, here is a sample:</p>
+
+
+<p> <blockquote> <p>/products/list</p> <p>(versus a typical /ProductList.aspx)</p></blockquote> <p>The default route for ASP.NET MVC looks like this:</p> <blockquote> <p>/{controller}/{action}</p></blockquote> <p>Using this route you can map most of the URLs that your application will need.&nbsp; There is a problem, however, when running ASP.NET MVC on IIS6 (and 5).&nbsp; The URL above doesn&#8217;t have an extension, so IIS will assume that it is a virtual directory on the server.&nbsp; We have a couple of options we can do to get around this:</p> <ul> <li>We could create wild card mappings and pass every request through ASP.NET, however this is not recommended for performance reasons<li>We can add an extension that maps to ASP.NET (.mvc)</li></ul> <p>In the latter option your routes must change to something like this:</p> <blockquote> <p>/{controller}.mvc/{action}</p></blockquote> <p>So URLs generated with this route will look like:</p> <blockquote> <p>/products.mvc/list</p></blockquote> <p>&#8230;which basically reverts our clean urls into, well&#8230; less clean ones.</p> <p>So if you want to deploy to Windows Server 2003 &amp; IIS 6, you&#8217;re out of luck.&nbsp; Well, mostly&#8230;</p> <h2>URL Rewriting to the Rescue</h2> <p>We can leverage an ISAPI filter to rewrite URLs which will allow us to have the nice URLs while still on IIS 6.&nbsp; There are 2 major products that do this for IIS:</p> <ul> <li><a href="http://www.isapirewrite.com/" target="_blank">ISAPI Rewrite</a> ($99)<li><a href="http://cheeso.members.winisp.net/IIRF.aspx" target="_blank">Ionic&#8217;s ISAPI Rewrite Filter</a> (Free)</li></ul> <p>ISAPI Rewrite is the more mature of the two, however it&#8217;s not free.&nbsp; They do provide a free version, but it doesn&#8217;t support regular expressions, so it&#8217;s pretty useless.</p> <p>Jeff Atwood has <a href="http://www.codinghorror.com/blog/archives/000797.html" target="_blank">a nice write-up of these two utilities</a>.&nbsp; In it he notes that the syntax for Ionic&#8217;s ISAPI Rewrite is a little stranger and doesn&#8217;t support the regex that we&#8217;re all used to (since it uses a C regex library, not a .NET one).</p> <p>I decided to choose Ionic&#8217;s because it was free, however there was a lack of information on how to structure URLs, and it required a lot of trial and error to get it working.&nbsp; Luckily they have an automatic logging facility that tells you how the rules are matching up.</p> <p>For ASP.NET MVC, I needed to cover these cases:</p> <ul> <li><strong>A request for / should be redirected to /home</strong><br><em>This isn&#8217;t really required, as .NET can do this for me, however I wanted to ensure that all entry points are at the same URL to avoid Page Rank issues.&nbsp; (See the same Atwood post for information on how important this is)</em><li><strong>A request for /something should be rewritten to /something.mvc<br></strong><em>That is, the user will request it without an extension, but the filter will rewrite it without the user&#8217;s address bar ever changing.</em><li><strong>A request for /something/index should be rewritten to /something.mvc/index<br></strong><em>Just making sure that URLs with actions get the extension only on the first part</em><li><strong>The content directory that contains our javascript, CSS, and images should be excluded from the above rule<br></strong><em>Otherwise we&#8217;d have /content.mvc/styles.css which would be interpreted as a controller, rather than a direct file request.</em></li></ul> <p>I found <a href="http://biasecurities.com/blog/2008/how-to-enable-pretty-urls-with-asp-net-mvc-and-iis6/" target="_blank">a good resource that outlined how to do this with ISAPI Rewrite</a>, however the rules were quite different with Ionic&#8217;s.</p> <p>Here are my rules for Ionic&#8217;s ISAPI Rewrite that works for ASP.NET MVC:</p></p>
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>&lt;strong># empty URL gets mapped to home controller &lt;br>RewriteRule&nbsp; ^/$&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /home [R] # map controller parts of urls to .mvc, ignoring the content directory&lt;br>RewriteRule&nbsp; ^(?!/Content)(/[A-Za-z0-9_-]+)(/.*)?$&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $1.mvc$2&nbsp; [I]&lt;/strong></div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>It turns out that I only need 2 rules to satisfy the above requirements.&nbsp; The first rule forces the browser to redirect, which will aid in making sure that I <a href="http://www.hanselman.com/blog/UsingISAPIRewriteToCanonicalizeASPNETURLsAndRemoveDefaultaspx.aspx" target="_blank">only have 1 entry point to my website</a>.</p>
+
+
+<p>The 2nd rule takes the first part of the ULR and adds .mvc to it, appending the remaining verbatim (if any).&nbsp; It also excludes anything beginning with &#8220;content,&#8221; so I&#8217;m free to put images, javascript, css, and other literal file resources there.</p>
+
+
+<p>The last requirement is to define my routes with <strong>both</strong> .mvc and regular formats.&nbsp; The trick is to define them in the right order.</p>
+
+
+<p>routes.MapRoute(&#8220;basic&#8221;, &#8220;{controller}/{action}&#8221;, new { &#8230; } );</p>
+
+
+<p>routes.MapRoute(&#8220;basic_mvc&#8221;, &#8220;{controller}.mvc/{action}&#8221;, new {&#8230;});</p>
+
+
+<p>Doing this ensures that our .MVC routes will actually function, but when we ask the framework for a URL (such as with Url.Action() or Html.ActionLink) we are handed the extension-less route (since it is defined first).</p>
+
+
+<h2>Route Testing is IMPORTANT</h2>
+
+
+<p>I&#8217;ve said it before and I&#8217;ll say it again.&nbsp; <strong>Route testing is important.&nbsp; </strong>A single tiny change can break an entire application.&nbsp; Applying automated tests is critical for any MVC application.&nbsp; Since deployment of an ASP.NET MVC application needs to be flexible, your application should function with either type of route (extensions or not) so that you have flexibility of deployment.</p>
+
+
+<p>Hard coding a route in 1 single location will prevent you from doing this.&nbsp; Did I mention route testing is important?</p>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ben Scheirman</span></span>
+
+      
+
+
+
+
+<time datetime="2008-05-27 00:00:00 -0500" pubdate  updated >May 27<span>th</span>, 2008</time>
+
+
+
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://benscheirman.com/blog/2008/05/using-asp-net-mvc-on-iis-6-without-the-mvc-extension/" data-via="subdigital" data-counturl="http://benscheirman.com/blog/2008/05/using-asp-net-mvc-on-iis-6-without-the-mvc-extension/" >Tweet</a>
+  
+  
+  <g:plusone size="medium"></g:plusone>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread"><div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_shortname = 'subdigital';
+  var disqus_identifier = 'http://benscheirman.com/blog/2008/05/using-asp-net-mvc-on-iis-6-without-the-mvc-extension/';
+  var disqus_url = 'http://benscheirman.com/blog/2008/05/using-asp-net-mvc-on-iis-6-without-the-mvc-extension/';
+  //var disqus_developer = 1;
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside role=sidebar>
+  
+    <section>
+  <h1>Who am I?</h1>
+  <p>I&#8217;m Ben Scheirman. I make Rails &amp; iPhone apps for <a href="http://chaione.com" target="_blank">ChaiONE</a> in Houston, TX.</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/08/vim---could-not-invoke-jslint/">Vim - Could Not Invoke JSLint</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/is-rails-exempt-from-software-principles/">Is Rails Exempt?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/when-viewwillappear-isnt-called/">When viewWillAppear: Isn&#8217;t Called</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/moving-my-blog/">Moving My Blog</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/my-vim-journey/">My Vim Journey</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("subdigital", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/subdigital" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @subdigital</a>
+  
+</section>
+
+
+<section>
+  <h1>On Delicious</h1>
+  <script type="text/javascript" src="http://feeds.delicious.com/v2/js/subdigital?title=&count=3&sort=date&extended"></script>
+  <p><a href="http://delicious.com/subdigital">My Delicious Bookmarks &raquo;</a></p>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer>
+<a style="display:block; float: right" title="Real Time Analytics" href="http://getclicky.com/66470389"><img alt="Real Time Analytics" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
+<script src="//static.getclicky.com/js" type="text/javascript"></script>
+<script type="text/javascript">try{ clicky.init(66470389); }catch(e){}</script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/66470389ns.gif" /></p></noscript>
+
+<p>
+  Copyright &copy; 2011 - Ben Scheirman -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+</body>
+</html>

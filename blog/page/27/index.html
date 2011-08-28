@@ -1,0 +1,653 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Fickle Bits</title>
+  <meta name="author" content="Ben Scheirman">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="canonical" href="http://benscheirman.com/blog/page/27/index.html"/>
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/ficklebits" rel="alternate" title="Fickle Bits" type="application/atom+xml"/>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-210379-10']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">Fickle Bits</a></h1>
+  
+    <h2>You're doing it wrong.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/ficklebits" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:benscheirman.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/03/so-whats-a-workitem/">So What&#8217;s a WorkItem?</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-03-08 00:00:00 -0600" pubdate  updated >Mar 8<span>th</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Probably the largest single piece that you need to understand about CAB is the WorkItem.</p>
+
+
+<p>As I mentioned before, WorkItems are usually 1:1 with use cases.&nbsp; For example, say we are buiding a CRM product, we might have a use case called &ldquo;Edit Customer.&rdquo;&nbsp; This would map to an EditCustomerWorkItem.</p>
+
+
+<p>Think of the WorkItem as a container for anything related to the use case.&nbsp; It can house various elements such as UI components, state, services, etc.&nbsp; This gives you a nice boundary for when things get instantiated or destructed.</p>
+
+
+<p>WorkItems live inside of modules, and are instantiated by the ModuleInit class. </p>
+
+
+<p>So say, given the example above, we have loaded our CustomerInformationModule, which contains an EditCustomerWorkItem.&nbsp; The workitem might contain:</p>
+
+
+<ul><li>A reference to a customer object, or customer id</li><li>A service used to retrieve/save the customer</li><li>A controller for implementing UI logic and interacting with our customer object</li><li>A view (control) that displays the various controls necessary to complete the use case.&nbsp; It might have some textboxes, a Save button and a Delete button.</li></ul>
+
+
+<p>If you don&rsquo;t do your use case homework, your work items will &ldquo;go against the grain&rdquo; of the application and add unnecessary complexity to the whole framework.&nbsp; Do your use case work up front, and you&rsquo;ll be designing better WorkItems.</p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2007/03/so-whats-a-workitem/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/03/whats-in-a-cab-module/">What&#8217;s in a CAB Module?</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-03-07 00:00:00 -0600" pubdate  updated >Mar 7<span>th</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>One of the root components of a CAB Application is the module.&nbsp; So what is a module, exactly?</p>
+
+
+<p>A Module is basically a collection of WorkItems.&nbsp; Since WorkItems are generally 1:1 with use cases, then modules are a package for related use cases.</p>
+
+
+<p><img src="/images/modules_.gif" alt="Modules"  border="1"  /></p>
+
+
+<p>Modules get loaded by the application Shell, via the ProfileCatalog.xml file.&nbsp; When you are structuring your solution, <strong>you do not include a project reference to the module project in your shell project</strong>.</p>
+
+
+<p>One benefit of doing this is that you can create new modules and load them into a shell without recompiling the main shell solutions.&nbsp; You could easily package up a patch which included a new ProfileCatalog.xml and a dll as a zip file.</p>
+
+
+<p>Modules also help you organize your WorkItems into logical units so that they become more managable.</p>
+
+
+<p>&nbsp;</p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2007/03/whats-in-a-cab-module/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/03/digging-into-cab-the-terminology/">Digging Into CAB - the Terminology</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-03-07 00:00:00 -0600" pubdate  updated >Mar 7<span>th</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>The Composite UI Application Block (or CAB for short) has a lot of terminology to understand.&nbsp; In order to follow the downloadable samples you should first brush up on what the various components of CAB are.</p>
+
+
+<p><strong>Shell<br /></strong>The Shell is basically your application.&nbsp;&nbsp;The Shell&rsquo;s responsibility is to load and initialize UI services, modules, and other CAB components.&nbsp; The Shell itself won&rsquo;t contain many direct UI elements (these will be added later).&nbsp; The Shell will typically house <em>UIExtensionSites</em> and <em>Workspaces</em>.</p>
+
+
+<p><strong>Module<br /></strong>Modules are basically packages of <em>WorkItem</em>s, which we will see next.&nbsp; Modules are defined in the ProfileCatalog.xml file so CAB can load them and they have constructs for initializing.&nbsp; Each module resides it its own assembly.</p>
+
+
+<p><strong>WorkItem<br /></strong>Your use cases will generally become <em>WorkItems</em>.&nbsp; A <em>WorkItem</em> is a container for&nbsp;UI elements, model classes, state, and services that are required to satisfy the use-case.&nbsp; <em>If you were using NHibernate, this would be an ideal place to demarcate your ISession boundary.</em></p>
+
+
+<p><strong>Workspace<br /></strong><em>Workspaces</em> are the containers on your UI that <em>SmartParts</em> (User Controls) can be loaded.&nbsp; Examples include DeckWorkspace, TabWorkspace, etc.&nbsp; <em>Workspaces</em> can be moved around and replaced at runtime easily.</p>
+
+
+<p><strong>UI Extension Sites<br /></strong><em>UI Extension Sites</em> are static UI elements, such as Menus and Toolstrips, and as such are added directly to the shell.&nbsp; Different work items can access these to modify their contents.&nbsp; A good example is setting status text in a status bar at the bottom of the application shell or adding menu items depending on what tab has focus.</p>
+
+
+<p><strong>SmartParts</strong><br /><em>SmartParts</em> are your basic user controls, only denoted with a `[SmartPart]` attribute.&nbsp; Think of these as the &ldquo;View&rdquo; in Model-View-Controller.&nbsp; As such, these will contain controls, however all logic will be deferred to a controller or presenter class.</p>
+
+
+<p><strong>Service<br /></strong>As you might expect, <em>Services</em> are very vague.&nbsp; They can be any type of service that provides your UI with logic or data.&nbsp; In a CAB architecture, you will abstract most of the data and calculations to services that are consumed by the UI.&nbsp; Out of the box CAB comes with a Catalog service for loading modules, a State service for persisting WorkItem state to a file or isolated storage, and an authorization service.</p>
+
+
+<p>&nbsp;</p>
+
+
+<p>I think that gives us a good overview of the main terms and responsibilities.&nbsp; Until next time&hellip;</p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2007/03/digging-into-cab-the-terminology/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/03/getting-started-with-cab/">Getting Started With CAB</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-03-06 00:00:00 -0600" pubdate  updated >Mar 6<span>th</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I&rsquo;m starting to scratch the massive surface that is CAB.&nbsp; CAB is better known as the Composite UI Application Block developed by the Patterns &amp; Practices Group at Microsoft.</p>
+
+
+<p>It&rsquo;s hard to define exactly what CAB gives you in one sentence, but I&rsquo;ll try.&nbsp; How about <em>manageable windows forms architecture with an emphasis on patterns </em>?&nbsp; I&rsquo;m an ASP.NET guy, so that&rsquo;s where my expertise lies, however I have built a few moderately sized WinForms apps and they get unwieldy very quickly.</p>
+
+
+<p>I plan on posting a bit about CAB as I dig into it, so stay tuned for that.&nbsp; For now I&rsquo;ll just post my first experience with it:&nbsp; Getting the darn thing installed.&nbsp; In tune with many CTP and early release software, it doesn&rsquo;t always go as smoothly as planned.</p>
+
+
+<p>First thing to do is install the following things <strong>in the correct order</strong>:<br />(<em>I assume you already have .NET 2.0 and Visual Studio 2005 installed)</em></p>
+
+
+<ul><li><a title="Microsoft - Download GAX" href="http://www.microsoft.com/downloads/details.aspx?FamilyID=C0A394C0-5EEB-47C4-9F7B-71E51866A7ED&amp;displaylang=en" target="_blank">Guidance Automation Extensions</a></li><li><a title="Microsoft - Download GAT" href="http://www.microsoft.com/downloads/details.aspx?FamilyID=E3D101DB-6EE1-4EC5-884E-97B27E49EAAE&amp;displaylang=en" target="_blank">Guidance Automation Toolkit for Visual Studio 2005</a></li><li><a title="Microsoft - Download CAB" href="http://www.microsoft.com/downloads/details.aspx?familyid=7b9ba1a7-dd6d-4144-8ac6-df88223aee19&amp;displaylang=en" target="_blank">Composite UI Application Block (CAB)</a></li><li><a title="Microsoft - Download EntLib" href="http://www.microsoft.com/downloads/details.aspx?familyid=5a14e870-406b-4f2a-b723-97ba84ae80b5&amp;displaylang=en" target="_blank">Enterprise Library (June 2006)</a></li></ul>
+
+
+<p>I found some sources on the internet that listed those in reverse, and I got an error at the Guidance Automation Toolkit installation that said &ldquo;<em>Operation invalid for the current state of the object</em>.&rdquo;</p>
+
+
+<p>In my case, I got the error even after uninstalling them all, but I was able to fix the error by modifying the registry.&nbsp; Open <em>regedit<strong> </strong></em>and navigate to <em>HKEY LOCAL MACHINE\SOFTWARE\MICROSOFT\COMMAND PROCESSOR&#46;</em>&nbsp; There should be a key in there called <em>AutoRun</em>.&nbsp; I renamed this to <em>AutoRunOld</em> and the installation worked.</p>
+
+
+<p>(I have a feeling that this setting was modified by an XPize installation, since they modify your command prompt settings&hellip; but I haven&rsquo;t confirmed this.)</p>
+
+
+<p>Now that everything is installed and running, check out these resources to get your feet wet with CAB:</p>
+
+
+<ul><li><a title="Bill Simser's blog (CAB)" href="http://weblogs.asp.net/bsimser/archive/tags/CAB/default.aspx" target="_blank">Bill Simser&rsquo;s blog</a> has a few nice gems about CAB</li><li><a title=".NET Developer's Journal article" href="http://dotnet.sys-con.com/read/133764.htm" target="_blank">A First Look at CAB</a> at .NET Developer&rsquo;s Journal</li><li><a title="Microsoft Whitepaper PDF" href="http://download.microsoft.com/download/1/0/3/103adb7f-1e45-42f8-8696-63e513875258/CAB%20SCSF%20-%20Architecture%20Guidance%20-%20Raiffeisen.pdf" target="_blank">Microsoft Whitepaper on Designing Smart Clients with CAB</a>&nbsp;(PDF)</li><li><a title="CAB Wiki" href="http://cabpedia.com/" target="_blank">CABPedia (wiki)</a></li></ul>
+
+
+<p>The next post will definitely contain more &ldquo;meat.&rdquo;</p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2007/03/getting-started-with-cab/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/03/thats-just-plain-unprofessional/">That&#8217;s Just Plain Unprofessional</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-03-05 00:00:00 -0600" pubdate  updated >Mar 5<span>th</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><img src="/images/CropperCapture%5B38%5D_small_.jpg" alt="Codeplex ASP.NET error page"  border="0"  /></p>
+
+
+<p>They should be ashamed of themselves&hellip;</p>
+
+
+<div class="bjtags">Tags:<a rel="tag" href="http://technorati.com/tag/General">General</a></div>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2007/03/thats-just-plain-unprofessional/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/03/sark-acquired-by-sogeti/">Sark Acquired by Sogeti</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-03-05 00:00:00 -0600" pubdate  updated >Mar 5<span>th</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Many of you have already heard the news, but my company, <a title="Sark" href="http://www.sark.com/" target="_blank">Software Architects</a>, was recently acquired by <a title="Sogeti UC" href="http://www.us.sogeti.com/" target="_blank">Sogeti</a>.</p>
+
+
+<p>My only real prior knowledge of Sogeti was that I knew that <a title="Tim's blog" href="http://www.timrayburn.net/" target="_blank">Tim Rayburn</a> worked at the Dallas office.</p>
+
+
+<p>It&rsquo;s hard to know what to expect at first.&nbsp; Most&nbsp;seem to think it&rsquo;s an exciting change, probably because we will be introduced to a lot of new clients and have one of the largest Microsoft consultancies in Houston (among&nbsp;other cities).&nbsp; I sincerely hope that the culture that I love here will not be disturbed.&nbsp; Sark stands out among a number of similar companies here in Houston, largely because they have fun company meetings (open bar!), a great training program, you&rsquo;re paid to get certifications, they have a great library and will order books if you need them.&nbsp; We&rsquo;re reimbursed for tolls and parking as well.</p>
+
+
+<p>It is my hope that these things do not fall through the cracks as we make the transition to becoming &ldquo;Sogetians&rdquo; (<em>ahh&hellip; just doesn&rsquo;t have the same ring to it!)</em>.</p>
+
+
+<p>We&rsquo;re ramping up to integrate everything this month, mostly moving&nbsp;Sarks over to the Sogeti infrastructure.&nbsp; March will definitely be an interesting month, that&rsquo;s for sure.</p>
+
+
+<div class="bjtags">Tags:<a rel="tag" href="http://technorati.com/tag/Sogeti">Sogeti</a></div>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2007/03/sark-acquired-by-sogeti/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/03/texter-transform-any-textbox-into-a-snippet-aware-editor/">Texter - Transform Any Textbox Into a Snippet-aware Editor</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-03-02 00:00:00 -0600" pubdate  updated >Mar 2<span>nd</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>This is seriously cool.</p>
+
+
+<p>Lifehacker has a couple video tutorials that only last about 30 seconds that will explain it all.&nbsp; Basically, think of it like turning your textbox into a mini TextMate, this works for Notepad, <a href="http://blogjet.com/">BlogJet</a>, or just about any old web input box.</p>
+
+
+<p><a href="http://lifehacker.com/software/texter/lifehacker-code-texter-windows-238306.php">http://lifehacker.com/software/texter/lifehacker-code-texter-windows-238306.php</a></p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2007/03/texter-transform-any-textbox-into-a-snippet-aware-editor/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/03/blogjet-version-2-rocks/">BlogJet - Version 2 Rocks!</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-03-02 00:00:00 -0600" pubdate  updated >Mar 2<span>nd</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I just upgraded to <a href="http://blogjet.com/">BlogJet</a> version 2, and I wish I had done it sooner!&nbsp; I always found it annoying that I couldn&rsquo;t add tags on the fly through <a href="http://blogjet.com/">BlogJet</a>, however now I can!</p>
+
+
+<p>The interface looks a lot cleaner as well.&nbsp; I&rsquo;m sure I will uncover some other cool new features as I use it, but for now&hellip; if you&rsquo;re not writing to your blog with <a href="http://blogjet.com/">BlogJet</a>, go try it!</p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2007/03/blogjet-version-2-rocks/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/02/on-to-a-new-client/">On to a New Client</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-02-28 00:00:00 -0600" pubdate  updated >Feb 28<span>th</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I wrapped up my project at a client today, so I&rsquo;m on to a new one on Monday.</p>
+
+
+<p>The project consisted mainly of SharePoint, but I did get to do some interesting development aside from that.&nbsp; I worked on a Stock Quote web service that would gather information from pluggable sources.&nbsp; They wanted to pay for a dedicated source, however politics and paperwork were such a barrier I ended up just scraping Google finance.&nbsp; It won&rsquo;t last forever, but it&rsquo;s free and avoids the paperwork.</p>
+
+
+<p>We wrote a few custom SharePoint Web Parts, and I found out first hand what a pain in the ass it is to deploy these things.&nbsp; The deployment project outputs a CAB file.&nbsp; This CAB file needs to be copied onto the server, and you have to use the STSADM tool to install it into the portal server.&nbsp; This means you need Remote Desktop access just to deploy to&nbsp;a server!&nbsp; Our production servers are load-balanced, so this means you have to do it twice.&nbsp; To save us a lot of time and headaches I wrote a Windows service that would monitor a CAB file for changes using a FileSystemWatcher, when it detected a change, it would&hellip;</p>
+
+
+<ul><li>Extract the CAB to get the dlls</li><li>Copy the dlls to the target bin folder</li><li>Optionally sign the assembly so it can be installed into the GAC</li><li>Run STSADM to remove the old CAB file from the portal server</li><li>Run STSADM to get the new CAB file in the portal&nbsp;server</li><li>Reset IIS</li></ul>
+
+
+<p>This thing worked like a charm!&nbsp; We could kick off a build, run a batch file the copy the new CAB over, and the thing would install itself.&nbsp; I wish I could release the code here, but I wrote it at a client site, so it belongs to them.</p>
+
+
+<p>We also managed to contort a SharePoint Portal site into something actually pleasing to look at, and ripped out most of SharePoints crappy markup.&nbsp; Why in the world does SharePoint output so many damn tables?</p>
+
+
+<p>To be clear, this is all with SharePoint 2003, so I imagine MOSS 2007 is loads better, but I haven&rsquo;t yet worked on it.&nbsp; Anyway, my next project doesn&rsquo;t involve SharePoint, so I&rsquo;m happy.</p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2007/02/on-to-a-new-client/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/02/javascript-memory-leaks/">JavaScript Memory Leaks</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-02-28 00:00:00 -0600" pubdate  updated >Feb 28<span>th</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><font style="BACKGROUND-COLOR: #fffff9">Most people don&rsquo;t realize this, but JavaScript can leak memory if you don&rsquo;t write it properly.&nbsp; This is a strange concept, because for one, it runs in the browser, two, it&rsquo;s a scripting language so it <em>feels</em> simpler, and 3 because you usually don&rsquo;t do very much in JavaScript.</font></p>
+
+
+<p>But, when JavaScript is written carelessly, it can lead to enourmous memory leaks that can actually crash the browser.</p>
+
+
+<p>Take a look at this <a href="http://www.codeproject.com/jscript/leakpatterns.asp" target="_blank" title ="Code Project Article">incredible article onjavascript memory leakage</a> up at CodeProject posted by Volkan Ocelik to find out the different leakage patterns and how to avoid them.In order to fully understand how to avoid memory leakage, it is important that you understant closures.The best explanation I have found is <a href="http://jibbering.com/faq/faq_notes/closures.html" target="_blank" title ="jibbering.com">here</a>.So make sure you think when writing JavaScript so you don&#8217;t hurt yourself.</p>
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2007/02/javascript-memory-leaks/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+<nav role="pagination">
+  <div>
+    
+      <a class="prev" href="/blog/page/28/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/26/">Newer &rarr;</a>
+    
+  </div>
+</nav>
+
+<script type="text/javascript">
+    var disqus_shortname = 'subdigital';
+    (function () {
+      var s = document.createElement('script'); s.async = true;
+      s.type = 'text/javascript';
+      s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+      (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+
+</div>
+<aside role=sidebar>
+  
+    <section>
+  <h1>Who am I?</h1>
+  <p>I&#8217;m Ben Scheirman. I make Rails &amp; iPhone apps for <a href="http://chaione.com" target="_blank">ChaiONE</a> in Houston, TX.</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/08/vim---could-not-invoke-jslint/">Vim - Could Not Invoke JSLint</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/is-rails-exempt-from-software-principles/">Is Rails Exempt?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/when-viewwillappear-isnt-called/">When viewWillAppear: Isn&#8217;t Called</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/moving-my-blog/">Moving My Blog</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/my-vim-journey/">My Vim Journey</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("subdigital", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/subdigital" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @subdigital</a>
+  
+</section>
+
+
+<section>
+  <h1>On Delicious</h1>
+  <script type="text/javascript" src="http://feeds.delicious.com/v2/js/subdigital?title=&count=3&sort=date&extended"></script>
+  <p><a href="http://delicious.com/subdigital">My Delicious Bookmarks &raquo;</a></p>
+</section>
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer>
+<a style="display:block; float: right" title="Real Time Analytics" href="http://getclicky.com/66470389"><img alt="Real Time Analytics" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
+<script src="//static.getclicky.com/js" type="text/javascript"></script>
+<script type="text/javascript">try{ clicky.init(66470389); }catch(e){}</script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/66470389ns.gif" /></p></noscript>
+
+<p>
+  Copyright &copy; 2011 - Ben Scheirman -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+</body>
+</html>

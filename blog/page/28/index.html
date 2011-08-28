@@ -1,0 +1,727 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Fickle Bits</title>
+  <meta name="author" content="Ben Scheirman">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="canonical" href="http://benscheirman.com/blog/page/28/index.html"/>
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/ficklebits" rel="alternate" title="Fickle Bits" type="application/atom+xml"/>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-210379-10']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">Fickle Bits</a></h1>
+  
+    <h2>You're doing it wrong.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/ficklebits" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:benscheirman.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/01/mcms-installation-woes/">MCMS Installation Woes</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-01-31 00:00:00 -0600" pubdate  updated >Jan 31<span>st</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><font face="Arial" size="2"><span style="FONT-SIZE: 10pt; FONT-FAMILY: Arial">Installing MCMS 2002 SP1a on my laptop proved quite difficult this week.&nbsp; This is one product that Microsoft really did not focus on the install experience.</span></font></p>
+
+
+<p><font face="Arial" size="2"><span style="FONT-SIZE: 10pt; FONT-FAMILY: Arial"></span></font></p>
+
+
+<p><font face="Arial" size="2"><span style="FONT-SIZE: 10pt; FONT-FAMILY: Arial">I first tried to install it without Visual Studio 2003.&nbsp; It complained, so I got Visual Studio Installed.&nbsp; It also asked for the IE Web Controls, so I downloaded those, extracted it, and ran the build.bat file.&nbsp; I copied the sample app as directed and everything was working there.</span></font></p>
+
+
+<p><font face="Arial" size="2"><span style="FONT-SIZE: 10pt; FONT-FAMILY: Arial"></span></font></p>
+
+
+<p><font face="Arial" size="2"><span style="FONT-SIZE: 10pt; FONT-FAMILY: Arial">I didn&rsquo;t have SQL Server installed locally, so I didn&rsquo;t have SQL-DMO, but the installer didn&rsquo;t tell me how to get it.&nbsp; It kept complaining that I didn&rsquo;t have Visual Studio 2002, Visual Studio 2003, IE Web Controls, and SQL-DMO, when I clearly had 2 of those 4.</span></font></p>
+
+
+<p><font face="Arial" size="2"><span style="FONT-SIZE: 10pt; FONT-FAMILY: Arial"></span></font></p>
+
+
+<p><font face="Arial" size="2"><span style="FONT-SIZE: 10pt; FONT-FAMILY: Arial">I installed the SQL Client tools and that solved the SQL-DMO requirement.&nbsp; Then I found an MSI installer for IE Web Controls, and that did the trick there (apparently it doesn&rsquo;t REALLY check to see if you have it, it just checks the Add/Remove Programs section).&nbsp; Visual Studio 2002 isn&rsquo;t really required, the wording is just off on the installer.</span></font></p>
+
+
+<p><font face="Arial" size="2"><span style="FONT-SIZE: 10pt; FONT-FAMILY: Arial"></span></font></p>
+
+
+<p><font face="Arial" size="2"><span style="FONT-SIZE: 10pt; FONT-FAMILY: Arial">That was a waste of a day.&nbsp; I could have gotten much more accomplished if this installation had been easier.</span></font></p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2007/01/mcms-installation-woes/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/01/nhibernate-in-action/">NHibernate in Action</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-01-28 00:00:00 -0600" pubdate  updated >Jan 28<span>th</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Finally.&nbsp; <a title="amazon" href="http://www.amazon.com/Nhibernate-Action-Pierre-Kuate/dp/1932394923/sr=1-1/qid=1169961755/ref=sr_1_1/104-1123499-0082348?ie=UTF8&amp;s=books" target="_blank">A book on NHibernate</a>!!!</p>
+
+
+<p>I was the first to guess that <a href="http://dotnet.org.za/kuate/archive/2006/12/27/NHibernate-Contest-_2D00_-Some-clues.aspx" target="_blank">this was the secret news</a>&nbsp;so I suppose I will be getting a free copy.&nbsp; Maybe I can be&nbsp;a technical reviewer for them (though I&rsquo;m sure they already have one lined up).</p>
+
+
+<p><a title="blog" href="http://dotnet.org.za/kuate" target="_blank">Pierre Henri Kuaté</a>&nbsp;should do an excellent job with the book, especially knowing that Bauer and King are behind him!&nbsp; (If you don&rsquo;t already know, they wrote the original <a title="amazon" href="http://www.amazon.com/Hibernate-Action-Christian-Bauer/dp/193239415X/sr=1-3/qid=1169968944/ref=pd_bbs_sr_3/103-9117190-2218201?ie=UTF8&amp;s=books" target="_blank">Hibernate in Action</a>&nbsp;&mdash; which is a must-have)</p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2007/01/nhibernate-in-action/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/01/my-presentation-on-continuous-integration/">My Presentation on Continuous Integration</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-01-26 00:00:00 -0600" pubdate  updated >Jan 26<span>th</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I gave a talk on Continuous Integration last night at the Houston Sark Office.&nbsp; Thanks to all who attended.</p>
+
+
+<p>We had pizza and discussed some of the processes and principles behind CI, as well as some of the tools to get you there.&nbsp; I did a live demo of an app, connected to source control and a build server. </p>
+
+
+<p>A-la <a href="http://codebetter.com/blogs/jeremy.miller/archive/2005/11/07/134400.aspx" target="_blank">Jeremy Miller</a>, I had my CCTray audio clips setup, so when the build failed, you&rsquo;d hear Napolean Dynamite say &ldquo;Freakin Idiot!&rdquo;</p>
+
+
+<p>I think it went well, however for those of you who attended, I&rsquo;d really like to hear your thoughts!&nbsp; Please take a second to leave a comment.</p>
+
+
+<p>Here are the files used in the demo:</p>
+
+
+<p><a href="http://www.flux88.com/uploads/continuous_20integration.zip">continuous integration.zip (8323 KB)</a></p>
+
+
+<p>(included are the sample project, cruise control config, and power-point slides)</p>
+
+
+<p><em>I left out the build server installation because it was over 70mb.&nbsp; It consisted of Subversion binaries, Nant, and a Cruise folder with some project state data.</em></p>
+
+
+<p>I got amazing help from <a href="http://jpboodhoo.com/blog" target="_blank">Jean-Paul Boodhoo</a>, who has a <a href="http://www.jpboodhoo.com/blog/NAntStarterSeries.aspx" target="_blank">9 part NAnt starter series</a>, which ends on a screencast of setting up CruiseControl!</p>
+
+
+<p>Additional resources were:</p>
+
+
+<ul><li><a href="http://jamesshore.com/Blog/Continuous-Integration-on-a-Dollar-a-Day.html" target="_blank">James Shore &ndash; Continuous Integration on a Dollar a Day</a></li><li><a href="http://martinfowler.com/articles/continuousIntegration.html" target="_blank">Martin Fowler &ndash; Continuous Integration</a></li><li><a href="http://www.amazon.com/Pragmatic-Project-Automation-Deploy-Monitor/dp/0974514039" target="_blank">Pragmatic Project Automation by Mike Clark</a>&nbsp;</li><li><a href="http://www.amazon.com/Expert-Delivery-Using-CruiseControl-NET-Experts/dp/1590594851" target="_blank">Expert .NET Delivery with CruiseControl and NAnt by Marc Holmes</a></li></ul>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2007/01/my-presentation-on-continuous-integration/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/01/my-wedding/">My Wedding</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-01-22 00:00:00 -0600" pubdate  updated >Jan 22<span>nd</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Many of you already know, I got married to Silvia on December 30th, 2006!</p>
+
+
+<p>We had a beautiful ceremony with lots of friends and family.&nbsp; Everyone had a good time.&nbsp; My wife and I are quite the happy couple!&nbsp; As promised, here are some pictures from the wedding.&nbsp; The entire album is avaiable on flickr.</p>
+
+
+<p><a href="http://www.flickr.com/photos/bensilvia/365824529/"><img alt="IMG_2246" src="http://static.flickr.com/128/365824529_e6e38372b1.jpg" border="1" /></a></p>
+
+
+<p><a href="http://www.flickr.com/photos/bensilvia/365824708/"><img alt="IMG_2258" src="http://static.flickr.com/173/365824708_9a582bcc99.jpg" border="1" /></a></p>
+
+
+<p><a href="http://www.flickr.com/photos/bensilvia/365825305/"><img alt="IMG_2293" src="http://static.flickr.com/105/365825305_2b12ac5daa.jpg" border="1" /></a></p>
+
+
+<p><a href="http://www.flickr.com/photos/bensilvia/365825604/"><img alt="IMG_2325" src="http://static.flickr.com/126/365825604_10bc8ed673.jpg" border="1" /></a></p>
+
+
+<p><a href="http://www.flickr.com/photos/bensilvia/365825992/"><img alt="IMG_2365" src="http://static.flickr.com/186/365825992_9c2516af95.jpg" border="1" /></a></p>
+
+
+<p><a href="http://www.flickr.com/photos/bensilvia/365827460/"><img alt="IMG_2456" src="http://static.flickr.com/126/365827460_ca6ce61c55.jpg" border="1" /></a></p>
+
+
+<p><a href="http://www.flickr.com/photos/bensilvia/365828647/"><img alt="IMG_2551" src="http://static.flickr.com/127/365828647_3edf52705c.jpg" border="1" /></a></p>
+
+
+<p><a href="http://www.flickr.com/photos/bensilvia/365829550/"><img alt="IMG_2604" src="http://static.flickr.com/102/365829550_ca7788a71c.jpg" border="1" /></a></p>
+
+
+<p><a href="http://www.flickr.com/photos/bensilvia/365829870/"><img alt="IMG_2635" src="http://static.flickr.com/163/365829870_ba36fd6389.jpg" border="1" /></a></p>
+
+
+<p><a href="http://www.flickr.com/photos/bensilvia/365830391/"><img alt="IMG_2714" src="http://static.flickr.com/185/365830391_d1136aae3c.jpg" border="1" /></a></p>
+
+
+<p><a href="http://www.flickr.com/photos/bensilvia/365830459/"><img alt="IMG_2725" src="http://static.flickr.com/137/365830459_148e3b38b0.jpg" border="1" /></a></p>
+
+
+<p><a href="http://www.flickr.com/photos/bensilvia/365830735/"><img alt="IMG_2741" src="http://static.flickr.com/123/365830735_8b18c67809.jpg" border="1" /></a></p>
+
+
+<p><a href="http://www.flickr.com/photos/bensilvia/365832150/"><img alt="IMG_2854" src="http://static.flickr.com/176/365832150_3fa244d1a8.jpg" border="1" /></a></p>
+
+
+<p>&nbsp;</p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2007/01/my-wedding/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/01/database-migrations-for-net/">Database Migrations for .NET</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-01-20 00:00:00 -0600" pubdate  updated >Jan 20<span>th</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>In my search for the <em>one-command automated build</em>, I&rsquo;ve often stumbled upon how to deal with the database while writing code on a multi-developer project.</p>
+
+
+<p>Most of us use source control, however only a small fraction of us actually store the database scripts in source control.&nbsp; This is a powerful tool that is often missed completely.</p>
+
+
+<p>This is a development process I see frequently:</p>
+
+
+<ul><li>get the latest version of the source from VSS</li><li>exclusively check-out the code files you need</li><li>make changes to the code and the database to enable your new features</li><li>check in the code once it is all done</li><li>do a sql compare to the dev/test databases to get a delta script</li><li>run the compare script in the test environment and deploy the project to test.</li></ul>
+
+
+<p>There are a number flaws in this process, but it doesn&rsquo;t stop people from continuing along this path for an entire project.&nbsp; Rather than point out everything that scares me from that list, I&rsquo;ll focus on the database portion. </p>
+
+
+<p>What&rsquo;s wrong with just making changes and then doing a SQL compare?&nbsp; Well, for starters&hellip; that compare script is used once and thrown away.&nbsp; It is never checked into source control.&nbsp; If we need to restore the state of an application as of 4 months ago, we can do it with the code, but not the database.&nbsp; The database only stays on the current version, and there&rsquo;s no going back.&nbsp; Another drawback is that the process is a manual one, and we want to get into automation.&nbsp; Lastly, SQL Compare (and SQL Delta) are both licensed tools, and not all of us can purchase them.&nbsp; At home I cannot justify the cost, so I am forced to come up with something else.</p>
+
+
+<p>The Ruby on Rails community is lucky.&nbsp; Baked into the Rails framework is something called <em>migrations</em>.</p>
+
+
+<p>Let&rsquo;s say you&rsquo;re on a ruby project for managing houses for sale.&nbsp; You get a new feature request where you want to know how many bathrooms a house has (strange request, huh?).&nbsp; You make the changes to model (adding a <em>bathrooms </em>property) but now you need the database to support it.&nbsp; So you type <em>rails script/generate migration Add_House_Bathrooms</em>.&nbsp; This will generate a ruby code file in the <strong>/</strong><em>project/db/migrations/xxx_Add_House_Bathrooms.rb </em>file.&nbsp; (the xxx will be replaced with sequential ordering, so rails knows what order to execute the migrations)&nbsp;Inside this file are 2 methods:&nbsp; <strong>up</strong> and <strong>down</strong>.&nbsp; This is, <em>how to I create the changes</em>, and <em>how do I remove the changes</em>.&nbsp; Inside these methods you can write code that adds and removes the column you want.</p>
+
+
+<p>So then when you need to deploy, rails knows what version the database is on (by having a version table), and can apply the migrations since that version to bring the database up to speed with the code.&nbsp; If something goes wrong, it can roll the changes back to the original version (by using the <em>down</em> methods).</p>
+
+
+<p>You can even create migrations that load dummy test data, or default values for static lookup tables.</p>
+
+
+<p>It usually only takes a little while for a cool idea to make its way into the .NET world, and migrations are no exception.&nbsp; The Castle Project is a collection of many RoR-esque utilities packaged into one.&nbsp; One of those utilities is called Migrator, which lives in the Generator project.</p>
+
+
+<p>To generate a migration, you type:</p>
+
+
+<p><strong><em>generate migration Add_House_Bathrooms</em></strong></p>
+
+
+<p>With this, you can enable this style of migration in .NET.&nbsp; You create migrations, these end up as C# code files in your db/migrations folder.&nbsp; The same concept applies.</p>
+
+
+<p>The migrator is fairly young, but it was extracted from CastleContrib into the main Castle trunk, so that is a good sign that it is here to stay and will have active support.</p>
+
+
+<p>When I have more time to play with this, I&rsquo;ll try and post a little demo.&nbsp; For now, check out the castle project at <a href="http://www.castleproject.org/">http://www.castleproject.org</a></p>
+
+
+<p>What does your team do to manage database changes and enable versioning?</p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2007/01/database-migrations-for-net/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/01/solid-gold-css-resource/">Solid Gold CSS Resource</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-01-19 00:00:00 -0600" pubdate  updated >Jan 19<span>th</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I came across this site today, which boats <a href="http://www.smashingmagazine.com/2007/01/19/53-css-techniques-you-couldnt-live-without/"><b>53 CSS Techniques you can&#8217;t live without</b></a>.<br><br>Normally I don&#8217;t like to blog just links, but this one is definitely worth it.&nbsp; It covers most of the major techniques, both simple and advanced for styling web pages.<br><p></p></p>
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2007/01/solid-gold-css-resource/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/01/free-book-on-domain-driven-design/">Free Book on Domain Driven Design</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-01-19 00:00:00 -0600" pubdate  updated >Jan 19<span>th</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>InfoQ has published a small book on DDD called <u><b>Domain Driven Design Quickly</b></u>.&nbsp; They&#8217;re giving away the PDF for free!&nbsp; The print version is only $22, so I&#8217;ll probably buy it if I like the PDF version.<br><br>Check it out:<br>http://www.infoq.com/minibooks/domain-driven-design-quickly<br><p></p></p>
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2007/01/free-book-on-domain-driven-design/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/01/eliga-a-new-development-methodology/">Eliga - a New Development Methodology</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-01-18 00:00:00 -0600" pubdate  updated >Jan 18<span>th</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>My latest assignment at work was somewhat small, and the requirements were fairly straightforward so I got to work immediately.&nbsp; My early requests to meet with my user were met with &ldquo;let&rsquo;s get a demo first.&rdquo;&nbsp; Given the availability of all parties involved, this took longer than I would have liked.</p>
+
+
+<p>So here I am, 60 work-hours later, I have a fully functional, ready-to-deploy application, and I have yet to meet with my user.&nbsp; Let&rsquo;s sincerely hope he doesn&rsquo;t decide that this isn&rsquo;t what he wanted in the first place.</p>
+
+
+<p>Then my office-mate recognized our new development process.&nbsp; Ladies and gentlement, I give you <strong>Eliga!</strong>&nbsp; </p>
+
+
+<p>Eliga is the opposite of agile.&nbsp; Here is our manifesto: </p>
+
+
+<p><em>Forget users, they will only slow me down!&nbsp; Don&rsquo;t disturb me when I&rsquo;m coding you peons!&nbsp; I&rsquo;ll hear your impressions when I&rsquo;m finished!&nbsp; I can&rsquo;t be bothered with workflow changes!&nbsp; They&rsquo;re already coded and set in stone!</em></p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2007/01/eliga-a-new-development-methodology/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/01/tag-im-it-5-things-you-didnt-know-about-me/">Tag I&#8217;m It! - 5 Things You Didn&#8217;t Know About Me</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-01-09 00:00:00 -0600" pubdate  updated >Jan 9<span>th</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Well the internet sure is a tiny place. I was tagged by <a href="http://www.jpboodhoo.com/blog" target="_blank">JP Boodhoo</a> and <a href="http://blogs.sarkhouston.com/amurrell" target="_blank">Aaron Murrell</a>. </p>
+
+
+<p>Here it goes, 5 things that you probably didn&#8217;t know about me before: </p>
+
+
+<ul><li>I was born on a farm in Oregon.&nbsp; I still remember my favorite cow (Jesse) from our farm.&nbsp; One day he was gone.&nbsp; Where did he go?</li><li>I used to be insane on rollerblades.&nbsp; My friends and I would jump pretty much anything.&nbsp; It&rsquo;s actually amazing that I didn&rsquo;t break any bones jumping over staircases and stuff, especially since I am so accident prone.</li><li>I got my first guitar when I was 7, however I didn&rsquo;t really pick up playing until 12 or so.&nbsp; I still play, but not as often as I would like to.</li><li>I first got into computer programming watching my dad write a hangman game from scratch.&nbsp; I picked up QBASIC when I was 13 or 14, and I would write little screen savers using the primitive graphics drawing routines it had.&nbsp; My pinnacle QBASIC program was a hoax that my friend and I pulled on his younger brother.&nbsp; We called it &ldquo;DelBug&rdquo; and it was supposed to remove bugs from programs, such as Doom 2, which just-so-happened to be causing him troubles.&nbsp; It went through a series of fake menus and ended up pretending to format his hard drive.&nbsp; It was great!&nbsp; He almost wet himself when it started flashing and rebooting in a loop.</li><li>And lastly, I just got married!&nbsp; (Pictures coming soon).&nbsp; Silvia and I had a beautiful ceremony and lots of close friends and family were present.</li></ul>
+
+
+<p>And I&rsquo;ll tag:</p>
+
+
+<ul><li><a href="http://agiledeveloper.com/blog/" target="_blank">Venkat Subramaniam</a></li><li><a href="http://www.sheysrebellion.net/blog/" target="_blank">Shey Sewani</a></li><li><a href="http://blogs.giffordconsulting.com/" target="_blank">Tim Gifford</a></li><li><a href="http://blog.benday.com/default.aspx" target="_blank">Ben Day</a></li><li>and my sweetheart <a href="http://silvia.flux88.com/" target="_blank">Silvia</a>&nbsp;</li></ul>
+
+
+<p>&nbsp;</p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2007/01/tag-im-it-5-things-you-didnt-know-about-me/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2006/12/zune-my-thoughts/">Zune - My Thoughts</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2006-12-26 00:00:00 -0600" pubdate  updated >Dec 26<span>th</span>, 2006</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><img src="/images/zune_2Dblack_.jpg" hspace="4"  border="0"  />I received a black Zune for Christmas, despite it&rsquo;s lackluster sales and reviews by some.</p>
+
+
+<p>I resisted getting an iPod for the longest time, because I wouldn&rsquo;t buy into the hype.</p>
+
+
+<p>I compared a number of features to decide between a Zune and an 30gb iPod Video.</p>
+
+
+<p><strong>Screen Size &ndash; </strong>The Zune has a very large screen compared to the iPod.&nbsp; For video you turn it sideways for a widescreen view, and it makes watching movies very do-able.</p>
+
+
+<p><strong>Interface</strong> &ndash; Call me crazy, but I&rsquo;m not too fond of the iPod interface.&nbsp; When I used the iPod Video at the Apple Store, I was immediately annoyed that it asked me <em>every time</em> if I wanted TV on or TV off when I clicked on a video.&nbsp; The TV wasn&rsquo;t even connected!&nbsp; For a company so anal about usability, making the users make a redundant and unnecessary choice before showing videos is a no-no.&nbsp; The interface for the Zune is easy to use and the buttons make sense.&nbsp; The iPod isn&rsquo;t <em>bad<strong>, </strong></em>I just don&rsquo;t care for it very much.</p>
+
+
+<p><strong>Wireless</strong> &ndash; I originally thought this was one of the coolest features of the Zune.&nbsp; It uses standard WiFi to transfer data between 2 Zunes, however it doesn&rsquo;t connect to my wireless network at home, which is a disappointment.&nbsp; I don&rsquo;t know anybody that has a Zune, so I haven&rsquo;t yet tried out the Social aspect of it.&nbsp; There are hacks that allow you to transfer a file unlimited times between Zunes wirelessly, but it involves registry hacks on the host computer, and renaming the file as an image.&nbsp; That makes it pretty much useless because I have a usb thumb drive in my pocket that can do the same thing easier.</p>
+
+
+<p><strong>Podcasts </strong>&ndash; I&rsquo;ve become addicted to a number of podcasts, some with video, so I wanted good podcast support.&nbsp; I was disappointed to find that the Zune has almost NO notion of podcasts.&nbsp; Sure I can point the Zune software (which sucks, more on that later) to a folder where I download podcasts, but they don&rsquo;t live in a separate section on the Zune.&nbsp; I hope Microsoft fixes this in a future firmware update.&nbsp; iPod / iTunes wins on this hands-down.&nbsp; I&rsquo;m currently using uTorrent for BT feeds, and Doppler for video/audio feeds.&nbsp; These go into my <em>podcasts</em> folder which gets picked up by the Zune software.&nbsp; The video has to be re-encoded to the Zune format, which is annoying.&nbsp; I would think that WMV would be playable out of the box.</p>
+
+
+<p><strong>Video</strong> &ndash; I originally dismissed Video as excessive in a portable player, but now it&rsquo;s my favorite feature.&nbsp; I have a lot of downloaded tv shows, and I plan on putting them on the Zune to watch while I work out.&nbsp; I ride an exercise bike to strengthen my leg and I can easily watch a TV show in that time.&nbsp; The problem I see now, however, is that my shows are in Divx or Xvid format, which I have to re-encode using <a title="Any Video Converter" href="http://www.any-dvd-converter.com/" target="_blank">Any Video Converter</a>&nbsp;to AVI or MPEG, then it has to be encoded <em>again</em> in the Zune format.&nbsp; I&rsquo;m hoping this process gets easier, or that the Zune will support Divx in the future.&nbsp; One thing that would be nice is if I could encode video <em>before I&rsquo;m ready to sync.</em>&nbsp; I find it annoying that I have to surrender my Zune for at least 30 minutes if I need to transfer a couple <a title="diggnation" href="http://diggnation.com/" target="_blank">diggnation</a> episodes.</p>
+
+
+<p><strong>Music</strong> &ndash; This is a no-brainer for most MP3 players.&nbsp; Both the iPod and Zune have excellent usage in terms of usability.&nbsp; I like the large album art that is displayed during playback on the Zune, though I hear the new iPods do this as well.</p>
+
+
+<p><strong>Size</strong> &ndash; The iPod wins in this category.&nbsp; The Zune is about 1/2&rdquo; thick, which is quite large.&nbsp; The iPod is about 1/4&rdquo; thick, so it&rsquo;s twice as thin.&nbsp; I decided that the other features were worth the trade-off in Size.</p>
+
+
+<p><strong>PC Software &ndash; </strong>The Zune software sucks.&nbsp; Big time.&nbsp;&nbsp;It reminds me a lot of iTunes, but it doesn&rsquo;t really deliver.&nbsp; I ignore the Marketplace, so for me it&rsquo;s just a mechanism to transfer files over.&nbsp; I&rsquo;d like to use MediaMonkey, but it&rsquo;s not supported yet.&nbsp; I found a few mistagged files while listening to music on the Zune, so I <strong>flagged</strong> them.&nbsp; They showed up in my Zune &ldquo;inbox&rdquo; the next time I sync&rsquo;ed.&nbsp; From there it shows me the file, but it doesn&rsquo;t let me edit the tags!&nbsp; How stupid is that?&nbsp; The only option I have is to delete the file and look at Properties, which is useless to me.&nbsp; </p>
+
+
+<p>The Zune software also has zero support for subscribing to podcasts, let along distinguishing my podcasts between regular music aside from Genre.</p>
+
+
+<p><strong>Audiobooks &ndash; </strong>I haven&rsquo;t yet tried listening to an Audiobook, however I plan on it.&nbsp; I listed to the Da Vinci code about 8 months ago and I loved it.&nbsp; I&rsquo;m hoping that it will be easy to listen to Audiobooks.</p>
+
+
+<p>All in all, you can&rsquo;t go wrong with an iPod or a Zune.&nbsp; Both are fantastic devices, and I am very happy with my Zune.&nbsp; I hope for a few improvements via firmware soon, but it&rsquo;s a new device and I think Microsoft will catch on soon.</p>
+
+
+<p>Now, the question is&hellip; do I attempt the <a title="iPod mods 80gb zune upgrade" href="http://www.ipodmods.com/shop/zune-repair-guides.html" target="_blank">80gb mod</a>?</p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2006/12/zune-my-thoughts/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+<nav role="pagination">
+  <div>
+    
+      <a class="prev" href="/blog/page/29/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/27/">Newer &rarr;</a>
+    
+  </div>
+</nav>
+
+<script type="text/javascript">
+    var disqus_shortname = 'subdigital';
+    (function () {
+      var s = document.createElement('script'); s.async = true;
+      s.type = 'text/javascript';
+      s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+      (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+
+</div>
+<aside role=sidebar>
+  
+    <section>
+  <h1>Who am I?</h1>
+  <p>I&#8217;m Ben Scheirman. I make Rails &amp; iPhone apps for <a href="http://chaione.com" target="_blank">ChaiONE</a> in Houston, TX.</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/08/vim---could-not-invoke-jslint/">Vim - Could Not Invoke JSLint</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/is-rails-exempt-from-software-principles/">Is Rails Exempt?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/when-viewwillappear-isnt-called/">When viewWillAppear: Isn&#8217;t Called</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/moving-my-blog/">Moving My Blog</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/my-vim-journey/">My Vim Journey</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("subdigital", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/subdigital" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @subdigital</a>
+  
+</section>
+
+
+<section>
+  <h1>On Delicious</h1>
+  <script type="text/javascript" src="http://feeds.delicious.com/v2/js/subdigital?title=&count=3&sort=date&extended"></script>
+  <p><a href="http://delicious.com/subdigital">My Delicious Bookmarks &raquo;</a></p>
+</section>
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer>
+<a style="display:block; float: right" title="Real Time Analytics" href="http://getclicky.com/66470389"><img alt="Real Time Analytics" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
+<script src="//static.getclicky.com/js" type="text/javascript"></script>
+<script type="text/javascript">try{ clicky.init(66470389); }catch(e){}</script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/66470389ns.gif" /></p></noscript>
+
+<p>
+  Copyright &copy; 2011 - Ben Scheirman -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+</body>
+</html>

@@ -1,0 +1,771 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Fickle Bits</title>
+  <meta name="author" content="Ben Scheirman">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="canonical" href="http://benscheirman.com/blog/page/18/index.html"/>
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/ficklebits" rel="alternate" title="Fickle Bits" type="application/atom+xml"/>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-210379-10']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">Fickle Bits</a></h1>
+  
+    <h2>You're doing it wrong.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/ficklebits" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:benscheirman.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/12/what-i-do/">What I Do</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-12-20 00:00:00 -0600" pubdate  updated >Dec 20<span>th</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Looks like a new blog meme is starting…&nbsp; I was tagged by my good friend <a href="http://www.sheysrebellion.net/blog/2007/11/20/what-do-you-do/" target="_blank">Shey</a> who’s wanting to know what we all do. (sorry it took me so long to respond!)</p>
+
+
+<p>So…&nbsp; what would you say… you DO here?</p>
+
+
+<p><img src="/images/office_2Dspace_2Dwhat_2Ddo_2Dyou_2Ddo_.png" alt="Office-space-what-do-you-do"  border="0" /></p>
+
+
+<p>Well, I’m a consultant, so my role sometimes changes.&nbsp; Currently I’m a lead developer for an energy company, involved in a Lotus Notes to .NET Migration.</p>
+
+
+<p>There are roughly 80 applications, some targeted for SharePoint 2007, some custom ASP.NET, and some Windows Forms.</p>
+
+
+<p>We decided to use <a href="http://subsonicproject.com/" target="_blank">SubSonic</a> for data access.&nbsp; Most of my readers know that I’m a DDD bigot and prefer persistence ignorant business entities and yada-yada-yada.&nbsp; But sometimes you just have a simple domain model and there’s no reason to go into the effort of introducing <a href="http://nhibernate.sf.net/" target="_blank">NHibernate</a> on a team that’s unfamiliar with ORM’s in general.&nbsp; (NHibernate just has too steep of a learning curve).&nbsp; SubSonic shines with simple domain models, and it allows us to be very productive very quickly.</p>
+
+
+<p>In retrospect I think I would have favored using <a href="http://castleproject.org/" target="_blank">Castle ActiveRecord</a>.&nbsp; We wouldn’t benefit from code-gen unless we made some custom templates for CodeSmith, but the main point would be that we can decouple the database from the application code.&nbsp; It turned out that some database naming standards were in place that favored very common abbreviations for just about any type of database column.&nbsp; This resulted in polluting our object model with poor names and I implemented a cheap work-around using partial classes and vanity properties.&nbsp; But the stink is still present <img src="http://www.flux88.com/uploads/smile1.gif">.</p>
+
+
+<p>We’re also using Team System, which is a less than desirable experience in my opinion.&nbsp; TFS SCC is okay, but it’s no <a href="http://subversion.tigris.org/" target="_blank">Subversion</a>.&nbsp; We do our database development with DB Pro and I’ve found that to be&nbsp;both a blessing and a hinderance.&nbsp; I’m starting to realize that with all of this tooling that MSFT is selling, a better experience can be had with a bit of patience, process maturity, and some open source software.</p>
+
+
+<p><em>Where’s all the good info on DB Pro anyway?&nbsp; All I’ve found are press release/feature list blogs and links to marketing material.</em></p>
+
+
+<p>For testing we’re using MSTest, and if I had it my way I’d rip it all out and replace it with NUnit.&nbsp; MSTest is more annoying than its worth, and we’re not using any of the build quality features anyway, so we wouldn’t be missing out on anything.&nbsp; I use <a href="http://testdriven.net/" target="_blank">TestDriven.NET</a> so I never even see the VS Test Runner.</p>
+
+
+<p>For the build process we use <a href="http://nant.sf.net/" target="_blank">NAnt</a>, but we haven’t setup continuous integration.&nbsp; Why?&nbsp; Frankly because I haven’t had the time.&nbsp;&nbsp;(I can hear the argument that I don’t have time NOT to already). &nbsp;I have targets setup to build up the database&nbsp;(both incremental and from scratch), generate code with SubSonicCommander, compile all of the source and run the tests.&nbsp; Continuous Integration is the next logical step, and I hope I can implement it soon.</p>
+
+
+<p>In summary, here are the tools, frameworks and libraries that I’m using:</p>
+
+
+<ul><li>SubSonic</li><li>NAnt</li><li>WCF</li><li>VSTS 2005 + DB Pro</li><li>TFS Source Control</li><li>Prototype / Scriptaculous (for most ajax and dhtml stuff)</li><li>ASP.NET Ajax / Control Toolkit (for UpdatePanel and the Calendar)</li><li>MSTest (yuck)</li><li>Enterprise Library Logging</li><li>RhinoMocks</li><li>TestDriven.NET</li><li>Console2!</li></ul>
+
+
+<p>To get this thing spreading like wild-fire, I’m going to tag…</p>
+
+
+<p><a href="http://www.lostechies.com/blogs/jason_meridth/" target="_blank">Jason Meredith</a><br><a href="http://www.lostechies.com/blogs/evan_hoff/" target="_blank">Evan Hoff</a><br><a href="http://weblogs.asp.net/bsimser/" target="_blank">Bil Simser</a><br><a href="http://graysmatter.codivation.com/" target="_blank">Justice Gray</a>&nbsp;(<em>keep it professional Justice!&nbsp; No weekend details!</em>)<br><a href="http://www.pseale.com/blog/" target="_blank">Peter Seale</a></p>
+
+
+<p>…get to it guys!&nbsp; What do YOU do?</p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2007/12/what-i-do/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/12/google-launches-a-chart-api/">Google Launches a Chart API</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-12-11 00:00:00 -0600" pubdate  updated >Dec 11<span>th</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Google recently released <a href="http://code.google.com/apis/chart/">a URL API for charting</a>.<br><br>What&#8217;s a URL API, you ask?&nbsp; Well you open an image to a specially formatted url, and google returns you a chart.&nbsp; You can do some pretty amazing things with this API.<br><br>Check out these samples:<br><img src="http://chart.apis.google.com/chart?cht=lc&amp;chs=200x100&amp;chd=s:formostthisamazingdayfortheleapinggreenlformostthisamazingdayfortheleapinggreenl&amp;chxt=x,y&amp;chxl=0:%7CApr%7CMay%7CJune%7C1:%7C%7C50+Kb">&nbsp;&nbsp;&nbsp; <img src="http://chart.apis.google.com/chart?cht=lxy&amp;chs=200x125&amp;chd=t:0,30,60,70,90,95,100%7C20,30,40,50,60,70,80%7C10,30,40,45,52%7C100,90,40,20,10%7C-1%7C5,33,50,55,7&amp;chco=3072F3,ff0000,00aaaa&amp;chls=2,4,1&amp;chm=s,FF0000,0,-1,5%7Cs,0000ff,1,-1,5%7Cs,00aa00,2,-1,5">&nbsp;&nbsp;&nbsp; <img src="http://chart.apis.google.com/chart?cht=p3&amp;chd=s:Uf9a&amp;chs=200x100&amp;chl=A%7CB%7CC%7CD"><br><br>The last one was created with this url:<br><i>http://chart.apis.google.com/chart?cht=p3&amp;chd=s:Uf9a&amp;chs=200x100&amp;chl=A|B|C|D</i><br><br>The urls are a little bit cryptic as you can tell, but this allows you to use one source for charting regardless of your language or platform.&nbsp; A .NET wrapper is sure to spring up in the next couple days that will allow you to take advantage of this API with a more structured format.<br><br><b><i>Update:&nbsp; </i></b><i>Boy did I underestimate the community.&nbsp; Chris Pietschmann already created <a href="http://pietschsoft.com/Blog/Post.aspx?PostID=1429">an ASP.NET 2.0 Server Control to leverage the Google Chart API in .NET</a>.</i><br><br>I&#8217;m wondering how they are able to handle all of this.&nbsp; Not only is it a lot of traffic to handle (but they&#8217;re obviously pros at that by now) but it takes a significant amount of CPU cycles to generate a graph like that on the fly.&nbsp; How do they keep their response times so quick?<br>&nbsp; <br><p></p></p>
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2007/12/google-launches-a-chart-api/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/12/blame-nhibernate-why-not/">Blame NHibernate, Why Not?</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-12-10 00:00:00 -0600" pubdate  updated >Dec 10<span>th</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I&rsquo;m currently assisting with another project that is experiencing some performance issues.&nbsp; A lot of finger-pointing and blaming has been going on, and most of the parties involved just want to jump in and blame NHibernate.</p>
+
+
+<p>I figured that we could optimize the way NHibernate is being used to help gain some perf. back in the application and hopefully restore its reputation at the client (and frankly, my company).&nbsp; </p>
+
+
+<p>Some info about the application:</p>
+
+
+<p>It&rsquo;s a WinForms application that communicates via Web Services to a service layer.&nbsp; The service layer utilizes NHibernate over a domain model for persistence.&nbsp; The domain types are serialized and used directly on the client.&nbsp; (more on this later)</p>
+
+
+<p>There are roughly 100 tables and almost as many mapped entities.&nbsp; It is using NHibernate 1.0.2.</p>
+
+
+<p>We did some basic benchmarking of the application so that we could quantify how effective various fixes were.</p>
+
+
+<p>Startup time: <strong>14 seconds</strong>.&nbsp; Ouch!&nbsp; I turned on the <strong>hibernate.show_sql</strong> setting in the config file and watched the SQL queries fly.&nbsp; They were covering the screen!&nbsp; I wrote a simple log4net IAppender that would count the number of log statements that contained a query and found out that 304 queries were being executed at startup.&nbsp; Obviously something is wrong here, so I copied the queries to notepad and began to group them.</p>
+
+
+<p>The domain of the application is shipping (like, in ships across the ocean).&nbsp; So there is a concept of Terminals, Ports, Port Locations, and Geographic Locations.&nbsp; If we load all of the terminals, we need to load the port for each one, the port location for each one of those, and the geographic location for each one of those.&nbsp; It turns out that this many-to-one is not that bad.&nbsp; You can get most of the data you need in one query using left joins.&nbsp; The problem we faced was that GeographicLocations held an IList of all of its PortLocations.&nbsp; And furthermore the PortLocation held an IList of all of its Ports.&nbsp; </p>
+
+
+<p>Picture trying to build up just a single terminal&hellip;</p>
+
+
+<ul><li>select terminal details and build up a Terminal</li><ul><li>need a port, so build it up</li><ul><li>need a port location, so build that up</li><ul><li>need a geographic location, so build that up</li><ul><li>not done?&nbsp; Now we need all of the port locations for the geographic location</li><ul><li>you guess it, now we need all of the ports for all of the portlocations you just loaded</li><ul><li>now we need to get all of the terminals for all of the ports for all of the port locations, &hellip;.</li></ul></ul></ul></ul></ul></ul></ul>
+
+
+<p>This is starting to sound like that children&rsquo;s story <u><a href="http://www.amherst.edu/~rjyanco94/literature/mothergoose/rhymes/thisisthehousethatjackbuilt.html" target="_blank">The House That Jack Built</a></u>.</p>
+
+
+<p>This is EXACTLY the reason that ORM&rsquo;s have lazy-loading.&nbsp; If you haven&rsquo;t used it before, here&rsquo;s how it works:&nbsp; You load up the terminal, but it doesn&rsquo;t fire a query for the port.&nbsp; It gives you a stand-in object instead.&nbsp; The second you access the terminal.Port property, *boom* &ndash; a database query is executed, the port is loaded, and you are returned a port.&nbsp; This allows us to select a minimal amount of data, and is generally favorable unless you <em>know</em> ahead of time that you&rsquo;ll need the port, in which case it&rsquo;s faster to just query for it all at once.&nbsp; Needless to say, you need to at least <em>think</em> about this issue while developing.</p>
+
+
+<p><strong>Lesson #1:&nbsp; Understand Lazy Loading Or Be Doomed</strong></p>
+
+
+<p>But remember that our domain entities are being returned from a web service.&nbsp; There is no way for NHibernate to open a database connection on the client.&nbsp; Thus, we cannot utilize lazy loading at all.</p>
+
+
+<p>I decided to remove the IList of port locations from the GeographicLocation class.&nbsp; As it turns out, there was no code using this method, so it was a simple change.&nbsp; I removed the list, removed the relevant mapping xml, and rebuilt.</p>
+
+
+<p><em>The queries were reduced to 94</em>.&nbsp; That 5&ndash;minute change improved the application load time to about&nbsp;6 seconds.&nbsp; This is not the end of the story on improving startup time, but this was a big win at a very low cost.</p>
+
+
+<p>There are likely other areas like this where we can break collections, but I probably will be breaking client code, and I will have to resort to adding a service method and utilizing NHibernate queries to provide the objects in a collection, rather than object graph traversal.</p>
+
+
+<p><strong>Lesson #2:&nbsp; Don&rsquo;t go crazy with your colleciton associations.&nbsp; Possibly favor querying over object traversal for problem areas.</strong></p>
+
+
+<p><em>As a side-note to lesson 2, read Eric Evans&rsquo; <a href="http://www.amazon.com/Domain-Driven-Design-Tackling-Complexity-Software/dp/0321125215" target="_blank">Domain Driven Design</a> for a much better understanding of aggregates, aggregate roots, and how to partition your domain model.</em></p>
+
+
+<p>Then I started looking at the logs.&nbsp; These were turned off in development, so nodody ever saw this.&nbsp; I noticed that there were a ton of messages like &ldquo;CodeDOM failed for class &hellip;..&nbsp;&nbsp; unknown character `&rdquo; &mdash; this was the reflection optimizer trying to compile some code on the fly to assist with getting/setting property values.&nbsp; The code was listed along with the error and you could clearly see that this happened only on types that had a generic parameter.&nbsp; I searched around and found that this was a bug in 1.0.2 that didn&rsquo;t understand how to read the string representation of generic types.&nbsp; It was fixed in 1.2.0, so I decided to upgrade.&nbsp; </p>
+
+
+<p>The upgraded version reduced the startup time to 3 seconds, and I&rsquo;m pretty confident that we won&rsquo;t get much better than that.&nbsp; Sure we can reduce the number of queries&nbsp;a bit more, but we&rsquo;re getting into the realm of acceptable values here.</p>
+
+
+<p>How did we go from 6 seconds to 3 seconds?&nbsp; Well the reflection optimizer had previously been turned on and was failing&hellip; once for every entitiy.&nbsp; This caused an exception and easily slowed down the startup time.&nbsp; Additionally, the reflection optimizer wasn&rsquo;t helping out getting and settting property values so they fell back on reflection, whcih can contribute to overal runtime performance degredation.&nbsp; The reflection optimizer is FAST, so let it do it&rsquo;s job!&nbsp; (see how fast in <a href="http://jaychapman.blogspot.com/2007/11/nhibernate-access-performance.html" target="_blank">this article</a> by Jay Chapman)</p>
+
+
+<p><strong>Lesson #3: Turn on logging (even in Dev!)</strong></p>
+
+
+<p><strong>Lesson #4:&nbsp; Take advantage of the reflection optimizer!</strong></p>
+
+
+<p>Next we took a look at one of the trouble screens and discussed how to make it faster.&nbsp; The screen needed a lot of different types of data.&nbsp; It had details at the top of the page, most of which were dropdown selections loaded by another entity, and the grid needed data from 3 different entities, flattened out.</p>
+
+
+<p>The issue here is that the UI needs SO many different entities, that a signification portion of the entities are being loaded when only a subset of the data is actually being displayed.&nbsp; This is an excellent opportunity for applying <a title="J.P. Boodhoos blog" href="http://www.jpboodhoo.com/blog/CommentView,guid,21fe23e7-e42c-48d8-8871-86e65bcc9a50.aspx" target="_blank">Screen Bound DTO&rsquo;s</a>.</p>
+
+
+<p>A screen-bound DTO is a custom type that contains a flattened view of only the data I need to fulfill the needs of the screen.&nbsp; I can utilize Projections to create slim entities that only contain name/value pairs for example.&nbsp; I can accomplish this all with HQL.</p>
+
+
+<p>This means less queries being sent to SQL server, and less data going over the wire.</p>
+
+
+<p><strong>Lesson
+#5:&nbsp; Consider Screen-bound DTO&rsquo;s instead of consuming your entities on the UI</strong></p>
+
+
+<p>On the database side, we can probably deal with a more friendly transaction isolation strategy, such as ReadCommitted.&nbsp; This will allow more concurrent reads than other isolation levels.&nbsp; This is accomplished through configuration.</p>
+
+
+<p><strong>Lesson #6:&nbsp; Consider using ReadCommitted as your isolation level</strong></p>
+
+
+<p>We should also configure the default_schema setting to be <em>databasename.dbo</em> because that will be used to fully qualify the objects in all database queries.&nbsp; Without this, SQL Server will not cache the query plan for these queries.</p>
+
+
+<p><strong>Lesson #7:&nbsp; Always make sure you&rsquo;ve set hibernate.default_schema</strong></p>
+
+
+<p>There are still more optimizations that we might make, by analyzing opportunities for cachine on both server side and the client, tweaking the mappings, and loading large data sets on a background thread to keep the UI responsive.</p>
+
+
+<p>I believe that we will be able to achieve very acceptable performance with a lot of analysis and a tweak here and there.&nbsp; Maybe then we can restore some faith in NHibernate, as it is a truly powerful persistence framework and it would be a shame to yank it because it was implemented poorly.</p>
+
+
+<p>An excellent resource is <a href="http://devlicio.us/blogs/billy_mccafferty/" target="_blank">Billy McCafferty</a>&rsquo;s article on <a href="http://www.codeproject.com/KB/architecture/NHibernateBestPractices.aspx" target="_blank">NHibernate Best Practices with ASP.NET</a>.&nbsp; Be sure and read it if you haven&rsquo;t already (it&rsquo;s full of useful advanced tips on NHibernate.</p>
+
+
+<p>Are there any perf. considerations I&rsquo;ve missed?</p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2007/12/blame-nhibernate-why-not/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/12/the-long-awaited-asp-net-mvc-has-arrived/">The Long Awaited ASP.NET MVC Has Arrived</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-12-09 00:00:00 -0600" pubdate  updated >Dec 9<span>th</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><font style="BACKGROUND-COLOR: #f4f4f4">Enjoy:</font></p>
+
+
+<p><a href="http://asp.net/downloads/3.5-extensions/">http://asp.net/downloads/3.5-extensions/</a></p>
+
+
+<p>Also, be sure and check out the brand-new open source project <a href="http://mvccontrib.org/">http://mvccontrib.org</a> for all of the extra stuff that ASP.NET will not ship with.</p>
+
+
+<p>Time to play!</p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2007/12/the-long-awaited-asp-net-mvc-has-arrived/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/11/system-web-mvc-on-the-horizon/">System.Web.MVC on the Horizon</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-11-29 00:00:00 -0600" pubdate  updated >Nov 29<span>th</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Looks like we can expect the <a href="http://weblogs.asp.net/scottgu/archive/2007/11/29/net-web-product-roadmap-asp-net-silverlight-iis7.aspx">ASP.NET MVC CTP</a> to be released in about a week.</p>
+
+
+<p>Great stuff!&nbsp; Check out some of the other major things that are coming out of Microsoft in the coming months at <a href="http://weblogs.asp.net/scottgu/archive/2007/11/29/net-web-product-roadmap-asp-net-silverlight-iis7.aspx">ScottGu&rsquo;s blog</a>.</p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2007/11/system-web-mvc-on-the-horizon/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/11/book-review-asp-net-2-0-anthology/">Book Review - ASP.NET 2.0 Anthology</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-11-20 00:00:00 -0600" pubdate  updated >Nov 20<span>th</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>A few weeks ago, <a href="http://www.codinghorror.com">Jeff Atwood</a> sent me a free review copy of his new book, <a href="http://www.amazon.com/ASP-NET-2-0-Anthology-Essential-Tricks/dp/098028581X">The ASP.NET 2.0 Anthology</a>.&nbsp; He co-authored the book with <a href="http://odetocode.com/blogs/scott/default.aspx">K. Scott Allen</a> (from <a href="http://odetocode.com/">OdeToCode</a>), <a href="http://www.sitepoint.com/articlelist/452">Wyatt Barnett</a>, <a href="http://weblogs.asp.net/jgalloway/">Jon Galloway</a>, and <a href="http://haacked.com">Phil Haack</a>.<br><br>Normally I wouldn&#8217;t get excited about a book like this, but looking at that list of authors I was more than intrigued to give it a try.&nbsp; Granted, the book is targeted for the beginner to intermediate ASP.NET developer, so a lot of it was not very helpful to me, but I did find quite a few good nuggets that I will take away and utilize in the future.<br><br>The first few chapters give a general overview of the newer features of .NET 2.0 and some other basic concepts.&nbsp; I think that this would be helpful to someone just coming to ASP.NET (maybe from another language) and want to get started.&nbsp; <br><br>The book was published by SitePoint, under their &#8220;Anthology&#8221; style.&nbsp; This means the book is organized into 101 different &#8220;tips&#8221; phrased as questions that someone might ask on a forum or similar.&nbsp; Some examples from Chapter 1 are &#8220;How do I use source control?&#8221; and &#8220;How do I go about using open source code?&#8221; &#8211; I was pleased to see these sections in the book.&nbsp; You normally wouldn&#8217;t expect this and I think it helped make the book more well-rounded.<br><br>The middle chapters were a bit more targeted to the intermediate ASP.NET level, which made it more interesting for me.&nbsp; They covered things like custom configuration sections, custom validation, how to maintain control state when viewstate is turned off.&nbsp; All throughout I think the authors gave solid advice on all these features.&nbsp; There was a good section on Membership and Access Control, which is sure to be helpful to intermediate ASP.NET developers.<br><br>The last few chapters were the most interesting to me, which is funny because most of them weren&#8217;t specific to ASP.NET.&nbsp; A section on troubleshooting bothersome SQL queries is sure to help people out.&nbsp; There were a good number of general web developer tips, such as considering SEO and clean HTML for good search engine rankings.&nbsp; I appreciated the tip on how to utilize URL rewriting at the IIS level, and how to serve-up custom images to evil hotlinkers on myspace (thanks <strike>Jeff</strike> Jon!).&nbsp; These types of things are great to know when pursuing a career as a web developer.&nbsp; The last chapter introduced <a href="http://subsonicproject.com">SubSonic</a>, which I think was awesome.&nbsp; Not many developers that I meet have heard of SubSonic and I find it to be a pretty useful tool with a low barrier of entry.&nbsp; It definitely warranted some attention in this book.<br><br>While a lot of the content was your typical ASP.NET 2.0 fodder that I avoid (like SqlDataSource), I thought that the authors did a good job of noting when things were applicable, for example when to use the Web Site model vs. Web Application Projects.&nbsp; The book didn&#8217;t have enough beginner content and explanation of ASP.NET to be a beginner book (which is a good thing), but it did have quite a lot of excellent tips that makes this book a great companion to any intermediate developer.<br><p></p></p>
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2007/11/book-review-asp-net-2-0-anthology/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/11/nhibernate-screencast-persisting-the-address-book/">NHibernate Screencast - Persisting the Address Book</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-11-15 00:00:00 -0600" pubdate  updated >Nov 15<span>th</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>A few weeks ago, <a href="http://lostechies.com/blogs/evan_hoff/Default.aspx">Evan Hoff</a> posted a <a href="http://evanhoff.com/archive/2007/10/17/56.aspx">screencast</a> on building up a domain model in a test-first manner.&nbsp;&nbsp; We talked about it and thought it might be interesting to show how to apply persistence to this already functioning and tested domain model.</p>
+
+
+<p>So <a href="http://flux88.com/screencasts/nhibernate-addressbook">take a look</a> and tell me what you think!&nbsp; It weighs in at 40 minutes (I tried to keep it under 30 but hey).</p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2007/11/nhibernate-screencast-persisting-the-address-book/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/11/zune-gets-long-awaited-sofwtare-update/">Zune Gets Long Awaited Sofwtare Update</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-11-14 00:00:00 -0600" pubdate  updated >Nov 14<span>th</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I was one of the early adopters for the Zune.&nbsp; My biggest attraction to it was the nice screen, which is great for watching movies on the busride to work.<br><br><img src="http://http://www.zune.net/xweb/zune/argoV2/images/ZuneLogo.gif"><br><br>Well now that the new Zune 2.0&#8217;s are out, Microsoft released a much needed software update, both on the PC software side and the Zune firmware.&nbsp; If you have a 1st generation Zune, then go to <a href="http://www.zune.net">http://www.zune.net</a> and grab the latest software update!&nbsp; It&#8217;s worth it!<br><br>Some new features:<br><ul><li>wireless sync<br></li><li>support for podcasts (finally)&nbsp; &#8211; both in the PC software and the Zune itself</li><li>updated UI<br></li></ul><br><br><p></p></p>
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2007/11/zune-gets-long-awaited-sofwtare-update/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/11/on-fluent-interfaces-and-friction/">On Fluent Interfaces and Friction</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-11-09 00:00:00 -0600" pubdate  updated >Nov 9<span>th</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>So I decided to start that NHibernate Mapping DSL project andopen-source it.&nbsp; Right now it doesn&#8217;t do anything, but you&#8217;re free totake a look at <a href="http://www.assembla.com/space/nhibernate-mapping">http://www.assembla.com/space/nhibernate-mapping</a><br><br>I wrote all of this code test-first, and it allowed me to tackle theinterface and flow the way I thought might be useful.&nbsp; I ended up withsomething that was mildly usable like this:<br><br></p>
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>&lt;span style="color: Black; background-color: transparent; font-family: Courier New; font-size: 11px;">IMapping mapping &lt;span style="color: Red; background-color: transparent; font-family: Courier New; font-size: 11px;">=&lt;/span> Mapping.For&lt;Product&gt;()&lt;br> .Identity(&lt;span style="color: rgb(102, 102, 102); background-color: rgb(228, 228, 228); font-family: Courier New; font-size: 11px;">"Id"&lt;/span>)&lt;br> .Property(&lt;span style="color: rgb(102, 102, 102); background-color: rgb(228, 228, 228); font-family: Courier New; font-size: 11px;">"Name"&lt;/span>)&lt;br> .Property(&lt;span style="color: rgb(102, 102, 102); background-color: rgb(228, 228, 228); font-family: Courier New; font-size: 11px;">"Price"&lt;/span>)&lt;br> .Map();&lt;/span></div></code></pre></td></tr></table></div></figure></div>
+
+
+<br>So this allows me to quickly accept the defaults of the mappings, so NHibernate will assume that I have &#8230;<br><ul><li>the column names are the same as the property names<br></li><li>the type of the column matches the type of the property and it can be picked up via reflection</li><li>the identity generator of the primary key is Identity</li><li>the identity/properties have setters</li><li>the &#8220;Name&#8221; and &#8220;Price&#8221; columns are nullable</li></ul>This isn&#8217;t always true of course, so we need to be able to specify where we deviate from the defaults.&nbsp; So how can we accomplish this using a fluent interface?&nbsp; We could resort to adding more overloads to the Identity() method, so you might have&#8230;.<br><br>
+
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>&lt;span style="color: Black; background-color: transparent; font-family: Courier New; font-size: 11px;">IMapping mapping &lt;span style="color: Red; background-color: transparent; font-family: Courier New; font-size: 11px;">=&lt;/span> Mapping.For&lt;Product&gt;()&lt;br> .Identity(&lt;span style="color: rgb(102, 102, 102); background-color: rgb(228, 228, 228); font-family: Courier New; font-size: 11px;">"Id"&lt;/span>, &lt;span style="color: rgb(102, 102, 102); background-color: rgb(228, 228, 228); font-family: Courier New; font-size: 11px;">"product_id"&lt;/span>, Access.NoSetterCamelcaseUnderscore, Generator.Native)&lt;br> .Property(&lt;span style="color: rgb(102, 102, 102); background-color: rgb(228, 228, 228); font-family: Courier New; font-size: 11px;">"Name"&lt;/span>, &lt;span style="color: rgb(102, 102, 102); background-color: rgb(228, 228, 228); font-family: Courier New; font-size: 11px;">"product_name"&lt;/span>, &lt;span style="color: Blue; background-color: transparent; font-family: Courier New; font-size: 11px;">false&lt;/span>)&lt;br> .Property(&lt;span style="color: rgb(102, 102, 102); background-color: rgb(228, 228, 228); font-family: Courier New; font-size: 11px;">"Price"&lt;/span>, &lt;span style="color: Blue; background-color: transparent; font-family: Courier New; font-size: 11px;">false&lt;/span>)&lt;br> .Map();&lt;br>&lt;/span></div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>But we don&#8217;t know how many settings the user might want to specify.&nbsp; If we have 4 simple, independent settings, then we&#8217;d have to support 4! method overload options!&nbsp; Yuck!<br><br></p>
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>&lt;span style="color: Black; background-color: transparent; font-family: Courier New; font-size: 11px;">&lt;span style="color: Blue; background-color: transparent; font-family: Courier New; font-size: 11px;">public&lt;/span> IPropertySpecificationPredicate Property(&lt;span style="color: Blue; background-color: transparent; font-family: Courier New; font-size: 11px;">string&lt;/span> name);&lt;br>&lt;span style="color: Blue; background-color: transparent; font-family: Courier New; font-size: 11px;">public&lt;/span> IPropertySpecificationPredicate Property(&lt;span style="color: Blue; background-color: transparent; font-family: Courier New; font-size: 11px;">string&lt;/span> name, &lt;span style="color: Blue; background-color: transparent; font-family: Courier New; font-size: 11px;">string&lt;/span> columnName);&lt;br>&lt;span style="color: Blue; background-color: transparent; font-family: Courier New; font-size: 11px;">public&lt;/span> IPropertySpecificationPredicate Property(&lt;span style="color: Blue; background-color: transparent; font-family: Courier New; font-size: 11px;">string&lt;/span> name, &lt;span style="color: Blue; background-color: transparent; font-family: Courier New; font-size: 11px;">string&lt;/span> columnName, DbType type);&lt;br>&lt;span style="color: Blue; background-color: transparent; font-family: Courier New; font-size: 11px;">public&lt;/span> IPropertySpecificationPredicate Property(&lt;span style="color: Blue; background-color: transparent; font-family: Courier New; font-size: 11px;">string&lt;/span> name, &lt;span style="color: Blue; background-color: transparent; font-family: Courier New; font-size: 11px;">string&lt;/span> columnName, DbType type, &lt;span style="color: Blue; background-color: transparent; font-family: Courier New; font-size: 11px;">int&lt;/span> length);&lt;br>&lt;span style="color: Blue; background-color: transparent; font-family: Courier New; font-size: 11px;">public&lt;/span> IPropertySpecificationPredicate Property(&lt;span style="color: Blue; background-color: transparent; font-family: Courier New; font-size: 11px;">string&lt;/span> name, &lt;span style="color: Blue; background-color: transparent; font-family: Courier New; font-size: 11px;">string&lt;/span> columnName, &lt;span style="color: Blue; background-color: transparent; font-family: Courier New; font-size: 11px;">bool&lt;/span> nullable);&lt;br>...&lt;/span></div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>This is just the beginning.&nbsp; What if you wanted to only specify the property name and the nullability?&nbsp; We quickly end up in an anti-pattern I like to call <b>overload explosion</b>.&nbsp; <br><br>We can do a bit better, right?&nbsp; I started to gather my thoughts and came up with this syntax:<br><br></p>
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>&lt;span style="color: Black; background-color: transparent; font-family: Courier New; font-size: 11px;">IMapping mapping &lt;span style="color: Red; background-color: transparent; font-family: Courier New; font-size: 11px;">=&lt;/span> Mapping.For&lt;Product&gt;()&lt;br>.Identity(&lt;span style="color: rgb(102, 102, 102); background-color: rgb(228, 228, 228); font-family: Courier New; font-size: 11px;">"Id"&lt;/span>)&lt;br>.Column(&lt;span style="color: rgb(102, 102, 102); background-color: rgb(228, 228, 228); font-family: Courier New; font-size: 11px;">"product_id"&lt;/span>)&lt;br>.Generator(Generator.Native)&lt;br>.Map();&lt;/span></div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>So now the Identity() method takes a single parameter, the name of the property.&nbsp; Anything else is optional.&nbsp; The return type is now something like an IIdentityBuilder interface, which accepts methods on altering the identity object that its building.&nbsp; Here you can see that we only specified the settings that we wanted, nothing else.&nbsp; We still had to have a way to &#8220;pop&#8221; the current object (and thus the entire mapping) so that we can indicate to the builder that we are done building the property and you can return the IMapping object next.&nbsp; This feels awkward for now, but for now it&#8217;s ok.<br><br>Let&#8217;s extend this pattern.&nbsp; Once I&#8217;m working with the IMappingBuilder interface, I can now see methods called Generator(), Access(), Column(), etc.&nbsp; There&#8217;s nothing there to prevent me from calling .Column(&#8220;&#8230;&#8221;).Column(&#8220;&#8230;&#8221;).Column(&#8220;&#8230;&#8221;).Column(&#8220;&#8230;&#8221;) which I guess isn&#8217;t such a big deal.&nbsp; All it&#8217;s doing is setting the column property of this object we&#8217;re building.<br><br>Now I&#8217;m noticing that there has to be a spot where the user gets finished with the mapping identity and now has some choices.&nbsp; The obvious next operation would be to create a property, but how do I pop the current context and start working on a new one?<br><br>Maybe something like this?<br><br></p>
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>&lt;span style="color: Black; background-color: transparent; font-family: Courier New; font-size: 11px;">IMapping mapping &lt;span style="color: Red; background-co
+</div><div class='line'>lor: transparent; font-family: Courier New; font-size: 11px;">=&lt;/span> Mapping.For&lt;Product&gt;().Identity(&lt;span style="color: rgb(102, 102, 102); background-color: rgb(228, 228, 228); font-family: Courier New; font-size: 11px;">"Id"&lt;/span>).Column(&lt;span style="color: rgb(102, 102, 102); background-color: rgb(228, 228, 228); font-family: Courier New; font-size: 11px;">"product_id"&lt;/span>).Generator(Generator.Native).AndProperty(&lt;span style="color: rgb(102, 102, 102); background-color: rgb(228, 228, 228); font-family: Courier New; font-size: 11px;">"Name"&lt;/span>).Nullable(&lt;span style="color: Blue; background-color: transparent; font-family: Courier New; font-size: 11px;">false&lt;/span>).Map();&lt;/span></div></code></pre></td></tr></table></div></figure></div>
+
+
+<p></p>
+
+
+<p>I&#8217;m already started to notice that my identity and property elements are getting lost in the noise.&nbsp; If I keep up this pattern not only do I have TONS of ISomethingPredicateBuilder objects, I also remember that it&#8217;s not only properties that I can add at any time.&nbsp; I could add a Bag, a Set, a List, or any number of other mapping elements.<br><br>Another route I might take is using anonymous to provide me with the flexibility of code within the interface.&nbsp; Take a look:<br><br></p>
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>&lt;span style="color: Black; background-color: transparent; font-family: Courier New; font-size: 11px;">IMapping mapping &lt;span style="color: Red; background-color: transparent; font-family: Courier New; font-size: 11px;">=&lt;/span> Mapping.For&lt;Product&gt;().Identity(&lt;span style="color: rgb(102, 102, 102); background-color: rgb(228, 228, 228); font-family: Courier New; font-size: 11px;">"Id"&lt;/span>, &lt;span style="color: Blue; background-color: transparent; font-family: Courier New; font-size: 11px;">delegate&lt;/span>(Identity i) { i.column &lt;span style="color: Red; background-color: transparent; font-family: Courier New; font-size: 11px;">=&lt;/span> &lt;span style="color: rgb(102, 102, 102); background-color: rgb(228, 228, 228); font-family: Courier New; font-size: 11px;">"product_id"&lt;/span>; i.generator &lt;span style="color: Red; background-color: transparent; font-family: Courier New; font-size: 11px;">=&lt;/span> Generator.Native;}).AndProperty(&lt;span style="color: rgb(102, 102, 102); background-color: rgb(228, 228, 228); font-family: Courier New; font-size: 11px;">"Name"&lt;/span>, &lt;span style="color: Blue; background-color: transparent; font-family: Courier New; font-size: 11px;">delegate&lt;/span>(Property p) { p.column &lt;span style="color: Red; background-color: transparent; font-family: Courier New; font-size: 11px;">=&lt;/span> &lt;span style="color: rgb(102, 102, 102); background-color: rgb(228, 228, 228); font-family: Courier New; font-size: 11px;">"product_name"&lt;/span>; p.nullable &lt;span style="color: Red; background-color: transparent; font-family: Courier New; font-size: 11px;">=&lt;/span> &lt;span style="color: Blue; background-color: transparent; font-family: Courier New; font-size: 11px;">false&lt;/span>;}).Map();&lt;/span></div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>Here I have a lot more flexibility over the different ways that I define various mapping elements.&nbsp; The only part of this that is really cumbersome is the delegate syntax itself.<br><br>This is probably where Boo or Ruby would come in and save the day because of it&#8217;s super-dynamicness-flexibility-extraordinaire, but I&#8217;d like to see how far I can push C# for now.&nbsp; At least until C# 3.0 comes out, where I&#8217;ll get object initializers, lamba expressions, and a few other neat tricks that really make this stuff more fun to sculpt.<br><br>What about you?&nbsp; What types of syntax do you find most readable, usable?<br></p>
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2007/11/on-fluent-interfaces-and-friction/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/11/prototype-scriptaculous-protips-1/">Prototype & Scriptaculous - Protips #1</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-11-06 00:00:00 -0600" pubdate  updated >Nov 6<span>th</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I often talk to people who haven&#8217;t worked with one of the cool javascript frameworks out there.&nbsp;&nbsp;I am partial to <a href="http://prototypejs.org" target="_blank">prototype</a> and <a href="http://script.aculo.us" target="_blank">scripaculous</a>, but I also really like <a href="http://mochikit.org" target="_blank">MochiKit</a>.</p>
+
+
+<p>If you aren&#8217;t taking advantage of&nbsp;one of these, then perhaps this post&nbsp;is for you&#8230;&nbsp;I give you the ultra quickstart to diving into prototype and scriptaculous!</p>
+
+
+<h2>Things you shouldn&#8217;t ever program javascript without</h2>
+
+
+<p> <p>The best thing ever invented since rubber tires: a replacement for document.getElementById(&#8216;control_id&#8217;);</p><p>You know you&#8217;re not supposed to use <code>document.all</code> or <code>document.ctrl_id</code>, right?&nbsp; Well at least now you do. document.getElementById() is the cross-browser safe way of getting an element off of the page. The prototype equivalent is <code>$('control_id')</code>. This will automatically extend the element returned with some helpful utility methods (like extension methods in C# 3.0). &#8211; more on this later.</p><p>Along the same lines is a useful method for selecting elements using CSS selectors. If you&#8217;re a CSS junkie (like me!) you&#8217;ll appreciate this. <code>&amp;nbsp;</code>&nbsp;</p></p>
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>$$("div span.info");</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p> This will return all of the DOM elements that would be matched by that CSS Selector. (for those who don&#8217;t know, this would get all span tags with a class of &#8220;info&#8221; that are directly nested underneath a div.<p>Want to show or hide an element?&nbsp;Use <code>&lt;strong&gt;Element.hide(ctrl)&lt;/strong&gt;</code>, <code>&lt;strong&gt;Element.show(ctrl)&lt;/strong&gt;</code>, or <code>&lt;strong&gt;Element.toggle(ctrl)&lt;/strong&gt;</code>. You can attach these methods onto the element itself by saying <code>&lt;strong&gt;Element.extend(ctrl)&lt;/strong&gt;</code>. If you retrieved it via the $() method, then your object already has these methods.</p><p>Let&#8217;s say you want to grab all of the span tags from a parent div tag.&nbsp; Typically you&#8217;d do this:</p>&#8220;</p>
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>var spans = parentDiv.getElementsByTagName("span");</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p> <p>but what is spans?&nbsp; If you thought it was an array, you&#8217;d be wrong.&nbsp; It&#8217;s a NodeList, which is not nearly as powerful as a javascript array.&nbsp; (With javascript arrays you can push(), pop(), shift(), and other cool things that you can&#8217;t do with a NodeList.&nbsp; Anyway, back to the spans collection, we can elevate this to an array by using the <code>$A( spans )</code> method.&nbsp; Now we can use all of the nice array goodness for that list.</p><h2>Effects for that extra polish</h2> <p>How about fading an element?</p>&#8220;</p>
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>new Effect.fade(elem);</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p> This also takes options so you can control how fast it fades, for example. Check the excellent docs for all the gory details.<p>Want to make a slide out box?</p>&#8220;</p>
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>new Effect.toggle(elem, "slide");</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p><code>This will toggle the element using slide up and slide down. ("fade" and "appear" also work here for toggling).</code><h2>How about some ajax?</h2><p>Forget UpdatePanels. Most of the time we just need to fire off a request and get a list of values back from the server. Prototype has you covered there:</p>&#8220;</p>
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>new Ajax.Request( "/path_to_server/ajax/AjaxHandler.ashx?op=getUsername&amp;value=bob",&lt;br>{&lt;br>method: "get",&lt;br>onSuccesss: function(result) {&lt;br> if(result.responseText) alert('available!); else alert('taken');&lt;br>},&lt;br>onFailure: function(e) { alert('something went wrong ' + e); }&lt;br>}</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>I don&#8217;t know about you, but that&#8217;s pretty painless to me.</p>
+
+
+<p>Want something a bit richer?&nbsp;<b> How about an autocomplete textbox</b>?I wrote this one to auto-complete cities as you type.</p>
+
+
+<p>&#8220;</p>
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>var url = '~/AjaxHandler.ashx?op=get_cities';&lt;br>&lt;br>ac = new Ajax.Autocompleter(city_textbox_id, results_id, url, &lt;br>{&lt;br>paramName: 'filter',&lt;br>frequency: 0.2,&lt;br>minChars: 1,&lt;br>indicator: indicator_id,&lt;br>callback : function(element, filter) { &lt;br>var state = $(state_dropdown_id);&lt;br>var state_code = state.options[state.selectedIndex].value;&lt;br>&lt;br>return filter + '&amp;state=' + state_code;&lt;br>}&lt;br>});</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p><i>That&#8217;s it</i>.I&#8217;m not kidding.I handed it a textbox, a div to display the results, and a url to get the data.It takes care of all of the ajax requests, the frequency limiter to prevent us from firing a request with every single keystroke, and returning the results into a list.It even has full keyboard support.The url looks like ~/AjaxHandler.ashx?op=get_citiees&amp;state=TX&amp;filter=Hou and it will return the matches that it finds (based on an HttpHandler I wrote).</p>
+
+
+<p></p>
+
+
+<p>What are <b>your</b> favorite prototype / scriptaculous protiops?</p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2007/11/prototype-scriptaculous-protips-1/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+<nav role="pagination">
+  <div>
+    
+      <a class="prev" href="/blog/page/19/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/17/">Newer &rarr;</a>
+    
+  </div>
+</nav>
+
+<script type="text/javascript">
+    var disqus_shortname = 'subdigital';
+    (function () {
+      var s = document.createElement('script'); s.async = true;
+      s.type = 'text/javascript';
+      s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+      (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+
+</div>
+<aside role=sidebar>
+  
+    <section>
+  <h1>Who am I?</h1>
+  <p>I&#8217;m Ben Scheirman. I make Rails &amp; iPhone apps for <a href="http://chaione.com" target="_blank">ChaiONE</a> in Houston, TX.</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/08/vim---could-not-invoke-jslint/">Vim - Could Not Invoke JSLint</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/is-rails-exempt-from-software-principles/">Is Rails Exempt?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/when-viewwillappear-isnt-called/">When viewWillAppear: Isn&#8217;t Called</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/moving-my-blog/">Moving My Blog</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/my-vim-journey/">My Vim Journey</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("subdigital", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/subdigital" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @subdigital</a>
+  
+</section>
+
+
+<section>
+  <h1>On Delicious</h1>
+  <script type="text/javascript" src="http://feeds.delicious.com/v2/js/subdigital?title=&count=3&sort=date&extended"></script>
+  <p><a href="http://delicious.com/subdigital">My Delicious Bookmarks &raquo;</a></p>
+</section>
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer>
+<a style="display:block; float: right" title="Real Time Analytics" href="http://getclicky.com/66470389"><img alt="Real Time Analytics" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
+<script src="//static.getclicky.com/js" type="text/javascript"></script>
+<script type="text/javascript">try{ clicky.init(66470389); }catch(e){}</script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/66470389ns.gif" /></p></noscript>
+
+<p>
+  Copyright &copy; 2011 - Ben Scheirman -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+</body>
+</html>

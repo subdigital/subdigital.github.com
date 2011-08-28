@@ -1,0 +1,331 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Fickle Bits: Elegant ASP.NET Caching</title>
+  <meta name="author" content="Ben Scheirman">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="canonical" href="http://benscheirman.com/blog/2007/08/elegant-asp-net-caching/"/>
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/ficklebits" rel="alternate" title="Fickle Bits" type="application/atom+xml"/>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-210379-10']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">Fickle Bits</a></h1>
+  
+    <h2>You're doing it wrong.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/ficklebits" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:benscheirman.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry">
+  
+  <header>
+    
+      <h1 class="entry-title">Elegant ASP.NET Caching</h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-08-16 00:00:00 -0500" pubdate  updated >Aug 16<span>th</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+<div class="entry-content"><p>So you have a central method that returns some common data, say for example US States.</p>
+
+
+<div style="FONT-SIZE: 10pt; BACKGROUND: white; COLOR: black; FONT-FAMILY: Courier New"><p style="MARGIN: 0px"><span style="COLOR: blue">public</span> <span style="COLOR: #2b91af">IList</span>&lt;<span style="COLOR: #2b91af">State</span>&gt; GetUsStates()</p><p style="MARGIN: 0px">{</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; <span style="COLOR: #2b91af">List</span>&lt;<span style="COLOR: #2b91af">State</span>&gt; states = <span style="COLOR: blue">new</span> <span style="COLOR: #2b91af">List</span>&lt;<span style="COLOR: #2b91af">State</span>&gt;();</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; <span style="COLOR: blue">using</span>(<span style="COLOR: #2b91af">IDataReader</span> dr = <span style="COLOR: #2b91af">DataAccess</span>.ExecuteReader(<span style="COLOR: #a31515">&#8220;SELECT * FROM US_STATES&#8221;</span>))</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; {</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="COLOR: #2b91af">State</span> theState = <span style="COLOR: #2b91af">State</span>.Fetch(dr);</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; states.Add(theState);</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; }</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; <span style="COLOR: blue">return</span> states;</p><p style="MARGIN: 0px">}</p></div>
+
+
+<!--EndFragment-->
+
+
+<p>Pretty simple stuff, loop over a datareader, building &ldquo;State&rdquo; objects based on a row in the database.</p>
+
+
+<p>Well since this data hardly ever changes and is the same for every user, it is a prime target for caching.&nbsp; <em>(Psst, if you didn&rsquo;t know, caching can be one of the most effective performance tuning techniques you can perform &mdash; if done correctly).</em></p>
+
+
+<p>Now that we want to enable caching, we can create a little helper class that makes it a bit easier to work with&hellip;</p>
+
+
+<p><em>This is a watered down version of the cache API, but it solves 90% of the cases.</em></p>
+
+
+<div style="FONT-SIZE: 10pt; BACKGROUND: white; COLOR: black; FONT-FAMILY: Courier New"><p style="MARGIN: 0px"><span style="COLOR: blue">public</span> <span style="COLOR: blue">class</span> <span style="COLOR: #2b91af">CacheHelper</span></p><p style="MARGIN: 0px">{</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; <span style="COLOR: blue">public</span> <span style="COLOR: blue">static</span> <span style="COLOR: blue">bool</span> ItemExists(<span style="COLOR: blue">string</span> key)</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; {</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="COLOR: blue">return</span> <span style="COLOR: #2b91af">HttpContext</span>.Current.Cache[key] != <span style="COLOR: blue">null</span>;</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; }</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; <span style="COLOR: blue">public</span> <span style="COLOR: blue">static</span> <span style="COLOR: blue">void</span> Insert(<span style="COLOR: blue">string</span> key, <span style="COLOR: blue">object</span> obj)</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; {</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="COLOR: #2b91af">TimeSpan</span> oneHour = <span style="COLOR: blue">new</span> <span style="COLOR: #2b91af">TimeSpan</span>(1,0,0);</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Insert(key, obj, oneHour);</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; }</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; <span style="COLOR: blue">public</span> <span style="COLOR: blue">static</span> <span style="COLOR: blue">void</span> Insert(<span style="COLOR: blue">string</span> key, <span style="COLOR: blue">object</span> obj, <span style="COLOR: #2b91af">TimeSpan</span> span)</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; {</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="COLOR: #2b91af">HttpContext</span>.Current.Cache.Add(</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; key, </p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; obj, </p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="COLOR: blue">null</span>, <span style="COLOR: green">//no dependencies</span></p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="COLOR: #2b91af">DateTime</span>.Now.Add(span), </p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="COLOR: #2b91af">Cache</span>.NoSlidingExpiration, </p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="COLOR: #2b91af">CacheItemPriority</span>.Normal, </p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="COLOR: blue">null</span> <span style="COLOR: green">//no remove callback</span></p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; );</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; }</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; <span style="COLOR: blue">public</span> <span style="COLOR: blue">static</span> T Retrieve&lt;T&gt;(<span style="COLOR: blue">string</span> key)</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; {</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="COLOR: blue">return</span> (T)<span style="COLOR: #2b91af">HttpContext</span>.Current.Cache[key];</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; }</p><p style="MARGIN: 0px">}</p></div>
+
+
+<!--EndFragment-->
+
+
+<p>Now that we have the utility methods in place, we can alter our US States function to enable caching:</p>
+
+
+<div style="FONT-SIZE: 10pt; BACKGROUND: white; COLOR: black; FONT-FAMILY: Courier New"><p style="MARGIN: 0px"><span style="COLOR: blue">public</span> <span style="COLOR: #2b91af">IList</span>&lt;<span style="COLOR: #2b91af">State</span>&gt; GetUsStates()</p><p style="MARGIN: 0px">{</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; <span style="COLOR: blue">string</span> statesKey = <span style="COLOR: #a31515">&#8220;US_STATES&#8221;</span>;</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; <span style="COLOR: blue">if</span> (!<span style="COLOR: #2b91af">CacheHelper</span>.ItemExists(statesKey))</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; {</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="COLOR: green">//add it</span></p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="COLOR: #2b91af">List</span>&lt;<span style="COLOR: #2b91af">State</span>&gt; states = <span style="COLOR: blue">new</span> <span style="COLOR: #2b91af">List</span>&lt;<span style="COLOR: #2b91af">State</span>&gt;();</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="COLOR: blue">using</span> (<span style="COLOR: #2b91af">IDataReader</span> dr = <span style="COLOR: #2b91af">DataAccess</span>.ExecuteReader(<span style="COLOR: #a31515">&#8220;SELECT * FROM US_STATES&#8221;</span>))</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="COLOR: #2b91af">State</span> theState = <span style="COLOR: #2b91af">State</span>.Fetch(dr);</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; states.Add(theState);</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="COLOR: #2b91af">CacheHelper</span>.Insert(statesKey, states);</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; }</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; <span style="COLOR: green">//now it definitely exists in cache</span></p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; <span style="COLOR: blue">return</span> <span style="COLOR: #2b91af">CacheHelper</span>.Retrieve&lt;<span style="COLOR: #2b91af">IList</span>&lt;<span style="COLOR: #2b91af">State</span>&gt;&gt;(statesKey);</p><p style="MARGIN: 0px">}</p></div
+>
+
+
+<!--EndFragment-->
+
+
+<p>This code quickly gets repetetive and ugly, but it gets the job done.&nbsp; How can we do better?</p>
+
+
+<p>We need to be able to provide the <em>means</em> of getting the data, but without actually executing it every time.&nbsp; This sounds like a good use for a delegate!</p>
+
+
+<p>In our CacheHelper class we define the delegate:</p>
+
+
+<div style="FONT-SIZE: 10pt; BACKGROUND: white; COLOR: black; FONT-FAMILY: Courier New"><p style="MARGIN: 0px">&nbsp;<span style="COLOR: blue">public</span> <span style="COLOR: blue">delegate</span> <span style="COLOR: blue">object</span> <span style="COLOR: #2b91af">RetrieveDelegate</span>();</p></div>
+
+
+<!--EndFragment-->
+
+
+<p>It&rsquo;s just a method signature that returns an object.</p>
+
+
+<p>Then we define another method that will first check the cache, and execute the delegate if the data is not there:</p>
+
+
+<div style="FONT-SIZE: 10pt; BACKGROUND: white; COLOR: black; FONT-FAMILY: Courier New"><p style="MARGIN: 0px"><span style="COLOR: blue">public</span> <span style="COLOR: blue">static</span> T GetAndCache(<span style="COLOR: blue">string</span> key, <span style="COLOR: #2b91af">RetrieveDelegate</span> retrieveObject, <span style="COLOR: #2b91af">TimeSpan</span> span)</p><p style="MARGIN: 0px">{</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; <span style="COLOR: blue">if</span> (!ItemExists(key))</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; {</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="COLOR: blue">object</span> value = retrieveObject(); <span style="COLOR: green">//this makes the call to the database</span></p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Insert(key, value, span);</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; }</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; <span style="COLOR: blue">return</span> Retrieve&lt;T&gt;(key);</p><p style="MARGIN: 0px">}</p></div>
+
+
+<!--EndFragment-->
+
+
+<p>Now we have a method that can be smart about caching, but it is completely agnostic of what data to cache.&nbsp; Now we can refactor our GetStates() method to this:</p>
+
+
+<div style="FONT-SIZE: 10pt; BACKGROUND: white; COLOR: black; FONT-FAMILY: Courier New"><p style="MARGIN: 0px"><span style="COLOR: blue">public</span> <span style="COLOR: #2b91af">IList</span>&lt;<span style="COLOR: #2b91af">State</span>&gt; GetUsStates()</p><p style="MARGIN: 0px">{</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; <span style="COLOR: blue">return</span> <span style="COLOR: #2b91af">CacheHelper</span>.GetAndCache&lt;<span style="COLOR: #2b91af">IList</span>&lt;<span style="COLOR: #2b91af">State</span>&gt;&gt;(</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="COLOR: #a31515">&#8220;US_STATES&#8221;</span>,</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="COLOR: blue">delegate</span> {</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="COLOR: #2b91af">List</span>&lt;<span style="COLOR: #2b91af">State</span>&gt; states = <span style="COLOR: blue">new</span> <span style="COLOR: #2b91af">List</span>&lt;<span style="COLOR: #2b91af">State</span>&gt;();</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="COLOR: blue">using</span> (<span style="COLOR: #2b91af">IDataReader</span> dr = <span style="COLOR: #2b91af">DataAccess</span>.ExecuteReader(<span style="COLOR: #a31515">&#8220;SELECT * FROM US_STATES&#8221;</span>))</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="COLOR: #2b91af">State</span> theState = <span style="COLOR: #2b91af">State</span>.Fetch(dr);</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; states.Add(theState);</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="COLOR: blue">return</span> states;</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; },</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="COLOR: #2b91af">TimeSpan</span>.FromDays(1));</p><p style="MARGIN: 0px">}</p></div>
+
+
+<!--EndFragment-->
+
+
+<p>We only have to interact with the CacheHelper once, thus we only use the cache key once as well.&nbsp; There are no if statements here either.&nbsp; Just a single function call that excepts an anonymous method.</p>
+
+
+<p>This is pretty clean and it makes caching in your application easier.&nbsp; What do you think?&nbsp; Do you have any ideas for improvement?&nbsp; Let&rsquo;s hear in the comments!</p>
+
+
+<div class="bjtags">Tags:<a rel="tag" href="http://technorati.com/tag/ASP.NET">ASP.NET</a>, <a rel="tag" href="http://technorati.com/tag/Cache">Cache</a></div>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ben Scheirman</span></span>
+
+      
+
+
+
+
+<time datetime="2007-08-16 00:00:00 -0500" pubdate  updated >Aug 16<span>th</span>, 2007</time>
+
+
+
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://benscheirman.com/blog/2007/08/elegant-asp-net-caching/" data-via="subdigital" data-counturl="http://benscheirman.com/blog/2007/08/elegant-asp-net-caching/" >Tweet</a>
+  
+  
+  <g:plusone size="medium"></g:plusone>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread"><div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_shortname = 'subdigital';
+  var disqus_identifier = 'http://benscheirman.com/blog/2007/08/elegant-asp-net-caching/';
+  var disqus_url = 'http://benscheirman.com/blog/2007/08/elegant-asp-net-caching/';
+  //var disqus_developer = 1;
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside role=sidebar>
+  
+    <section>
+  <h1>Who am I?</h1>
+  <p>I&#8217;m Ben Scheirman. I make Rails &amp; iPhone apps for <a href="http://chaione.com" target="_blank">ChaiONE</a> in Houston, TX.</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/08/vim---could-not-invoke-jslint/">Vim - Could Not Invoke JSLint</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/is-rails-exempt-from-software-principles/">Is Rails Exempt?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/when-viewwillappear-isnt-called/">When viewWillAppear: Isn&#8217;t Called</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/moving-my-blog/">Moving My Blog</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/my-vim-journey/">My Vim Journey</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("subdigital", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/subdigital" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @subdigital</a>
+  
+</section>
+
+
+<section>
+  <h1>On Delicious</h1>
+  <script type="text/javascript" src="http://feeds.delicious.com/v2/js/subdigital?title=&count=3&sort=date&extended"></script>
+  <p><a href="http://delicious.com/subdigital">My Delicious Bookmarks &raquo;</a></p>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer>
+<a style="display:block; float: right" title="Real Time Analytics" href="http://getclicky.com/66470389"><img alt="Real Time Analytics" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
+<script src="//static.getclicky.com/js" type="text/javascript"></script>
+<script type="text/javascript">try{ clicky.init(66470389); }catch(e){}</script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/66470389ns.gif" /></p></noscript>
+
+<p>
+  Copyright &copy; 2011 - Ben Scheirman -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+</body>
+</html>

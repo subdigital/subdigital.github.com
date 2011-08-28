@@ -1,0 +1,1462 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html  lang="en-US">
+<head id="Head">
+<!--**********************************************************************************-->
+<!-- DotNetNuke� - http://www.dotnetnuke.com                                          -->
+<!-- Copyright (c) 2002-2008                                                          -->
+<!-- by DotNetNuke Corporation                                                        -->
+<!--**********************************************************************************-->
+<meta id="MetaKeywords" name="KEYWORDS" content=",DotNetNuke,DNN" /><meta id="MetaCopyright" name="COPYRIGHT" content="Copyright 2000 - 2010, LabLynx, Inc." /><meta id="MetaGenerator" name="GENERATOR" content="DotNetNuke " /><meta id="MetaAuthor" name="AUTHOR" content="LabLynx... is everything LiMS" /><meta name="RESOURCE-TYPE" content="DOCUMENT" /><meta name="DISTRIBUTION" content="GLOBAL" /><meta name="ROBOTS" content="INDEX, FOLLOW" /><meta name="REVISIT-AFTER" content="1 DAYS" /><meta name="RATING" content="GENERAL" /><meta http-equiv="PAGE-ENTER" content="RevealTrans(Duration=0,Transition=1)" /><style id="StylePlaceholder" type="text/css"></style><link id="_Portals__default_" rel="stylesheet" type="text/css" href="/Portals/_default/default.css" /><link id="_Portals__default_Skins_Populusion_Horizontal_Black_" rel="stylesheet" type="text/css" href="/Portals/_default/Skins/Populusion-Horizontal_Black/skin.css" /><link id="_Portals__default_Containers_Populusion_Black_PPL05_css" rel="stylesheet" type="text/css" href="/Portals/_default/Containers/Populusion-Black/PPL05.css" /><link id="_Portals_4_" rel="stylesheet" type="text/css" href="/Portals/4/portal.css" /><title>
+	webLiMS.com
+</title></head>
+<body id="Body">
+    <noscript></noscript>
+    <form name="Form" method="post" action="/Products/webLiMScom/tabid/237/Default.aspx" id="Form" enctype="multipart/form-data" style="height: 100%;" autocomplete="off">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUJMjgzMDU3ODk3D2QWBmYPFgIeBFRleHQFPjwhRE9DVFlQRSBIVE1MIFBVQkxJQyAiLS8vVzNDLy9EVEQgSFRNTCA0LjAgVHJhbnNpdGlvbmFsLy9FTiI+ZAIBD2QWDAIBDxYCHgdWaXNpYmxlaGQCAg8WBB4HY29udGVudGQfAWhkAgMPFgIfAgUPLERvdE5ldE51a2UsRE5OZAIEDxYCHwIFJENvcHlyaWdodCAyMDAwIC0gMjAxMCwgTGFiTHlueCwgSW5jLmQCBQ8WAh8CBQtEb3ROZXROdWtlIGQCBg8WAh8CBR1MYWJMeW54Li4uIGlzIGV2ZXJ5dGhpbmcgTGlNU2QCAg9kFgICAQ9kFgICBA9kFgJmD2QWKmYPZBYCZg8PFgQeB1Rvb2xUaXAFHUxhYkx5bnguLi4gaXMgZXZlcnl0aGluZyBMaU1THgtOYXZpZ2F0ZVVybAUfaHR0cDovL2xhYmx5bnguY29tL0RlZmF1bHQuYXNweGRkAgIPZBYCZg8PFgYeCENzc0NsYXNzBQVsb2dpbh8ABQZTaWduaW4eBF8hU0ICAmRkAgMPZBYCZg8PFgYfBQUEdXNlch8GAgIfAWhkZAIEDxYCHgVjbGFzcwUXQmFubmVyUGFuZSBETk5FbXB0eVBhbmVkAgYPFgIfBwUXSGVhZGVyUGFuZSBETk5FbXB0eVBhbmVkAggPZBYGZg8QDxYKHwUFBnNlYXJjaB8ABQNXZWIfAwURR29vZ2xlIFdlYiBTZWFyY2gfBgICHwFoZGRkZAICDxAPFgofBQUGc2VhcmNoHwAFBFNpdGUfAwULU2l0ZSBTZWFyY2gfBgICHwFoZGRkZAIGDw8WBh8FBQZzZWFyY2gfAAVuPGltZyBzcmM9Ii9Qb3J0YWxzL19kZWZhdWx0L1NraW5zL1BvcHVsdXNpb24tSG9yaXpvbnRhbF9CbGFjay9pbWFnZXMvc2VhcmNoLmdpZiIgYm9yZGVyPSIwIiBhbGlnbj0iYWJzbWlkZGxlIj4fBgICZGQCCQ8WAh8HBRRUb3BQYW5lIEROTkVtcHR5UGFuZWQCCg8WAh8HBRhUb3BMZWZ0UGFuZSBETk5FbXB0eVBhbmVkAgsPFgIfBwUZVG9wUmlnaHRQYW5lIEROTkVtcHR5UGFuZWQCDA8WAh8BZxYIAgEPZBYSZg8PFgIfAWhkZAIBD2QWAgICDxYCHwFoZAICD2QWAmYPDxYCHwMFCE1pbmltaXplZBYCZg8PFgYeCEltYWdlVXJsBTwvUG9ydGFscy9fZGVmYXVsdC9Db250YWluZXJzL1BvcHVsdXNpb24tQmxhY2svaW1hZ2VzL21pbi5naWYeDUFsdGVybmF0ZVRleHQFCE1pbmltaXplHwMFCE1pbmltaXplZGQCAw8PFgIfAWhkZAIED2QWAgIBD2QWAgIBD2QWAmYPZBYCAgIPFgIfAWhkAgUPDxYCHwFoZGQCBg8PFgIfAWhkZAIHDw8WAh8BaGRkAggPDxYCHwFoZGQCAw9kFgJmD2QWAgIBD2QWAgIBD2QWAmYPZBYCAgIPFgIfAWhkAgUPZBYSZg8PFgIfAWhkZAIBD2QWAgICDxYCHwFoZAICD2QWAmYPDxYCHwMFCE1pbmltaXplZBYCZg8PFgYfCAU8L1BvcnRhbHMvX2RlZmF1bHQvQ29udGFpbmVycy9Qb3B1bHVzaW9uLUJsYWNrL2ltYWdlcy9taW4uZ2lmHwkFCE1pbmltaXplHwMFCE1pbmltaXplZGQCAw8PFgIfAWhkZAIED2QWAgIBD2QWAgIBD2QWAmYPZBYEZg9kFgQCAQ8WAh8ABaETICAgICAgICAgICAgICAgIDxzY3JpcHQgdHlwZT0ndGV4dC9qYXZhc2NyaXB0JyBsYW5ndWFnZT0nSmF2YVNjcmlwdCc+DQogIA0KICAgICAgICAgICAgICAgIGZ1bmN0aW9uIE1NNTQzX3ByZWxvYWRJbWFnZXMoKSB7DQogICAgICAgICAgICAgICAgICB2YXIgZD1kb2N1bWVudDsNCiAgICAgICAgICAgICAgICAgIGlmKGQuaW1hZ2VzKSB7DQogICAgICAgICAgICAgICAgICAgIGlmKCFkLk1NX3ApIHsNCiAgICAgICAgICAgICAgICAgICAgICBkLk1NX3A9bmV3IEFycmF5KCk7DQogICAgICAgICAgICAgICAgICAgIH0NCiAgICAgICAgICAgICAgICAgICAgdmFyIGksaj1kLk1NX3AubGVuZ3RoLGE9TU01NDNfcHJlbG9hZEltYWdlcy5hcmd1bWVudHM7DQogICAgICAgICAgICAgICAgICAgIGZvcihpPTA7IGk8YS5sZW5ndGg7IGkrKykgew0KICAgICAgICAgICAgICAgICAgICAgIGlmIChhW2ldLmluZGV4T2YoJyMnKSE9MCkgew0KICAgICAgICAgICAgICAgICAgICAgICAgZC5NTV9wW2pdPW5ldyBJbWFnZTsNCiAgICAgICAgICAgICAgICAgICAgICAgIGQuTU1fcFtqKytdLnNyYz1hW2ldOw0KICAgICAgICAgICAgICAgICAgICAgIH0NCiAgICAgICAgICAgICAgICAgICAgfQ0KICAgICAgICAgICAgICAgICAgfQ0KICAgICAgICAgICAgICAgIH0NCiAgICAgICAgICAgICAgICBmdW5jdGlvbiBNTTU0M19maW5kT2JqKG4sIGQpIHsNCiAgICAgICAgICAgICAgICAgIHZhciBwLGkseDsNCiAgICAgICAgICAgICAgICAgIGlmKCFkKSB7DQogICAgICAgICAgICAgICAgICAgIGQ9ZG9jdW1lbnQ7DQogICAgICAgICAgICAgICAgICB9DQogICAgICAgICAgICAgICAgICBpZigocD1uLmluZGV4T2YoJz8nKSk+MCYmcGFyZW50LmZyYW1lcy5sZW5ndGgpIHsNCiAgICAgICAgICAgICAgICAgICAgZD1wYXJlbnQuZnJhbWVzW24uc3Vic3RyaW5nKHArMSldLmRvY3VtZW50OyBuPW4uc3Vic3RyaW5nKDAscCk7DQogICAgICAgICAgICAgICAgICB9DQogICAgICAgICAgICAgICAgICBpZighKHg9ZFtuXSkmJmQuYWxsKSB7DQogICAgICAgICAgICAgICAgICAgIHg9ZC5hbGxbbl07DQogICAgICAgICAgICAgICAgICB9DQogICAgICAgICAgICAgICAgICBmb3IgKGk9MDsheCYmaTxkLmZvcm1zLmxlbmd0aDtpKyspIHsNCiAgICAgICAgICAgICAgICAgICAgeD1kLmZvcm1zW2ldW25dOw0KICAgICAgICAgICAgICAgICAgfQ0KICAgICAgICAgICAgICAgICAgZm9yIChpPTA7IXgmJmQubGF5ZXJzJiZpPGQubGF5ZXJzLmxlbmd0aDtpKyspIHsNCiAgICAgICAgICAgICAgICAgICAgeD1NTTU0M19maW5kT2JqKG4sZC5sYXllcnNbaV0uZG9jdW1lbnQpOw0KICAgICAgICAgICAgICAgICAgfQ0KICAgICAgICAgICAgICAgICAgaWYoIXggJiYgZC5nZXRFbGVtZW50QnlJZCkNCiAgICAgICAgICAgICAgICAgICAgeD1kLmdldEVsZW1lbnRCeUlkKG4pOw0KICAgICAgICAgICAgICAgICAgcmV0dXJuIHg7DQogICAgICAgICAgICAgICAgfQ0KICAgICAgICAgICAgICAgIGZ1bmN0aW9uIE1NNTQzX3N3YXBJbWFnZSgpIHsNCiAgICAgICAgICAgICAgICAgIHZhciBpLGo9MCx4LGE9TU01NDNfc3dhcEltYWdlLmFyZ3VtZW50czsNCiAgICAgICAgICAgICAgICAgIGRvY3VtZW50Lk1NX3NyPW5ldyBBcnJheTsNCiAgICAgICAgICAgICAgICAgIGZvcihpPTA7aTwoYS5sZW5ndGgtMik7aSs9Mykgew0KICAgICAgICAgICAgICAgICAgICBpZiAoKHg9TU01NDNfZmluZE9iaihhW2ldKSkhPW51bGwpIHsNCiAgICAgICAgICAgICAgICAgICAgICBkb2N1bWVudC5NTV9zcltqKytdPXg7DQogICAgICAgICAgICAgICAgICAgICAgaWYoIXgub1NyYykgew0KICAgICAgICAgICAgICAgICAgICAgICAgeC5vU3JjPXguc3JjOw0KICAgICAgICAgICAgICAgICAgICAgIH0NCiAgICAgICAgICAgICAgICAgICAgICB4LnNyYz1hW2krMl07DQogICAgICAgICAgICAgICAgICAgIH0NCiAgICAgICAgICAgICAgICAgIH0NCiAgICAgICAgICAgICAgICB9DQogICAgICAgICAgICAgICAgZnVuY3Rpb24gTU01NDNfc3dhcEltZ1Jlc3RvcmUoKSB7DQogICAgICAgICAgICAgICAgICB2YXIgaSx4LGE9ZG9jdW1lbnQuTU1fc3I7DQogICAgICAgICAgICAgICAgICBmb3IoaT0wO2EmJmk8YS5sZW5ndGgmJih4PWFbaV0pJiZ4Lm9TcmM7aSsrKSB7DQogICAgICAgICAgICAgICAgICAgIHguc3JjPXgub1NyYzsNCiAgICAgICAgICAgICAgICAgIH0NCiAgICAgICAgICAgICAgICB9DQogICAgICAgICAgICAgICAgPC9zY3JpcHQ+ICANCjxzY3JpcHQgbGFuZ3VhZ2U9J0phdmFTY3JpcHQnPg0KTU01NDNfcHJlbG9hZEltYWdlcygnL1BvcnRhbHMvNC9pY29uX2NoZWNrbWFyay5naWYnKTsNCk1NNTQzX3ByZWxvYWRJbWFnZXMoJy9Qb3J0YWxzLzQvaWNvbl9jaGVja21hcmsuZ2lmJyk7DQpNTTU0M19wcmVsb2FkSW1hZ2VzKCcvUG9ydGFscy80L2ljb25fY2hlY2ttYXJrLmdpZicpOw0KPC9zY3JpcHQ+DQpkAgMPPCsACQEADxYGHg9SZXBlYXREaXJlY3Rpb24LKilTeXN0ZW0uV2ViLlVJLldlYkNvbnRyb2xzLlJlcGVhdERpcmVjdGlvbgEeCERhdGFLZXlzFgAeC18hSXRlbUNvdW50AgNkFgZmD2QWEmYPFQMLaGVpZ2h0PSczMCcAAGQCAQ8PFgQfBAVYaHR0cDovL2xhYmx5bnguY29tL1Byb2R1Y3RzL3dlYkxpTVNjb20vdGFiaWQvMjM3L2N0bC9FZGl0L21pZC81NDMvSXRlbUlELzM0L0RlZmF1bHQuYXNweB8BaGQWAmYPDxYCHwFoZGQCAw8PFgQfCGQfAWhkZAIFDw8WBB8IBR5+L1BvcnRhbHMvNC9pY29uX2NoZWNrbWFyay5naWYfAWcWBB4Kb25Nb3VzZU91dAUXTU01NDNfc3dhcEltZ1Jlc3RvcmUoKTseC29uTW91c2VPdmVyBWxNTTU0M19zd2FwSW1hZ2UoJ2Rubl9jdHI1NDNfTGlua3NfTGlua3NfbHN0TGlua3NfY3RsMDBfTGlua0ltYWdlTGVmdCcsJycsJy9Qb3J0YWxzLzQvaWNvbl9jaGVja21hcmsuZ2lmJywxKTtkAgcPDxYEHgVXaWR0aBsAAAAAAABpQAEAAAAfBgKAAmQWAmYPZBYCZg8PFgQeBFdyYXBoHwYCgIAQZBYCZg8PFggfAAUkLi4uRUxhYiBMSU1TIC0gRW50ZXJwcmlzZSBMSU1TIFN1aXRlHwQFO2h0dHA6Ly9sYWJseW54LmNvbS9Qcm9kdWN0cy9FTGFiTElNUy90YWJpZC8yNDAvRGVmYXVsdC5hc3B4HwNlHgZUYXJnZXQFBV9zZWxmFgQfDQUWTU01NDNfc3dhcEltZ1Jlc3RvcmUoKR8OBWtNTTU0M19zd2FwSW1hZ2UoJ2Rubl9jdHI1NDNfTGlua3NfTGlua3NfbHN0TGlua3NfY3RsMDBfTGlua0ltYWdlTGVmdCcsJycsJy9Qb3J0YWxzLzQvaWNvbl9jaGVja21hcmsuZ2lmJywxKWQCCQ8PFgIfAWhkZAILDw8WAh8BaGRkAg0PZBYCZg9kFgJmDw8WBB8QaB8GAoCAEGQWAmYPFgQfAGUfAWhkAg8PZBYCAgEPDxYCHwBlZGQCAQ9kFhJmDxUDC2hlaWdodD0nMzAnAABkAgEPDxYEHwQFWGh0dHA6Ly9sYWJseW54LmNvbS9Qcm9kdWN0cy93ZWJMaU1TY29tL3RhYmlkLzIzNy9jdGwvRWRpdC9taWQvNTQzL0l0ZW1JRC8zNS9EZWZhdWx0LmFzcHgfAWhkFgJmDw8WAh8BaGRkAgMPDxYEHwhkHwFoZGQCBQ8PFgQfCAUefi9Qb3J0YWxzLzQvaWNvbl9jaGVja21hcmsuZ2lmHwFnFgQfDQUXTU01NDNfc3dhcEltZ1Jlc3RvcmUoKTsfDgVsTU01NDNfc3dhcEltYWdlKCdkbm5fY3RyNTQzX0xpbmtzX0xpbmtzX2xzdExpbmtzX2N0bDAxX0xpbmtJbWFnZUxlZnQnLCcnLCcvUG9ydGFscy80L2ljb25fY2hlY2ttYXJrLmdpZicsMSk7ZAIHDw8WBB8PGwAAAAAAAGlAAQAAAB8GAoACZBYCZg9kFgJmDw8WBB8QaB8GAoCAEGQWAmYPDxYIHwAFHy4uLndlYiBMaU1TIC0gSG9zdGVkIExJTVMgU3VpdGUfBAU9aHR0cDovL2xhYmx5bnguY29tL1Byb2R1Y3RzL3dlYkxpTVNjb20vdGFiaWQvMjM3L0RlZmF1bHQuYXNweB8DZR8RBQVfc2VsZhYEHw0FFk1NNTQzX3N3YXBJbWdSZXN0b3JlKCkfDgVrTU01NDNfc3dhcEltYWdlKCdkbm5fY3RyNTQzX0xpbmtzX0xpbmtzX2xzdExpbmtzX2N0bDAxX0xpbmtJbWFnZUxlZnQnLCcnLCcvUG9ydGFscy80L2ljb25fY2hlY2ttYXJrLmdpZicsMSlkAgkPDxYCHwFoZGQCCw8PFgIfAWhkZAIND2QWAmYPZBYCZg8PFgQfEGgfBgKAgBBkFgJmDxYEHwBlHwFoZAIPD2QWAgIBDw8WAh8AZWRkAgIPZBYSZg8VAwtoZWlnaHQ9JzMwJwAAZAIBDw8WBB8EBVhodHRwOi8vbGFibHlueC5jb20vUHJvZHVjdHMvd2ViTGlNU2NvbS90YWJpZC8yMzcvY3RsL0VkaXQvbWlkLzU0My9JdGVtSUQvMzAvRGVmYXVsdC5hc3B4HwFoZBYCZg8PFgIfAWhkZAIDDw8WBB8IZB8BaGRkAgUPDxYEHwgFHn4vUG9ydGFscy80L2ljb25fY2hlY2ttYXJrLmdpZh8BZxYEHw0FF01NNTQzX3N3YXBJbWdSZXN0b3JlKCk7Hw4FbE1NNTQzX3N3YXBJbWFnZSgnZG5uX2N0cjU0M19MaW5rc19MaW5rc19sc3RMaW5rc19jdGwwMl9MaW5rSW1hZ2VMZWZ0JywnJywnL1BvcnRhbHMvNC9pY29uX2NoZWNrbWFyay5naWYnLDEpO2QCBw8PFgQfDxsAAAAAAABpQAEAAAAfBgKAAmQWAmYPZBYCZg8PFgQfEGgfBgKAgBBkFgJmDw8WCB8ABScuLi5MaU1TdHVkaW8ubmV0IC0gTElNUyBEZXZlbG9wZXIgVG9vbHMfBAVBaHR0cDovL2xhYmx5bnguY29tL1Byb2R1Y3RzL0RldmVsb3BlclRvb2xzL3RhYmlkLzI0Mi9EZWZhdWx0LmFzcHgfA2UfEQUFX3NlbGYWBB8NBRZNTTU0M19zd2FwSW1nUmVzdG9yZSgpHw4Fa01NNTQzX3N3YXBJbWFnZSgnZG5uX2N0cjU0M19MaW5rc19MaW5rc19sc3RMaW5rc19jdGwwMl9MaW5rSW1hZ2VMZWZ0JywnJywnL1BvcnRhbHMvNC9pY29uX2NoZWNrbWFyay5naWYnLDEpZAIJDw8WAh8BaGRkAgsPDxYCHwFoZGQCDQ9kFgJmD2QWAmYPDxYEHxBoHwYCgIAQZBYCZg8WBB8AZR8BaGQCDw9kFgICAQ8PFgIfAGVkZAICDw8WAh8BaGQWAgIBDxBkZBYAZAIFDw8WAh8BaGRkAgYPDxYCHwFoZGQCBw8PFgIfAWhkZAIIDw8WAh8BaGRkAgcPZBYSZg8PFgIfAWhkZAIBD2QWAgICDxYCHwFoZAICD2QWAmYPDxYCHwMFCE1pbmltaXplZBYCZg8PFgYfCAU8L1BvcnRhbHMvX2RlZmF1bHQvQ29udGFpbmVycy9Qb3B1bHVzaW9uLUJsYWNrL2ltYWdlcy9taW4uZ2lmHwkFCE1pbmltaXplHwMFCE1pbmltaXplZGQCAw8PFgIfAWhkZAIED2QWAgIBD2QWAgIBD2QWAmYPZBYEZg9kFgQCAQ8WAh8ABfwRICAgICAgICAgICAgICAgIDxzY3JpcHQgdHlwZT0ndGV4dC9qYXZhc2NyaXB0JyBsYW5ndWFnZT0nSmF2YVNjcmlwdCc+DQogIA0KICAgICAgICAgICAgICAgIGZ1bmN0aW9uIE1NNTQ1X3ByZWxvYWRJbWFnZXMoKSB7DQogICAgICAgICAgICAgICAgICB2YXIgZD1kb2N1bWVudDsNCiAgICAgICAgICAgICAgICAgIGlmKGQuaW1hZ2VzKSB7DQogICAgICAgICAgICAgICAgICAgIGlmKCFkLk1NX3ApIHsNCiAgICAgICAgICAgICAgICAgICAgICBkLk1NX3A9bmV3IEFycmF5KCk7DQogICAgICAgICAgICAgICAgICAgIH0NCiAgICAgICAgICAgICAgICAgICAgdmFyIGksaj1kLk1NX3AubGVuZ3RoLGE9TU01NDVfcHJlbG9hZEltYWdlcy5hcmd1bWVudHM7DQogICAgICAgICAgICAgICAgICAgIGZvcihpPTA7IGk8YS5sZW5ndGg7IGkrKykgew0KICAgICAgICAgICAgICAgICAgICAgIGlmIChhW2ldLmluZGV4T2YoJyMnKSE9MCkgew0KICAgICAgICAgICAgICAgICAgICAgICAgZC5NTV9wW2pdPW5ldyBJbWFnZTsNCiAgICAgICAgICAgICAgICAgICAgICAgIGQuTU1fcFtqKytdLnNyYz1hW2ldOw0KICAgICAgICAgICAgICAgICAgICAgIH0NCiAgICAgICAgICAgICAgICAgICAgfQ0KICAgICAgICAgICAgICAgICAgfQ0KICAgICAgICAgICAgICAgIH0NCiAgICAgICAgICAgICAgICBmdW5jdGlvbiBNTTU0NV9maW5kT2JqKG4sIGQpIHsNCiAgICAgICAgICAgICAgICAgIHZhciBwLGkseDsNCiAgICAgICAgICAgICAgICAgIGlmKCFkKSB7DQogICAgICAgICAgICAgICAgICAgIGQ9ZG9jdW1lbnQ7DQogICAgICAgICAgICAgICAgICB9DQogICAgICAgICAgICAgICAgICBpZigocD1uLmluZGV4T2YoJz8nKSk+MCYmcGFyZW50LmZyYW1lcy5sZW5ndGgpIHsNCiAgICAgICAgICAgICAgICAgICAgZD1wYXJlbnQuZnJhbWVzW24uc3Vic3RyaW5nKHArMSldLmRvY3VtZW50OyBuPW4uc3Vic3RyaW5nKDAscCk7DQogICAgICAgICAgICAgICAgICB9DQogICAgICAgICAgICAgICAgICBpZighKHg9ZFtuXSkmJmQuYWxsKSB7DQogICAgICAgICAgICAgICAgICAgIHg9ZC5hbGxbbl07DQogICAgICAgICAgICAgICAgICB9DQogICAgICAgICAgICAgICAgICBmb3IgKGk9MDsheCYmaTxkLmZvcm1zLmxlbmd0aDtpKyspIHsNCiAgICAgICAgICAgICAgICAgICAgeD1kLmZvcm1zW2ldW25dOw0KICAgICAgICAgICAgICAgICAgfQ0KICAgICAgICAgICAgICAgICAgZm9yIChpPTA7IXgmJmQubGF5ZXJzJiZpPGQubGF5ZXJzLmxlbmd0aDtpKyspIHsNCiAgICAgICAgICAgICAgICAgICAgeD1NTTU0NV9maW5kT2JqKG4sZC5sYXllcnNbaV0uZG9jdW1lbnQpOw0KICAgICAgICAgICAgICAgICAgfQ0KICAgICAgICAgICAgICAgICAgaWYoIXggJiYgZC5nZXRFbGVtZW50QnlJZCkNCiAgICAgICAgICAgICAgICAgICAgeD1kLmdldEVsZW1lbnRCeUlkKG4pOw0KICAgICAgICAgICAgICAgICAgcmV0dXJuIHg7DQogICAgICAgICAgICAgICAgfQ0KICAgICAgICAgICAgICAgIGZ1bmN0aW9uIE1NNTQ1X3N3YXBJbWFnZSgpIHsNCiAgICAgICAgICAgICAgICAgIHZhciBpLGo9MCx4LGE9TU01NDVfc3dhcEltYWdlLmFyZ3VtZW50czsNCiAgICAgICAgICAgICAgICAgIGRvY3VtZW50Lk1NX3NyPW5ldyBBcnJheTsNCiAgICAgICAgICAgICAgICAgIGZvcihpPTA7aTwoYS5sZW5ndGgtMik7aSs9Mykgew0KICAgICAgICAgICAgICAgICAgICBpZiAoKHg9TU01NDVfZmluZE9iaihhW2ldKSkhPW51bGwpIHsNCiAgICAgICAgICAgICAgICAgICAgICBkb2N1bWVudC5NTV9zcltqKytdPXg7DQogICAgICAgICAgICAgICAgICAgICAgaWYoIXgub1NyYykgew0KICAgICAgICAgICAgICAgICAgICAgICAgeC5vU3JjPXguc3JjOw0KICAgICAgICAgICAgICAgICAgICAgIH0NCiAgICAgICAgICAgICAgICAgICAgICB4LnNyYz1hW2krMl07DQogICAgICAgICAgICAgICAgICAgIH0NCiAgICAgICAgICAgICAgICAgIH0NCiAgICAgICAgICAgICAgICB9DQogICAgICAgICAgICAgICAgZnVuY3Rpb24gTU01NDVfc3dhcEltZ1Jlc3RvcmUoKSB7DQogICAgICAgICAgICAgICAgICB2YXIgaSx4LGE9ZG9jdW1lbnQuTU1fc3I7DQogICAgICAgICAgICAgICAgICBmb3IoaT0wO2EmJmk8YS5sZW5ndGgmJih4PWFbaV0pJiZ4Lm9TcmM7aSsrKSB7DQogICAgICAgICAgICAgICAgICAgIHguc3JjPXgub1NyYzsNCiAgICAgICAgICAgICAgICAgIH0NCiAgICAgICAgICAgICAgICB9DQogICAgICAgICAgICAgICAgPC9zY3JpcHQ+ICANCjxzY3JpcHQgbGFuZ3VhZ2U9J0phdmFTY3JpcHQnPg0KPC9zY3JpcHQ+DQpkAgMPPCsACQEADxYGHwoLKwQBHwsWAB8MAghkFhBmD2QWEmYPFQMLaGVpZ2h0PSczMCcAAGQCAQ8PFgQfBAVYaHR0cDovL2xhYmx5bnguY29tL1Byb2R1Y3RzL3dlYkxpTVNjb20vdGFiaWQvMjM3L2N0bC9FZGl0L21pZC81NDUvSXRlbUlELzQxL0RlZmF1bHQuYXNweB8BaGQWAmYPDxYCHwFoZGQCAw8PFgIfCAU7L0xpbmtDbGljay5hc3B4P2ZpbGV0aWNrZXQ9YWNOcG5VaGZFaEElM2QmdGFiaWQ9MjM3Jm1pZD01NDVkZAIFDw8WAh8BaGRkAgcPZBYCZg9kFgJmDw8WBB8QaB8GAoCAEGQWAmYPDxYIHwAFDS4uLkZhY2lsaXRpZXMfBAVHaHR0cDovL2xhYmx5bnguY29tL0Fib3V0VXMvRGF0YUNlbnRlci9GYWNpbGl0aWVzL3RhYmlkLzI0OC9EZWZhdWx0LmFzcHgfA2UfEQUFX3NlbGZkZAIJDw8WAh8BaGRkAgsPDxYCHwFoZGQCDQ9kFgJmD2QWAmYPDxYEHxBoHwYCgIAQZBYCZg8WBB8AZR8BaGQCDw9kFgICAQ8PFgIfAGVkZAIBD2QWEmYPFQMLaGVpZ2h0PSczMCcAAGQCAQ8PFgQfBAVYaHR0cDovL2xhYmx5bnguY29tL1Byb2R1Y3RzL3dlYkxpTVNjb20vdGFiaWQvMjM3L2N0bC9FZGl0L21pZC81NDUvSXRlbUlELzQyL0RlZmF1bHQuYXNweB8BaGQWAmYPDxYCHwFoZGQCAw8PFgIfCAU7L0xpbmtDbGljay5hc3B4P2ZpbGV0aWNrZXQ9YWNOcG5VaGZFaEElM2QmdGFiaWQ9MjM3Jm1pZD01NDVkZAIFDw8WAh8BaGRkAgcPZBYCZg9kFgJmDw8WBB8QaB8GAoCAEGQWAmYPDxYIHwAFCi4uLk5ldHdvcmsfBAVEaHR0cDovL2xhYmx5bnguY29tL0Fib3V0VXMvRGF0YUNlbnRlci9OZXR3b3JrL3RhYmlkLzI0OS9EZWZhdWx0LmFzcHgfA2UfEQUFX3NlbGZkZAIJDw8WAh8BaGRkAgsPDxYCHwFoZGQCDQ9kFgJmD2QWAmYPDxYEHxBoHwYCgIAQZBYCZg8WBB8AZR8BaGQCDw9kFgICAQ8PFgIfAGVkZAICD2QWEmYPFQMLaGVpZ2h0PSczMCcAAGQCAQ8PFgQfBAVYaHR0cDovL2xhYmx5bnguY29tL1Byb2R1Y3RzL3dlYkxpTVNjb20vdGFiaWQvMjM3L2N0bC9FZGl0L21pZC81NDUvSXRlbUlELzQzL0RlZmF1bHQuYXNweB8BaGQWAmYPDxYCHwFoZGQCAw8PFgIfCAU7L0xpbmtDbGljay5hc3B4P2ZpbGV0aWNrZXQ9YWNOcG5VaGZFaEElM2QmdGFiaWQ9MjM3Jm1pZD01NDVkZAIFDw8WAh8BaGRkAgcPZBYCZg9kFgJmDw8WBB8QaB8GAoCAEGQWAmYPDxYIHwAFDC4uLkVxdWlwbWVudB8EBUZodHRwOi8vbGFibHlueC5jb20vQWJvdXRVcy9EYXRhQ2VudGVyL0VxdWlwbWVudC90YWJpZC8yNTAvRGVmYXVsdC5hc3B4HwNlHxEFBV9zZWxmZGQCCQ8PFgIfAWhkZAILDw8WAh8BaGRkAg0PZBYCZg9kFgJmDw8WBB8QaB8GAoCAEGQWAmYPFgQfAGUfAWhkAg8PZBYCAgEPDxYCHwBlZGQCAw9kFhJmDxUDC2hlaWdodD0nMzAnAABkAgEPDxYEHwQFWGh0dHA6Ly9sYWJseW54LmNvbS9Qcm9kdWN0cy93ZWJMaU1TY29tL3RhYmlkLzIzNy9jdGwvRWRpdC9taWQvNTQ1L0l0ZW1JRC83My9EZWZhdWx0LmFzcHgfAWhkFgJmDw8WAh8BaGRkAgMPDxYCHwgFOy9MaW5rQ2xpY2suYXNweD9maWxldGlja2V0PWFjTnBuVWhmRWhBJTNkJnRhYmlkPTIzNyZtaWQ9NTQ1ZGQCBQ8PFgIfAWhkZAIHD2QWAmYPZBYCZg8PFgQfEGgfBgKAgBBkFgJmDw8WCB8ABQsuLi5Tb2Z0d2FyZR8EBUVodHRwOi8vbGFibHlueC5jb20vQWJvdXRVcy9EYXRhQ2VudGVyL1NvZnR3YXJlL3RhYmlkLzMzMC9EZWZhdWx0LmFzcHgfA2UfEQUFX3NlbGZkZAIJDw8WAh8BaGRkAgsPDxYCHwFoZGQCDQ9kFgJmD2QWAmYPDxYEHxBoHwYCgIAQZBYCZg8WBB8AZR8BaGQCDw9kFgICAQ8PFgIfAGVkZAIED2QWEmYPFQMLaGVpZ2h0PSczMCcAAGQCAQ8PFgQfBAVYaHR0cDovL2xhYmx5bnguY29tL1Byb2R1Y3RzL3dlYkxpTVNjb20vdGFiaWQvMjM3L2N0bC9FZGl0L21pZC81NDUvSXRlbUlELzQ1L0RlZmF1bHQuYXNweB8BaGQWAmYPDxYCHwFoZGQCAw8PFgIfCAU7L0xpbmtDbGljay5hc3B4P2ZpbGV0aWNrZXQ9YWNOcG5VaGZFaEElM2QmdGFiaWQ9MjM3Jm1pZD01NDVkZAIFDw8WAh8BaGRkAgcPZBYCZg9kFgJmDw8WBB8QaB8GAoCAEGQWAmYPDxYIHwAFDS4uLk1vbml0b3JpbmcfBAVHaHR0cDovL2xhYmx5bnguY29tL0Fib3V0VXMvRGF0YUNlbnRlci9Nb25pdG9yaW5nL3RhYmlkLzI1MS9EZWZhdWx0LmFzcHgfA2UfEQUFX3NlbGZkZAIJDw8WAh8BaGRkAgsPDxYCHwFoZGQCDQ9kFgJmD2QWAmYPDxYEHxBoHwYCgIAQZBYCZg8WBB8AZR8BaGQCDw9kFgICAQ8PFgIfAGVkZAIFD2QWEmYPFQMLaGVpZ2h0PSczMCcAAGQCAQ8PFgQfBAVYaHR0cDovL2xhYmx5bnguY29tL1Byb2R1Y3RzL3dlYkxpTVNjb20vdGFiaWQvMjM3L2N0bC9FZGl0L21pZC81NDUvSXRlbUlELzQ0L0RlZmF1bHQuYXNweB8BaGQWAmYPDxYCHwFoZGQCAw8PFgIfCAU7L0xpbmtDbGljay5hc3B4P2ZpbGV0aWNrZXQ9YWNOcG5VaGZFaEElM2QmdGFiaWQ9MjM3Jm1pZD01NDVkZAIFDw8WAh8BaGRkAgcPZBYCZg9kFgJmDw8WBB8QaB8GAoCAEGQWAmYPDxYIHwAFDS4uLkNvbXBsaWFuY2UfBAVHaHR0cDovL2xhYmx5bnguY29tL0Fib3V0VXMvRGF0YUNlbnRlci9Db21wbGlhbmNlL3RhYmlkLzI1Mi9EZWZhdWx0LmFzcHgfA2UfEQUFX3NlbGZkZAIJDw8WAh8BaGRkAgsPDxYCHwFoZGQCDQ9kFgJmD2QWAmYPDxYEHxBoHwYCgIAQZBYCZg8WBB8AZR8BaGQCDw9kFgICAQ8PFgIfAGVkZAIGD2QWEmYPFQMLaGVpZ2h0PSczMCcAAGQCAQ8PFgQfBAVYaHR0cDovL2xhYmx5bnguY29tL1Byb2R1Y3RzL3dlYkxpTVNjb20vdGFiaWQvMjM3L2N0bC9FZGl0L21pZC81NDUvSXRlbUlELzc1L0RlZmF1bHQuYXNweB8BaGQWAmYPDxYCHwFoZGQCAw8PFgIfCAU7L0xpbmtDbGljay5hc3B4P2ZpbGV0aWNrZXQ9YWNOcG5VaGZFaEElM2QmdGFiaWQ9MjM3Jm1pZD01NDVkZAIFDw8WAh8BaGRkAgcPZBYCZg9kFgJmDw8WBB8QaB8GAoCAEGQWAmYPDxYIHwAFFS4uLkJhY2t1cHMgJiBSZWNvdmVyeR8EBVRodHRwOi8vbGFibHlueC5jb20vQWJvdXRVcy9EYXRhQ2VudGVyL0JhY2t1cHNEaXNhc3RlclJlY292ZXJ5L3RhYmlkLzMzMi9EZWZhdWx0LmFzcHgfA2UfEQUFX3NlbGZkZAIJDw8WAh8BaGRkAgsPDxYCHwFoZGQCDQ9kFgJmD2QWAmYPDxYEHxBoHwYCgIAQZBYCZg8WBB8AZR8BaGQCDw9kFgICAQ8PFgIfAGVkZAIHD2QWEmYPFQMLaGVpZ2h0PSczMCcAAGQCAQ8PFgQfBAVYaHR0cDovL2xhYmx5bnguY29tL1Byb2R1Y3RzL3dlYkxpTVNjb20vdGFiaWQvMjM3L2N0bC9FZGl0L21pZC81NDUvSXRlbUlELzc2L0RlZmF1bHQuYXNweB8BaGQWAmYPDxYCHwFoZGQCAw8PFgIfCAU7L0xpbmtDbGljay5hc3B4P2ZpbGV0aWNrZXQ9YWNOcG5VaGZFaEElM2QmdGFiaWQ9MjM3Jm1pZD01NDVkZAIFDw8WAh8BaGRkAgcPZBYCZg9kFgJmDw8WBB8QaB8GAoCAEGQWAmYPDxYIHwAFIC4uLlNlcnZpY2UgTGV2ZWwgQWdyZWVtZW50IChTTEEpHwQFUmh0dHA6Ly9sYWJseW54LmNvbS9BYm91dFVzL0RhdGFDZW50ZXIvU2VydmljZUxldmVsQWdyZWVtZW50L3RhYmlkLzM0Mi9EZWZhdWx0LmFzcHgfA2UfEQUFX3NlbGZkZAIJDw8WAh8BaGRkAgsPDxYCHwFoZGQCDQ9kFgJmD2QWAmYPDxYEHxBoHwYCgIAQZBYCZg8WBB8AZR8BaGQCDw9kFgICAQ8PFgIfAGVkZAICDw8WAh8BaGQWAgIBDxBkZBYAZAIFDw8WAh8BaGRkAgYPDxYCHwFoZGQCBw8PFgIfAWhkZAIIDw8WAh8BaGRkAg0PFgIfAWcWCgIBD2QWAmYPZBYCAgEPZBYCAgEPZBYCZg8WAh8ABcACPGRpdiBzdHlsZT0nd2lkdGg6MTAwJScgYWxpZ249J0xlZnQnPjxlbWJlZCBwbHVnaW5zcGFnZT1odHRwOi8vd3d3Lm1hY3JvbWVkaWEuY29tL2dvL2dldGZsYXNocGxheWVyIHNyYz0naHR0cDovL2ZpbGVzLm15bGFibHlueC5jb20vc2hhcmUvd2VibGltcy9ob21lYmFubmVyLnN3ZicgQWxpZ249J0xlZnQnICBXaWR0aD0nNjUwcHgnICBIZWlnaHQ9JzIwMHB4JyAgdHlwZT1hcHBsaWNhdGlvbi94LXNob2Nrd2F2ZS1mbGFzaCBiZ2NvbG9yPScnIHNhbGlnbj0nTFQnIHF1YWxpdHk9J2hpZ2gnIG1lbnU9J2ZhbHNlJyBsb29wPSdmYWxzZSc+PC9lbWJlZD48L2Rpdj5kAgMPZBYCZg9kFgICAQ9kFgICAQ9kFgJmD2QWAgICDxYCHwFoZAIFD2QWAmYPZBYCAgEPZBYCAgEPZBYCZg9kFgICAg8WAh8BaGQCBw9kFhJmDw8WAh8BaGRkAgEPZBYCAgIPFgIfAWhkAgIPZBYCZg8PFgIfAwUITWluaW1pemVkFgJmDw8WBh8IBTwvUG9ydGFscy9fZGVmYXVsdC9Db250YWluZXJzL1BvcHVsdXNpb24tQmxhY2svaW1hZ2VzL21pbi5naWYfCQUITWluaW1pemUfAwUITWluaW1pemVkZAIDDw8WAh8BaGRkAgQPZBYCAgEPZBYCAgEPZBYCZg9kFgICAg8WAh8BaGQCBQ8PFgIfAWhkZAIGDw8WAh8BaGRkAgcPDxYCHwFoZGQCCA8PFgIfAWhkZAIJD2QWEmYPDxYCHwFoZGQCAQ9kFgICAg8WAh8BaGQCAg9kFgJmDw8WAh8DBQhNaW5pbWl6ZWQWAmYPDxYGHwgFPC9Qb3J0YWxzL19kZWZhdWx0L0NvbnRhaW5lcnMvUG9wdWx1c2lvbi1CbGFjay9pbWFnZXMvbWluLmdpZh8JBQhNaW5pbWl6ZR8DBQhNaW5pbWl6ZWRkAgMPDxYCHwFoZGQCBA9kFgICAQ9kFgICAQ9kFgJmD2QWAgICDxYCHwFoZAIFDw8WAh8BaGRkAgYPDxYCHwFoZGQCBw8PFgIfAWhkZAIIDw8WAh8BaGRkAg4PFgIfBwUWUmlnaHRQYW5lIEROTkVtcHR5UGFuZWQCDw8WAh8HBRhNaWRMZWZ0UGFuZSBETk5FbXB0eVBhbmVkAhAPFgIfBwUXTWlkZGxlUGFuZSBETk5FbXB0eVBhbmVkAhEPFgIfBwUZTWlkUmlnaHRQYW5lIEROTkVtcHR5UGFuZWQCEg8WAh8HBRpCb3R0b21Db2x1bW4xIEROTkVtcHR5UGFuZWQCEw8WAh8HBRpCb3R0b21Db2x1bW4yIEROTkVtcHR5UGFuZWQCFA8WAh8HBRpCb3R0b21Db2x1bW4zIEROTkVtcHR5UGFuZWQCFQ8WAh8HBRpCb3R0b21Db2x1bW40IEROTkVtcHR5UGFuZWQCFg8WAh8BZxYEAgEPZBYCZg9kFgICAQ9kFgICAQ9kFgpmDzwrAAkCAA8WCh8KCysEAB4NUmVwZWF0Q29sdW1ucwIEHgxSZXBlYXRMYXlvdXQLKiZTeXN0ZW0uV2ViLlVJLldlYkNvbnRyb2xzLlJlcGVhdExheW91dAAfCxYAHwxmZAgWCB4LQ2VsbFNwYWNpbmcCAx4PSG9yaXpvbnRhbEFsaWduCyopU3lzdGVtLldlYi5VSS5XZWJDb250cm9scy5Ib3Jpem9udGFsQWxpZ24CHgtDZWxsUGFkZGluZwIDHwYCgIBYZAIBDxYCHwAF0QE8IS0tTGl2ZSBDb250ZW50IC0gRG90TmV0TnVrZSBNb2R1bGUgQnkgTWFuZGVlcHMuY29tDQpNb3JlIEluZm9ybWF0aW9uIGF0IGh0dHA6Ly9kbm4ubWFuZGVlcHMuY29tL2xpdmUrY29udGVudC5hc3B4DQo2MTllMjY3NThhMTU5YWI2ZmFmZGE0ZTZhYzgxZGNmMy0tPg0KDQo8c3BhbiBjbGFzcyA9Ik5vcm1hbCIgUGxlYXNlIEFkZCBFbGVtZW50cy4uLjwvc3Bhbj4NCmQCAg8WAh8ABUo8ZGl2IHN0eWxlPSJwb3NpdGlvbjphYnNvbHV0ZTsgZGlzcGxheTpub25lOyB2aXNpYmlsaXR5OmhpZGRlbiI+DQo8L2Rpdj4NCmQCBQ8WAh8ABfgCPHNjcmlwdCB0eXBlPSJ0ZXh0L2phdmFzY3JpcHQiPiBMaXZlQ29udGVudFsnZWxhYmxpbXMnXSA9IGZ1bmN0aW9uIChldmVudCkge3JldHVybiBocy5odG1sRXhwYW5kKHRoaXMsIHtjb250ZW50SWQ6ICc3NThNb2R1bGUwJyxvdXRsaW5lVHlwZTogJ1JvdW5kZWQtV2hpdGUnLGFsaWduOiAnYXV0bycscHJlc2VydmVDb250ZW50OiBmYWxzZSxzbGlkZXNob3dHcm91cDogJ0xpdmVDb250ZW50NzU4J30se01vZHVsZUlkOiAnNzU4JywgVGFiSWQ6ICcyMzcnLCBFbGVtZW50SWQ6ICcwJywgQ2xpZW50U2Vzc2lvblVSTDogJ2h0dHA6Ly9sYWJseW54LmNvbS9kZXNrdG9wbW9kdWxlcy9saXZlY29udGVudC9jbGllbnRzZXNzaW9uLmFzcHgnfSApIH07IDwvc2NyaXB0PmQCBg9kFgICAg9kFgJmD2QWAgIBD2QWAgIBD2QWAmYPZBYCAgIPFgIfAWhkAgMPZBYSZg8PFgIfAWhkZAIBD2QWAgICDxYCHwFoZAICD2QWAmYPDxYCHwMFCE1pbmltaXplZBYCZg8PFgYfCAU8L1BvcnRhbHMvX2RlZmF1bHQvQ29udGFpbmVycy9Qb3B1bHVzaW9uLUJsYWNrL2ltYWdlcy9taW4uZ2lmHwkFCE1pbmltaXplHwMFCE1pbmltaXplZGQCAw8PFgIfAWhkZAIED2QWAgIBD2QWAgIBD2QWAmYPZBYCAgIPFgIfAWhkAgUPDxYCHwFoZGQCBg8PFgIfAWhkZAIHDw8WAh8BaGRkAggPDxYCHwFoZGQCGg8WAh8HBRdGb290ZXJQYW5lIEROTkVtcHR5UGFuZWRkFN8LRPnUczQgTff4OZtnjGSB30U=" />
+
+
+<script src="/js/dnncore.js" type="text/javascript"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js" type="text/javascript"></script><script type="text/javascript" src="/desktopmodules/LiveContent/js/swfobject.js"></script>
+<script type="text/javascript" src="/desktopmodules/LiveContent/js/livecontent.js"></script>
+<link rel="stylesheet" href="/desktopmodules/LiveContent/themes/default/default.css" type="text/css" media="screen" /><script type="text/javascript" > hs.graphicsDir = "/desktopmodules/LiveContent/Graphics/";  hs.creditsText = "Powered By <em>Live Content</em>"; hs.creditsHref = "http://dnn.mandeeps.com/live+content.aspx"; hs.creditsTitle = "Visit Live Content HomePage"; hs.fullExpandTitle = "Expand to actual size"; hs.restoreTitle = "Click to close image, click and drag to move. Use arrow keys for next and previous."; hs.focusTitle = "Click to bring to front"; hs.loadingText = "Loading..."; hs.loadingTitle = ""; hs.hideThumbOnExpand = true; hs.allowMultipleInstances = false; hs.showCredits = true;</script><script type="text/javascript">
+ var LiveContent = new Array();
+ </script> 
+<script type="text/javascript">
+ var LiveContentAL = new Array();
+ </script> 
+
+<script src="/ScriptResource.axd?d=NqKmy353hrrHwL3NcNK5-KgxwUCV-YYKV3aO4xRBIAD4DIeXdQAJ4_BSe4W5DgJH0&amp;t=633380007520000000" type="text/javascript"></script>
+        
+        
+<link href="/Portals/_default/Skins/Populusion-Horizontal_Black/skin.css" rel="stylesheet" type="text/css">
+<table border="0" align="center" cellpadding="0" cellspacing="0" class="StandardWidth">
+  <tr>
+    <td height="233" valign="top"><table width="100%" height="101" border="0" align="center" cellpadding="0" cellspacing="0" id="Table_01">
+      <tr>
+        <td width="17" height="101" valign="top" bgcolor="#FFFFFF"><img src="/Portals/_default/Skins/Populusion-Horizontal_Black/images/ppl_01.png" width="17" height="101" alt=""></td>
+        <td bgcolor="#FFFFFF"><table width="100%" height="13" border="0" align="center" cellpadding="0" cellspacing="0">
+          <tr>
+            <td height="94"><a id="dnn_dnnLOGO_hypLogo" title="LabLynx... is everything LiMS" href="http://lablynx.com/Default.aspx"><img id="dnn_dnnLOGO_imgLogo" src="/Portals/4/125x277-LLX.jpg" alt="LabLynx... is everything LiMS" border="0" /></a></td>
+            <td valign="top"><p align="right"><span id="dnn_dnnCURRENTDATE_lblDate" class="date">Sunday, August 28, 2011</span>
+<br />
+              <a id="dnn_dnnLOGIN_cmdLogin" class="login" href="javascript:__doPostBack('dnn$dnnLOGIN$cmdLogin','')">Signin</a> </p>
+              <table width="100%" height="1"  border="0" align="center" cellpadding="0" cellspacing="0">
+                <tr>
+                  
+                </tr>
+              </table>
+              <p></p></td>
+          </tr>
+        </table></td>
+        <td width="15" valign="top" bgcolor="#FFFFFF"><img src="/Portals/_default/Skins/Populusion-Horizontal_Black/images/ppl_03.png" width="15" height="101" alt=""></td>
+      </tr>
+
+    </table>
+      <table width="100%" height="16" border="0" align="center" cellpadding="0" cellspacing="0" id="Table_2">
+
+        <tr>
+          <td width="17" height="16" bgcolor="#FFFFFF"><img src="/Portals/_default/Skins/Populusion-Horizontal_Black/images/spacer.gif" width="17" height="1" alt=""></td>
+          <td valign="top" bgcolor="#FFFFFF"><table width="100%" height="42" border="0" align="center" cellpadding="0" cellspacing="0" id="Table_">
+            <tr>
+              <td width="16" height="42"><img src="/Portals/_default/Skins/Populusion-Horizontal_Black/images/menubar_01.png" width="16" height="42" alt=""></td>
+              <td valign="bottom" background="/Portals/_default/Skins/Populusion-Horizontal_Black/images/menubar_02.png"><span><DIV ID='dnn_dnnSOLPARTMENU_ctldnnSOLPARTMENU'><TABLE ID='tblMenuBar' CELLPADDING="0" CELLSPACING="0" BORDER='0' CLASS='dnn_dnnsolpartmenu_ctldnnsolpartmenu_spmbctr MainMenu_MenuContainer' WIDTH='100%' TABINDEX='0'>
+	<TR>
+
+<TD id="td184" CLASS="dnn_dnnsolpartmenu_ctldnnsolpartmenu_spmbar dnn_dnnsolpartmenu_ctldnnsolpartmenu_spmitm MainMenu_MenuItem MainMenu_MenuBar" style="cursor: pointer; cursor: hand;" NOWRAP>&nbsp;&nbsp;
+<A CLASS="dnn_dnnsolpartmenu_ctldnnsolpartmenu_spmitm MainMenu_MenuItem" HREF="http://lablynx.com/Home/tabid/184/Default.aspx" STYLE="text-decoration: none;" TITLE=""><FONT CLASS="dnn_dnnsolpartmenu_ctldnnsolpartmenu_spmbar dnn_dnnsolpartmenu_ctldnnsolpartmenu_spmitm MainMenu_MenuItem MainMenu_MenuBar rootmenuitem" STYLE="">Home</FONT></A>
+&nbsp;&nbsp;</TD>
+<TD CLASS="dnn_dnnsolpartmenu_ctldnnsolpartmenu_spmbrk" NOWRAP>&nbsp;&nbsp;
+<table summary="Table for menu separator design" border="0" cellpadding="0" cellspacing="0"><tr><td><img src="/Portals/_default/Skins/Populusion-Horizontal_Black/images/menusep.png" border="0" align="absmiddle"></td></tr></table>
+&nbsp;&nbsp;</TD>
+<TD id="td231" CLASS="dnn_dnnsolpartmenu_ctldnnsolpartmenu_spmbar dnn_dnnsolpartmenu_ctldnnsolpartmenu_spmitm MainMenu_MenuItem MainMenu_MenuBar" style="cursor: pointer; cursor: hand;" NOWRAP>&nbsp;&nbsp;
+<A CLASS="dnn_dnnsolpartmenu_ctldnnsolpartmenu_spmitm MainMenu_MenuItem" HREF="http://lablynx.com/Products/tabid/231/Default.aspx" STYLE="text-decoration: none;" TITLE=""><FONT CLASS="dnn_dnnsolpartmenu_ctldnnsolpartmenu_spmbar dnn_dnnsolpartmenu_ctldnnsolpartmenu_spmitm MainMenu_MenuItem MainMenu_MenuBar rootmenuitem rootmenuitembreadcrumb" STYLE="">Products</FONT></A>
+&nbsp;&nbsp;</TD>
+<TD CLASS="dnn_dnnsolpartmenu_ctldnnsolpartmenu_spmbrk" NOWRAP>&nbsp;&nbsp;
+<table summary="Table for menu separator design" border="0" cellpadding="0" cellspacing="0"><tr><td><img src="/Portals/_default/Skins/Populusion-Horizontal_Black/images/menusep.png" border="0" align="absmiddle"></td></tr></table>
+&nbsp;&nbsp;</TD>
+<TD id="td232" CLASS="dnn_dnnsolpartmenu_ctldnnsolpartmenu_spmbar dnn_dnnsolpartmenu_ctldnnsolpartmenu_spmitm MainMenu_MenuItem MainMenu_MenuBar" style="cursor: pointer; cursor: hand;" NOWRAP>&nbsp;&nbsp;
+<A CLASS="dnn_dnnsolpartmenu_ctldnnsolpartmenu_spmitm MainMenu_MenuItem" HREF="http://lablynx.com/Services/tabid/232/Default.aspx" STYLE="text-decoration: none;" TITLE=""><FONT CLASS="dnn_dnnsolpartmenu_ctldnnsolpartmenu_spmbar dnn_dnnsolpartmenu_ctldnnsolpartmenu_spmitm MainMenu_MenuItem MainMenu_MenuBar rootmenuitem" STYLE="">Services</FONT></A>
+&nbsp;&nbsp;</TD>
+<TD CLASS="dnn_dnnsolpartmenu_ctldnnsolpartmenu_spmbrk" NOWRAP>&nbsp;&nbsp;
+<table summary="Table for menu separator design" border="0" cellpadding="0" cellspacing="0"><tr><td><img src="/Portals/_default/Skins/Populusion-Horizontal_Black/images/menusep.png" border="0" align="absmiddle"></td></tr></table>
+&nbsp;&nbsp;</TD>
+<TD id="td698" CLASS="dnn_dnnsolpartmenu_ctldnnsolpartmenu_spmbar dnn_dnnsolpartmenu_ctldnnsolpartmenu_spmitm MainMenu_MenuItem MainMenu_MenuBar" style="cursor: pointer; cursor: hand;" NOWRAP>&nbsp;&nbsp;
+<A CLASS="dnn_dnnsolpartmenu_ctldnnsolpartmenu_spmitm MainMenu_MenuItem" HREF="http://lablynx.com/Communities/tabid/698/Default.aspx" STYLE="text-decoration: none;" TITLE=""><FONT CLASS="dnn_dnnsolpartmenu_ctldnnsolpartmenu_spmbar dnn_dnnsolpartmenu_ctldnnsolpartmenu_spmitm MainMenu_MenuItem MainMenu_MenuBar rootmenuitem" STYLE="">Communities</FONT></A>
+&nbsp;&nbsp;</TD>
+<TD CLASS="dnn_dnnsolpartmenu_ctldnnsolpartmenu_spmbrk" NOWRAP>&nbsp;&nbsp;
+<table summary="Table for menu separator design" border="0" cellpadding="0" cellspacing="0"><tr><td><img src="/Portals/_default/Skins/Populusion-Horizontal_Black/images/menusep.png" border="0" align="absmiddle"></td></tr></table>
+&nbsp;&nbsp;</TD>
+<TD id="td317" CLASS="dnn_dnnsolpartmenu_ctldnnsolpartmenu_spmbar dnn_dnnsolpartmenu_ctldnnsolpartmenu_spmitm MainMenu_MenuItem MainMenu_MenuBar" style="cursor: pointer; cursor: hand;" NOWRAP>&nbsp;&nbsp;
+<A CLASS="dnn_dnnsolpartmenu_ctldnnsolpartmenu_spmitm MainMenu_MenuItem" HREF="http://lablynx.com/Customers/OurCustomers/tabid/257/Default.aspx" STYLE="text-decoration: none;" TITLE=""><FONT CLASS="dnn_dnnsolpartmenu_ctldnnsolpartmenu_spmbar dnn_dnnsolpartmenu_ctldnnsolpartmenu_spmitm MainMenu_MenuItem MainMenu_MenuBar rootmenuitem" STYLE="">Customers</FONT></A>
+&nbsp;&nbsp;</TD>
+<TD CLASS="dnn_dnnsolpartmenu_ctldnnsolpartmenu_spmbrk" NOWRAP>&nbsp;&nbsp;
+<table summary="Table for menu separator design" border="0" cellpadding="0" cellspacing="0"><tr><td><img src="/Portals/_default/Skins/Populusion-Horizontal_Black/images/menusep.png" border="0" align="absmiddle"></td></tr></table>
+&nbsp;&nbsp;</TD>
+<TD id="td992" CLASS="dnn_dnnsolpartmenu_ctldnnsolpartmenu_spmbar dnn_dnnsolpartmenu_ctldnnsolpartmenu_spmitm MainMenu_MenuItem MainMenu_MenuBar" style="cursor: pointer; cursor: hand;" NOWRAP>&nbsp;&nbsp;
+<A CLASS="dnn_dnnsolpartmenu_ctldnnsolpartmenu_spmitm MainMenu_MenuItem" HREF="http://lablynx.com/Partners/tabid/992/Default.aspx" STYLE="text-decoration: none;" TITLE=""><FONT CLASS="dnn_dnnsolpartmenu_ctldnnsolpartmenu_spmbar dnn_dnnsolpartmenu_ctldnnsolpartmenu_spmitm MainMenu_MenuItem MainMenu_MenuBar rootmenuitem" STYLE="">Partners</FONT></A>
+&nbsp;&nbsp;</TD>
+<TD CLASS="dnn_dnnsolpartmenu_ctldnnsolpartmenu_spmbrk" NOWRAP>&nbsp;&nbsp;
+<table summary="Table for menu separator design" border="0" cellpadding="0" cellspacing="0"><tr><td><img src="/Portals/_default/Skins/Populusion-Horizontal_Black/images/menusep.png" border="0" align="absmiddle"></td></tr></table>
+&nbsp;&nbsp;</TD>
+<TD id="td764" CLASS="dnn_dnnsolpartmenu_ctldnnsolpartmenu_spmbar dnn_dnnsolpartmenu_ctldnnsolpartmenu_spmitm MainMenu_MenuItem MainMenu_MenuBar" style="cursor: pointer; cursor: hand;" NOWRAP>&nbsp;&nbsp;
+<A CLASS="dnn_dnnsolpartmenu_ctldnnsolpartmenu_spmitm MainMenu_MenuItem" HREF="http://lablynx.com/Library/tabid/764/Default.aspx" STYLE="text-decoration: none;" TITLE=""><FONT CLASS="dnn_dnnsolpartmenu_ctldnnsolpartmenu_spmbar dnn_dnnsolpartmenu_ctldnnsolpartmenu_spmitm MainMenu_MenuItem MainMenu_MenuBar rootmenuitem" STYLE="">Library</FONT></A>
+&nbsp;&nbsp;</TD>
+<TD CLASS="dnn_dnnsolpartmenu_ctldnnsolpartmenu_spmbrk" NOWRAP>&nbsp;&nbsp;
+<table summary="Table for menu separator design" border="0" cellpadding="0" cellspacing="0"><tr><td><img src="/Portals/_default/Skins/Populusion-Horizontal_Black/images/menusep.png" border="0" align="absmiddle"></td></tr></table>
+&nbsp;&nbsp;</TD>
+<TD id="td234" CLASS="dnn_dnnsolpartmenu_ctldnnsolpartmenu_spmbar dnn_dnnsolpartmenu_ctldnnsolpartmenu_spmitm MainMenu_MenuItem MainMenu_MenuBar" style="cursor: pointer; cursor: hand;" NOWRAP>&nbsp;&nbsp;
+<A CLASS="dnn_dnnsolpartmenu_ctldnnsolpartmenu_spmitm MainMenu_MenuItem" HREF="http://lablynx.com/AboutUs/tabid/234/Default.aspx" STYLE="text-decoration: none;" TITLE=""><FONT CLASS="dnn_dnnsolpartmenu_ctldnnsolpartmenu_spmbar dnn_dnnsolpartmenu_ctldnnsolpartmenu_spmitm MainMenu_MenuItem MainMenu_MenuBar rootmenuitem" STYLE="">About Us</FONT></A>
+&nbsp;&nbsp;</TD>
+<TD CLASS="dnn_dnnsolpartmenu_ctldnnsolpartmenu_spmbrk" NOWRAP>&nbsp;&nbsp;
+<table summary="Table for menu separator design" border="0" cellpadding="0" cellspacing="0"><tr><td><img src="/Portals/_default/Skins/Populusion-Horizontal_Black/images/menusep.png" border="0" align="absmiddle"></td></tr></table>
+&nbsp;&nbsp;</TD>
+<TD id="td697" CLASS="dnn_dnnsolpartmenu_ctldnnsolpartmenu_spmbar dnn_dnnsolpartmenu_ctldnnsolpartmenu_spmitm MainMenu_MenuItem MainMenu_MenuBar" style="cursor: pointer; cursor: hand;" NOWRAP>&nbsp;&nbsp;
+<A CLASS="dnn_dnnsolpartmenu_ctldnnsolpartmenu_spmitm MainMenu_MenuItem" HREF="http://lablynx.com/AboutUs/ContactUs/tabid/260/Default.aspx" STYLE="text-decoration: none;" TITLE=""><FONT CLASS="dnn_dnnsolpartmenu_ctldnnsolpartmenu_spmbar dnn_dnnsolpartmenu_ctldnnsolpartmenu_spmitm MainMenu_MenuItem MainMenu_MenuBar rootmenuitem" STYLE="">Contact LabLynx</FONT></A>
+&nbsp;&nbsp;</TD>
+
+       <TD width="100%"><IMG SRC="/images/spacer.gif" ALT=""></TD>
+   </TR>
+</TABLE></DIV>
+</span></td>
+              <td width="5"><img src="/Portals/_default/Skins/Populusion-Horizontal_Black/images/menubar_03.png" width="5" height="42" alt=""></td>
+            </tr>
+          </table>
+            <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+            <tr>
+              <td height="1"><img src="/Portals/_default/Skins/Populusion-Horizontal_Black/images/spacer.gif" width="17" height="3" alt=""></td>
+              </tr>
+          </table>
+            <table width="100%" height="1"  border="0" align="center" cellpadding="0" cellspacing="0">
+              <tr>
+                
+              </tr>
+            </table>
+            <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+            <tr>
+              <td><span class="Breadcrumb">Your are @&nbsp;&nbsp;<span id="dnn_dnnBREADCRUMB_lblBreadCrumb"><a href="http://lablynx.com/Products/tabid/231/Default.aspx" class="Breadcrumb">Products</a><img src="/Portals/_default/Skins/Populusion-Horizontal_Black/images/arw.gif" border="0" align="absmiddle"><a href="http://lablynx.com/Products/webLiMScom/tabid/237/Default.aspx" class="Breadcrumb">webLiMS.com</a></span>
+</span></td>
+              <td><table width="185" border="0" align="right" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td height="28" background="/Portals/_default/Skins/Populusion-Horizontal_Black/images/search_bg.gif">
+
+<input name="dnn$dnnSEARCH$txtSearch" type="text" maxlength="255" size="20" id="dnn_dnnSEARCH_txtSearch" class="NormalTextBox" onkeydown="return __dnn_KeyDown('13', 'javascript:__doPostBack(%27dnn$dnnSEARCH$cmdSearch%27,%27%27)', event);" />&nbsp;
+<a id="dnn_dnnSEARCH_cmdSearch" class="search" href="javascript:__doPostBack('dnn$dnnSEARCH$cmdSearch','')"><img src="/Portals/_default/Skins/Populusion-Horizontal_Black/images/search.gif" border="0" align="absmiddle"></a></td>
+                </tr>
+              </table></td>
+            </tr>
+          </table>
+            <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+              <tr>
+                <td height="1" bgcolor="#ededed"><img src="/Portals/_default/Skins/Populusion-Horizontal_Black/images/spacer.gif" width="17" height="1" alt="" /></td>
+              </tr>
+            </table>
+            <table width="100%" height="1"  border="0" align="center" cellpadding="0" cellspacing="0">
+              <tr>
+                
+              </tr>
+            </table>
+            <table width="100%"  border="0" align="center" cellpadding="0" cellspacing="0">
+              <tr>
+                
+                
+              </tr>
+            </table>
+            <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+              <!--DWLayoutTable-->
+              <tbody>
+                <tr>
+                  <td valign="top" class="navThirdLevelDivider"><table width="100%"  border="0" align="center" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td id="dnn_LeftPane" valign="top" class="LeftPane"><a name="1151"></a>
+
+<table width="100%" height="5" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td height="5"><img src="/Portals/_default/Containers/Populusion-Black/images/spacer.gif" width="5" height="5" alt=""></td>
+  </tr>
+</table>
+<table width="100%" height="65" border="0" align="center" cellpadding="0" cellspacing="0" id="Table_01">
+  <tr>
+    <td width="10" height="39"><img src="/Portals/_default/Containers/Populusion-Black/images/ppl5_01.png" width="15" height="42" alt=""></td>
+    <td height="39" valign="bottom" background="/Portals/_default/Containers/Populusion-Black/images/ppl5_02.png"><TABLE width="100%" height="24" border="0" align="center" cellpadding="0" cellspacing="0">
+      <TR>
+        <TD height="38" nowrap></TD>
+        <TD width="100%" height="38" nowrap>&nbsp;<span id="dnn_ctr1151_dnnTITLE_lblTitle" class="TitleBlack_PPL5">Free Trial of LabLynx Software</span>
+
+
+</TD>
+        <TD height="38" nowrap><a id="dnn_ctr1151_dnnVISIBILITY_cmdVisibility" title="Minimize" href="javascript:__doPostBack('dnn$ctr1151$dnnVISIBILITY$cmdVisibility','')"><img id="dnn_ctr1151_dnnVISIBILITY_imgVisibility" title="Minimize" src="/Portals/_default/Containers/Populusion-Black/images/min.gif" alt="Minimize" border="0" /></a></TD>
+      </TR>
+    </TABLE></td>
+    <td width="10" height="39"><img src="/Portals/_default/Containers/Populusion-Black/images/ppl5_03.png" width="15" height="42" alt=""></td>
+  </tr>
+  <tr>
+    <td width="10" height="1" background="/Portals/_default/Containers/Populusion-Black/images/ppl5_04.png"><img src="/Portals/_default/Containers/Populusion-Black/images/spacer.gif" width="10" height="1" alt=""></td>
+    <td valign="top"><table width="100%" height="2" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr>
+        <td id="dnn_ctr1151_ContentPane" height="2" valign="top" style="padding-BOTTOM: 8px; padding-TOP: 0px; padding-LEFT: 8px; padding-RIGHT: 8px;" class="DNNAlignleft"><!-- Start_Module_1151 --><div id="dnn_ctr1151_ModuleContent">
+	<div id="dnn_ctr1151_HtmlModule_HtmlModule_lblContent" class="Normal">
+	<p align="center"><a href="http://lablynx.com/Literature/NewsEvents/tabid/325/articleType/ArticleView/articleId/42/Get-your-Free-Trial-of-LabLynx-Software.aspx"><img border="0" alt="" width="225" height="169" src="/Portals/4/free trial.jpg" /></a></p>
+</div>
+<!-- End_Module_1151 -->
+</div></td>
+
+      </tr>
+    </table>
+        <TABLE width="100%" border="0" cellpadding="0" cellspacing="0">
+          <TR>
+            <TD align="left" valign="top" nowrap></TD>
+            <TD align="right" valign="top" nowrap>&nbsp;&nbsp;</TD>
+          </TR>
+      </TABLE></td>
+    <td width="10" height="1" background="/Portals/_default/Containers/Populusion-Black/images/ppl5_06.png"><img src="/Portals/_default/Containers/Populusion-Black/images/spacer.gif" width="10" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td width="10" height="7"><img src="/Portals/_default/Containers/Populusion-Black/images/ppl5_07.png" width="15" height="12" alt=""></td>
+    <td height="7" background="/Portals/_default/Containers/Populusion-Black/images/ppl5_08.png"><img src="/Portals/_default/Containers/Populusion-Black/images/spacer.gif" width="1" height="7" alt=""></td>
+    <td width="10" height="7"><img src="/Portals/_default/Containers/Populusion-Black/images/ppl5_09.png" width="15" height="12" alt=""></td>
+  </tr>
+</table>
+<!-- End ImageReady Slices -->
+
+<a name="1152"></a><span id="dnn_ctr1152_ContentPane" class="DNNAlignleft"><!-- Start_Module_1152 --><div id="dnn_ctr1152_ModuleContent">
+	<div id="dnn_ctr1152_HtmlModule_HtmlModule_lblContent" class="Normal">
+	<p align="center"><a class="a2a_dd" href="http://www.addtoany.com/share_save"><img border="0" alt="Share/Bookmark" width="171" height="16" src="http://static.addtoany.com/buttons/share_save_171_16.png" /></a></p>
+<script type="text/javascript">a2a_linkname=document.title;a2a_linkurl=location.href;a2a_onclick=1;</script><script type="text/javascript" src="http://static.addtoany.com/menu/page.js"></script>
+</div>
+<!-- End_Module_1152 -->
+</div></span>
+<a name="543"></a>
+
+<table width="100%" height="5" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td height="5"><img src="/Portals/_default/Containers/Populusion-Black/images/spacer.gif" width="5" height="5" alt=""></td>
+  </tr>
+</table>
+<table width="100%" height="65" border="0" align="center" cellpadding="0" cellspacing="0" id="Table_01">
+  <tr>
+    <td width="10" height="39"><img src="/Portals/_default/Containers/Populusion-Black/images/ppl5_01.png" width="15" height="42" alt=""></td>
+    <td height="39" valign="bottom" background="/Portals/_default/Containers/Populusion-Black/images/ppl5_02.png"><TABLE width="100%" height="24" border="0" align="center" cellpadding="0" cellspacing="0">
+      <TR>
+        <TD height="38" nowrap></TD>
+        <TD width="100%" height="38" nowrap>&nbsp;<span id="dnn_ctr543_dnnTITLE_lblTitle" class="TitleBlack_PPL5">Software your Lab Needs</span>
+
+
+</TD>
+        <TD height="38" nowrap><a id="dnn_ctr543_dnnVISIBILITY_cmdVisibility" title="Minimize" href="javascript:__doPostBack('dnn$ctr543$dnnVISIBILITY$cmdVisibility','')"><img id="dnn_ctr543_dnnVISIBILITY_imgVisibility" title="Minimize" src="/Portals/_default/Containers/Populusion-Black/images/min.gif" alt="Minimize" border="0" /></a></TD>
+      </TR>
+    </TABLE></td>
+    <td width="10" height="39"><img src="/Portals/_default/Containers/Populusion-Black/images/ppl5_03.png" width="15" height="42" alt=""></td>
+  </tr>
+  <tr>
+    <td width="10" height="1" background="/Portals/_default/Containers/Populusion-Black/images/ppl5_04.png"><img src="/Portals/_default/Containers/Populusion-Black/images/spacer.gif" width="10" height="1" alt=""></td>
+    <td valign="top"><table width="100%" height="2" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr>
+        <td id="dnn_ctr543_ContentPane" height="2" valign="top" style="padding-BOTTOM:8px;padding-TOP:0px;padding-LEFT:8px;padding-RIGHT:8px;background-color:#F1EDC2;" class="DNNAlignleft"><!-- Start_Module_543 --><div id="dnn_ctr543_ModuleContent">
+	<div id="dnn_ctr543_Links_Links_pnlList">
+		
+                    <script type='text/javascript' language='JavaScript'>
+  
+                function MM543_preloadImages() {
+                  var d=document;
+                  if(d.images) {
+                    if(!d.MM_p) {
+                      d.MM_p=new Array();
+                    }
+                    var i,j=d.MM_p.length,a=MM543_preloadImages.arguments;
+                    for(i=0; i<a.length; i++) {
+                      if (a[i].indexOf('#')!=0) {
+                        d.MM_p[j]=new Image;
+                        d.MM_p[j++].src=a[i];
+                      }
+                    }
+                  }
+                }
+                function MM543_findObj(n, d) {
+                  var p,i,x;
+                  if(!d) {
+                    d=document;
+                  }
+                  if((p=n.indexOf('?'))>0&&parent.frames.length) {
+                    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);
+                  }
+                  if(!(x=d[n])&&d.all) {
+                    x=d.all[n];
+                  }
+                  for (i=0;!x&&i<d.forms.length;i++) {
+                    x=d.forms[i][n];
+                  }
+                  for (i=0;!x&&d.layers&&i<d.layers.length;i++) {
+                    x=MM543_findObj(n,d.layers[i].document);
+                  }
+                  if(!x && d.getElementById)
+                    x=d.getElementById(n);
+                  return x;
+                }
+                function MM543_swapImage() {
+                  var i,j=0,x,a=MM543_swapImage.arguments;
+                  document.MM_sr=new Array;
+                  for(i=0;i<(a.length-2);i+=3) {
+                    if ((x=MM543_findObj(a[i]))!=null) {
+                      document.MM_sr[j++]=x;
+                      if(!x.oSrc) {
+                        x.oSrc=x.src;
+                      }
+                      x.src=a[i+2];
+                    }
+                  }
+                }
+                function MM543_swapImgRestore() {
+                  var i,x,a=document.MM_sr;
+                  for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) {
+                    x.src=x.oSrc;
+                  }
+                }
+                </script>  
+<script language='JavaScript'>
+MM543_preloadImages('/Portals/4/icon_checkmark.gif');
+MM543_preloadImages('/Portals/4/icon_checkmark.gif');
+MM543_preloadImages('/Portals/4/icon_checkmark.gif');
+</script>
+
+    <table id="dnn_ctr543_Links_Links_lstLinks" class="GLinksMain" cellspacing="0" cellpadding="0" summary="Links Design Table" border="0">
+			<tr>
+				<td valign="top">
+            <table class="GLinksMainTable" border="0" cellpadding="0" cellspacing="0">
+                <tr class="GLinksTopRow">
+                    <td class="GLinksTopCell" nowrap>
+                        <table class="GLinkTable" border="0" cellpadding="0" cellspacing="0" height='30'>
+                            <tr class="GLinkRow" width="" >
+                                <td class="GLinkCell1" nowrap width="" align="right">
+                                    
+                                    
+                                    <img id="dnn_ctr543_Links_Links_lstLinks_ctl00_LinkImageLeft" class="GLinkImageClass" onMouseOut="MM543_swapImgRestore();" onMouseOver="MM543_swapImage('dnn_ctr543_Links_Links_lstLinks_ctl00_LinkImageLeft','','/Portals/4/icon_checkmark.gif',1);" src="/Portals/4/icon_checkmark.gif" border="0" />
+                                </td>
+                                <td class="GLinkCell2" nowrap>
+                                    <table id="dnn_ctr543_Links_Links_lstLinks_ctl00_LinkTable" class="MainGLinkTable" cellspacing="0" cellpadding="0" border="0" width="200">
+					<tr id="dnn_ctr543_Links_Links_lstLinks_ctl00_LinkRow" class="MainGLinkRow1">
+						<td id="dnn_ctr543_Links_Links_lstLinks_ctl00_LinkCell" class="MainGLinkCell" nowrap="nowrap"><a id="dnn_ctr543_Links_Links_lstLinks_ctl00_Link" class="Normal" onMouseOut="MM543_swapImgRestore()" onMouseOver="MM543_swapImage('dnn_ctr543_Links_Links_lstLinks_ctl00_LinkImageLeft','','/Portals/4/icon_checkmark.gif',1)" href="http://lablynx.com/Products/ELabLIMS/tabid/240/Default.aspx" target="_self">...ELab LIMS - Enterprise LIMS Suite</a></td>
+					</tr>
+				</table>
+                                    </td>
+                                <td class="GLinkCell3" nowrap>
+                                    
+                                    
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" class="GLinkCell2" nowrap>
+                                    <table id="dnn_ctr543_Links_Links_lstLinks_ctl00_Table1" class="MainGLinkTable" cellspacing="0" cellpadding="0" border="0">
+					<tr id="dnn_ctr543_Links_Links_lstLinks_ctl00_TableRow2" class="GLinkHTMLRow">
+						<td id="dnn_ctr543_Links_Links_lstLinks_ctl00_TableCell2" class="GLinkHTMLCell" nowrap="nowrap"></td>
+					</tr>
+				</table>
+                                    </td>
+                           </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr class="GLinkBottomRow">
+                    <td>
+                        
+                    </td>
+                </tr>
+            </table>
+        </td>
+			</tr><tr>
+				<td valign="top">
+            <table class="GLinksMainTable" border="0" cellpadding="0" cellspacing="0">
+                <tr class="GLinksTopRow">
+                    <td class="GLinksTopCell" nowrap>
+                        <table class="GLinkTable" border="0" cellpadding="0" cellspacing="0" height='30'>
+                            <tr class="GLinkRow" width="" >
+                                <td class="GLinkCell1" nowrap width="" align="right">
+                                    
+                                    
+                                    <img id="dnn_ctr543_Links_Links_lstLinks_ctl01_LinkImageLeft" class="GLinkImageClass" onMouseOut="MM543_swapImgRestore();" onMouseOver="MM543_swapImage('dnn_ctr543_Links_Links_lstLinks_ctl01_LinkImageLeft','','/Portals/4/icon_checkmark.gif',1);" src="/Portals/4/icon_checkmark.gif" border="0" />
+                                </td>
+                                <td class="GLinkCell2" nowrap>
+                                    <table id="dnn_ctr543_Links_Links_lstLinks_ctl01_LinkTable" class="MainGLinkTable" cellspacing="0" cellpadding="0" border="0" width="200">
+					<tr id="dnn_ctr543_Links_Links_lstLinks_ctl01_LinkRow" class="MainGLinkRow1">
+						<td id="dnn_ctr543_Links_Links_lstLinks_ctl01_LinkCell" class="MainGLinkCell" nowrap="nowrap"><a id="dnn_ctr543_Links_Links_lstLinks_ctl01_Link" class="Normal" onMouseOut="MM543_swapImgRestore()" onMouseOver="MM543_swapImage('dnn_ctr543_Links_Links_lstLinks_ctl01_LinkImageLeft','','/Portals/4/icon_checkmark.gif',1)" href="http://lablynx.com/Products/webLiMScom/tabid/237/Default.aspx" target="_self">...web LiMS - Hosted LIMS Suite</a></td>
+					</tr>
+				</table>
+                                    </td>
+                                <td class="GLinkCell3" nowrap>
+                                    
+                                    
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" class="GLinkCell2" nowrap>
+                                    <table id="dnn_ctr543_Links_Links_lstLinks_ctl01_Table1" class="MainGLinkTable" cellspacing="0" cellpadding="0" border="0">
+					<tr id="dnn_ctr543_Links_Links_lstLinks_ctl01_TableRow2" class="GLinkHTMLRow">
+						<td id="dnn_ctr543_Links_Links_lstLinks_ctl01_TableCell2" class="GLinkHTMLCell" nowrap="nowrap"></td>
+					</tr>
+				</table>
+                                    </td>
+                           </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr class="GLinkBottomRow">
+                    <td>
+                        
+                    </td>
+                </tr>
+            </table>
+        </td>
+			</tr><tr>
+				<td valign="top">
+            <table class="GLinksMainTable" border="0" cellpadding="0" cellspacing="0">
+                <tr class="GLinksTopRow">
+                    <td class="GLinksTopCell" nowrap>
+                        <table class="GLinkTable" border="0" cellpadding="0" cellspacing="0" height='30'>
+                            <tr class="GLinkRow" width="" >
+                                <td class="GLinkCell1" nowrap width="" align="right">
+                                    
+                                    
+                                    <img id="dnn_ctr543_Links_Links_lstLinks_ctl02_LinkImageLeft" class="GLinkImageClass" onMouseOut="MM543_swapImgRestore();" onMouseOver="MM543_swapImage('dnn_ctr543_Links_Links_lstLinks_ctl02_LinkImageLeft','','/Portals/4/icon_checkmark.gif',1);" src="/Portals/4/icon_checkmark.gif" border="0" />
+                                </td>
+                                <td class="GLinkCell2" nowrap>
+                                    <table id="dnn_ctr543_Links_Links_lstLinks_ctl02_LinkTable" class="MainGLinkTable" cellspacing="0" cellpadding="0" border="0" width="200">
+					<tr id="dnn_ctr543_Links_Links_lstLinks_ctl02_LinkRow" class="MainGLinkRow1">
+						<td id="dnn_ctr543_Links_Links_lstLinks_ctl02_LinkCell" class="MainGLinkCell" nowrap="nowrap"><a id="dnn_ctr543_Links_Links_lstLinks_ctl02_Link" class="Normal" onMouseOut="MM543_swapImgRestore()" onMouseOver="MM543_swapImage('dnn_ctr543_Links_Links_lstLinks_ctl02_LinkImageLeft','','/Portals/4/icon_checkmark.gif',1)" href="http://lablynx.com/Products/DeveloperTools/tabid/242/Default.aspx" target="_self">...LiMStudio.net - LIMS Developer Tools</a></td>
+					</tr>
+				</table>
+                                    </td>
+                                <td class="GLinkCell3" nowrap>
+                                    
+                                    
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" class="GLinkCell2" nowrap>
+                                    <table id="dnn_ctr543_Links_Links_lstLinks_ctl02_Table1" class="MainGLinkTable" cellspacing="0" cellpadding="0" border="0">
+					<tr id="dnn_ctr543_Links_Links_lstLinks_ctl02_TableRow2" class="GLinkHTMLRow">
+						<td id="dnn_ctr543_Links_Links_lstLinks_ctl02_TableCell2" class="GLinkHTMLCell" nowrap="nowrap"></td>
+					</tr>
+				</table>
+                                    </td>
+                           </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr class="GLinkBottomRow">
+                    <td>
+                        
+                    </td>
+                </tr>
+            </table>
+        </td>
+			</tr>
+		</table>
+	</div>
+
+<!-- End_Module_543 -->
+</div></td>
+
+      </tr>
+    </table>
+        <TABLE width="100%" border="0" cellpadding="0" cellspacing="0">
+          <TR>
+            <TD align="left" valign="top" nowrap></TD>
+            <TD align="right" valign="top" nowrap>&nbsp;&nbsp;</TD>
+          </TR>
+      </TABLE></td>
+    <td width="10" height="1" background="/Portals/_default/Containers/Populusion-Black/images/ppl5_06.png"><img src="/Portals/_default/Containers/Populusion-Black/images/spacer.gif" width="10" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td width="10" height="7"><img src="/Portals/_default/Containers/Populusion-Black/images/ppl5_07.png" width="15" height="12" alt=""></td>
+    <td height="7" background="/Portals/_default/Containers/Populusion-Black/images/ppl5_08.png"><img src="/Portals/_default/Containers/Populusion-Black/images/spacer.gif" width="1" height="7" alt=""></td>
+    <td width="10" height="7"><img src="/Portals/_default/Containers/Populusion-Black/images/ppl5_09.png" width="15" height="12" alt=""></td>
+  </tr>
+</table>
+<!-- End ImageReady Slices -->
+
+<a name="545"></a>
+
+<table width="100%" height="5" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td height="5"><img src="/Portals/_default/Containers/Populusion-Black/images/spacer.gif" width="5" height="5" alt=""></td>
+  </tr>
+</table>
+<table width="100%" height="65" border="0" align="center" cellpadding="0" cellspacing="0" id="Table_01">
+  <tr>
+    <td width="10" height="39"><img src="/Portals/_default/Containers/Populusion-Black/images/ppl5_01.png" width="15" height="42" alt=""></td>
+    <td height="39" valign="bottom" background="/Portals/_default/Containers/Populusion-Black/images/ppl5_02.png"><TABLE width="100%" height="24" border="0" align="center" cellpadding="0" cellspacing="0">
+      <TR>
+        <TD height="38" nowrap></TD>
+        <TD width="100%" height="38" nowrap>&nbsp;<span id="dnn_ctr545_dnnTITLE_lblTitle" class="TitleBlack_PPL5">Solid, Secure, Reliable Data Center</span>
+
+
+</TD>
+        <TD height="38" nowrap><a id="dnn_ctr545_dnnVISIBILITY_cmdVisibility" title="Minimize" href="javascript:__doPostBack('dnn$ctr545$dnnVISIBILITY$cmdVisibility','')"><img id="dnn_ctr545_dnnVISIBILITY_imgVisibility" title="Minimize" src="/Portals/_default/Containers/Populusion-Black/images/min.gif" alt="Minimize" border="0" /></a></TD>
+      </TR>
+    </TABLE></td>
+    <td width="10" height="39"><img src="/Portals/_default/Containers/Populusion-Black/images/ppl5_03.png" width="15" height="42" alt=""></td>
+  </tr>
+  <tr>
+    <td width="10" height="1" background="/Portals/_default/Containers/Populusion-Black/images/ppl5_04.png"><img src="/Portals/_default/Containers/Populusion-Black/images/spacer.gif" width="10" height="1" alt=""></td>
+    <td valign="top"><table width="100%" height="2" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr>
+        <td id="dnn_ctr545_ContentPane" height="2" valign="top" style="padding-BOTTOM:8px;padding-TOP:0px;padding-LEFT:8px;padding-RIGHT:8px;background-color:#F1EDC2;" class="DNNAlignleft"><!-- Start_Module_545 --><div id="dnn_ctr545_ModuleContent">
+	<div id="dnn_ctr545_Links_Links_pnlList">
+		
+                    <script type='text/javascript' language='JavaScript'>
+  
+                function MM545_preloadImages() {
+                  var d=document;
+                  if(d.images) {
+                    if(!d.MM_p) {
+                      d.MM_p=new Array();
+                    }
+                    var i,j=d.MM_p.length,a=MM545_preloadImages.arguments;
+                    for(i=0; i<a.length; i++) {
+                      if (a[i].indexOf('#')!=0) {
+                        d.MM_p[j]=new Image;
+                        d.MM_p[j++].src=a[i];
+                      }
+                    }
+                  }
+                }
+                function MM545_findObj(n, d) {
+                  var p,i,x;
+                  if(!d) {
+                    d=document;
+                  }
+                  if((p=n.indexOf('?'))>0&&parent.frames.length) {
+                    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);
+                  }
+                  if(!(x=d[n])&&d.all) {
+                    x=d.all[n];
+                  }
+                  for (i=0;!x&&i<d.forms.length;i++) {
+                    x=d.forms[i][n];
+                  }
+                  for (i=0;!x&&d.layers&&i<d.layers.length;i++) {
+                    x=MM545_findObj(n,d.layers[i].document);
+                  }
+                  if(!x && d.getElementById)
+                    x=d.getElementById(n);
+                  return x;
+                }
+                function MM545_swapImage() {
+                  var i,j=0,x,a=MM545_swapImage.arguments;
+                  document.MM_sr=new Array;
+                  for(i=0;i<(a.length-2);i+=3) {
+                    if ((x=MM545_findObj(a[i]))!=null) {
+                      document.MM_sr[j++]=x;
+                      if(!x.oSrc) {
+                        x.oSrc=x.src;
+                      }
+                      x.src=a[i+2];
+                    }
+                  }
+                }
+                function MM545_swapImgRestore() {
+                  var i,x,a=document.MM_sr;
+                  for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) {
+                    x.src=x.oSrc;
+                  }
+                }
+                </script>  
+<script language='JavaScript'>
+</script>
+
+    <table id="dnn_ctr545_Links_Links_lstLinks" class="GLinksMain" cellspacing="0" cellpadding="0" summary="Links Design Table" border="0">
+			<tr>
+				<td valign="top">
+            <table class="GLinksMainTable" border="0" cellpadding="0" cellspacing="0">
+                <tr class="GLinksTopRow">
+                    <td class="GLinksTopCell" nowrap>
+                        <table class="GLinkTable" border="0" cellpadding="0" cellspacing="0" height='30'>
+                            <tr class="GLinkRow" width="" >
+                                <td class="GLinkCell1" nowrap width="" align="right">
+                                    
+                                    <img id="dnn_ctr545_Links_Links_lstLinks_ctl00_Image1" class="GLinkImageClass" src="/LinkClick.aspx?fileticket=acNpnUhfEhA%3d&amp;tabid=237&amp;mid=545" border="0" />
+                                    
+                                </td>
+                                <td class="GLinkCell2" nowrap>
+                                    <table id="dnn_ctr545_Links_Links_lstLinks_ctl00_LinkTable" class="MainGLinkTable" cellspacing="0" cellpadding="0" border="0">
+					<tr id="dnn_ctr545_Links_Links_lstLinks_ctl00_LinkRow" class="MainGLinkRow1">
+						<td id="dnn_ctr545_Links_Links_lstLinks_ctl00_LinkCell" class="MainGLinkCell" nowrap="nowrap"><a id="dnn_ctr545_Links_Links_lstLinks_ctl00_Link" class="Normal" href="http://lablynx.com/AboutUs/DataCenter/Facilities/tabid/248/Default.aspx" target="_self">...Facilities</a></td>
+					</tr>
+				</table>
+                                    </td>
+                                <td class="GLinkCell3" nowrap>
+                                    
+                                    
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" class="GLinkCell2" nowrap>
+                                    <table id="dnn_ctr545_Links_Links_lstLinks_ctl00_Table1" class="MainGLinkTable" cellspacing="0" cellpadding="0" border="0">
+					<tr id="dnn_ctr545_Links_Links_lstLinks_ctl00_TableRow2" class="GLinkHTMLRow">
+						<td id="dnn_ctr545_Links_Links_lstLinks_ctl00_TableCell2" class="GLinkHTMLCell" nowrap="nowrap"></td>
+					</tr>
+				</table>
+                                    </td>
+                           </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr class="GLinkBottomRow">
+                    <td>
+                        
+                    </td>
+                </tr>
+            </table>
+        </td>
+			</tr><tr>
+				<td valign="top">
+            <table class="GLinksMainTable" border="0" cellpadding="0" cellspacing="0">
+                <tr class="GLinksTopRow">
+                    <td class="GLinksTopCell" nowrap>
+                        <table class="GLinkTable" border="0" cellpadding="0" cellspacing="0" height='30'>
+                            <tr class="GLinkRow" width="" >
+                                <td class="GLinkCell1" nowrap width="" align="right">
+                                    
+                                    <img id="dnn_ctr545_Links_Links_lstLinks_ctl01_Image1" class="GLinkImageClass" src="/LinkClick.aspx?fileticket=acNpnUhfEhA%3d&amp;tabid=237&amp;mid=545" border="0" />
+                                    
+                                </td>
+                                <td class="GLinkCell2" nowrap>
+                                    <table id="dnn_ctr545_Links_Links_lstLinks_ctl01_LinkTable" class="MainGLinkTable" cellspacing="0" cellpadding="0" border="0">
+					<tr id="dnn_ctr545_Links_Links_lstLinks_ctl01_LinkRow" class="MainGLinkRow1">
+						<td id="dnn_ctr545_Links_Links_lstLinks_ctl01_LinkCell" class="MainGLinkCell" nowrap="nowrap"><a id="dnn_ctr545_Links_Links_lstLinks_ctl01_Link" class="Normal" href="http://lablynx.com/AboutUs/DataCenter/Network/tabid/249/Default.aspx" target="_self">...Network</a></td>
+					</tr>
+				</table>
+                                    </td>
+                                <td class="GLinkCell3" nowrap>
+                                    
+                                    
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" class="GLinkCell2" nowrap>
+                                    <table id="dnn_ctr545_Links_Links_lstLinks_ctl01_Table1" class="MainGLinkTable" cellspacing="0" cellpadding="0" border="0">
+					<tr id="dnn_ctr545_Links_Links_lstLinks_ctl01_TableRow2" class="GLinkHTMLRow">
+						<td id="dnn_ctr545_Links_Links_lstLinks_ctl01_TableCell2" class="GLinkHTMLCell" nowrap="nowrap"></td>
+					</tr>
+				</table>
+                                    </td>
+                           </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr class="GLinkBottomRow">
+                    <td>
+                        
+                    </td>
+                </tr>
+            </table>
+        </td>
+			</tr><tr>
+				<td valign="top">
+            <table class="GLinksMainTable" border="0" cellpadding="0" cellspacing="0">
+                <tr class="GLinksTopRow">
+                    <td class="GLinksTopCell" nowrap>
+                        <table class="GLinkTable" border="0" cellpadding="0" cellspacing="0" height='30'>
+                            <tr class="GLinkRow" width="" >
+                                <td class="GLinkCell1" nowrap width="" align="right">
+                                    
+                                    <img id="dnn_ctr545_Links_Links_lstLinks_ctl02_Image1" class="GLinkImageClass" src="/LinkClick.aspx?fileticket=acNpnUhfEhA%3d&amp;tabid=237&amp;mid=545" border="0" />
+                                    
+                                </td>
+                                <td class="GLinkCell2" nowrap>
+                                    <table id="dnn_ctr545_Links_Links_lstLinks_ctl02_LinkTable" class="MainGLinkTable" cellspacing="0" cellpadding="0" border="0">
+					<tr id="dnn_ctr545_Links_Links_lstLinks_ctl02_LinkRow" class="MainGLinkRow1">
+						<td id="dnn_ctr545_Links_Links_lstLinks_ctl02_LinkCell" class="MainGLinkCell" nowrap="nowrap"><a id="dnn_ctr545_Links_Links_lstLinks_ctl02_Link" class="Normal" href="http://lablynx.com/AboutUs/DataCenter/Equipment/tabid/250/Default.aspx" target="_self">...Equipment</a></td>
+					</tr>
+				</table>
+                                    </td>
+                                <td class="GLinkCell3" nowrap>
+                                    
+                                    
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" class="GLinkCell2" nowrap>
+                                    <table id="dnn_ctr545_Links_Links_lstLinks_ctl02_Table1" class="MainGLinkTable" cellspacing="0" cellpadding="0" border="0">
+					<tr id="dnn_ctr545_Links_Links_lstLinks_ctl02_TableRow2" class="GLinkHTMLRow">
+						<td id="dnn_ctr545_Links_Links_lstLinks_ctl02_TableCell2" class="GLinkHTMLCell" nowrap="nowrap"></td>
+					</tr>
+				</table>
+                                    </td>
+                           </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr class="GLinkBottomRow">
+                    <td>
+                        
+                    </td>
+                </tr>
+            </table>
+        </td>
+			</tr><tr>
+				<td valign="top">
+            <table class="GLinksMainTable" border="0" cellpadding="0" cellspacing="0">
+                <tr class="GLinksTopRow">
+                    <td class="GLinksTopCell" nowrap>
+                        <table class="GLinkTable" border="0" cellpadding="0" cellspacing="0" height='30'>
+                            <tr class="GLinkRow" width="" >
+                                <td class="GLinkCell1" nowrap width="" align="right">
+                                    
+                                    <img id="dnn_ctr545_Links_Links_lstLinks_ctl03_Image1" class="GLinkImageClass" src="/LinkClick.aspx?fileticket=acNpnUhfEhA%3d&amp;tabid=237&amp;mid=545" border="0" />
+                                    
+                                </td>
+                                <td class="GLinkCell2" nowrap>
+                                    <table id="dnn_ctr545_Links_Links_lstLinks_ctl03_LinkTable" class="MainGLinkTable" cellspacing="0" cellpadding="0" border="0">
+					<tr id="dnn_ctr545_Links_Links_lstLinks_ctl03_LinkRow" class="MainGLinkRow1">
+						<td id="dnn_ctr545_Links_Links_lstLinks_ctl03_LinkCell" class="MainGLinkCell" nowrap="nowrap"><a id="dnn_ctr545_Links_Links_lstLinks_ctl03_Link" class="Normal" href="http://lablynx.com/AboutUs/DataCenter/Software/tabid/330/Default.aspx" target="_self">...Software</a></td>
+					</tr>
+				</table>
+                                    </td>
+                                <td class="GLinkCell3" nowrap>
+                                    
+                                    
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" class="GLinkCell2" nowrap>
+                                    <table id="dnn_ctr545_Links_Links_lstLinks_ctl03_Table1" class="MainGLinkTable" cellspacing="0" cellpadding="0" border="0">
+					<tr id="dnn_ctr545_Links_Links_lstLinks_ctl03_TableRow2" class="GLinkHTMLRow">
+						<td id="dnn_ctr545_Links_Links_lstLinks_ctl03_TableCell2" class="GLinkHTMLCell" nowrap="nowrap"></td>
+					</tr>
+				</table>
+                                    </td>
+                           </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr class="GLinkBottomRow">
+                    <td>
+                        
+                    </td>
+                </tr>
+            </table>
+        </td>
+			</tr><tr>
+				<td valign="top">
+            <table class="GLinksMainTable" border="0" cellpadding="0" cellspacing="0">
+                <tr class="GLinksTopRow">
+                    <td class="GLinksTopCell" nowrap>
+                        <table class="GLinkTable" border="0" cellpadding="0" cellspacing="0" height='30'>
+                            <tr class="GLinkRow" width="" >
+                                <td class="GLinkCell1" nowrap width="" align="right">
+                                    
+                                    <img id="dnn_ctr545_Links_Links_lstLinks_ctl04_Image1" class="GLinkImageClass" src="/LinkClick.aspx?fileticket=acNpnUhfEhA%3d&amp;tabid=237&amp;mid=545" border="0" />
+                                    
+                                </td>
+                                <td class="GLinkCell2" nowrap>
+                                    <table id="dnn_ctr545_Links_Links_lstLinks_ctl04_LinkTable" class="MainGLinkTable" cellspacing="0" cellpadding="0" border="0">
+					<tr id="dnn_ctr545_Links_Links_lstLinks_ctl04_LinkRow" class="MainGLinkRow1">
+						<td id="dnn_ctr545_Links_Links_lstLinks_ctl04_LinkCell" class="MainGLinkCell" nowrap="nowrap"><a id="dnn_ctr545_Links_Links_lstLinks_ctl04_Link" class="Normal" href="http://lablynx.com/AboutUs/DataCenter/Monitoring/tabid/251/Default.aspx" target="_self">...Monitoring</a></td>
+					</tr>
+				</table>
+                                    </td>
+                                <td class="GLinkCell3" nowrap>
+                                    
+                                    
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" class="GLinkCell2" nowrap>
+                                    <table id="dnn_ctr545_Links_Links_lstLinks_ctl04_Table1" class="MainGLinkTable" cellspacing="0" cellpadding="0" border="0">
+					<tr id="dnn_ctr545_Links_Links_lstLinks_ctl04_TableRow2" class="GLinkHTMLRow">
+						<td id="dnn_ctr545_Links_Links_lstLinks_ctl04_TableCell2" class="GLinkHTMLCell" nowrap="nowrap"></td>
+					</tr>
+				</table>
+                                    </td>
+                           </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr class="GLinkBottomRow">
+                    <td>
+                        
+                    </td>
+                </tr>
+            </table>
+        </td>
+			</tr><tr>
+				<td valign="top">
+            <table class="GLinksMainTable" border="0" cellpadding="0" cellspacing="0">
+                <tr class="GLinksTopRow">
+                    <td class="GLinksTopCell" nowrap>
+                        <table class="GLinkTable" border="0" cellpadding="0" cellspacing="0" height='30'>
+                            <tr class="GLinkRow" width="" >
+                                <td class="GLinkCell1" nowrap width="" align="right">
+                                    
+                                    <img id="dnn_ctr545_Links_Links_lstLinks_ctl05_Image1" class="GLinkImageClass" src="/LinkClick.aspx?fileticket=acNpnUhfEhA%3d&amp;tabid=237&amp;mid=545" border="0" />
+                                    
+                                </td>
+                                <td class="GLinkCell2" nowrap>
+                                    <table id="dnn_ctr545_Links_Links_lstLinks_ctl05_LinkTable" class="MainGLinkTable" cellspacing="0" cellpadding="0" border="0">
+					<tr id="dnn_ctr545_Links_Links_lstLinks_ctl05_LinkRow" class="MainGLinkRow1">
+						<td id="dnn_ctr545_Links_Links_lstLinks_ctl05_LinkCell" class="MainGLinkCell" nowrap="nowrap"><a id="dnn_ctr545_Links_Links_lstLinks_ctl05_Link" class="Normal" href="http://lablynx.com/AboutUs/DataCenter/Compliance/tabid/252/Default.aspx" target="_self">...Compliance</a></td>
+					</tr>
+				</table>
+                                    </td>
+                                <td class="GLinkCell3" nowrap>
+                                    
+                                    
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" class="GLinkCell2" nowrap>
+                                    <table id="dnn_ctr545_Links_Links_lstLinks_ctl05_Table1" class="MainGLinkTable" cellspacing="0" cellpadding="0" border="0">
+					<tr id="dnn_ctr545_Links_Links_lstLinks_ctl05_TableRow2" class="GLinkHTMLRow">
+						<td id="dnn_ctr545_Links_Links_lstLinks_ctl05_TableCell2" class="GLinkHTMLCell" nowrap="nowrap"></td>
+					</tr>
+				</table>
+                                    </td>
+                           </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr class="GLinkBottomRow">
+                    <td>
+                        
+                    </td>
+                </tr>
+            </table>
+        </td>
+			</tr><tr>
+				<td valign="top">
+            <table class="GLinksMainTable" border="0" cellpadding="0" cellspacing="0">
+                <tr class="GLinksTopRow">
+                    <td class="GLinksTopCell" nowrap>
+                        <table class="GLinkTable" border="0" cellpadding="0" cellspacing="0" height='30'>
+                            <tr class="GLinkRow" width="" >
+                                <td class="GLinkCell1" nowrap width="" align="right">
+                                    
+                                    <img id="dnn_ctr545_Links_Links_lstLinks_ctl06_Image1" class="GLinkImageClass" src="/LinkClick.aspx?fileticket=acNpnUhfEhA%3d&amp;tabid=237&amp;mid=545" border="0" />
+                                    
+                                </td>
+                                <td class="GLinkCell2" nowrap>
+                                    <table id="dnn_ctr545_Links_Links_lstLinks_ctl06_LinkTable" class="MainGLinkTable" cellspacing="0" cellpadding="0" border="0">
+					<tr id="dnn_ctr545_Links_Links_lstLinks_ctl06_LinkRow" class="MainGLinkRow1">
+						<td id="dnn_ctr545_Links_Links_lstLinks_ctl06_LinkCell" class="MainGLinkCell" nowrap="nowrap"><a id="dnn_ctr545_Links_Links_lstLinks_ctl06_Link" class="Normal" href="http://lablynx.com/AboutUs/DataCenter/BackupsDisasterRecovery/tabid/332/Default.aspx" target="_self">...Backups & Recovery</a></td>
+					</tr>
+				</table>
+                                    </td>
+                                <td class="GLinkCell3" nowrap>
+                                    
+                                    
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" class="GLinkCell2" nowrap>
+                                    <table id="dnn_ctr545_Links_Links_lstLinks_ctl06_Table1" class="MainGLinkTable" cellspacing="0" cellpadding="0" border="0">
+					<tr id="dnn_ctr545_Links_Links_lstLinks_ctl06_TableRow2" class="GLinkHTMLRow">
+						<td id="dnn_ctr545_Links_Links_lstLinks_ctl06_TableCell2" class="GLinkHTMLCell" nowrap="nowrap"></td>
+					</tr>
+				</table>
+                                    </td>
+                           </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr class="GLinkBottomRow">
+                    <td>
+                        
+                    </td>
+                </tr>
+            </table>
+        </td>
+			</tr><tr>
+				<td valign="top">
+            <table class="GLinksMainTable" border="0" cellpadding="0" cellspacing="0">
+                <tr class="GLinksTopRow">
+                    <td class="GLinksTopCell" nowrap>
+                        <table class="GLinkTable" border="0" cellpadding="0" cellspacing="0" height='30'>
+                            <tr class="GLinkRow" width="" >
+                                <td class="GLinkCell1" nowrap width="" align="right">
+                                    
+                                    <img id="dnn_ctr545_Links_Links_lstLinks_ctl07_Image1" class="GLinkImageClass" src="/LinkClick.aspx?fileticket=acNpnUhfEhA%3d&amp;tabid=237&amp;mid=545" border="0" />
+                                    
+                                </td>
+                                <td class="GLinkCell2" nowrap>
+                                    <table id="dnn_ctr545_Links_Links_lstLinks_ctl07_LinkTable" class="MainGLinkTable" cellspacing="0" cellpadding="0" border="0">
+					<tr id="dnn_ctr545_Links_Links_lstLinks_ctl07_LinkRow" class="MainGLinkRow1">
+						<td id="dnn_ctr545_Links_Links_lstLinks_ctl07_LinkCell" class="MainGLinkCell" nowrap="nowrap"><a id="dnn_ctr545_Links_Links_lstLinks_ctl07_Link" class="Normal" href="http://lablynx.com/AboutUs/DataCenter/ServiceLevelAgreement/tabid/342/Default.aspx" target="_self">...Service Level Agreement (SLA)</a></td>
+					</tr>
+				</table>
+                                    </td>
+                                <td class="GLinkCell3" nowrap>
+                                    
+                                    
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" class="GLinkCell2" nowrap>
+                                    <table id="dnn_ctr545_Links_Links_lstLinks_ctl07_Table1" class="MainGLinkTable" cellspacing="0" cellpadding="0" border="0">
+					<tr id="dnn_ctr545_Links_Links_lstLinks_ctl07_TableRow2" class="GLinkHTMLRow">
+						<td id="dnn_ctr545_Links_Links_lstLinks_ctl07_TableCell2" class="GLinkHTMLCell" nowrap="nowrap"></td>
+					</tr>
+				</table>
+                                    </td>
+                           </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr class="GLinkBottomRow">
+                    <td>
+                        
+                    </td>
+                </tr>
+            </table>
+        </td>
+			</tr>
+		</table>
+	</div>
+
+<!-- End_Module_545 -->
+</div></td>
+
+      </tr>
+    </table>
+        <TABLE width="100%" border="0" cellpadding="0" cellspacing="0">
+          <TR>
+            <TD align="left" valign="top" nowrap></TD>
+            <TD align="right" valign="top" nowrap>&nbsp;&nbsp;</TD>
+          </TR>
+      </TABLE></td>
+    <td width="10" height="1" background="/Portals/_default/Containers/Populusion-Black/images/ppl5_06.png"><img src="/Portals/_default/Containers/Populusion-Black/images/spacer.gif" width="10" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td width="10" height="7"><img src="/Portals/_default/Containers/Populusion-Black/images/ppl5_07.png" width="15" height="12" alt=""></td>
+    <td height="7" background="/Portals/_default/Containers/Populusion-Black/images/ppl5_08.png"><img src="/Portals/_default/Containers/Populusion-Black/images/spacer.gif" width="1" height="7" alt=""></td>
+    <td width="10" height="7"><img src="/Portals/_default/Containers/Populusion-Black/images/ppl5_09.png" width="15" height="12" alt=""></td>
+  </tr>
+</table>
+<!-- End ImageReady Slices -->
+
+</td>
+
+                      </tr>
+                  </table></td>
+                  <td width="100%" valign="top" class="navThirdLevelDivider"><table width="100%"  border="0" align="center" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td id="dnn_ContentPane" valign="top" class="ContentPane"><a name="619"></a><span id="dnn_ctr619_ContentPane" class="DNNAlignleft"><!-- Start_Module_619 --><div id="dnn_ctr619_ModuleContent">
+	<div style='width:100%' align='Left'><embed pluginspage=http://www.macromedia.com/go/getflashplayer src='http://files.mylablynx.com/share/weblims/homebanner.swf' Align='Left'  Width='650px'  Height='200px'  type=application/x-shockwave-flash bgcolor='' salign='LT' quality='high' menu='false' loop='false'></embed></div><!-- End_Module_619 -->
+</div></span>
+<a name="739"></a><span id="dnn_ctr739_ContentPane" class="DNNAlignleft"><!-- Start_Module_739 --><div id="dnn_ctr739_ModuleContent">
+	<div id="dnn_ctr739_HtmlModule_HtmlModule_lblContent" class="Normal">
+	<p><font size="5"><font color="#1e90ff">Web Hosted Software for Laboratories</font></font></p>
+<p><font size="2"><strong>webLIMS.com</strong> is the world's largest&#160;provider of hosted software for laboratories. Hosted software, also referred to as SaaS (Software as a Service) allows any size laboratory to have high end, powerful software for a low monthly price.&#160; With webLIMS, it doesn't stop there...&#160; Your lab has access to dozens of Laboratory and Business software systems and tools that allow you to customize and even build your own systems at a fraction of the costs for the traditional LIMS solution.&#160; Benefits include:</font></p>
+<ul>
+    <ul>
+        <ul>
+            <ul>
+                <ul>
+                    <li>
+                    <div><font size="2">No Software to Purchase</font></div>
+                    </li>
+                    <li>
+                    <div><font size="2">No Hardware to Purchase</font></div>
+                    </li>
+                    <li>
+                    <div><font size="2">No need for IT assistance</font></div>
+                    </li>
+                    <li>
+                    <div><font size="2">Faster implementations</font></div>
+                    </li>
+                    <li>
+                    <div><font size="2">A Low Monthly Price</font></div>
+                    </li>
+                    <li>
+                    <div><font size="2">and so much more...</font></div>
+                    </li>
+                </ul>
+            </ul>
+        </ul>
+    </ul>
+</ul>
+<hr />
+</div>
+<!-- End_Module_739 -->
+</div></span>
+<a name="691"></a><span id="dnn_ctr691_ContentPane" class="DNNAlignleft"><!-- Start_Module_691 --><div id="dnn_ctr691_ModuleContent">
+	<div id="dnn_ctr691_HtmlModule_HtmlModule_lblContent" class="Normal">
+	<p><font size="5"><font color="#1e90ff">Who Needs webLIMS and Why?</font></font></p>
+<p><font size="2"><strong>YOU do!</strong> The fact is, especially when businesses are beginning to value fiscal responsibility, not every lab should have to come with its own LIMS software IT department. More and more, it is becoming clear that huge up-front license fees and long, expensive implementations followed by fixes, upgrades and general onsite maintenance of servers and&#160;other hardware&#160;along with&#160;software is just too much to have to endure -- especially now that there is a choice.</font></p>
+<p><font color="#1e90ff" size="4">webLIMS Lets You Concentrate on Your Lab</font>&#160;</p>
+<p><font size="2">When cars first came along you had to be a pretty handy mechanic just to drive one. Laboratory software has been like that for too long. Finally there is a model that doesn't require you to be an IT engineer. Just sign up for your hosted account and get going right away. Whether you are a single user start-up&#160;or a large multi-site corporate business, the web hosted model makes sense for you.</font></p>
+<p><font color="#1e90ff" size="4">Any Size/Type</font></p>
+<p><font size="2">webLIMS isn't limited to any particular size or type of lab. Add or drop users and/or functional modules anytime with no extra charges.</font></p>
+<p><font size="2">Industries/lab types webLIMS is right for include:&#160;Environmental,&#160;Manufacturing (Materials/Products, Pharmaceutical, other),&#160;Food &amp; Beverage,&#160;Clinical/Public Health,&#160;Forensics, Governement (State Agriculture Labs, Agencies), and Your Lab.</font></p>
+<p><font size="2">So if you are in the lab business, you need webLIMS! Sign up now and get back to what you do best.</font>&#160;</p>
+<hr />
+<p><font size="5"><font color="#1e90ff">How much does webLIMS cost &amp; What is included?</font></font></p>
+</div>
+<!-- End_Module_691 -->
+</div></span>
+<a name="636"></a>
+
+<table width="100%" height="5" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td height="5"><img src="/Portals/_default/Containers/Populusion-Black/images/spacer.gif" width="5" height="5" alt=""></td>
+  </tr>
+</table>
+<table width="100%" height="65" border="0" align="center" cellpadding="0" cellspacing="0" id="Table_01">
+  <tr>
+    <td width="10" height="39"><img src="/Portals/_default/Containers/Populusion-Black/images/ppl5_01.png" width="15" height="42" alt=""></td>
+    <td height="39" valign="bottom" background="/Portals/_default/Containers/Populusion-Black/images/ppl5_02.png"><TABLE width="100%" height="24" border="0" align="center" cellpadding="0" cellspacing="0">
+      <TR>
+        <TD height="38" nowrap></TD>
+        <TD width="100%" height="38" nowrap>&nbsp;<span id="dnn_ctr636_dnnTITLE_lblTitle" class="TitleBlack_PPL5">How much does webLiMS cost and what is includedt?</span>
+
+
+</TD>
+        <TD height="38" nowrap><a id="dnn_ctr636_dnnVISIBILITY_cmdVisibility" title="Minimize" href="javascript:__doPostBack('dnn$ctr636$dnnVISIBILITY$cmdVisibility','')"><img id="dnn_ctr636_dnnVISIBILITY_imgVisibility" title="Minimize" src="/Portals/_default/Containers/Populusion-Black/images/min.gif" alt="Minimize" border="0" /></a></TD>
+      </TR>
+    </TABLE></td>
+    <td width="10" height="39"><img src="/Portals/_default/Containers/Populusion-Black/images/ppl5_03.png" width="15" height="42" alt=""></td>
+  </tr>
+  <tr>
+    <td width="10" height="1" background="/Portals/_default/Containers/Populusion-Black/images/ppl5_04.png"><img src="/Portals/_default/Containers/Populusion-Black/images/spacer.gif" width="10" height="1" alt=""></td>
+    <td valign="top"><table width="100%" height="2" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr>
+        <td id="dnn_ctr636_ContentPane" height="2" valign="top" style="padding-BOTTOM: 8px; padding-TOP: 0px; padding-LEFT: 8px; padding-RIGHT: 8px;" class="DNNAlignleft"><!-- Start_Module_636 --><div id="dnn_ctr636_ModuleContent">
+	<div id="dnn_ctr636_HtmlModule_HtmlModule_lblContent" class="Normal">
+	<div id="dnn_ctr735_HtmlModule_lblContent" class="Normal LabelEditOverClassML" nsprefix="dnn$ctr735$HtmlModule" tbid="tbEIPHTML" eventname="none" cssover="LabelEditOverClassML" cssedit="LabelEditTextClass" multiline="1" richtext="1" sysimgpath="images/" callback="dnn.xmlhttp.doCallBack('lblContent dnn_ctr735_HtmlModule_lblContent','[TEXT]',this.callBackSuccess,this,this.callBackFail,this.callBackStatus,null,null,0);" blursave="0">
+<p><font size="5"><font color="#1e90ff">Ordering webLiMS is easy so get started, Today!</font></font></p>
+<p><font size="2"><strong>webLIMS</strong> is the world's largest&#160;provider of hosted software for laboratories. Hosted software, also referred to as SaaS (Software as a Service) allows any size laboratory to have high end, powerful software for a low monthly price.&#160; With webLIMS, it doesn't stop there...&#160; Your lab has access to dozens of Laboratory and Business software systems and tools that allow you to customize and even build your own systems at a fraction of the costs for the traditional LIMS solution.&#160; Pricing is simple and open.&#160;&#160;Don't forget, you have our 60 day guarantee of satisfaction or your money back.&#160; You have nothing to lose and everything to gain.</font></p>
+<p><font size="2">Get Started Now!</font></p>
+</div>
+</div>
+<!-- End_Module_636 -->
+</div></td>
+
+      </tr>
+    </table>
+        <TABLE width="100%" border="0" cellpadding="0" cellspacing="0">
+          <TR>
+            <TD align="left" valign="top" nowrap></TD>
+            <TD align="right" valign="top" nowrap>&nbsp;&nbsp;</TD>
+          </TR>
+      </TABLE></td>
+    <td width="10" height="1" background="/Portals/_default/Containers/Populusion-Black/images/ppl5_06.png"><img src="/Portals/_default/Containers/Populusion-Black/images/spacer.gif" width="10" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td width="10" height="7"><img src="/Portals/_default/Containers/Populusion-Black/images/ppl5_07.png" width="15" height="12" alt=""></td>
+    <td height="7" background="/Portals/_default/Containers/Populusion-Black/images/ppl5_08.png"><img src="/Portals/_default/Containers/Populusion-Black/images/spacer.gif" width="1" height="7" alt=""></td>
+    <td width="10" height="7"><img src="/Portals/_default/Containers/Populusion-Black/images/ppl5_09.png" width="15" height="12" alt=""></td>
+  </tr>
+</table>
+<!-- End ImageReady Slices -->
+
+<a name="637"></a>
+
+<table width="100%" height="5" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td height="5"><img src="/Portals/_default/Containers/Populusion-Black/images/spacer.gif" width="5" height="5" alt=""></td>
+  </tr>
+</table>
+<table width="100%" height="65" border="0" align="center" cellpadding="0" cellspacing="0" id="Table_01">
+  <tr>
+    <td width="10" height="39"><img src="/Portals/_default/Containers/Populusion-Black/images/ppl5_01.png" width="15" height="42" alt=""></td>
+    <td height="39" valign="bottom" background="/Portals/_default/Containers/Populusion-Black/images/ppl5_02.png"><TABLE width="100%" height="24" border="0" align="center" cellpadding="0" cellspacing="0">
+      <TR>
+        <TD height="38" nowrap></TD>
+        <TD width="100%" height="38" nowrap>&nbsp;<span id="dnn_ctr637_dnnTITLE_lblTitle" class="TitleBlack_PPL5">Your Satisfaction, Money Back Guarantee</span>
+
+
+</TD>
+        <TD height="38" nowrap><a id="dnn_ctr637_dnnVISIBILITY_cmdVisibility" title="Minimize" href="javascript:__doPostBack('dnn$ctr637$dnnVISIBILITY$cmdVisibility','')"><img id="dnn_ctr637_dnnVISIBILITY_imgVisibility" title="Minimize" src="/Portals/_default/Containers/Populusion-Black/images/min.gif" alt="Minimize" border="0" /></a></TD>
+      </TR>
+    </TABLE></td>
+    <td width="10" height="39"><img src="/Portals/_default/Containers/Populusion-Black/images/ppl5_03.png" width="15" height="42" alt=""></td>
+  </tr>
+  <tr>
+    <td width="10" height="1" background="/Portals/_default/Containers/Populusion-Black/images/ppl5_04.png"><img src="/Portals/_default/Containers/Populusion-Black/images/spacer.gif" width="10" height="1" alt=""></td>
+    <td valign="top"><table width="100%" height="2" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr>
+        <td id="dnn_ctr637_ContentPane" height="2" valign="top" style="padding-BOTTOM: 8px; padding-TOP: 0px; padding-LEFT: 8px; padding-RIGHT: 8px;" class="DNNAlignleft"><!-- Start_Module_637 --><div id="dnn_ctr637_ModuleContent">
+	<div id="dnn_ctr637_HtmlModule_HtmlModule_lblContent" class="Normal">
+	<p>
+<table cellspacing="1" cellpadding="1" width="100%" align="left" border="0">
+    <tbody>
+        <tr>
+            <td width="160">
+            <p align="left"><strong><font color="#ff0000" size="5"><u><img height="144" alt="" hspace="10" width="150" align="left" src="/Portals/4/Money Back Guarantee 150 pixel.jpg" /></u></font></strong></p>
+            </td>
+            <td valign="top">
+            <p align="left"><strong><font color="#ff0000" size="3"><a href="/LinkClick.aspx?link=233&amp;tabid=184">Order webLIMS.com NOW and get our 60 Day, unconditional, Money Back Guarantee of Satisfaction!</a></font></strong></p>
+            <p align="left"><font color="#000000" size="2">Your webLIMS account is completely risk-free and comes with a&#160;60 day, unconditional, Money Back Guarantee on your paid subcription fees and initial setup and training fees.&#160; There are no long term obligations and you only pay for what you use on a monthly basis. You can get started now and pay by&#160;credit card or we can bill you, it is your choice.&#160; <a href="/LinkClick.aspx?link=233&amp;tabid=184"><font color="#0000ff"><strong>So place your order Now! Risk Free</strong></font></a> and be running <strong>Today!</strong></font></p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</p>
+<p>&#160;</p>
+</div>
+<!-- End_Module_637 -->
+</div></td>
+
+      </tr>
+    </table>
+        <TABLE width="100%" border="0" cellpadding="0" cellspacing="0">
+          <TR>
+            <TD align="left" valign="top" nowrap></TD>
+            <TD align="right" valign="top" nowrap>&nbsp;&nbsp;</TD>
+          </TR>
+      </TABLE></td>
+    <td width="10" height="1" background="/Portals/_default/Containers/Populusion-Black/images/ppl5_06.png"><img src="/Portals/_default/Containers/Populusion-Black/images/spacer.gif" width="10" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td width="10" height="7"><img src="/Portals/_default/Containers/Populusion-Black/images/ppl5_07.png" width="15" height="12" alt=""></td>
+    <td height="7" background="/Portals/_default/Containers/Populusion-Black/images/ppl5_08.png"><img src="/Portals/_default/Containers/Populusion-Black/images/spacer.gif" width="1" height="7" alt=""></td>
+    <td width="10" height="7"><img src="/Portals/_default/Containers/Populusion-Black/images/ppl5_09.png" width="15" height="12" alt=""></td>
+  </tr>
+</table>
+<!-- End ImageReady Slices -->
+
+</td>
+
+                      </tr>
+                  </table></td>
+                  <td valign="top" class="navThirdLevelDivider"><table width="100%"  border="0" align="center" cellpadding="0" cellspacing="0">
+                      <tr>
+                        
+                      </tr>
+                  </table></td>
+                </tr>
+              </tbody>
+            </table>
+            <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+              <!--DWLayoutTable-->
+              <tbody>
+                <tr>
+                  <td valign="top"><table width="100%"  border="0" align="center" cellpadding="0" cellspacing="0">
+                      <tr>
+                        
+                      </tr>
+                  </table></td>
+                  <td valign="top" class="navThirdLevelDivider"><table width="100%"  border="0" align="center" cellpadding="0" cellspacing="0">
+                      <tr>
+                        
+                      </tr>
+                  </table></td>
+                  <td valign="top" class="navThirdLevelDivider"><table width="100%"  border="0" align="center" cellpadding="0" cellspacing="0">
+                      <tr>
+                        
+                      </tr>
+                  </table></td>
+                </tr>
+              </tbody>
+            </table>
+            <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+              <!--DWLayoutTable-->
+              <tbody>
+                <tr>
+                  <td valign="top"><table width="100%"  border="0" align="center" cellpadding="0" cellspacing="0">
+                      <tr>
+                        
+                      </tr>
+                  </table></td>
+                  <td valign="top" class="navThirdLevelDivider"><table width="100%"  border="0" align="center" cellpadding="0" cellspacing="0">
+                      <tr>
+                        
+                      </tr>
+                  </table></td>
+                  <td valign="top" class="navThirdLevelDivider"><table width="100%"  border="0" align="center" cellpadding="0" cellspacing="0">
+                      <tr>
+                        
+                      </tr>
+                  </table></td>
+                  <td valign="top" class="navThirdLevelDivider"><table width="100%"  border="0" align="center" cellpadding="0" cellspacing="0">
+                      <tr>
+                        
+                      </tr>
+                  </table></td>
+                </tr>
+              </tbody>
+            </table>
+            <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+              <tr>
+                <td id="dnn_BottomPane" valign="top" class="BottomPane"><a name="758"></a><span id="dnn_ctr758_ContentPane" class="DNNAlignleft"><!-- Start_Module_758 --><div id="dnn_ctr758_ModuleContent">
+	<!--Live Content - DotNetNuke Module By Mandeeps.com
+More Information at http://dnn.mandeeps.com/live+content.aspx
+619e26758a159ab6fafda4e6ac81dcf3-->
+
+<span class ="Normal" Please Add Elements...</span>
+<div style="position:absolute; display:none; visibility:hidden">
+</div>
+<script type="text/javascript"> LiveContent['elablims'] = function (event) {return hs.htmlExpand(this, {contentId: '758Module0',outlineType: 'Rounded-White',align: 'auto',preserveContent: false,slideshowGroup: 'LiveContent758'},{ModuleId: '758', TabId: '237', ElementId: '0', ClientSessionURL: 'http://lablynx.com/desktopmodules/livecontent/clientsession.aspx'} ) }; </script><div class="highslide-html-content" id="758Module0"  style="width: 425px; border: none">  <div style="height:20px; padding=2px"> <a href="#" onclick="return hs.close(this)" class="control">Close</a> <a href="#" onclick="return false" class="highslide-move control">Move</a>  </div>   <div class="highslide-body"><a name="681"></a><span id="dnn_ctr758_LiveContent_ctr681_ContentPane" class="DNNAlignleft"><!-- Start_Module_681 --><div id="dnn_ctr758_LiveContent_ctr681_ModuleContent">
+		<div id="dnn_ctr758_LiveContent_ctr681_HtmlModule_HtmlModule_lblContent" class="Normal">
+	<div class="rvps1">&#160;</div>
+<div class="rvps1"><span style="font-family: Arial; color: #0000ff"><span style="font-family: Arial; font-size: 24pt"><img style="border-bottom: #000000 1px solid; border-left: #000000 1px solid; border-top: #000000 1px solid; margin-right: 10px; border-right: #000000 1px solid" border="0" hspace="5" alt="" vspace="5" align="left" width="150" height="126" src="/Portals/4/Your Lab 150 px.jpg" /></span></span><span style="font-family: Arial; color: #0000ff; font-size: 24pt" class="rvts2"><font size="5"><font color="#1e90ff">Hosted LIMS and Scientific Applications</font></font></span></div>
+<div class="rvps1">
+<p><font color="#0066ff"><font color="#000000" size="2">Your account includes not only a LIMS (Laboratory Information Management System) for your lab, but also a selection of other software, hand-picked to suit your needs as a professional in the laboratory/scientific community. </font></font></p>
+<p><font color="#0066ff"><font color="#000000" size="2">Receive samples, process and enter data, generate reports, create and track batches/lots, use barcodes, monitor limits/alerts, manage training, documents...the list goes on! Whatever your area of study or work -- <strong>ELab&#160;</strong><strong>webLIMS</strong> has the applications you need.</font></font></p>
+<p><font color="#0066ff" size="3"><font size="2"><font color="#000000"><span style="font-family: Arial; color: #0000ff; font-size: 24pt" class="rvts2"><font size="3"><strong>ELab LIMS Features &amp; Functions</strong></font></span></font></font></font></p>
+</div>
+<div class="rvps1">
+<p><span class="rvts3"><font color="#333333" size="1"><span style="font-family: Arial; color: #333333; font-size: 8.5pt">I</span></font></span><span class="rvts3"><font color="#333333" size="2"><span style="font-family: Arial; color: #333333; font-size: 10pt">n selecting a LIMS, functionality is key. From the core&#160;modules to those tuned for specific industry needs, to the a la carte optional additional modules, <strong>ELab</strong> demonstrates just how far we have brought the industry from the days when a </span></font></span><span class="rvts4"><strong><font color="#333333" size="2"><span style="font-family: Arial; color: #333333; font-size: 10pt; font-weight: bold">LIMS </span></font></strong></span><span class="rvts3"><font color="#333333" size="2"><span style="font-family: Arial; color: #333333; font-size: 10pt">was just an expensive and inflexible sample tracker.&#160;Browse the library of modules and functions that are&#160;available with the&#160;<strong>ELab LIMS,</strong> whether onsite or hosted <strong>webLIMS</strong>:</span></font></span>&#160;</p>
+</div>
+<hr />
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt"><v:shapetype id="_x0000_t75" stroked="f" filled="f" path="m@4@5l@4@11@9@11@9@5xe" o:preferrelative="t" o:spt="75" coordsize="21600,21600"><v:stroke joinstyle="miter"></v:stroke><v:formulas><v:f eqn="if lineDrawn pixelLineWidth 0"></v:f><v:f eqn="sum @0 1 0"></v:f><v:f eqn="sum 0 0 @1"></v:f><v:f eqn="prod @2 1 2"></v:f><v:f eqn="prod @3 21600 pixelWidth"></v:f><v:f eqn="prod @3 21600 pixelHeight"></v:f><v:f eqn="sum @0 0 1"></v:f><v:f eqn="prod @6 1 2"></v:f><v:f eqn="prod @7 21600 pixelWidth"></v:f><v:f eqn="sum @8 21600 0"></v:f><v:f eqn="prod @7 21600 pixelHeight"></v:f><v:f eqn="sum @10 21600 0"></v:f></v:formulas><v:path o:connecttype="rect" gradientshapeok="t" o:extrusionok="f"></v:path><o:lock aspectratio="t" v:ext="edit"></o:lock></v:shapetype><strong><span style="color: blue"><span style="mso-spacerun: yes"><img alt="" align="left" width="36" height="50" src="/Portals/4/1 Login.jpg" />&#160;</span>Sample Login (Sample-Based, Project-Based, Case-Based, Study-based) Accessioning etc. <o:p></o:p></span></strong></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt">The ELab suite offers very user-friendly and flexible ways to log in samples. You can associate any number or kinds of other data or entities with each, as well as assigning tests/processes/paths to match your work flow. And grouping is easy, according to whatever criteria you specify, reducing drastically the time spent in logging, receiving and approving samples and their results. Our Scheduler tool also lets you set regular occurrences so you're always on top of your workload. Variations for cases (Forensics), projects (R&amp;D, Commercial) etc. and sample points &amp; PIMS functionalities (Water/Wastewater) are all included in <strong>ELab</strong>'s vast repertoire.<o:p></o:p></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><strong><span style="font-family: Arial; color: blue; font-size: 10pt"><o:p>&#160;</o:p></span></strong></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt"><strong><span style="color: blue"><span style="mso-spacerun: yes"><img alt="" align="left" width="66" height="49" src="/Portals/4/2 Batching.jpg" />&#160;</span>Batching</span> <o:p></o:p></strong></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><strong><span style="font-family: Arial; font-size: 10pt">ELab </span></strong><span style="font-family: Arial; font-size: 10pt">allows you to create batches for both samples and results, and receive, set tests/paths and/or edit or approve results at that level, removing much of the time-consuming practices suffered by many laboratories. This process, along with scheduling and associating a wide range of data or entities with each, improves productivity significantly.<o:p></o:p></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><strong><span style="font-family: Arial; color: blue; font-size: 10pt"><o:p>&#160;</o:p></span></strong></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt"><strong><span style="color: blue"><span style="mso-spacerun: yes"><img alt="" align="left" width="66" height="50" src="/Portals/4/3 Barcoding.jpg" />&#160;</span>Barcoding <o:p></o:p></span></strong></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><strong><span style="font-family: Arial; font-size: 10pt">ELab </span></strong><span style="font-family: Arial; font-size: 10pt">fully supports Barcoding, and can generate labels either automatically/scheduled or on a sample by sample basis. The reading of barcodes by a scanner enables you to track inventory, samples, etc. in <strong>ELab</strong>. And it simplifies sample login, speeding up all of these processes while ensuring accurate data transfer.<o:p></o:p></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><strong><span style="font-family: Arial; color: blue; font-size: 10pt"><o:p>&#160;</o:p></span></strong></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt"><strong><span style="color: blue"><span style="mso-spacerun: yes"><img alt="" align="left" width="32" height="50" src="/Portals/4/4 Hand Held.jpg" />&#160;</span>Handheld &amp; Tablet Device Integration <o:p></o:p></span></strong></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt">As above, these devices, whether transmitted or wired, are fully supported in the <strong>ELab </strong>suite. <strong>ELab</strong>'s ability to support various means of data transfer help you comply with GAMP and other standards and regulations. Your data will always be transcribed accurately and speedily, either directly to the server or anywhere there is internet access.<strong><span style="color: blue"><o:p></o:p></span></strong></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><strong><span style="font-family: Arial; color: blue; font-size: 10pt"><o:p>&#160;</o:p></span></strong></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt"><strong><span style="color: blue"><span style="mso-spacerun: yes"><img alt="" align="left" width="38" height="50" src="/Portals/4/5 Workload Mgt.jpg" />&#160;</span>Workload Management <o:p></o:p></span></strong></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt">Assign workloads according to criteria you define. You can designate responsibility for any samples, batches or other items based on location, qualification or other criteria, so that workloads are managed sensibly by <strong>ELab</strong>.<o:p></o:p></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt"><o:p>&#160;</o:p></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt"><strong><span style="color: blue"><span style="mso-spacerun: yes"><img alt="" align="left" width="107" height="50" src="/Portals/4/6 Workflow.jpg" />&#160;</span>Workflow <o:p></o:p></span></strong></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt">Configure your system<strong> </strong>to fit the workflow of your laboratory, not the other way around. You can configure virtually everything, from locations/departments, to test processes and which are included on which tests, which analyst(s), areas and/or samples or suppliers they are assigned to, and much more. One of <strong>ELab's </strong>major strengths is its high degree of user-configurability.<o:p></o:p></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt"><o:p>&#160;</o:p></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt"><strong><span style="color: blue"><span style="mso-spacerun: yes"><img alt="" align="left" width="66" height="50" src="/Portals/4/7 Scheduling.jpg" />&#160;</span>Scheduling <o:p></o:p></span></strong></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt">The Scheduler tool in <strong>ELab </strong>allows you to define regular intervals for anything, including sample/batch receipt, instrument calibration and maintenance, training courses, shelf life and many other items. It includes the capacity for defining holidays and time off to factor into any given schedule.<o:p></o:p></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt"><o:p>&#160;</o:p></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt"><strong><span style="color: blue"><span style="mso-spacerun: yes"><img alt="" align="left" width="99" height="50" src="/Portals/4/8 Multi-location.jpg" />&#160;</span>Multi-Location Support <o:p></o:p></span></strong></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt">Locate <strong>ELab </strong>on a server anywhere you select -- even choose to have us host it for you at our headquarters in <st1:city w:st="on"><st1:place w:st="on">Atlanta</st1:place></st1:city>. Your personnel and customers can log on using their web browser from anywhere there is Internet access. The days of loading an application onto every workstation in every building are past.<o:p></o:p></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt"><o:p>&#160;</o:p></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt"><strong><span style="color: blue"><span style="mso-spacerun: yes"><img alt="" align="left" width="50" height="50" src="/Portals/4/9 Sample Analysis.jpg" />&#160;</span>Sample Analysis <o:p></o:p></span></strong></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt">The tests and paths for samples are all assignable in <strong>ELab</strong>, and results either entered manually or directly from instruments. View them, report them and/or perform calculations, export to Excel, etc. It's all part of the service.<strong><span style="color: blue"><o:p></o:p></span></strong></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal">&#160;</p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal">&#160;</p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt"><strong><font color="#0000ff"><img alt="" align="left" width="52" height="50" src="/Portals/4/11 QAQC.jpg" />QA/QC</font></strong> </span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt"><strong>ELab</strong> supports all QA/QC functions. You can either create templates to apply as desired, or you can create QC samples on an ad hoc basis. When setting up the QC Tests and parameters, a formula may also be defined for results entered during actual Test processing.<span style="mso-spacerun: yes">&#160; </span>The tools available to the user for building the formula are standard arithmetic (addition, subtraction, multiplication, Division) as well as Log base 10, Exponent, and Absolute Value.<span style="mso-spacerun: yes">&#160; </span>Users are able to create the formulas that calculate any of their QC results automatically.<o:p></o:p></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt"><o:p>&#160;</o:p></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt"><strong><span style="color: blue"><span style="mso-spacerun: yes"><img alt="" align="left" width="70" height="50" src="/Portals/4/10 Instrument.jpg" />&#160;</span>Instrument Interfacing <o:p></o:p></span></strong></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><strong><span style="font-family: Arial; font-size: 10pt">ELab </span></strong><span style="font-family: Arial; font-size: 10pt">readily interfaces with any instrument that produces a text file. See the short demo on this topic online&#160;<u><span style="color: blue">Here<o:p></o:p></span></u></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt">The advantages of the ability to generate a run sequence for a given batch and receive results data directly from the instrument output file are clear: vast savings in time and elimination of the potential for error in transcription.<o:p></o:p></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt"><o:p>&#160;</o:p></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt"><strong><span style="color: blue"><span style="mso-spacerun: yes"><img alt="" align="left" width="34" height="50" src="/Portals/4/12 EDD.jpg" />&#160;</span>Electronic Data Exchange</span></strong></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt">This is supported in the system in many forms, from instrument results upload to integration with third party software and electronic reporting to systems like eLexnet or other government-mandated protocols. Instrument data upload is supplied as a standard feature, with outgoing EDD optional.<o:p></o:p></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt"><o:p>&#160;</o:p></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt"><strong><span style="color: blue"><span style="mso-spacerun: yes"><img alt="" align="left" width="50" height="50" src="/Portals/4/13 Sample Results Entry.jpg" />&#160;</span>Sample Results Entry <o:p></o:p></span></strong></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt">This can be done either by instrument interface or manually, with definable limits, calculations, etc. Samples or batches can be retrieved according to the criteria you define -- Test type, Customer, Batch, etc. -- using <strong>ELab</strong>'s ubiquitous filter tool, or by standard Analyst Worklist.<o:p></o:p></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt"><o:p>&#160;</o:p></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt"><strong><span style="color: blue"><span style="mso-spacerun: yes"><img alt="" align="left" width="82" height="50" src="/Portals/4/14 Calculations.jpg" />&#160;</span>Calculations <o:p></o:p></span></strong></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt">Perform a variety of types of calculations in <strong>ELab</strong>, including <span style="letter-spacing: -0.1pt">standard arithmetic (addition, subtraction, multiplication, division) as well as Log base 10, Exponent, and Absolute Value. QC templates or ad hoc samples/batches may be created with calculations performed on standard QC types such as % Recovery of QC Spike, etc., in addition to the assigning of calculations to sample result data. Results from other tests may be included in calculations.<o:p></o:p></span></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; letter-spacing: -0.1pt; font-size: 10pt"><o:p>&#160;</o:p></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt"><strong><span style="color: blue"><span style="mso-spacerun: yes"><img alt="" align="left" width="72" height="49" src="/Portals/4/15 Sample Tracking.jpg" />&#160;</span>Sample Management and Tracking <o:p></o:p></span></strong></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; color: black; font-size: 10pt">LabLynx’s <strong>ELab</strong> suite includes an Object Tracking Module which allows users to track the Check-in, Check-out, Transfer and Disposition of samples through the laboratory, documenting all movement, date and time, and the identity of the user performing the actions. <strong>ELab</strong> can easily be configured to track the exact path of any given samples or batches according to particular requirements.<o:p></o:p></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; color: black; font-size: 10pt"><o:p>&#160;</o:p></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt"><strong><span style="color: blue"><span style="mso-spacerun: yes"><img alt="" align="left" width="38" height="50" src="/Portals/4/16 Reporting.jpg" />&#160;</span>Reporting <o:p></o:p></span></strong></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt">The Ad Hoc Reporting v2 tool in <strong>ELab </strong>makes generating a report in a hurry a snap. You can select exactly which information you would like to see and in what order, and any filtering criteria, all without any knowledge of SQL. Print it as is or export it as a .pdf, .rtf, excel file or text, or just view it. Your parameters can easily be saved to run the same query in the future as well. For more formal reports, use iStudio to create exactly the form you need.<o:p></o:p></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt"><o:p>&#160;</o:p></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt"><strong><span style="color: blue"><span style="mso-spacerun: yes"><img alt="" align="left" width="48" height="50" src="/Portals/4/17 Trending.jpg" />&#160;</span>Trending/Control Charting <o:p></o:p></span></strong></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt">Any data are easily exported to Excel for charting of trends, from QA/QC limit performance to Instrument maintenance history or personnel training data. Or you can use <strong>ELab's </strong>own integral control charting module, whichever suits your needs best!<o:p></o:p></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt"><o:p>&#160;</o:p></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt"><strong><span style="color: blue"><span style="mso-spacerun: yes"><img alt="" align="left" width="58" height="50" src="/Portals/4/18 Fax email.jpg" />&#160;</span>Faxing &amp; Emailing Reports <o:p></o:p></span></strong></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt">Any reports generated in<strong> ELab </strong>may be printed out and faxed, or exported in any of a variety of formats for emailing or faxing using the relevant software, either through interface with that software directly during implementation, or manually. Additionally, regular or results-based events can be set to generate these actions.<o:p></o:p></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt"><o:p>&#160;</o:p></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt"><img alt="" align="left" width="52" height="50" src="/Portals/4/11 QAQC.jpg" /><strong><span style="color: blue"><span style="mso-spacerun: yes">&#160;</span>Audit Trails <o:p></o:p></span></strong></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; color: black; font-size: 10pt"><strong>ELab</strong> provides audit trail capabilities to meet any security or regulatory standards.<o:p></o:p></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; color: black; font-size: 10pt">Should a user be provided with security privileges to gain access to the Edit Results area of <strong>ELab</strong>, any modifications made to information are stamped with that user’s identification and the system level date and time.<span style="mso-spacerun: yes">&#160;</span>The user&#160;is also required to enter a reason for the change, and the system captures the newly entered result as well as&#160;the edited result. </span><span style="font-family: Arial; color: black; font-size: 10pt">This also applies to users with results approval permission.</span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; color: black; font-size: 10pt"><o:p></o:p></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; color: black; font-size: 10pt">All screens within&#160;<strong>ELab</strong> indicate who created the record and when, as well as the last person that edited the record and when.<span style="mso-spacerun: yes">&#160; </span>This applies to records, documents, specifications, limits and electronic signatures.<span style="mso-spacerun: yes">&#160; </span>Additionally, users must supply a password to enable or use a signature.<o:p></o:p></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; color: black; font-size: 10pt"><o:p>&#160;</o:p></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt"><strong><span style="color: blue"><span style="mso-spacerun: yes"><img alt="" align="left" width="66" height="50" src="/Portals/4/19 COC.jpg" />&#160;</span>Chain of Custody <o:p></o:p></span></strong></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; color: black; font-size: 10pt">Chain of Custody is of course an essential part of many labs, and you depend on your system to ensure COC is fully supported to NELAC/NELAP standards or to similar specs. LABLynx’ <strong>ELab</strong> includes an Object Tracking Module which allows users to track the Check-in, Check-out, Transfer and Disposition of samples through the laboratory, documenting all movement, date and time, and the identity of the user performing the actions. <strong>ELab</strong> can easily be configured to track the exact path of any given samples or batches according to particular requirements. If barcode technology is desired, <strong>ELab</strong> will store and print out labels with selected relevant information</span><strong><span style="font-family: Arial; color: blue; font-size: 10pt"><o:p></o:p></span></strong></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt"><o:p>&#160;</o:p></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt"><strong><span style="color: blue"><span style="mso-spacerun: yes"><img alt="" align="left" width="67" height="50" src="/Portals/4/20 Doc Mgt.jpg" />&#160;</span>Document Management <o:p></o:p></span></strong></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt">The Document Manager functionality in <strong>ELab </strong>lets you upload and retrieve documents of any kind for associating with samples, results, personnel, customers, instrument maintenance tracking and a great many other things, or to print out as needed, export or email, etc. Versioning is forced where appropriate.<o:p></o:p></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt"><o:p>&#160;</o:p></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt"><strong><span style="color: blue"><span style="mso-spacerun: yes"><img alt="" align="left" width="57" height="50" src="/Portals/4/21 Inst Calib.jpg" />&#160;</span>Instrument Calibration and Maintenance <o:p></o:p></span></strong></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt">The <strong>Instruments </strong>area in <strong>ELab </strong>keeps track of all maintenance/calibration, including any uploaded receipts or other documents, and the scheduler tells you when these tasks are due to be performed. And the details defined in the Instrument information also include assigned tests, authorized analysts and the like.<o:p></o:p></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt"><o:p>&#160;</o:p></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt"><strong><span style="color: blue"><span style="mso-spacerun: yes"><img alt="" align="left" width="45" height="50" src="/Portals/4/22 Chemicals.jpg" />&#160;</span>Chemicals, Equipment, other consumables, tissues, samples, specimens, other various entities <o:p></o:p></span></strong></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt">You can organize and track each of these items, grouping them according to specific criteria (origin, supplier, assigned tests, expiry date, etc.) using one or more of <strong>ELab</strong>'s entity management functionalities, including the Inventory module, Object Tracker and others. </span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt"><o:p></o:p></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt"><o:p>&#160;</o:p></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt"><o:p></o:p></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt"><strong><span style="color: blue"><span style="mso-spacerun: yes"><img alt="" align="left" width="66" height="50" src="/Portals/4/23 Training Tracking.jpg" />&#160;</span>Training Tracking <o:p></o:p></span></strong></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt">The Training Tracking module in <strong>ELab</strong> makes sure you stay abreast of completed courses and certifications for all of your personnel, and alerts you when additional training is required to maintain certifications. Any associated documents may be uploaded into the system for easy access and organization.<o:p></o:p></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt"><o:p>&#160;</o:p></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt"><strong><span style="color: blue"><span style="mso-spacerun: yes"><img alt="" align="left" width="66" height="50" src="/Portals/4/24 Alerts.jpg" />&#160;</span>Event Driven Alerts <o:p></o:p></span></strong></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><strong><span style="font-family: Arial; font-size: 10pt">ELab </span></strong><span style="font-family: Arial; font-size: 10pt">supports any number of alert definitions, triggered according to your requirements. They may also trigger events such as emails based on user-defined criteria.<o:p></o:p></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt"><o:p>&#160;</o:p></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt"><strong><span style="color: blue"><span style="mso-spacerun: yes"><img alt="" align="left" width="66" height="50" src="/Portals/4/25 Languages.jpg" />&#160;</span>Multi-language Support <o:p></o:p></span></strong></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><strong><span style="font-family: Arial; font-size: 10pt">LabLynx' ELab </span></strong><span style="font-family: Arial; font-size: 10pt">suite supports any language through its data-driven design, making it an ideal solution for multinational businesses. And time zone differences are no issue. <strong>ELab</strong> can be configured to support all of the facets of multinational deployment, or deployment in countries where languages other than English are used or more than one language is used.<o:p></o:p></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt"><o:p>&#160;</o:p></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt"><strong><span style="color: blue"><span style="mso-spacerun: yes"><img alt="" align="left" width="49" height="50" src="/Portals/4/26 Regs.jpg" />&#160;</span>Support for industry standard compliance initiatives - ASCLD, NELAC, 21CFR11, CLIA, GALP/GAMP, HL7, HIPAA, Section 508, ISO17025, ASTM, IEEE, ACS... </span>ELab</strong> is currently deployed an many different laboratory environments, including governmental labs which involve sensitive data, like the US Customs Department, State Departments of Agriculture, Forensic labs and more. All known regulatory compliance standards are supported by the <strong>LabLynx ELab suite</strong>, including:<o:p></o:p></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt"><o:p>&#160;</o:p></span></p>
+<p style="line-height: normal; text-indent: -23pt; margin: 0in 0in 0pt 46pt; mso-layout-grid-align: none; mso-list: l0 level1 lfo1" class="MsoNormal"><span style="font-family: Symbol; color: black; font-size: 10pt; mso-fareast-font-family: Symbol; mso-bidi-font-family: Symbol"><span style="mso-list: Ignore">·<span style="font: 7pt &quot;Times New Roman&quot;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; </span></span></span><span style="font-family: Arial; color: black; font-size: 10pt">HL7: For this standard we use a translation table that any data exported to HL7-specific entities must pass through. And the <strong>ELab</strong> suite is built around XML, leveraging it to embrace the technologies of the future now in a service-oriented architecture, or SOA. LabLynx was the very first true web browser based LIMS, and continues to lead the industry in technology.<o:p></o:p></span></p>
+<p style="line-height: normal; text-indent: -23pt; margin: 0in 0in 0pt 46pt; mso-layout-grid-align: none; mso-list: l0 level1 lfo1" class="MsoNormal"><span style="font-family: Symbol; color: black; font-size: 10pt; mso-fareast-font-family: Symbol; mso-bidi-font-family: Symbol"><span style="mso-list: Ignore">·<span style="font: 7pt &quot;Times New Roman&quot;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; </span></span></span><span style="font-family: Arial; color: black; font-size: 10pt">21 CFR Part 11 and 40 CFR 3: <strong>ELab</strong> meets FDA and EPA requirements in that electronic signatures and documents are stored in the system database and only accessible by authorized personnel based on login. These data are securely and accurately transmitted to appropriate parties in whatever ways are mandated, including the interfacing to systems like STORET, WARN, eLEXNET and others for reporting and data sharing with state and federal departments and agencies. <o:p></o:p></span></p>
+<p style="line-height: normal; text-indent: -23pt; margin: 0in 0in 0pt 46pt; mso-layout-grid-align: none; mso-list: l0 level1 lfo1" class="MsoNormal"><span style="font-family: Symbol; color: black; font-size: 10pt; mso-fareast-font-family: Symbol; mso-bidi-font-family: Symbol"><span style="mso-list: Ignore">·<span style="font: 7pt &quot;Times New Roman&quot;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; </span></span></span><span style="font-family: Arial; color: black; font-size: 10pt">Section 508: In the case of a federal agency needing to meet this regulation, the <strong>LabLynx ELab suite</strong> offers the best disabled accessibility available since it is Windows browser based and thus configurable to the Microsoft Windows accessibility options native to that operating system.<o:p></o:p></span></p>
+<p style="line-height: normal; text-indent: -23pt; margin: 0in 0in 0pt 46pt; mso-layout-grid-align: none; mso-list: l0 level1 lfo1" class="MsoNormal"><span style="font-family: Symbol; color: black; font-size: 10pt; mso-fareast-font-family: Symbol; mso-bidi-font-family: Symbol"><span style="mso-list: Ignore">·<span style="font: 7pt &quot;Times New Roman&quot;">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; </span></span></span><span style="font-family: Arial; color: black; font-size: 10pt">ISO/IEC 17025: Compliance with this laboratory management standard will also fulfill the more generic ISO 9001. The items for accreditation are both managerial and technical, and are aimed at traceability, standardization and consistency. The <strong>ELab</strong> suite supports these elements in all of the applicable areas, applying methodologies evenly across different procedures and tracking all data necessary to support the lab in meeting this standard.<o:p></o:p></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt"><o:p>&#160;</o:p></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt"><strong><span style="color: blue"><span style="mso-spacerun: yes"><img alt="" align="left" width="50" height="50" src="/Portals/4/27 Version Control.jpg" />&#160;</span>Version Control of Tests, parameters, limits, reports, configuration changes, software upgrades, etc. <o:p></o:p></span></strong></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt">In compliance with GALP and other laboratory standards, <strong>ELab</strong> forces versioning on all relevant changes to information in the system. All changes are date time-stamped, and further information is captured as discussed in Audit Trails, above. All software upgrades are also version controlled and targeted to the COTS application so that custom laboratory modifications or additions are not affected.<o:p></o:p></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><strong><span style="font-family: Arial; color: blue; font-size: 10pt"><o:p>&#160;</o:p></span></strong></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt"><strong><span style="color: blue"><span style="mso-spacerun: yes"><img align="left" width="60" height="50" alt="" src="/Portals/4/28 User Config.jpg" />&#160;</span>User Configurable Database Tables, Fields and other DB objects, Screens, Calculations, Workflow, Business Logic, Reports, Charts, External System Interfaces <o:p></o:p></span></strong></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt">Because of <strong>ELab</strong>'s data-driven design, virtually every aspect of the application is user-configurable.<span style="mso-spacerun: yes">&#160; </span>Using the Ad Hoc Query tool and <strong>ELab</strong>'s native API database connection, you can query any table and bring back data filtered and sorted according to your requirements, whether you know SQL or not. These data can then be used to create a new view in the system from which to generate reports, export to Excel and perform further calculations and/or chart trends, etc.<span style="color: blue"> </span>For interfacing with other systems, you can use ODBC (ADO) to configure whatever types of transactions are required.<o:p></o:p></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt"><o:p>&#160;</o:p></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt"><strong><span style="color: blue"><span style="mso-spacerun: yes"><img align="left" width="52" height="50" alt="" src="/Portals/4/29 Config Tests.jpg" />&#160;</span>Configurable Tests, parameters, limits, etc. <o:p></o:p></span></strong></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt">LabLynx has designed <strong>ELab</strong> to fit your workflow, rather than make you change your ways of doing things to suit the software. Only with <strong>ELab</strong> you can do more, and much more quickly and easily. Define processes, tests, sample or batch paths and all of the associated parameters/limits. And you can link them to particular customers, sample types, routes (water/wastewater) or any other entities that make sense for your operation. And once you do, feel free to change them anytime you like; they are not hard-coded.<o:p></o:p></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><strong><span style="font-family: Arial; color: blue; font-size: 10pt"><o:p>&#160;</o:p></span></strong></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt"><strong><span style="color: blue"><span style="mso-spacerun: yes"><img align="left" width="52" height="50" alt="" src="/Portals/4/30 Security.jpg" />&#160;</span>Configurable Security <o:p></o:p></span></strong></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt">In any lab there will always be a need to control access to results data, tests, documents and many other items or procedures, and in some labs it's more critical than others. <strong>ELab </strong>allows you to configure your access and permissions from micro to macro level. From individual screens, tests or processes, to department or laboratory location, user access can be precisely defined -- which also means you can safely offer customer access to their own appropriate data and/or functions.<o:p></o:p></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt"><o:p>&#160;</o:p></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt"><strong><span style="color: blue"><span style="mso-spacerun: yes"><img align="left" width="46" height="50" alt="" src="/Portals/4/31 Data Mining.jpg" />&#160;</span>Data Mining and Data Warehouse <o:p></o:p></span></strong></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><strong><span style="font-family: Arial; font-size: 10pt">ELab </span></strong><span style="font-family: Arial; font-size: 10pt">contains a direct user access to the database for quick and easy retrieval of data from any table, and impromptu construction of views and reports based on that query. Records are stored automatically to appropriate tables and displayed according to user-specified criteria.</span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal">&#160;</p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal">&#160;</p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt"><v:shapetype id="_x0000_t75" stroked="f" filled="f" path="m@4@5l@4@11@9@11@9@5xe" o:preferrelative="t" o:spt="75" coordsize="21600,21600"><v:stroke joinstyle="miter"></v:stroke><v:formulas><v:f eqn="if lineDrawn pixelLineWidth 0"></v:f><v:f eqn="sum @0 1 0"></v:f><v:f eqn="sum 0 0 @1"></v:f><v:f eqn="prod @2 1 2"></v:f><v:f eqn="prod @3 21600 pixelWidth"></v:f><v:f eqn="prod @3 21600 pixelHeight"></v:f><v:f eqn="sum @0 0 1"></v:f><v:f eqn="prod @6 1 2"></v:f><v:f eqn="prod @7 21600 pixelWidth"></v:f><v:f eqn="sum @8 21600 0"></v:f><v:f eqn="prod @7 21600 pixelHeight"></v:f><v:f eqn="sum @10 21600 0"></v:f></v:formulas><v:path o:connecttype="rect" gradientshapeok="t" o:extrusionok="f"></v:path><o:lock aspectratio="t" v:ext="edit"></o:lock></v:shapetype><strong><span style="color: blue"><span style="mso-spacerun: yes"><img alt="" align="left" width="72" height="50" src="/Portals/4/Last Knowledge Mgt.jpg" />&#160;</span>Knowledge Management <o:p></o:p></span></strong></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal"><span style="font-family: Arial; font-size: 10pt">The <strong>ELab </strong>suite is really your way of storing and accessing <em>all </em>of the knowledge/information that exists in a laboratory today. Sample tracking is only one small part of its overall functionality. Results, reports, trending, emails, pricing, invoicing, observational and other general notes, training and instrument maintenance tracking... The list goes on, and represents the entirety of informatics in the laboratory or laboratory-related enterprise.<o:p></o:p></span></p>
+<p style="line-height: normal; margin: 0in 0in 0pt 23pt; mso-layout-grid-align: none" class="MsoNormal">&#160;</p>
+</div>
+<!-- End_Module_681 -->
+	</div></span>
+ </div></div><br>
+
+<!-- End_Module_758 -->
+</div></span>
+<a name="541"></a>
+
+<table width="100%" height="5" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td height="5"><img src="/Portals/_default/Containers/Populusion-Black/images/spacer.gif" width="5" height="5" alt=""></td>
+  </tr>
+</table>
+<table width="100%" height="65" border="0" align="center" cellpadding="0" cellspacing="0" id="Table_01">
+  <tr>
+    <td width="10" height="39"><img src="/Portals/_default/Containers/Populusion-Black/images/ppl5_01.png" width="15" height="42" alt=""></td>
+    <td height="39" valign="bottom" background="/Portals/_default/Containers/Populusion-Black/images/ppl5_02.png"><TABLE width="100%" height="24" border="0" align="center" cellpadding="0" cellspacing="0">
+      <TR>
+        <TD height="38" nowrap></TD>
+        <TD width="100%" height="38" nowrap>&nbsp;<span id="dnn_ctr541_dnnTITLE_lblTitle" class="TitleBlack_PPL5">Contact Us</span>
+
+
+</TD>
+        <TD height="38" nowrap><a id="dnn_ctr541_dnnVISIBILITY_cmdVisibility" title="Minimize" href="javascript:__doPostBack('dnn$ctr541$dnnVISIBILITY$cmdVisibility','')"><img id="dnn_ctr541_dnnVISIBILITY_imgVisibility" title="Minimize" src="/Portals/_default/Containers/Populusion-Black/images/min.gif" alt="Minimize" border="0" /></a></TD>
+      </TR>
+    </TABLE></td>
+    <td width="10" height="39"><img src="/Portals/_default/Containers/Populusion-Black/images/ppl5_03.png" width="15" height="42" alt=""></td>
+  </tr>
+  <tr>
+    <td width="10" height="1" background="/Portals/_default/Containers/Populusion-Black/images/ppl5_04.png"><img src="/Portals/_default/Containers/Populusion-Black/images/spacer.gif" width="10" height="1" alt=""></td>
+    <td valign="top"><table width="100%" height="2" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr>
+        <td id="dnn_ctr541_ContentPane" height="2" valign="top" style="padding-BOTTOM: 8px; padding-TOP: 0px; padding-LEFT: 8px; padding-RIGHT: 8px;" class="DNNAlignleft"><!-- Start_Module_541 --><div id="dnn_ctr541_ModuleContent">
+	<div id="dnn_ctr541_HtmlModule_HtmlModule_lblContent" class="Normal">
+	<p>
+<table border="0" cellspacing="1" cellpadding="5" width="100%" align="center">
+    <tbody>
+        <tr>
+            <td valign="top"><a target="_self" href="http://www.lablynx.com"><img style="width: 226px; height: 98px" border="0" alt="" width="205" height="92" src="/Portals/4/92x205-LLX.jpg" /></a></td>
+            <td bgcolor="#f5f5dc" valign="top" align="left">
+            <p style="margin: 4px 2px; word-spacing: 4px"><span style="font-family: arial; font-size: 10pt; font-weight: bold">Physical Address:</span></p>
+            <p style="margin: 2px; word-spacing: 2px"><span style="font-family: arial; font-size: 10pt"><span class="603305921-06122010"><font size="1">2400 Lake Park Drive</font></span></span></p>
+            <span style="font-family: arial; font-size: 10pt"><span class="603305921-06122010"><font size="1">
+            <div align="left"><font size="1"><span class="603305921-06122010">S</span>uite&#160;<span class="603305921-06122010">435</span><br />
+            <span class="603305921-06122010">Smyrna</span>, Georgia 30<span class="603305921-06122010">080</span></font></div>
+            <p style="margin: 2px; word-spacing: 2px">&#160;</p>
+            <p style="margin: 2px; word-spacing: 2px"><span style="font-family: arial; font-size: 10pt"><a target="_blank" href="http://maps.google.com/maps?q=2400+lake+park+drive,+smyrna,+ga+30080&amp;oe=UTF-8&amp;ie=UTF8&amp;hl=en&amp;hq=&amp;hnear=2400+Lake+Park+Dr+SE,+Smyrna,+Cobb,+Georgia+30080&amp;z=16"><strong>Click Here for Map</strong></a></span></p>
+            </font></span></span></td>
+            <td bgcolor="#f5f5dc" valign="top">
+            <div style="margin: 4px 2px; word-spacing: 4px"><span style="font-family: arial; font-size: 10pt; font-weight: bold">Mailing Address:</span></div>
+            <div style="margin: 2px; word-spacing: 2px"><span style="font-family: arial; font-size: 10pt"><font size="1">P.O. Box 724207</font></span></div>
+            <div style="margin: 2px; word-spacing: 2px"><span style="font-family: arial; font-size: 10pt"><font size="1">Atlanta, GA 31139</font></span></div>
+            </td>
+            <td bgcolor="#f5f5dc" valign="top">
+            <div style="margin: 4px 2px; word-spacing: 4px"><span style="font-family: arial; font-size: 10pt; font-weight: bold">Telephone:</span></div>
+            <div style="margin: 2px; word-spacing: 2px"><span style="font-family: Arial; font-size: 10pt"><font size="1">1-866-LABLYNX</font></span></div>
+            <div style="margin: 2px; word-spacing: 2px"><span style="font-family: Arial; font-size: 10pt"><font size="1">Main:&#160;770-859-1992</font></span></div>
+            <div style="margin: 2px; word-spacing: 2px"><span style="font-family: Arial; font-size: 10pt"><font size="1">FAX:&#160;&#160;678-391-6982</font></span></div>
+            </td>
+            <td bgcolor="#f5f5dc" valign="top">
+            <div style="margin: 4px 2px; word-spacing: 4px"><span style="font-family: Arial; font-size: 10pt; font-weight: bold">Internet Contact:</span></div>
+            <div style="margin: 4px 2px; word-spacing: 4px"><span style="font-family: Arial; font-size: 10pt"><a href="javascript:window.location.replace('ma'+'ilto:'+'sales'+'@'+'lablynx'+'.com')"><font color="#000000" size="1">sales@lablynx.com</font></a></span></div>
+            <div style="margin: 4px 2px; word-spacing: 4px"><span style="font-family: Arial; font-size: 10pt"><a href="http://www.lablynx.com/"><font size="1">www.lablynx.com</font></a></span></div>
+            <span style="font-family: Arial; font-size: 10pt">
+            <div style="margin: 2px; word-spacing: 2px"><span style="font-family: arial; font-size: 10pt"><strong><u><a href="/LinkClick.aspx?link=260&amp;tabid=184">Request Information</a></u></strong></span></div>
+            </span></td>
+        </tr>
+    </tbody>
+</table>
+</p>
+</div>
+<!-- End_Module_541 -->
+</div></td>
+
+      </tr>
+    </table>
+        <TABLE width="100%" border="0" cellpadding="0" cellspacing="0">
+          <TR>
+            <TD align="left" valign="top" nowrap></TD>
+            <TD align="right" valign="top" nowrap>&nbsp;&nbsp;</TD>
+          </TR>
+      </TABLE></td>
+    <td width="10" height="1" background="/Portals/_default/Containers/Populusion-Black/images/ppl5_06.png"><img src="/Portals/_default/Containers/Populusion-Black/images/spacer.gif" width="10" height="1" alt=""></td>
+  </tr>
+  <tr>
+    <td width="10" height="7"><img src="/Portals/_default/Containers/Populusion-Black/images/ppl5_07.png" width="15" height="12" alt=""></td>
+    <td height="7" background="/Portals/_default/Containers/Populusion-Black/images/ppl5_08.png"><img src="/Portals/_default/Containers/Populusion-Black/images/spacer.gif" width="1" height="7" alt=""></td>
+    <td width="10" height="7"><img src="/Portals/_default/Containers/Populusion-Black/images/ppl5_09.png" width="15" height="12" alt=""></td>
+  </tr>
+</table>
+<!-- End ImageReady Slices -->
+
+</td>
+
+              </tr>
+            </table>
+            <table id="Table_4" width="100%" height="44" border="0" cellpadding="0" cellspacing="0">
+              <tr>
+                <td width="10" height="44"><img src="/Portals/_default/Skins/Populusion-Horizontal_Black/images/footer_01.png" width="10" height="44" alt="" /></td>
+                <td height="44" background="/Portals/_default/Skins/Populusion-Horizontal_Black/images/footer_02.png"><table width="96%" border="0" align="center" cellpadding="0" cellspacing="0">
+                    <!--DWLayoutTable-->
+                    <tr>
+                      <td valign="bottom"> <span id="dnn_dnnCOPYRIGHT_lblCopyright" class="copyright">Copyright 2000 - 2010, LabLynx, Inc.</span>
+</td>
+                      <td valign="bottom"><div align="right"><a id="dnn_dnnPRIVACY_hypPrivacy" class="terms" href="http://lablynx.com/Home/tabid/184/ctl/Privacy/Default.aspx">Privacy Statement</a> | <a id="dnn_dnnTERMS_hypTerms" class="terms" href="http://lablynx.com/Home/tabid/184/ctl/Terms/Default.aspx">Terms Of Use</a> </div></td>
+                    </tr>
+                </table></td>
+                <td width="10" height="44"><img src="/Portals/_default/Skins/Populusion-Horizontal_Black/images/footer_03.png" width="10" height="44" alt="" /></td>
+              </tr>
+            </table>
+          </td>
+          <td width="15" bgcolor="#FFFFFF"><img src="/Portals/_default/Skins/Populusion-Horizontal_Black/images/spacer.gif" width="15" height="1" alt=""></td>
+        </tr>
+      </table>      
+      <table width="100%" height="12" border="0" align="center" cellpadding="0" cellspacing="0" id="Table_3">
+        <tr>
+          <td width="17" height="12"><img src="/Portals/_default/Skins/Populusion-Horizontal_Black/images/ppl_10.png" width="17" height="12" alt="" /></td>
+          <td height="12" bgcolor="#FFFFFF"><img src="/Portals/_default/Skins/Populusion-Horizontal_Black/images/spacer.gif" width="17" height="1" alt="" /></td>
+          <td width="15" height="12"><img src="/Portals/_default/Skins/Populusion-Horizontal_Black/images/ppl_12.png" width="16" height="12" alt="" /></td>
+        </tr>
+      </table>
+      <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          
+        </tr>
+      </table>
+      </td>
+  </tr>
+</table>
+<!-- End ImageReady Slices -->
+</body>
+</html>
+
+        <input name="ScrollTop" type="hidden" id="ScrollTop" />
+        <input name="__dnnVariable" type="hidden" id="__dnnVariable" />
+    
+
+<script type="text/javascript">
+//<![CDATA[
+jQuery.noConflict();//]]>
+</script>
+<script type="text/javascript">
+eval(function(p,a,c,k,e,d){e=function(c){return(c<a?"":e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--)d[e(c)]=k[c]||e(c);k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1;};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p;}('6 9=l.m(\'j\');k(6 i=0;i<9.h;i++){6 1=9[i];6 8=f(1.e(\'8\',2));7(/(.*)#5\\[([^\\,]+)(\\,.+)?\\]/.g(8)){1.v="t";1.s=4.$2;u{7(4.$3==\',b\')1.b=5[4.$2];c 7(4.$3==\',a\')1.a=5[4.$2];c{1.a=5[4.$2]}}n(p){}}}r q(d){o(d)}',32,32,'|link|||RegExp|LiveContent|var|if|href|links|onclick|onmouseover|else|data|getAttribute|decodeURIComponent|exec|length||A|for|document|getElementsByTagName|catch|eval|err|LCLaunchCallTag|function|id|highslide|try|className'.split('|'),0,{}))
+ </script>
+<script type="text/javascript">
+eval(function(p,a,c,k,e,d){e=function(c){return(c<a?"":e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--)d[e(c)]=k[c]||e(c);k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1;};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p;}('e(3.4.2.5(\'#6[\',0)>-1){c(\'b://d.8/a/9/7.k\',\'j=l&i=\'+3.4.2.f(3.4.2.5(\'#6[\',0)),g,h)}',22,22,'||href|window|location|indexOf|LiveContent|clientsession|com|livecontent|desktopmodules|http|LCAjax|lablynx|if|substring|LCLaunchCallTag|null|calltag|modId|aspx|758'.split('|'),0,{}))
+ </script>
+</form>
+</body>
+</html>

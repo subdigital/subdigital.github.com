@@ -1,0 +1,928 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Fickle Bits</title>
+  <meta name="author" content="Ben Scheirman">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="canonical" href="http://benscheirman.com/blog/page/13/index.html"/>
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/ficklebits" rel="alternate" title="Fickle Bits" type="application/atom+xml"/>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-210379-10']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">Fickle Bits</a></h1>
+  
+    <h2>You're doing it wrong.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/ficklebits" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:benscheirman.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/07/controller-is-not-the-new-code-behind/">Controller Is NOT the New Code-Behind</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2008-07-26 00:00:00 -0500" pubdate  updated >Jul 26<span>th</span>, 2008</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>One of the things that I often say when touting the benefits of ASP.NET MVC is clean separation of concerns.&#160; I talk about how the code-behind of WebForms is just <em>begging</em> you to put code there.&#160; Samples online frequently open direct database connections and execute ad-hoc queries against the database from a button-click event.</p>
+
+
+<p>Of course the same is possible with ASP.NET MVC.&#160; Just taking a peak at the new Preview 4 installer, you’ll see a brand-spanking new AccountController, pre-built for managing logins/membership on your site.</p>
+
+
+<p>Open AccountController.cs and you’ll find this method:</p>
+
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>[Authorize]&lt;span class="kwrd">public&lt;/span> ActionResult ChangePassword(&lt;span class="kwrd">string&lt;/span> currentPassword, &lt;span class="kwrd">string&lt;/span> newPassword, &lt;span class="kwrd">string&lt;/span> confirmPassword){ViewData[&lt;span class="str">&quot;Title&quot;&lt;/span>] = &lt;span class="str">&quot;Change Password&quot;&lt;/span>;ViewData[&lt;span class="str">&quot;PasswordLength&quot;&lt;/span>] = Provider.MinRequiredPasswordLength;&lt;span class="rem">// Non-POST requests should just display the ChangePassword form &lt;/span>&lt;span class="kwrd">if&lt;/span> (Request.HttpMethod != &lt;span class="str">&quot;POST&quot;&lt;/span>){&lt;span class="kwrd">return&lt;/span> View();}&lt;span class="rem">// Basic parameter validation&lt;/span>List&lt;&lt;span class="kwrd">string&lt;/span>&gt; errors = &lt;span class="kwrd">new&lt;/span> List&lt;&lt;span class="kwrd">string&lt;/span>&gt;();&lt;span class="kwrd">if&lt;/span> (String.IsNullOrEmpty(currentPassword)){errors.Add(&lt;span class="str">&quot;You must specify a current password.&quot;&lt;/span>);}&lt;span class="kwrd">if&lt;/span> (newPassword == &lt;span class="kwrd">null&lt;/span> || newPassword.Length &lt; Provider.MinRequiredPasswordLength){errors.Add(String.Format(CultureInfo.InvariantCulture, &lt;span class="str">&quot;You must specify a new password of {0} or more characters.&quot;&lt;/span>, Provider.MinRequiredPasswordLength));}&lt;span class="kwrd">if&lt;/span> (!String.Equals(newPassword, confirmPassword, StringComparison.Ordinal)){errors.Add(&lt;span class="str">&quot;The new password and confirmation password do not match.&quot;&lt;/span>);}&lt;span class="kwrd">if&lt;/span> (errors.Count == 0){&lt;span class="rem">// Attempt to change password&lt;/span>MembershipUser currentUser = Provider.GetUser(User.Identity.Name, &lt;span class="kwrd">true&lt;/span> &lt;span class="rem">/* userIsOnline */&lt;/span>);&lt;span class="kwrd">bool&lt;/span> changeSuccessful = &lt;span class="kwrd">false&lt;/span>;&lt;span class="kwrd">try&lt;/span>{changeSuccessful = currentUser.ChangePassword(currentPassword, newPassword);}&lt;span class="kwrd">catch&lt;/span>{&lt;span class="rem">// An exception is thrown if the new password does not meet the provider's requirements&lt;/span>}&lt;span class="kwrd">if&lt;/span> (changeSuccessful){&lt;span class="kwrd">return&lt;/span> RedirectToAction(&lt;span class="str">&quot;ChangePasswordSuccess&quot;&lt;/span>);}&lt;span class="kwrd">else&lt;/span>{errors.Add(&lt;span class="str">&quot;The current password is incorrect or the new password is invalid.&quot;&lt;/span>);}}&lt;span class="rem">// If we got this far, something failed, redisplay form&lt;/span>ViewData[&lt;span class="str">&quot;errors&quot;&lt;/span>] = errors;&lt;span class="kwrd">return&lt;/span> View();}</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>That’s nearly 70 lines in a single method.&#160; Even with the comments it’s difficult to see what it’s doing at a glance.</p>
+
+
+<p>This serves as a lesson to those of us that sell TDD as a design practice.&#160; Sure this method is testable, but it seems as though the author did not take a few minutes to refactor code.&#160; Normally I wouldn’t pick on someone for writing this, but when this is installed as a project template, it serves as an example for others to write code just like this.</p>
+
+
+<p>Let’s see how we might clean this code up to make it more readable.</p>
+
+
+<p>Here’s a good first attempt.&#160; This took all of about 5 minutes to accomplish.</p>
+
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>[Authorize]&lt;span class="kwrd">public&lt;/span> ActionResult ChangePassword(&lt;span class="kwrd">string&lt;/span> currentPassword, &lt;span class="kwrd">string&lt;/span> newPassword, &lt;span class="kwrd">string&lt;/span> confirmPassword){ViewData[&lt;span class="str">&quot;Title&quot;&lt;/span>] = &lt;span class="str">&quot;Change Password&quot;&lt;/span>;ViewData[&lt;span class="str">&quot;PasswordLength&quot;&lt;/span>] = Provider.MinRequiredPasswordLength;&lt;span class="rem">// Non-POST requests should just display the ChangePassword form &lt;/span>&lt;span class="kwrd">if&lt;/span> (Request.HttpMethod != &lt;span class="str">&quot;POST&quot;&lt;/span>){&lt;span class="kwrd">return&lt;/span> View();}var errors = &lt;span class="kwrd">new&lt;/span> List&lt;&lt;span class="kwrd">string&lt;/span>&gt;();ValidatePassword(currentPassword, newPassword, confirmPassword, errors);&lt;span class="kwrd">if&lt;/span> (errors.Count == 0){&lt;span class="kwrd">const&lt;/span> &lt;span class="kwrd">bool&lt;/span> isOnline = &lt;span class="kwrd">true&lt;/span>;var currentUser = Provider.GetUser(User.Identity.Name, isOnline);&lt;span class="kwrd">if&lt;/span>( PerformPasswordChange(currentUser, currentPassword, newPassword)){&lt;span class="kwrd">return&lt;/span> RedirectToAction(&lt;span class="str">&quot;ChangePasswordSuccess&quot;&lt;/span>);}errors.Add(&lt;span class="str">&quot;The current password is incorrect or the new password is invalid.&quot;&lt;/span>); }&lt;span class="rem">// If we got this far, something failed, redisplay form&lt;/span>ViewData[&lt;span class="str">&quot;errors&quot;&lt;/span>] = errors;&lt;span class="kwrd">return&lt;/span> View();}&lt;span class="kwrd">private&lt;/span> &lt;span class="kwrd">bool&lt;/span> PerformPasswordChange(MembershipUser user, &lt;span class="kwrd">string&lt;/span> currentPassword, &lt;span class="kwrd">string&lt;/span> newPassword){&lt;span class="kwrd">try&lt;/span>{user.ChangePassword(currentPassword, newPassword);&lt;span class="kwrd">return&lt;/span> &lt;span class="kwrd">true&lt;/span>;}&lt;span class="kwrd">catch&lt;/span>{&lt;span class="kwrd">return&lt;/span> &lt;span class="kwrd">false&lt;/span>;}}&lt;span class="kwrd">private&lt;/span> &lt;span class="kwrd">void&lt;/span> ValidatePassword(&lt;span class="kwrd">string&lt;/span> currentPassword, &lt;span class="kwrd">string&lt;/span> newPassword, &lt;span class="kwrd">string&lt;/span> confirmPassword, ICollection&lt;&lt;span class="kwrd">string&lt;/span>&gt; errors){&lt;span class="kwrd">if&lt;/span> (String.IsNullOrEmpty(currentPassword)){errors.Add(&lt;span class="str">&quot;You must specify a current password.&quot;&lt;/span>);}&lt;span class="kwrd">if&lt;/span> (newPassword == &lt;span class="kwrd">null&lt;/span> || newPassword.Length &lt; Provider.MinRequiredPasswordLength){errors.Add(String.Format(CultureInfo.InvariantCulture,&lt;span class="str">&quot;You must specify a new password of {0} or more characters.&quot;&lt;/span>,Provider.MinRequiredPasswordLength));}&lt;span class="kwrd">if&lt;/span> (!String.Equals(newPassword, confirmPassword, StringComparison.Ordinal)){errors.Add(&lt;span class="str">&quot;The new password and confirmation password do not match.&quot;&lt;/span>);}}</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>This code (while still completely in the controller class) is broken apart into distinct methods.&#160; This reduces the line count on the action method to 26, which is much easier to swallow.&#160; I’m sure you see even more opportunities for improvement here.&#160; Some of this code probably belongs in another, completely separate class (one that is even more easily tested that this).</p>
+
+
+<p>My point is, always remember to include time for refactoring.&#160; Especially when the result of your work will stand for thousands to learn from.</p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2008/07/controller-is-not-the-new-code-behind/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/07/net-dojo-free-hands-on-training-for-asp-net-mvc/">.NET Dojo - Free Hands on Training for ASP.NET MVC</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2008-07-23 00:00:00 -0500" pubdate  updated >Jul 23<span>rd</span>, 2008</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://flux88.com/uploads/.NETDojoFreeHandsOnTrainingforASP.NETMVC_101DD/dojo.png"><img style="border-right: 0px; border-top: 0px; border-left: 0px; border-bottom: 0px" height="247" alt="dojo" src="http://flux88.com/uploads/.NETDojoFreeHandsOnTrainingforASP.NETMVC_101DD/dojo_thumb.png" width="571" border="0"></a>&nbsp;</p>
+
+
+<p> <p>I&#8217;m a little late on this notice (luckily <a href="http://blog.microsoft-j.net/2008/07/22/NETDojoASPNETMVC.aspx" target="_blank">J Sawyer already posted about it</a>) but I&#8217;m going to be hosting a .NET Dojo class at the Microsoft office in Houston.</p> <p>The class will be a free half day session where we will dig into ASP.NET MVC.&nbsp; I&#8217;ll cover the basic principles of the MVC pattern, why you might want to use it over WebForms, how to leverage Ajax and how to apply test driven design practices with the framework.</p> <h3><strong>You&#8217;ll need:</strong></h3> <ul> <li>a laptop</li> <li>Visual Studio 2008 (trial is okay)</li> <li><a href="http://www.codeplex.com/aspnet" target="_blank">ASP.NET MVC Preview 4</a></li> <li><a href="http://mvccontrib.org" target="_blank">MVCContrib</a></li> <li>A CD ROM Drive to load any lab materials</li> <li>an open mind&#8230;</li></ul> <h3><strong>When?</strong></h3> <p>August 28, 2008<br>1pm-5pm</p> <h3><strong>Where?</strong></h3> <p>Microsoft Office<br><a href="http://maps.google.com/maps?hl=en&amp;um=1&amp;ie=UTF-8&amp;q=2000+W+Sam+Houston+Pky+S+Houston,+TX+77042&amp;fb=1&amp;geocode=5943154917722953552,29.744069,-95.558439&amp;oi=manybox&amp;ct=14&amp;cd=1&amp;resnum=1" target="_blank">2000 W Sam Houston Pkwy</a></p> <h3><strong>How do I register?</strong></h3> <p><a title="http://msevents.microsoft.com/CUI/EventDetail.aspx?EventID=1032383675&amp;Culture=en-US" href="http://msevents.microsoft.com/CUI/EventDetail.aspx?EventID=1032383675&amp;Culture=en-US">http://msevents.microsoft.com/CUI/EventDetail.aspx?EventID=1032383675&amp;Culture=en-US</a></p> <p>Space is limited, so first come first served!</p></p>
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2008/07/net-dojo-free-hands-on-training-for-asp-net-mvc/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/07/upgrading-code-camp-server-to-preview-4-part-2/">Upgrading Code Camp Server to Preview 4 - Part 2</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2008-07-18 00:00:00 -0500" pubdate  updated >Jul 18<span>th</span>, 2008</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://flux88.com/UpgradingCodeCampServerToPreview4.aspx">Last time</a> I went through some steps to upgrade Code Camp Server to the latest version of the <a href="http://codeplex.com/aspnet">ASP.NET MVC Framework</a>.&nbsp; I had to stop because <a href="http://mvccontrib.org">MVCContrib</a> hadn&#8217;t been upgraded yet.&nbsp; Now that their <a href="http://www.codeplex.com/MVCContrib/Release/ProjectReleases.aspx?ReleaseId=15416">4.0 release is out</a>, I can continue.</p>
+
+
+<p> <h2>Final Changes</h2> <p>I updated the mvccontrib binaries in our /bin folder and then ran all of the tests.&nbsp; All of the tests passed.&nbsp; Running the site I came to find a few errors in our views that referenced ComponentController (which should have been caught with tests&#8230; <em>Note to self:&nbsp; precompile the site in the NAnt build&#8230;</em>).</p> <p>&nbsp;</p> <p>&#8230;.And the site is alive again!</p> <p><a href="http://flux88.com/uploads/UpgradingCodeCampServertoPreview4Part2_133EE/sitelive.png"><img src="/images/sitelive_thumb_.png" alt="site-live"  border="0" /></a> </p> <p>We&#8217;re now done with the upgrade, all tests are passing, and we need to commit our final changes to the branch we created in part 1.</p> <p><a href="http://flux88.com/uploads/UpgradingCodeCampServertoPreview4Part2_133EE/svncommit.png"><img src="/images/svncommit_thumb_.png" alt="svn-commit"  border="0" /></a> </p> <p>Now we&#8217;re ready to merge our changes back into the trunk.&nbsp; </p> <h2>Merging the branch back to the trunk</h2> <p>To do this we will switch back over to the trunk with TortoiseSVN.</p> <p><a href="http://flux88.com/uploads/UpgradingCodeCampServertoPreview4Part2_133EE/switchbacktotrunk.png"><img src="/images/switchbacktotrunk_thumb_.png" alt="switch-back-to-trunk"  border="0" /></a> </p> <p>Next, we open the Merge dialog from within the trunk.&nbsp; With TortoiseSVN you&#8217;re always merging from another branch to your current working copy.</p> <p>TortoiseSVN asks you how you want to merge your changes.&nbsp; What we&#8217;ve done is directly described in the second option, so we&#8217;ll choose that.</p> <p><a href="http://flux88.com/uploads/UpgradingCodeCampServertoPreview4Part2_133EE/mergeoptions1.png"><img src="/images/mergeoptions1_thumb_.png" alt="merge-options1"  border="0" /></a> </p> <p>Next we select the branch from where we&#8217;d like to pull the changes&#8230;</p> <p><a href="http://flux88.com/uploads/UpgradingCodeCampServertoPreview4Part2_133EE/mergeoptions2.png"><img src="/images/mergeoptions2_thumb_.png" alt="merge-options2"  border="0" /></a>&nbsp;</p> <p>The last dialog has some other options for you, but the defaults will be fine for us.</p> <p><a href="http://flux88.com/uploads/UpgradingCodeCampServertoPreview4Part2_133EE/image.png"><img src="/images/image_thumb_.png" alt="image"  border="0" /></a>&nbsp;</p> <p>Now click on merge &amp; cross your fingers!</p> <p><a href="http://flux88.com/uploads/UpgradingCodeCampServertoPreview4Part2_133EE/mergeerror.png"><img src="/images/mergeerror_thumb_.png" alt="merge-error"  border="0" /></a> </p> <h3>Doh! </h3> <p> We get an error because googlecode doesn&#8217;t yet support subversion 1.5.&nbsp; Well that sucks, <em>who planned this blog post anyway</em>?</p> <p>Time to drop down to command line to do the merge.&nbsp; That&#8217;s right, don&#8217;t be afraid of the command line.&nbsp; The first thing to do is to find out the revision that the code was branched.&nbsp; You can do that with a command on the branch working copy itself, by typing:</p></p>
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>svn log --stop-on-copy</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>or I can cheat and look at the screen shot of the merge in part 1.&nbsp; I can see that the revision is 265.&nbsp; Now, back on the trunk I can type:</p>
+
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>svn merge -r 265:HEAD href="http://codecampserver.googlecode.com/svn/branches/mvcpreview4upgrade</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>The result:</p>
+
+
+<p><a href="http://flux88.com/uploads/UpgradingCodeCampServertoPreview4Part2_133EE/cmdlinemerge.png"><img src="/images/cmdlinemerge_thumb_.png" alt="cmd-line-merge"  border="0" /></a> </p>
+
+
+<p>Running the tests again just to make sure everything worked, and it does!</p>
+
+
+<p>Now to commit our changes into the trunk&#8230;</p>
+
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>svn commit -m "integrating preview4 branch"</div></code></pre></td></tr></table></div></figure></div>
+
+
+<h2>&#8230;And we&#8217;re done!</h2>
+
+
+<p>I hope that my play-by-play upgrade has been helpful.&nbsp; Dealing with frequent updates to the projects we use is a price that we pay for the rapidly changing environment that we live in.&nbsp; Now, off to play with Preview 4 new features and hopefully get to delete some of our newly obsoleted code!</p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2008/07/upgrading-code-camp-server-to-preview-4-part-2/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/07/upgrading-code-camp-server-to-preview-4/">Upgrading Code Camp Server to Preview 4</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2008-07-17 00:00:00 -0500" pubdate  updated >Jul 17<span>th</span>, 2008</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I&#8217;m currently upgrading <a href="http://codecampserver.org">Code Camp Server</a> to <a href="http://codeplex.com/aspnet">Preview 4</a>, and I thought it might be useful to some to see how to go about managing a (somewhat) volatile upgrade to a project.</p>
+
+
+<p> <h2>Step 1: Create a branch for your work</h2> <p>You don&#8217;t want these changes to break the build or anyone else&#8217;s pending changes.&nbsp; Often times in a long, complicated upgrade there will be many parts that need fixing and you can&#8217;t do it in one sitting.&nbsp; Creating a branch for your changes isolates you from the trunk.</p> <p>First this to do is make sure your local working copy is up to date and has no pending changes.&nbsp; I created a branch called <strong>mvcpreview4upgrade</strong> and switched my working copy to that branch.</p> <p><a href="http://flux88.com/uploads/UpgradingCodeCampServertoPreview4_13E84/mvcpreview4upgradebranch.png"><img src="/images/mvcpreview4upgradebranch_thumb_.png" alt="mvcpreview4upgrade-branch"  border="0" /></a> </p> <p>Now we&#8217;re free to make some breaking changes.</p> <h2>Step 2:&nbsp; Upgrade the binaries to the new version of the framework</h2> <p>In Code Camp Server, all external dependencies are placed in the bin folder:</p> <p><a href="http://flux88.com/uploads/UpgradingCodeCampServertoPreview4_13E84/upgradingbinaries.png"><img src="/images/upgradingbinaries_thumb_.png" alt="upgrading-binaries"  border="0" /></a> </p> <p>All of the projects get their references from here.&nbsp; We will definitely have to update <a href="http://mvccontrib.org">MVCContrib</a> to their latest once it is upgraded to Preview 4.&nbsp; I&#8217;ll leave this to last.</p> <h2>Step 3:&nbsp; Get it compiling</h2> <p>Normally I&#8217;d suggest the command line NAnt build because it will run all the tests, but I&#8217;m fully expecting compile errors and I want to be able to double click on them and navigate directly to it.</p> <p>Here are the issues I notice immediately:</p> <ul> <li>ComponentController has been removed completely.&nbsp; This hasn&#8217;t been updated in a long while and we kind of expected this to happen.&nbsp; Unfortunately we had 2 components that used this, so we have to re-implement them using another mechanism (I think I see one already, but I need to investigate more).</li> <li>TempDataDictionary now has a default constructor, so we don&#8217;t have to create a fake http context to build it.&nbsp; Finally!</li></ul> <p>That seems to be it, I fixed these issues and it compiles.&nbsp; Now to run the NAnt build (with all tests).</p> <h2>Step 4: Get the tests passing</h2> <p><em>Note to self:&nbsp; need to upgrade all the old mocking syntax to the new RhinoMocks syntax.</em></p> <p><a href="http://flux88.com/uploads/UpgradingCodeCampServertoPreview4_13E84/nantbuild.png"><img src="/images/nantbuild_thumb_.png" alt="nant-build"  border="0" /></a> </p> <p>We can see that a unit test is failing (and we can also see a couple tests that I&#8217;m ignoring for now because ComponentController was removed).</p> <p>Since the FlashMessageComponent needs to be changed anyway, I&#8217;ll just ignore this test for now until we can finish the upgrade.</p> <p>Another test was failing in the IntegrationTests assembly which was fixed by deleting this line:</p> <p><a href="http://flux88.com/uploads/UpgradingCodeCampServertoPreview4_13E84/testresolvingcomponentcontroller.png"><img src="/images/testresolvingcomponentcontroller_thumb_.png" alt="test-resolving-component-controller"  border="0" /></a> </p> <p>This test is used to make sure that we can build all controllers (with dependencies) at runtime.</p> <p>After fixing this we are now all passing!</p> <p><a href="http://flux88.com/uploads/UpgradingCodeCampServertoPreview4_13E84/buildsucceeding.png"><img src="/images/buildsucceeding_thumb_.png" alt="build-succeeding"  border="0" /></a> </p> <p>Now it&#8217;s time to take a look at the changed features&#8230;</p> <h2>Step 5:&nbsp; Implement the new changes</h2> <p>Browsing the readme that is included with the release, we can see some changes in the following areas:</p> <ul> <li>New Membership</li> <ul> <li>not sure if we want to take advantage of this since we&#8217;ve already implemented it</li></ul> <li>Routes</li> <ul> <li>They are now namespaced to avoid issues with reflecting over the entire assembly</li></ul> <li>AuthorizationFilter</li> <ul> <li>I can remove the custom one we have</li></ul> <li>ErrorHandling Filter</li> <ul> <li>We were going to end up using [Rescue] from MVCContrib, but now I think we can use this</li></ul> <li>OutputCache Filter</li> <ul> <li>This will be better used once we have the functionality completed and we know where the best places to implement caching will be</li></ul> <li>Ajax</li> <ul> <li>These look like ASP.NET Ajax improvements.&nbsp; Not sure if they&#8217;ll apply to us since we use jquery.</li></ul> <li>ActionInvoker</li> <ul> <li>GetFiltersForAction method</li> <ul> <li>We can probably better test the integration of custom action filters with this</li></ul></ul> <li>ViewData</li> <ul> <li>Eval - we&#8217;ll probably just stick to ViewDataExtensions from MVCContrib for strong typing</li></ul> <li>ComponentController has been removed in favor on a RenderAction method on the view</li> <ul> <li>this means we can probably replace the sponsorcomponent controller with a standard Controller implementation</li></ul></ul> <p>Updating routes:</p> <p><a href="http://flux88.com/uploads/UpgradingCodeCampServertoPreview4_13E84/updatingroutenamspaces.png"><img src="/images/updatingroutenamspaces_thumb_.png" alt="updating-route-namspaces"  border="0" /></a> </p> <p>I removed another remnant of ComponentController (looks like this came from MVCContrib).&nbsp; I also added the new namespace reference here.</p> <p>For authorization we had previously created 2 attributes, [AdminOnly], and [RequireLogin].&nbsp; RequireLogin will be replaced with the new [Authorize] attribute, however our AdminOnly attribute works a little differently, so some more work will be needed to get this to work with just a role name.</p> <p>Our implementation won&#8217;t be complete until we get MVCContrib integrated, so that&#8217;ll have to wait.&nbsp; But for now we&#8217;re at a good place to commit our work!</p> <h2>Why go through all this pain?</h2> <p>Upgrading projects to frequently released dependencies can be a pain, but I think it&#8217;s a small price to pay for the constant flow of improvements we&#8217;re getting from ASP.NET MVC releases.&nbsp; When the framework settles a bit more these updates will be mostly topical&#8230; meaning they won&#8217;t sweep the carpet out from under your feet.</p></p>
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2008/07/upgrading-code-camp-server-to-preview-4/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/07/asp-net-mvc-preview-4-available/">ASP.NET MVC Preview 4 Available</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2008-07-16 00:00:00 -0500" pubdate  updated >Jul 16<span>th</span>, 2008</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>This will be 1 of 4 billion posts you read on this subject, but ASP.NET MVC Preview 4 is <a href="http://www.codeplex.com/aspnet/Release/ProjectReleases.aspx?ReleaseId=15389" target="_blank">now available</a>.&#160; Read Scott Gu&#8217;s <a href="http://weblogs.asp.net/scottgu/archive/2008/07/14/asp-net-mvc-preview-4-release-part-1.aspx" target="_blank">initial notes</a> and then go download it.</p>
+
+
+<p>Over the next few days I&#8217;ll be working on converting <a href="http://codecampserver.org" target="_blank">CodeCampServer</a> and a few other small projects to preview 4.&#160; Good stuff!</p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2008/07/asp-net-mvc-preview-4-available/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/07/houston-alt-net-geek-dinner-2-tonight/">Houston ALT.NET Geek Dinner #2 - Tonight</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2008-07-14 00:00:00 -0500" pubdate  updated >Jul 14<span>th</span>, 2008</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><img src="http://flux88.com/content/binary/pizza.jpeg" style="margin: 0pt 5px 5px 0pt; float: left;" border="0">I&#8217;m so lame.&nbsp; I forgot to post this last week.&nbsp; If you don&#8217;t want to be lame like me, then you should head out to Star Pizza tonight at 6pm for some fun-loving tech discussions about ALT.NET and the Houston community.&nbsp; There will be pizza.&nbsp; There will be beer.&nbsp; And there will be a fat guy in a jump suit giving away iPhone 3G&#8217;s<em>.<br><br>Potential Topics:<br><ul><li><a href="http://efvote.wufoo.com/forms/ado-net-entity-framework-vote-of-no-confidence/">Entity Framework Vote of No Confidence</a></li><li>Favorite Tools</li><li>Houston Tech Fest ALT.NET Track</li><li>Open Spaces Conference<br></li></ul><br><br><br><a href="http://www.starpizza.net/home1.htm">Star Pizza</a><br>2111 Norfolk<br>Houston, TX<br>Date:(Tonight!) July 14th, 2008<br>Time:6pm<br><iframe marginheight="0" marginwidth="0" src="http://maps.google.com/maps?f=q&amp;hl=en&amp;geocode=&amp;q=2111+Norfolk+St,+Houston,+TX+77098&amp;sll=37.0625,-95.677068&amp;sspn=35.494074,66.708984&amp;ie=UTF8&amp;ll=29.744333,-95.40699&amp;spn=0.009503,0.016286&amp;z=14&amp;iwloc=addr&amp;output=embed&amp;s=AARTsJqzfGQ5Y5jFf9j0lHzy5wZQ0GBfuQ" scrolling="no" width="425" frameborder="0" height="350"></iframe><br><small><a href="http://maps.google.com/maps?f=q&amp;hl=en&amp;geocode=&amp;q=2111+Norfolk+St,+Houston,+TX+77098&amp;sll=37.0625,-95.677068&amp;sspn=35.494074,66.708984&amp;ie=UTF8&amp;ll=29.744333,-95.40699&amp;spn=0.009503,0.016286&amp;z=14&amp;iwloc=addr&amp;source=embed" style="color: rgb(0, 0, 255); text-align: left;">View Larger Map</a></small><br><br><br></em> No iPhones will be given away.&nbsp; And there won&#8217;t be a fat guy in a jump suit.&nbsp; I hope.<br><p></p><br></p>
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2008/07/houston-alt-net-geek-dinner-2-tonight/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/07/book-review-agile-estimating-and-planning/">Book Review - Agile Estimating and Planning</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2008-07-14 00:00:00 -0500" pubdate  updated >Jul 14<span>th</span>, 2008</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><iframe style="float: left; margin-bottom: 5px; width: 120px; margin-right: 5px; height: 240px" marginwidth="0" marginheight="0" src="http://rcm.amazon.com/e/cm?t=flux88com-20&amp;o=1&amp;p=8&amp;l=as1&amp;asins=0131479415&amp;fc1=000000&amp;IS2=1&amp;lt1=_blank&amp;lc1=0000FF&amp;bc1=000000&amp;bg1=FFFFFF&amp;f=ifr" frameborder="0" scrolling="no"></iframe>
+
+
+<p>I finally finished <a href="http://blog.mountaingoatsoftware.com/" target="_blank">Mike Cohn</a>&#8217;s book, <a href="http://www.amazon.com/gp/product/0131479415?ie=UTF8&amp;tag=flux88com-20&amp;link_code=as3&amp;camp=211189&amp;creative=373489&amp;creativeASIN=0131479415" target="_blank">Agile Estimating and Planning</a>.&#160; It has been on my reading list for quite a while, but I just finished it last week.&#160; In short I found it to be very helpful.&#160; To understand how, I&#8217;ll note some of my background in Scrum.</p>
+
+
+<p>When I first read <a href="http://www.amazon.com/gp/product/073561993X?ie=UTF8&amp;tag=flux88com-20&amp;linkCode=as2&amp;camp=1789&amp;creative=9325&amp;creativeASIN=073561993X">Agile Project Management with Scrum</a><img height="1" alt="" src="http://www.assoc-amazon.com/e/ir?t=flux88com-20&amp;l=as2&amp;o=1&amp;a=073561993X" width="1" border="0" doing).="doing)." already="already" was="was" I="I" what="what" for="for" match="match" good="good" a="a" be="be" to="to" it="it" found="found" side,="side," management="management" the="the" on="on" more="more" focused="focused" is="is" Scrum="Scrum" and="and" tactics,="tactics," engineering="engineering" XP="XP" that="that" (Given="(Given" it.&#160;="it. " implement="implement" eager="eager" simple,="simple," incredibly="incredibly" seemed="seemed" intrigued.&#160;="intrigued. " very="very" Schwaber,="Schwaber," Ken="Ken" by="by" !important;="!important;" border:none?="border:none?" />I was very intrigued.&#160; I found that Scrum melded well with the mostly engineering-focused XP practices that I had previously adopted.</p>
+
+
+<p>I then took the Certified ScrumMaster course, and I was even more impressed.&#160; The problem, though, was that the course is only 3 days.&#160; 3 Days just isn&#8217;t enough time to consider anyone a &quot;master&quot; of scrum.&#160; It takes years of attempts, trying different things, failing, and overcoming those failures to eventually become&#160; a &quot;master.&quot;&#160; But that&#8217;s a topic for another day.&#160; My point is, that there was still a lot for me to learn.</p>
+
+
+<p>I gave some internal training on scrum and noticed that there were a lot of questions that I didn&#8217;t have the answer to (how absurd of me to think that I had all the answers!).&#160; Some of them were practical questions&#8230; like what&#8217;s the best way to determine your iteration size, or how to effectively do release planning.&#160; I knew the concepts, and I knew their purpose, but I struggled with the actual implementation.</p>
+
+
+<p>After reading <a href="http://www.amazon.com/gp/product/0131479415?ie=UTF8&amp;tag=flux88com-20&amp;link_code=as3&amp;camp=211189&amp;creative=373489&amp;creativeASIN=0131479415" target="_blank">Agile Estimating and Planning</a>, I am much more prepared to answer those questions (and implement them in my daily work).&#160; Mike talks in depth about why fixed iteration length is important (which is a question that has come up twice in my project).&#160; He also outlines how to effectively plan an iteration, and what to do if you have too much work planned.&#160; </p>
+
+
+<p>A co-worker called me once and asked me, &quot;What happens if you partially implement a story during a sprint?&quot; &#8211; the answer came directly out of this book.&#160; The short answer is that you can either move the entire story over to the next iteration (because it isn&#8217;t <em>done</em>) or you can decide to split the story in two (however this method doesn&#8217;t work if you implemented functionality but didn&#8217;t test, for example).</p>
+
+
+<p>While reading this book I have cracked it open three or four more times to refer to specific advice, which is why I think so highly of this book.&#160; Once you understand the Scrum principles and have a healthy bank of questions about its implementation, turn to this book to get some concrete answers.&#160; Not all of the advice is solid gold, mind you&#8230; but I think it&#8217;s an excellent resource for a team that is new to Scrum.</p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2008/07/book-review-agile-estimating-and-planning/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/07/prototype-protips-2-preventing-memory-leaks-creating-objects/">Prototype Protips #2 - Preventing Memory Leaks & Creating Objects</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2008-07-04 00:00:00 -0500" pubdate  updated >Jul 4<span>th</span>, 2008</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>It&rsquo;s been almost a year since I posted <a href="http://www.flux88.com/PrototypeScriptaculousProtips1.aspx" target="_blank">Prototype Protips #1</a> (and since then I have grown quite fond of <a href="http://jquery.com/" target="_blank">jQuery</a>), but <a href="http://prototypejs.org/" target="_blank">prototype</a> remains an excellent, choice for elegant javascript development still today.</p>
+
+
+<p>If you aren&rsquo;t taking advantage of an advanced javascript library, then you are not only missing out on cleaner code, but you are quite possibly likely introducing memory leaks through unfreed event handlers!&nbsp; IE6 is notoriously bad at this, and you have to take extra caution in EVERY event handler to make sure you aren&rsquo;t leaking memory.</p>
+
+
+<p>Douglas Crockford, describes memory leaks in IE&nbsp;like this:</p>
+
+
+<blockquote><p>When a DOM object contains a reference to a <a href="http://www.crockford.com/javascript/">JavaScript</a> object (such an event handling function), and when that JavaScript object contains a reference to that DOM object, then a cyclic structure is formed. This is not in itself a problem. At such time as there are no other references to the DOM object and the event handler, then the garbage collector (an automatic memory resource manager) will reclaim them both, allowing their space to be reallocated. The JavaScript garbage collector understands about cycles and is not confused by them. Unfortunately, IE&#8217;s DOM is not managed by JScript. It has its own memory manager that does not understand about cycles and so gets very confused. As a result, when cycles occur, memory reclamation does not occur. The memory that is not reclaimed is said to have leaked. Over time, this can result in memory starvation.</p></blockquote>
+
+
+<p>It takes a seriously smart person to understand closures in javascript and why they cause memory leaks.&nbsp; Personally I&rsquo;m glad someone else has figured it out!&nbsp; But it doesn&rsquo;t mean we can&rsquo;t protect ourselves and just do things the safe way.</p>
+
+
+<p>That&rsquo;s why using a good javascript library is such a no-brainer.&nbsp; In prototype, you wire up events like this:</p>
+
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>Event.observe(window, 'load', function() {//do something when the DOM is loaded});</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>This is a safe way of adding a load event to the page without erasing any previous load events that were wired up.&nbsp; (<em>Anyone ever had ASP.NET erase one of your button click handlers?&nbsp; I have&hellip;)</em></p>
+
+
+<p>`$()` extended elements also get this ability.&nbsp; Say you have a button on the page like this:</p>
+
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>&lt;span class="kwrd">&lt;&lt;/span>&lt;span class="html">input&lt;/span> &lt;span class="attr">type&lt;/span>&lt;span class="kwrd">="button"&lt;/span> &lt;span class="attr">id&lt;/span>&lt;span class="kwrd">="activate"&lt;/span> &lt;span class="attr">value&lt;/span>&lt;span class="kwrd">="Activate the Reactor!"&lt;/span> &lt;span class="kwrd">/&gt;&lt;/span></div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>You can wire up a click even to this button by simply&hellip;</p>
+
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>$(&lt;span class="str">'activate'&lt;/span>).observe(&lt;span class="str">'click'&lt;/span>, function() { alert(&lt;span class="str">'RUN!'&lt;/span>);});</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>Wiring up events&nbsp;in this manner will help keep&nbsp;you from leaking memory and generally provides better syntax.</p>
+
+
+<p><strong>Objects</strong></p>
+
+
+<p>Sometimes when you are writing code that has complex javascript, the functions seem to relate, however they are just placed in file in global scope.&nbsp; This breaks down when you have lots of scripts from various components on a page and sooner or later things will start to conflict.&nbsp; I mean, how many `init()` methods can you have on a page?&nbsp; Would you write a C# program with nothing but 1 class?</p>
+
+
+<p>Grouping this functionality into javascript classes can really help streamline and encapsulate your javascript code.&nbsp; This is incredibly useful when you have a script for a control on a page but you need to support having multiple instances of that control on the same page.&nbsp; On top of that, with ASP.NET you have to deal with the id munging, so things become even harder.</p>
+
+
+<p>In prototype (as of 1.6), you create a class like this:</p>
+
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>var Person = Class.create({initialize: function(name, ) {&lt;span class="kwrd">this&lt;/span>.name = name;},greet: function() {alert(&lt;span class="str">"Hello, "&lt;/span> + &lt;span class="kwrd">this&lt;/span>.name + &lt;span class="str">"!"&lt;/span>);}});&lt;span class="rem">//create a person instance like this:&lt;/span>var joe = &lt;span class="kwrd">new&lt;/span> Person(&lt;span class="str">"Joe"&lt;/span>);joe.greet(); // --&gt;&lt;span class="str">"Hello, Joe!"&lt;/span></div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>The initialize() method is like a&nbsp;constructor.&nbsp; It will&nbsp;get called when you&nbsp;&ldquo;new&rdquo; up your&nbsp;javascript class.&nbsp; You can extend this&nbsp;object and add more functionality to it pretty easily.</p>
+
+
+<p><strong>Using Javascript Classes for your Components</strong></p>
+
+
+<p>Let&rsquo;s say you want to create a type-ahead auto-complete textbox using ASP.NET.&nbsp; Ignoring some of the canned-solutions for the sake of discussion, let&rsquo;s also say we have to write it from scratch.&nbsp; We&rsquo;ll need some script to monitor the value of the textbox, and to send an ajax request with the current value, and to handle the response &amp; fill in a list of values.</p>
+
+
+<p>Here&rsquo;s an example of how (a very crude) implementation might look:</p>
+
+
+<p>&nbsp;</p>
+
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>&lt;span class="rem">//referenced (or rendered) only once&lt;/span>var TypeAheadTextbox = Class.create({initialize: function(textbox_id, indicator_id, results_id) {&lt;span class="kwrd">this&lt;/span>.textbox = $(textbox_id);&lt;span class="kwrd">this&lt;/span>.indicator = $(indicator_id);&lt;span class="kwrd">this&lt;/span>.results = $(results_id);&lt;span class="rem">//use .bindAsEventListener to preserve the 'this' pointer&lt;/span>&lt;span class="kwrd">this&lt;/span>.textbox.observe(&lt;span class="str">'keyup'&lt;/span>, &lt;span class="kwrd">this&lt;/span>.processKey.bindAsEventListener(&lt;span class="kwrd">this&lt;/span>));},processKey: function() {&lt;span class="rem">//ignoring the interval, we'll just fire an ajax request for every letter&lt;/span>var &lt;span class="kwrd">value&lt;/span> = $F(&lt;span class="kwrd">this&lt;/span>.textbox);&lt;span class="kwrd">this&lt;/span>.indicator.show();&lt;span class="kwrd">new&lt;/span> Ajax.Request(&lt;span class="str">'/pirate_ships/find'&lt;/span>, {method: &lt;span class="str">'get'&lt;/span>,&lt;span class="kwrd">params&lt;/span>: &lt;span class="str">'filter='&lt;/span> + &lt;span class="kwrd">value&lt;/span>,onComplete: function() { &lt;span class="kwrd">this&lt;/span>.indicator.hide(); },onFailure: function(e) { alert(&lt;span class="str">"Error with ajax request: "&lt;/span> + e); },onSuccess: function(response) {&lt;span class="kwrd">this&lt;/span>.results.innerHTML = response.responseText;}})}});&lt;span class="rem">//initializing multiple controls&lt;/span>Event.observe(window, &lt;span class="str">'load'&lt;/span>, function(){var textbox1_autocomplete = &lt;span class="kwrd">new&lt;/span> TypeAheadTextbox(&lt;span class="str">'&lt;%= txtbox1.ClientID %&gt;'&lt;/span>, &lt;span class="str">'&lt;%= indicator1.ClientID %&gt;'&lt;/span>,&lt;span class="str">'&lt;%= results1.ClientID %&gt;'&lt;/span>);var textbox2_autocomplete = &lt;span class="kwrd">new&lt;/span> TypeAheadTextbox(&lt;span class="str">'&lt;%= txtbox2.ClientID %&gt;'&lt;/span>, &lt;span class="str">'&lt;%= indicator2.ClientID %&gt;'&lt;/span>,&lt;span class="str">'&lt;%= results2.ClientID %&gt;'&lt;/span>);});</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>Of course this code is incomplete, but it&rsquo;s definitely a start, and it amazes me at how simple it is.&nbsp; One hiccup that I ran across doing something similar was the .bindAsEventListener noise.&nbsp; You can read about that here, but&nbsp;the short of it&nbsp;is that&nbsp;javascript will lose &lsquo;this&rsquo; in those types of&nbsp;event handlers.&nbsp; Using .bindAsEventListener will fix this for you.Another trick is to use something like:</p>
+
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>initialize: function(msg) {var self = &lt;span class="kwrd">this&lt;/span>; &lt;span class="rem">//for use later&lt;/span>&lt;span class="kwrd">this&lt;/span>.msg = msg;},foo: function() {alert(self.msg);}</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>We&rsquo;ve al
+so isolated the area where we need to pass in the generated ClientID of the controls we want to interact with.&nbsp; This snippet of code can reside on the page, whereas the rest of the code reside ina separate file.</p>
+
+
+<p>I&rsquo;m no javascript ninja, but I have a vast appreciation for all that these libraries give us.&nbsp; Yet it still amazes me that a lot of people don&rsquo;t use them!&nbsp; So go tell a friend or co-worker about the benefits of a good javascript libary.</p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2008/07/prototype-protips-2-preventing-memory-leaks-creating-objects/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/07/precompiling-asp-net-applications-and-the-dreaded-loadresource-failure-error/">Precompiling ASP.NET Applications and the Dreaded LoadResource Failure Error</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2008-07-02 00:00:00 -0500" pubdate  updated >Jul 2<span>nd</span>, 2008</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>This is a very strange problem that burned quite a bit of my time last week.&nbsp; Hopefully this will be found by someone else with a similar dilemma.</p>
+
+
+<p>Basically I&rsquo;ve got a central web application project that I use to house user controls to be shared by many applications.&nbsp; To accomplish this, I&rsquo;ve followed <a href="http://odetocode.com/Blogs/scott/archive/2005/10/06/2326.aspx" target="_blank">this post</a> by&nbsp;K. Scott Allen (of OdeToCode fame).</p>
+
+
+<p>Since precompiling an ASP.NET project produces (at least) one funkily-named dll, I decided to ILMerge it with the code-behind assembly.&nbsp; So the process looks like this:</p>
+
+
+<p>After-build:</p>
+
+
+<ul><li>Precompile the website, updatable=false, into a temporary directory</li><li>Merge App_Web*.dll &amp; my project assembly together into one</li><li>Reference this in another project &amp; use the controls</li></ul>
+
+
+<p>If you look at this dll in reflector, you get something like this:</p>
+
+
+<p><img src="/images/reflector1_.png" alt="Reflector1"  border="0"  /></p>
+
+
+<p><em>As a side-note, If you haven&rsquo;t ever tried doing this before then you should know that you have to reference the compiled user control classes from the ASP namespace in your pages&hellip; so in this example &lt;cc1:keywordgrid_ascx /&gt; rather than &lt;cc1:KeywordGrid /&gt;.</em></p>
+
+
+<p>This first control worked just fine.&nbsp; It was basically a custom GridView control.&nbsp; Then I added that next control, SelectKeywords.&nbsp; Adding it caused the assembly to crash upon loading, i.e. even when we weren&#8217;t using SelectKeywords it was crashing pages that used KeywordGrid.&nbsp; The error:</p>
+
+
+<p><img src="/images/error1_.png" alt="Error1"  border="0"  /></p>
+
+
+<p>This happened in the constructor of any control in the assembly.&nbsp; Digging a little deeper into the error, I found that this happens when your user control has literal content in it that gets embedded as a Win32 resource file during precompilation.</p>
+
+
+<p>In reflector, this is what it looked like:</p>
+
+
+<p><a href="http://www.flux88.com/uploads/reflector2.png"><img src="/images/reflector2_thumb_.jpg" alt="Reflector2"  border="0"  /></a></p>
+
+
+<p>When building the control tree, the compiler was embedding literal content as a resource.&nbsp; To try and fix the issue, I started removing literal content.&nbsp; Bit-by-bit I removed some HTML until the error went away.&nbsp; This is what reflector looked like when it was working:</p>
+
+
+<p><a href="http://www.flux88.com/uploads/reflector3.png"><img src="/images/reflector3_thumb_.jpg" alt="Reflector3"  border="0"  /></a></p>
+
+
+<p>But where is this resource file?&nbsp; Clearly the assembly is referencing <em>some resource file</em> somewhere, right?&nbsp; I peeked into Temporary ASP.NET Files to find the answer.</p>
+
+
+<p><img src="/images/temp_2Daspnet_2Dfiles_.png" alt="Temp-aspnet-files"  border="0"  /></p>
+
+
+<p>If you open this up in Notepad, you&rsquo;ll find your missing literals!</p>
+
+
+<p><img src="/images/notepad_2Dresource_.png" alt="Notepad-resource"  border="0"  /></p>
+
+
+<p>For some reason, this file wasn&rsquo;t making it into the final assembly.&nbsp; </p>
+
+
+<p>So if you have more than 256 characters of contiguous literal content, the compiler will put this into a resource file (likely for perf reasons).&nbsp; Sadly there is no way to turn this off.&nbsp; </p>
+
+
+<p>I&rsquo;m not sure if ILMerging the assembly was the reason why this was getting lost, but luckily <a href="http://blogs.msdn.com/davidebb/" target="_blank">David Ebbo</a> from Microsoft was able to provide me with a couple of options.</p>
+
+
+<ol><li>You can break up the literal content by injecting empty code blocks like <code style="BACKGROUND-COLOR: yellow">&lt;% %&gt;</code> but who would really want to do that?</li><li>You can fake out the compiler &amp; supply a code provider that claims to not support Win32 Resource files.&nbsp; This is what I chose.</li></ol>
+
+
+<p>I created a class (of course in another assembly, otherwise you have a chicken-and-egg problem):</p>
+
+
+<p><span style="FONT-SIZE: 12pt; FONT-FAMILY: Consolas"><span style="COLOR: blue">public</span> <span style="COLOR: blue">class</span> <span style="COLOR: rgb(43,145,175)">CustomCodeDomProviderWithoutWin<wbr>32ResSupport</span> : <span style="COLOR: rgb(43,145,175)">CSharpCodeProvider<br /></span></span><span style="FONT-SIZE: 12pt; FONT-FAMILY: Consolas">{<br /></span><span style="FONT-SIZE: 12pt; FONT-FAMILY: Consolas">&nbsp;&nbsp;&nbsp; <span style="COLOR: blue">public</span> <span style="COLOR: blue">override</span> <span style="COLOR: blue">bool</span> Supports(<span style="COLOR: rgb(43,145,175)">GeneratorSupport</span> generatorSupport)<br /></span><span style="FONT-SIZE: 12pt; FONT-FAMILY: Consolas">&nbsp;&nbsp;&nbsp; {<br /></span><span style="FONT-SIZE: 12pt; FONT-FAMILY: Consolas">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="COLOR: blue">if</span> ((generatorSupport &amp; <span style="COLOR: rgb(43,145,175)">GeneratorSupport</span>.Win32Resources) == generatorSupport)<br /></span><span style="FONT-SIZE: 12pt; FONT-FAMILY: Consolas">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="COLOR: blue">return</span> <span style="COLOR: blue">false</span>;</span><span style="FONT-SIZE: 12pt; FONT-FAMILY: Consolas">&nbsp;</span></p>
+
+
+<p><span style="FONT-SIZE: 12pt; FONT-FAMILY: Consolas">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="COLOR: blue">return</span> <span style="COLOR: blue">base</span>.Supports(generatorSupport);<br /></span><span style="FONT-SIZE: 12pt; FONT-FAMILY: Consolas">&nbsp;&nbsp;&nbsp; }<br /></span><span style="FONT-SIZE: 12pt; FONT-FAMILY: Consolas">}</span></p>
+
+
+<p>To get the precompiler to use this new class, add this to your web.config:</p>
+
+
+<p><span style="FONT-SIZE: 12pt; COLOR: blue; FONT-FAMILY: Consolas">&lt;</span><span style="FONT-SIZE: 12pt; COLOR: rgb(163,21,21); FONT-FAMILY: Consolas">system.codedom</span><span style="FONT-SIZE: 12pt; COLOR: blue; FONT-FAMILY: Consolas">&gt;<br /></span><span style="FONT-SIZE: 12pt; COLOR: blue; FONT-FAMILY: Consolas">&nbsp;&nbsp;&nbsp; &lt;</span><span style="FONT-SIZE: 12pt; COLOR: rgb(163,21,21); FONT-FAMILY: Consolas">compilers</span><span style="FONT-SIZE: 12pt; COLOR: blue; FONT-FAMILY: Consolas">&gt;<br /></span><span style="FONT-SIZE: 12pt; COLOR: blue; FONT-FAMILY: Consolas">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;</span><span style="FONT-SIZE: 12pt; COLOR: rgb(163,21,21); FONT-FAMILY: Consolas">compiler</span><span style="FONT-SIZE: 12pt; COLOR: blue; FONT-FAMILY: Consolas"> </span><span style="FONT-SIZE: 12pt; COLOR: red; FONT-FAMILY: Consolas">language</span><span style="FONT-SIZE: 12pt; COLOR: blue; FONT-FAMILY: Consolas">=</span><span style="FONT-SIZE: 12pt; FONT-FAMILY: Consolas">&#8221;<SPAN style="color: blue">c#;cs;csharp</SPAN>&#8221;<span style="COLOR: blue"> </span><span style="COLOR: red">extension</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">.cs</SPAN>&#8221;<span style="COLOR: blue"> </span><span style="COLOR: red">type</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">MyAssembly.CustomCodeDomProvide<WBR>rWithoutWin32ResSupport, MyAssembly</SPAN>&#8221;<span style="COLOR: blue"> </span><span style="COLOR: red">warningLevel</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">1</SPAN>&#8221;<span style="COLOR: blue"> /&gt;<br /></span></span><span style="FONT-SIZE: 12pt; COLOR: blue; FONT-FAMILY: Consolas">&nbsp;&nbsp;&nbsp; &lt;/</span><span style="FONT-SIZE: 12pt; COLOR: rgb(163,21,21); FONT-FAMILY: Consolas">compilers</span><span style="FONT-SIZE: 12pt; COLOR: blue; FONT-FAMILY: Consolas">&gt;<br /></span><span style="FONT-SIZE: 12pt; COLOR: blue; FONT-FAMILY: Consolas">&lt;/</span><span style="FONT-SIZE: 12pt; COLOR: rgb(163,21,21); FONT-FAMILY: Consolas">system.codedom</span><span style="FONT-SIZE: 12pt; COLOR: blue; FONT-FAMILY: Consolas">&gt;</span></p>
+
+
+<p>Now my user controls can have as much literal content as they need and resources will not get added.&nbsp; I&rsquo;d like to thank <a href="http://blogs.msdn.com/davidebb/"
+target="_blank">David Ebbo</a> for his assistance in helping me figure this out.&nbsp; Thanks David!</p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2008/07/precompiling-asp-net-applications-and-the-dreaded-loadresource-failure-error/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/06/net-database-migration-tool-roundup/">.NET Database Migration Tool Roundup</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2008-06-05 00:00:00 -0500" pubdate  updated >Jun 5<span>th</span>, 2008</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>A very long time ago <a href="http://www.flux88.com/DatabaseMigrationsForNET.aspx" target="_blank">I posted</a> about my excitement that the .NET community was starting to see some love in terms of database migrations.</p>
+
+
+<p>Fast forward more than a year and we have the following options for doing database migrations in .NET.</p>
+
+
+<ul><li><a href="http://wiki.rubyonrails.org/rails/pages/HowtoConnectToMicrosoftSQLServer" target="_blank">Rails Migrations running on SQL Server</a></li><li><a href="http://www.rikware.com/RikMigrations.html" target="_blank">RikMigrations</a></li><li><a href="http://code.google.com/p/tarantino/" target="_blank">Tarantino</a></li><li><a href="http://code.google.com/p/migratordotnet/" target="_blank">Migrator.NET</a></li><li><a href="http://blog.eleutian.com/2008/04/25/AFirstLookAtMachineMigrations.aspx" target="_blank">Machine Migrations</a><a href="http://blog.eleutian.com/2008/04/25/AFirstLookAtMachineMigrations.aspx" target="_blank"></a></li><li><a href="http://blog.wekeroad.com/2007/10/03/subsonic-migrate-me/" target="_blank">Subsonic Migrations</a></li><li><a href="http://dbdeploy.com/2007/09/25/dbdeploynet-v10-officially-released/" target="_blank">dbDeploy.NET</a></li></ul>
+
+
+<p><em>If I’ve left off one, I apologize.</em></p>
+
+
+<p>That’s a crazy amount of options, and of course it beg’s the question: <strong><em>Which one should I use?</em></strong></p>
+
+
+<p>There are pros and cons of each, and for my specific needs I wound up choosing Migrator.NET.&nbsp; I thought I’d post my thoughts on each tool here.</p>
+
+
+<p><strong>Rails Migrations</strong></p>
+
+
+<p>When I first raised the question of the lack of good migration tools for .NET a few people pointed out that there’s nothing stopping me from running the standard Rails migrations on SQL Server.&nbsp; This is done through installing a gem.&nbsp; However at 90% of my clients (or more) the use of Ruby is way too Alpha Geek to actually gain buy-in from the business.&nbsp; This is a shame, but a current reality.&nbsp; In addition, Rails migrations get really powerful when you leverage ActiveRecord classes within your migrations.&nbsp; Since we aren’t using Rails at all, this isn’t possible.&nbsp; Additionally, earlier versions of Rails migrations <em>did not support foreign keys</em>.&nbsp; That’s a serious killer for a lot of folks.&nbsp; I’m not sure if it has changed.</p>
+
+
+<p>Rails Migrations look like this:</p>
+
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>class AddSystemSettings &lt; ActiveRecord::Migrationdef self.upcreate_table :system_settings do |t|t.string:namet.string:labelt.text:valuet.string:typet.integer:positionendSystemSetting.create :name =&gt; "notice", :label =&gt; "Use notice?", :value =&gt; 1enddef self.downdrop_table :system_settingsendend&lt;br></div></code></pre></td></tr></table></div></figure></div>
+
+
+<p><br><em>taken from: <a href="http://api.rubyonrails.org/classes/ActiveRecord/Migration.html">http://api.rubyonrails.org/classes/ActiveRecord/Migration.html</a></em> </p>
+
+
+<p>Running migrations is as easy as the command: </p>
+
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>rake db:migrate&nbsp;</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p><strong>RikMigrations</strong></p>
+
+
+<p>RikMigrations was the first one I tried.&nbsp; They have an excellent fluent API, and allows you to build tables and columns by chaining together commands.&nbsp; Unfortunately, they didn’t seem to have SQL 2005 Schema support and that is something that I require.&nbsp; I could probably send them a patch, but I decided to continue my search.</p>
+
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>&lt;span style="color: blue;">using &lt;/span>RikMigrations;[assembly: &lt;span style="color: rgb(43, 145, 175);">Migration&lt;/span>(&lt;span style="color: blue;">typeof&lt;/span>(BlogMigration1), 1)][assembly: &lt;span style="color: rgb(43, 145, 175);">Migration&lt;/span>(&lt;span style="color: blue;">typeof&lt;/span>(BlogMigration2), 2)]&lt;span style="color: blue;">namespace &lt;/span>Blog.Migrations{&lt;span style="color: blue;">public class &lt;/span>&lt;span style="color: rgb(43, 145, 175);">BlogMigration1 &lt;/span>: &lt;span style="color: rgb(43, 145, 175);">IMigration&lt;/span>{&lt;span style="color: blue;">&lt;/span>&lt;span style="color: blue;">public void &lt;/span>Up(&lt;span style="color: rgb(43, 145, 175);">DbProvider &lt;/span>db){&lt;span style="color: rgb(43, 145, 175);">Table &lt;/span>t = db.AddTable(&lt;span style="color: rgb(163, 21, 21);">"Blog"&lt;/span>);t.AddColumn(&lt;span style="color: rgb(163, 21, 21);">"ID"&lt;/span>, &lt;span style="color: blue;">typeof&lt;/span>(&lt;span style="color: blue;">int&lt;/span>)).PrimaryKey().AutoGenerate();t.AddColumn(&lt;span style="color: rgb(163, 21, 21);">"Name"&lt;/span>, &lt;span style="color: blue;">typeof&lt;/span>(&lt;span style="color: blue;">string&lt;/span>), 64);t.Save();}&lt;span style="color: blue;">&lt;br>&lt;/span>&lt;span style="color: blue;">public void &lt;/span>Down(&lt;span style="color: rgb(43, 145, 175);">DbProvider &lt;/span>db){ db.DropTable(&lt;span style="color: rgb(163, 21, 21);">"Blog"&lt;/span>);}&lt;br>}&lt;span style="color: blue;">&lt;/span></div></code></pre></td></tr></table></div></figure></div>
+
+
+
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>&lt;span style="color: blue;">public class &lt;/span>&lt;span style="color: rgb(43, 145, 175);">BlogMigration2 &lt;/span>: &lt;span style="color: rgb(43, 145, 175);">IMigration&lt;/span>{&lt;span style="color: blue;">&lt;/span>&lt;span style="color: blue;"> public void &lt;/span>Up(&lt;span style="color: rgb(43, 145, 175);">DbProvider &lt;/span>db) {&lt;span style="color: rgb(43, 145, 175);"> Table &lt;/span>t = db.AlterTable(&lt;span style="color: rgb(163, 21, 21);">"Blog"&lt;/span>); t.AddColumn(&lt;span style="color: rgb(163, 21, 21);">"Description"&lt;/span>, &lt;span style="color: blue;">typeof&lt;/span>(&lt;span style="color: blue;">string&lt;/span>), &lt;span style="color: blue;">int&lt;/span>.MaxValue); t.Save(); }&lt;span style="color: blue;"> &lt;br> public void &lt;/span>Down(&lt;span style="color: rgb(43, 145, 175);">DbProvider &lt;/span>db) {&lt;span style="color: rgb(43, 145, 175);"> Table &lt;/span>t = db.AlterTable(&lt;span style="color: rgb(163, 21, 21);">"Blog"&lt;/span>); t.DropColumn(&lt;span style="color: rgb(163, 21, 21);">"Description"&lt;/span>); t.Save(); }&lt;font color="#0000ff"> &lt;/font>}}</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>Running this migration is done like so:</p>
+
+
+<p><img src="/images/rikmigrations_2Dcmd_2Dline_small_.jpg" alt="Rikmigrations-cmd-line"  border="0" /></p>
+
+
+<p>Question:&nbsp; How did it know which migrations to run?&nbsp; Answer:&nbsp; They created a table to keep track of it for you…</p>
+
+
+<p><img src="/images/rik_2Dmigrations_2Dmodule_2Dversions_small_.jpg" alt="Rik-migrations-module-versions"  border="0" /></p>
+
+
+<p>The cool thing about RikMigrations is you can have versions of different modules, which could really help if you have unrelated areas of the application that each need their own version.&nbsp; My current project could use something like this to separate unrelated application schemas, while maintaing only a single migration process.</p>
+
+
+<p><br><strong>Tarantino</strong></p>
+
+
+<p>Tarantino also seemed compelling, and it’s the tool we’re using with <a href="http://codecampserver.org/" target="_blank">CodeCampServer</a>, however I think that using a fluent API in C# is a little more compelling (however you’re at the whim of the API’s feature-set, unless they let you execute raw sql <strong>also</strong>, which many do).&nbsp; Tarantino works by storing scripts that are named like&nbsp;<strong>0001_add_customers_table.sql</strong> and it runs them in the right sequence.&nbsp; This works well if you would like to continue to leverage your GUI tools such as SQL Server Management Studio.&nbsp; Then you leverage a tool such as <a href="http://www.red-gate.com/" target="_blank">RedGate SQL Compare</a>&nbsp;to generate the change scripts.&nbsp; These scripts are generally large and not very readable, however this method is quite common and effective.</p>
+
+
+<p>Here an example of what this looks like:</p>
+
+
+<p><img src="/images/tarantino_2Dscripts_small_.jpg" alt="Tarantino-scripts"  border="0" /></p>
+
+
+<p>And these files are run using a NAnt task…</p>
+
+
+<p><img src="/images/tarantino_2Dnant_2Dtask_small_.jpg" alt="Tarantino-nant-task"  border="0" /></p>
+
+
+<p>Running this task gives output similar to this:</p>
+
+
+<p><img src="/images/tarantino_2Dcmd_2Dline_small_.jpg" alt="Tarantino-cmd-line"  border="0" /></p>
+
+
+<p>You can see that it – like RikMigrations – knew that it had already exceuted Versi
+on 1 of the database schema, so it could safely skip the script.&nbsp; This is done in a similar manner to the other tools by using a table to record the current version of the database.</p>
+
+
+<p><strong>SubSonic Migrations</strong></p>
+
+
+<p>SubSonic migrations seemed like the perfect choice for my project, since we use Subsonic already.&nbsp; However I’m running a bastardized version and it’s preventing me from updating to the latest trunk.&nbsp; Having two different versions of Subsonic as dependencies feels dirty and confusing to other developers.</p>
+
+
+<p>With Subsonic Migrations you don’t have a project that contains your migrations, you just have a folder with classes.&nbsp; The filename carries the weight here, not the class name or attribute.&nbsp; This appeals to me and feels a bit liberating, with my rails-envy and all.&nbsp; However it does feel a bit unnatural to handle migrations outside of a project in our solution.</p>
+
+
+<p>The API in Subsonic migrations is my least favorite so far, but not by much.&nbsp; All of these tools have similar API’s, it just took me longer to grok this one.</p>
+
+
+<p>For an intro on how to use this tool, check out <a href="http://blog.wekeroad.com/2007/10/03/subsonic-migrate-me/" target="_blank">Rob Conery’s post</a> on the subject.</p>
+
+
+<p><strong>Migrator.NET</strong></p>
+
+
+<p>This project has had an… interesting lifecycle.&nbsp; Originally I believe it was part of the <a href="http://castleproject.org/" target="_blank">Castle Project</a>, maintained by <a href="http://macournoyer.wordpress.com/2007/09/18/the-migrations-for-net-project-is-not-dead-yet/" target="_blank">Macournoyer</a>, then it drifted over to <a href="http://monkeyb.wordpress.com/2007/09/18/maintaining-migratornet/" target="_blank">Nick Hemsley</a>.&nbsp; The project is now up at <a href="http://code.google.com/p/migratordotnet/" target="_blank">google code</a>.&nbsp; Migrator.NET was easy to get into and the API was very simple and easy to grok.</p>
+
+
+<p>The API for Migrator.NET isn’t as fluent as RikMigrations, but it did have builtin schema support for SQL Server 2005, which I needed.&nbsp; The Attribute on the class also seemed a lot cleaner than the assembly attribute in RikMigrations.</p>
+
+
+<p><img src="/images/migratordotnet_2Dsyntax_.png" alt="Migratordotnet-syntax"  border="0" /></p>
+
+
+<p>Running the migrations was easy as well with the Migrator.Console.exe command line utility.&nbsp; The output is nothing new, so I’ll spare you the screenshot.</p>
+
+
+<p><strong>Machine Migrations</strong></p>
+
+
+<p>This one looks pretty good, however not as mature as some of the other tools (I think it’s the newest on the scene).&nbsp; Machine Migration relies on an MSBuild task to migrate your database.&nbsp;<strike> It is .NET 3.5 only and thus, not available for my project</strike> <font color="#ff0000">It is 2.0, my mistake!</font>.&nbsp; <a href="http://hammett.castleproject.org/?p=290" target="_blank">Hammet has a short review here</a>, and <a href="http://hammett.castleproject.org/?p=292" target="_blank">subsequently patched it to provide a few additional features</a>.</p>
+
+
+<p>I may start using Machine Migrations on a side-project I’m working on so that I can get a better idea of the differences it has with other frameworks.</p>
+
+
+<p><strong>Where’s DB Pro / Data Dude / Visual Studio 2005 Team Edition for Database Professionals ?</strong></p>
+
+
+<p>Ahh, the tool that loves to piss me off continually is somehow missing from this list?&nbsp; That’s because this tool just doesn’t facilitate a good evolutionary style of database development.&nbsp; I have honestly tried to work effectively with it&nbsp;and it consistently adds friction to our process.&nbsp; I’ve talked to a bunch of other users and they all pretty much say the same thing:&nbsp; <strong>it doesn’t work like that</strong>.&nbsp; And that’s really sad, because 2008 is no different.&nbsp; Sure it’s better, and as far as MSFT V2 products go I think this will be the poster child for v1 suckage, but 2008 still doesn’t have migrations.&nbsp; Today I saw on <a href="http://blogs.msdn.com/gertd/archive/2008/06/03/vsts-2008-database-edition-gdr-june-ctp.aspx" target="_blank">Gert Draper’s blog some info on the latest out of band release</a>, which includes some awesome changes, however there is no peep of anything resembling evolutionary development with the database.</p>
+
+
+<p>This omission tells me that the DB Pro team is only listening to one community (the large enterprise customer) and completely ignoring what’s going on in the agile camp.&nbsp; Maybe Phil Haack &amp; Scott Gu could take over once MVC ships and provide some real change in that organization.</p>
+
+
+<p>Anyway, rant over.</p>
+
+
+<p>Migrations are an effective tool for frictionless automation &amp; evolutionary database development <em>especially with multiple developers.&nbsp; </em>With all of these tools out there, it’s hard to choose which one will fit your process.&nbsp; I think the best advice is to just pick a tool and spike it, see what works and what’s painful.</p>
+
+
+<div class="bjtags">Tags:<a rel="tag" href="http://technorati.com/tag/database+migrations">database+migrations</a></div>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2008/06/net-database-migration-tool-roundup/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+<nav role="pagination">
+  <div>
+    
+      <a class="prev" href="/blog/page/14/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/12/">Newer &rarr;</a>
+    
+  </div>
+</nav>
+
+<script type="text/javascript">
+    var disqus_shortname = 'subdigital';
+    (function () {
+      var s = document.createElement('script'); s.async = true;
+      s.type = 'text/javascript';
+      s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+      (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+
+</div>
+<aside role=sidebar>
+  
+    <section>
+  <h1>Who am I?</h1>
+  <p>I&#8217;m Ben Scheirman. I make Rails &amp; iPhone apps for <a href="http://chaione.com" target="_blank">ChaiONE</a> in Houston, TX.</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/08/vim---could-not-invoke-jslint/">Vim - Could Not Invoke JSLint</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/is-rails-exempt-from-software-principles/">Is Rails Exempt?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/when-viewwillappear-isnt-called/">When viewWillAppear: Isn&#8217;t Called</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/moving-my-blog/">Moving My Blog</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/my-vim-journey/">My Vim Journey</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("subdigital", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/subdigital" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @subdigital</a>
+  
+</section>
+
+
+<section>
+  <h1>On Delicious</h1>
+  <script type="text/javascript" src="http://feeds.delicious.com/v2/js/subdigital?title=&count=3&sort=date&extended"></script>
+  <p><a href="http://delicious.com/subdigital">My Delicious Bookmarks &raquo;</a></p>
+</section>
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer>
+<a style="display:block; float: right" title="Real Time Analytics" href="http://getclicky.com/66470389"><img alt="Real Time Analytics" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
+<script src="//static.getclicky.com/js" type="text/javascript"></script>
+<script type="text/javascript">try{ clicky.init(66470389); }catch(e){}</script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/66470389ns.gif" /></p></noscript>
+
+<p>
+  Copyright &copy; 2011 - Ben Scheirman -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+</body>
+</html>

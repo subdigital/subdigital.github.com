@@ -1,0 +1,400 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Fickle Bits: A Journey With NHibernate (and DDD) - Part 3</title>
+  <meta name="author" content="Ben Scheirman">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="canonical" href="http://benscheirman.com/blog/2006/07/a-journey-with-nhibernate-and-ddd-part-3/"/>
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/ficklebits" rel="alternate" title="Fickle Bits" type="application/atom+xml"/>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-210379-10']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">Fickle Bits</a></h1>
+  
+    <h2>You're doing it wrong.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/ficklebits" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:benscheirman.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry">
+  
+  <header>
+    
+      <h1 class="entry-title">A Journey With NHibernate (and DDD) - Part 3</h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2006-07-19 00:00:00 -0500" pubdate  updated >Jul 19<span>th</span>, 2006</time>
+
+
+</p>
+    
+  </header>
+
+
+<div class="entry-content"><p>I decided to somewhat rename this series to include Domain-Driven Design.&nbsp; It became apparent after <a title="Part 1" href="http://www.flux88.com/2006/07/10/A+Journey+With+NHibernate++Part+1.aspx">Part One</a> and <a title="Part 2" href="http://www.flux88.com/2006/07/10/A+Journey+With+NHibernate++Part+2.aspx">Part Two</a> that I will spend a lot of time just developing the domain model.&nbsp; I could either skip this step and start with a fully functional model, ready for persistence, or I can slow down a bit and focus on creating the domain model as well.&nbsp; Due to some recent feedback I am choosing to focus a bit on modeling the application.&nbsp; This will of course delay the NHibernate specifics, but a good understanding of the object model is crucial to effective object-relational mapping.&nbsp; On we go….</p>
+
+
+<p>Before we get started with the tests (as I promised), I’d like to mention that I received some good advice from <a href="http://blogs.sarkhouston.com/hdierking" target="_blank">Howard Dierking</a>&nbsp;about how I was approaching the development.&nbsp; He suggested that I refrain from creating an entire solution structure up front, and delay such details until a need arises for them.&nbsp; I hadn’t actually&nbsp;created these projects in my pet project (I was more thinking-out-loud), but it is worth mentioning that the project structure in part 1 is something that, from experience, &nbsp;I already had in mind what I wanted.&nbsp;&nbsp; Focus on the task-at-hand, which is the Domain Model.&nbsp; Speaking of, let’s start with our test list…..</p>
+
+
+<p>When testing, whether you practice test-driven development (TDD) or not, it is important that your tests and your code follow each other closely.&nbsp; <a title="walking along the developer beach..." href="http://www.agiledeveloper.com/blog/PermaLink,guid,cb96e2d3-06bb-4a25-b4af-6546a9bae2b0.aspx" target="_blank">Venkat Subramaniam</a>&nbsp;compares this to walking on a beach, one foot following the other.&nbsp; I’m not a TDD purist, but I try to write the tests first to let the consumer (the calling code) drive the design.</p>
+
+
+<p>I wrote down (yes, on paper) a simple list of test that I’d like to implement.&nbsp; In no particular order, here they are:</p>
+
+
+<ul><li><strong>Can create an Employee</strong></li><li><strong>Can create a Customer</strong></li><li><strong>Can create a Video</strong></li><li><strong>Can create a VideoGame</strong></li><li><strong>Can create a Console</strong></li><li><strong>Can create a Movie</strong></li><li><strong>Can create a Game</strong></li><li>Can query for an Employee by EmployeeId</li><li>Can query for a Customer by CustomerId</li><li>Can create an Account</li><li>Can associate a Customer to Account</li><li>Can create a Transaction for an Account</li><li>Can create a Rental for an Item from a Transaction</li></ul>
+
+
+<p>&nbsp; <em>Tests in bold are the ones I’ll implement first.&nbsp; With a list of tests like this, it’s really up to you what gets implemented next.&nbsp; Focus on a small set and implement them, all the while keeping an entire list of tests you are working on, test that will come later, and tests that have been completed.&nbsp; This method of working is described in detail in <a title="Amazon - TDD book" href="http://www.amazon.com/gp/product/0321146530/sr=8-1/qid=1152764089/ref=pd_bbs_1/104-5607051-3417551?ie=UTF8" target="_blank">Test-Driven Development</a> by Kent Beck.</em></p>
+
+
+<p>Here’s what my solution looks like:</p>
+
+
+<p><img src="/images/CropperCapture%5B15%5D_small_.jpg" alt="CropperCapture[15]"  border="1" /></p>
+
+
+<p>&nbsp; I’ve only implemented the bare minimum on these classes, just enough to show the diagrams from last time.&nbsp; In order to test this class library, let’s add another class library project and call it <strong>Flux88.Videocracy.DomainModel.Tests</strong>.</p>
+
+
+<p><img src="/images/CropperCapture%5B17%5D_small_.jpg" alt="CropperCapture[17]"  border="1" /></p>
+
+
+<p>&nbsp;</p>
+
+
+<p>&nbsp;</p>
+
+
+<p>&nbsp;</p>
+
+
+<p>We need to add a couple of references here.&nbsp; First, we are going to be testing objects from the Domain Model project, so we need to add a project reference to that.&nbsp; We will also be utilizing NUnit for our tests so we need to add a reference to NUnit.Framework.dll.</p>
+
+
+<p>Here’s a skeleton class for Employee Tests:</p>
+
+
+<div style="border: 1px solid rgb(51, 51, 51); background: white none repeat scroll 0%; font-size: 10pt; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; color: black; font-family: Consolas;"><p style="margin: 0px;"><span style="color: blue;">using</span> System;</p><p style="margin: 0px;"><span style="color: blue;">using</span> Flux88.Videocracy.DomainModel;</p><p style="margin: 0px;"><span style="color: blue;">using</span> NUnit.Framework;</p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;"><span style="color: blue;">namespace</span> Flux88.Videocracy.DomainModel.Tests</p><p style="margin: 0px;">{</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp; [<span style="color: teal;">TestFixture</span>]</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp; <span style="color: blue;">public</span> <span style="color: blue;">class</span> <span style="color: teal;">EmployeeTests</span></p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp; {</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: green;">//called before every test</span></p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; [<span style="color: teal;">SetUp</span>]</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">public</span> <span style="color: blue;">void</span> SetUp()</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: green;">//called after every test</span></p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; [<span style="color: teal;">TearDown</span>]</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">public</span> <span style="color: blue;">void</span> TearDown()</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp; }</p><p style="margin: 0px;">}</p><p style="margin: 0px;">&nbsp;</p></div>
+
+
+<!--EndFragment-->
+
+
+<p>You’ll notice I have a <em>using</em> statement for both my domain model and NUnit, as I will use these namespaces frequently in my tests.&nbsp; </p>
+
+
+<p>The attributes you see above the class &amp; methods are NUnit attributes.&nbsp; [TestFixture] denotes a class that has tests.&nbsp; When the test runner loads my test dll, it will notice this and parse the class for test methods (we’ll see in a&nbsp;second).&nbsp; The [SetUp] method is called exactly once before every single test.&nbsp; This is where you’d create any objects or set any preconditions for every test.&nbsp; The [TearDown] cleans up any objects or junk left over from the test.&nbsp; Each test should be able to run independently of any other.&nbsp; Don’t count on one test running successfully before another test can run.</p>
+
+
+<p>Ok, our first test on the list was <strong>CanCreateEmployee</strong>.&nbsp; In this test I want to make sure that I can instantiate the Employee class and take in any invariants in the constructor.&nbsp; We don’t ever want to have an employee without a name, so name will be a constructor parameter to enforce that all new Employees have a name.&nbsp; Also all employees will be either a Customer Service Rep or a Manager, so we’ll take that in as well.</p>
+
+
+<div style="border: 1px solid rgb(51, 51, 51); background: white none repeat scroll 0%; font-size: 9pt; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; color: black; font-family: Consolas;"><p style="ma
+rgin: 0px;">&nbsp;[<span style="color: teal;">Test</span>]</p><p style="margin: 0px;">&nbsp;<span style="color: blue;">public</span> <span style="color: blue;">void</span> CanCreateEmployee()</p><p style="margin: 0px;">&nbsp;{</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: teal;">Employee</span> emp = <span style="color: blue;">new</span> <span style="color: teal;">Employee</span>(<span style="color: maroon;">&#8220;Joe&#8221;</span>, <span style="color: maroon;">&#8220;Blow&#8221;</span>, <span style="color: teal;">EmployeeType</span>.CustomerServiceRep);</p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: teal;">Assert</span>.AreEqual(<span style="color: maroon;">&#8220;Joe&#8221;</span>, emp.FirstName, <span style="color: maroon;">&#8220;FirstName wasn&#8217;t set properly.&#8221;</span>);</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: teal;">Assert</span>.AreEqual(<span style="color: maroon;">&#8220;Blow&#8221;</span>, emp.LastName, <span style="color: maroon;">&#8220;LastName wasn&#8217;t set properly.&#8221;</span>);</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: teal;">Assert</span>.AreEqual(<span style="color: teal;">EmployeeType</span>.CustomerServiceRep, emp.Type, <span style="color: maroon;">&#8220;Employee type was not set.&#8221;</span>);</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: teal;">Assert</span>.AreEqual(0.0, emp.HourlyWage, <span style="color: maroon;">&#8220;Wage was not initially 0.0&#8221;</span>);</p><p style="margin: 0px;">&nbsp; }</p></div>
+
+
+<!--EndFragment-->
+
+
+<p>Decorating the method with the [Test] attribute tell NUnit to run this method as a test.&nbsp; I create an employee and pass in the name &amp; type, then I run a couple of NUnit’s Asserts to verify that the properties were set properly.&nbsp; I decided that HourlyWage was not a required input.&nbsp; Right now there is no real need to do anything with HourlyWage, so I’m not going to test this.&nbsp; You’ll notice that the <em>Assert.AreEqual</em> verifies that the&nbsp;two values are equal, and if not it fails the current test with the specified error message.&nbsp; If it makes it to the end of the method without any errors, your test passes!</p>
+
+
+<p>Ok, now it’s time to compile.&nbsp; Oops!&nbsp; I get an error.&nbsp; I haven’t yet implemented the constructor that takes in the parameters.&nbsp; I’ll add that and compile again.&nbsp; Also I’m going to make the default constructor private because I don’t want any callers to be able to instantiate the employee without filling out those parameters.&nbsp; Compiling now succeeds and we’re ready to run the test.</p>
+
+
+<p><img src="/images/CropperCapture%5B18%5D_small1_.jpg" alt="CropperCapture[18]"  border="1" /></p>
+
+
+<p>Load up the NUnit GUI and open your new test dll.&nbsp; You’ll see that NUnit organizes your tests hierarchically.&nbsp; We only have 1 test, called CanCreateEmployee.&nbsp; Lets run it now.</p>
+
+
+<p>&nbsp;</p>
+
+
+<p><img src="/images/CropperCapture%5B19%5D_small_.jpg" alt="CropperCapture[19]"  border="1" /></p>
+
+
+<p>The tests pass!&nbsp; Now it’s time to refactor.&nbsp; Right now I’m directly setting the first name and last name in the employee class, but employee doesn’t actually <em>own</em> these properties, Person does.&nbsp; A simple refactoring is in order.&nbsp; I’ll add the invariants to the Person class and keep the only Employee specific invariant to the employee class.&nbsp; This is what it looks like now:</p>
+
+
+<div style="border: 1px solid rgb(51, 51, 51); background: white none repeat scroll 0%; font-size: 9pt; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; color: black; font-family: Consolas;"><p style="margin: 0px;">&nbsp;<span style="color: blue;">public</span> Person(<span style="color: blue;">string</span> firstName, <span style="color: blue;">string</span> lastName)</p><p style="margin: 0px;">&nbsp;{</p><p style="margin: 0px;">&nbsp; &nbsp;&nbsp; _firstName = firstName;</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp;&nbsp; _lastName = lastName;</p><p style="margin: 0px;">&nbsp;}</p></div>
+
+
+<div style="border: 1px solid rgb(51, 51, 51); background: white none repeat scroll 0%; font-size: 9pt; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; color: black; font-family: Consolas;"><p style="margin: 0px;">&nbsp;<span style="color: blue;">public</span> Employee(<span style="color: blue;">string</span> firstName, <span style="color: blue;">string</span> lastName, <span style="color: teal;">EmployeeType</span> type)</p><p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; : <span style="color: blue;">base</span>(firstName, lastName)</p><p style="margin: 0px;">&nbsp;{</p><p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Type = type;</p><p style="margin: 0px;">&nbsp;}</p></div>
+
+
+<p>You can see that the employee class is now passing arguments to the parent class’s constructor.&nbsp; We run the test again to make sure that the property setting still works, and it does.&nbsp; This kind of simple refactoring is something you regularly do as you develop.&nbsp; The tests are there to back you up and assure you that you haven’t broken anything.&nbsp; </p>
+
+
+<p>I started off kind of slow to illustrate how the process goes.&nbsp; I’ll speed up as I implement the remaining tests.</p>
+
+
+<p><strong>Can Create Customer</strong> was the next test, but it’s painfully similar to the above example, so I will just implement it and move on.&nbsp; (…. a bit of typing ….) ok, now that test is passing.&nbsp; Let’s move on to <strong>Can Create Video.</strong></p>
+
+
+<p>Let’s give some thought on what a video is.&nbsp; A video is a representation of the actual item you hold in your hands at the video store.&nbsp; It contains a movie, but there is a distinction here.&nbsp; I chose to separate the movie details from the video following the <a title="Type Object Pattern explained" href="http://www.ksc.com/article3.htm" target="_blank">Type-Object pattern</a>&nbsp;(as it turns out, their example is about movies too!&nbsp; what luck!).&nbsp; Since a video cannot exist without a movie, we should probably test the movie creation first.&nbsp; Here’s <strong>CanCreateMovie</strong>:</p>
+
+
+<div style="border: 1px solid rgb(51, 51, 51); background: white none repeat scroll 0%; font-size: 9pt; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; color: black; font-family: Consolas;">[<span style="color: teal;">TestFixture</span>] <p style="margin: 0px;"><span style="color: blue;">public</span> <span style="color: blue;">class</span> <span style="color: teal;">MovieTests</span></p><p style="margin: 0px;">{</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp; [<span style="color: teal;">Test</span>]</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp; <span style="color: blue;">public</span> <span style="color: blue;">void</span> CanCreateMovie()</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp; {</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: teal;">Movie</span> superTroopers = <span style="color: blue;">new</span> <span style="color: teal;">Movie</span>(<span style="color: maroon;">&#8220;Super Troopers&#8221;</span>, <span style="color: teal;">MovieCategory</span>.Comedy, 2001);</p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: teal;">Assert</span>.AreEqual(<span style="color: maroon;">&#8220;Super Troopers&#8221;</span>, superTroopers.Name, <span style="color: maroon;">&#8220;Name wasn&#8217;t set&#8221;</span>);</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: teal;">Assert</span>.AreEqual(<span style="color: teal;">MovieCategory</span>.Comedy, superTroopers.Category, <span style="color: maroon;">&#8220;Category wasn&#8217;t set&#8221;</span>);</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: teal;">Assert</s
+pan>.AreEqual(2001, superTroopers.Year, <span style="color: maroon;">&#8220;Year wasn&#8217;t set&#8221;</span>);</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp; }</p><p style="margin: 0px;">}</p></div>
+
+
+<!--EndFragment-->
+
+
+<p>I make sure and pass in&nbsp;a&nbsp;title, category, and year.&nbsp; If the categories are to be user definable later on, we’ll probably opt for a class instead of an enum, but again we defer this decision until it is actually&nbsp;needed.</p>
+
+
+<p>I run the tests again, and:&nbsp; </p>
+
+
+<p><img src="/images/CropperCapture%5B21%5D_small_.jpg" alt="CropperCapture[21]"  border="1" /></p>
+
+
+<p>…all passing.&nbsp; </p>
+
+
+<p>I’m ready to write our Video test, but here’s where things get tricky.&nbsp; We identified previously that a video cannot exist without a movie, but one of the testaments to good unit testing&nbsp;is writing tests that do not depend on other tests.&nbsp; The purist solution to this is to extract an interface for Movie (called IMovie) that can be&nbsp;faked out in the test (A fake is a class implements the interface with known/precalculated values that you can test upon).&nbsp; I think this approach is a bit overkill for a simple class like Movie, but if the class connected to another resource, such as a database, web service, or file, then I’d definitely stub out the interface for testing.</p>
+
+
+<div style="border: 1px solid rgb(51, 51, 51); background: white none repeat scroll 0%; font-size: 9pt; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; color: black; font-family: Consolas;">[<span style="color: teal;">Test</span>] <p style="margin: 0px;"><span style="color: blue;">public</span> <span style="color: blue;">void</span> CanCreateVideo()</p><p style="margin: 0px;">{</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: teal;">Movie</span> caddyShack = <span style="color: blue;">new</span> <span style="color: teal;">Movie</span>(<span style="color: maroon;">&#8220;Caddy Shack&#8221;</span>, <span style="color: teal;">MovieCategory</span>.Comedy, 1980);</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: teal;">Video</span> v = <span style="color: blue;">new</span> <span style="color: teal;">Video</span>(caddyShack, <span style="color: teal;">VideoFormat</span>.DVD);&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: teal;">Assert</span>.AreEqual(v.Movie, caddyShack, <span style="color: maroon;">&#8220;Movie wasn&#8217;t set.&#8221;</span>);</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: teal;">Assert</span>.AreEqual(<span style="color: teal;">VideoFormat</span>.DVD, v.Format, <span style="color: maroon;">&#8220;Format wasn&#8217;t set.&#8221;</span>);&nbsp; &nbsp; &nbsp; </p><p style="margin: 0px;">}</p></div>
+
+
+<!--EndFragment-->
+
+
+<!--EndFragment-->
+
+
+<p>This test actually depends on two things.&nbsp; One, mentioned above, is <strong>CanCreateMovie</strong>.&nbsp; The other is a valid implementation of Movie.ToEquals(), since we are equating the two movie objects.&nbsp; This can make your tests somewhat ambiguous, as the tests will fail for different reasons.&nbsp; I have yet to find a really good balance between <em>Interfacing</em> everything and having tests that depend on other tests.&nbsp; For something this trivial I won’t worry about it, but for more sophisticated tests I will be sure and isolate the test.</p>
+
+
+<p>Right now this is what NUnit looks like:</p>
+
+
+<p><img src="/images/CropperCapture%5B22%5D_small_.jpg" alt="CropperCapture[22]"  border="1" /></p>
+
+
+<p>All of the tests are passing and we’re at a good stopping point.&nbsp; </p>
+
+
+<p><li><strike>Can create an Employee</strike></li><li><strike>Can create a Customer</strike></li><li><strike>Can create a Video</strike></li><li><strong>Can create a VideoGame</strong></li><li><strong>Can create a Console</strong></li><li><strike>Can create a Movie</strike></li><li><strong>Can create a Game</strong></li><p>Next time we’ll see some more complicated tests.&nbsp; Until then….</p></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ben Scheirman</span></span>
+
+      
+
+
+
+
+<time datetime="2006-07-19 00:00:00 -0500" pubdate  updated >Jul 19<span>th</span>, 2006</time>
+
+
+
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://benscheirman.com/blog/2006/07/a-journey-with-nhibernate-and-ddd-part-3/" data-via="subdigital" data-counturl="http://benscheirman.com/blog/2006/07/a-journey-with-nhibernate-and-ddd-part-3/" >Tweet</a>
+  
+  
+  <g:plusone size="medium"></g:plusone>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread"><div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_shortname = 'subdigital';
+  var disqus_identifier = 'http://benscheirman.com/blog/2006/07/a-journey-with-nhibernate-and-ddd-part-3/';
+  var disqus_url = 'http://benscheirman.com/blog/2006/07/a-journey-with-nhibernate-and-ddd-part-3/';
+  //var disqus_developer = 1;
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside role=sidebar>
+  
+    <section>
+  <h1>Who am I?</h1>
+  <p>I&#8217;m Ben Scheirman. I make Rails &amp; iPhone apps for <a href="http://chaione.com" target="_blank">ChaiONE</a> in Houston, TX.</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/08/vim---could-not-invoke-jslint/">Vim - Could Not Invoke JSLint</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/is-rails-exempt-from-software-principles/">Is Rails Exempt?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/when-viewwillappear-isnt-called/">When viewWillAppear: Isn&#8217;t Called</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/moving-my-blog/">Moving My Blog</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/my-vim-journey/">My Vim Journey</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("subdigital", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/subdigital" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @subdigital</a>
+  
+</section>
+
+
+<section>
+  <h1>On Delicious</h1>
+  <script type="text/javascript" src="http://feeds.delicious.com/v2/js/subdigital?title=&count=3&sort=date&extended"></script>
+  <p><a href="http://delicious.com/subdigital">My Delicious Bookmarks &raquo;</a></p>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer>
+<a style="display:block; float: right" title="Real Time Analytics" href="http://getclicky.com/66470389"><img alt="Real Time Analytics" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
+<script src="//static.getclicky.com/js" type="text/javascript"></script>
+<script type="text/javascript">try{ clicky.init(66470389); }catch(e){}</script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/66470389ns.gif" /></p></noscript>
+
+<p>
+  Copyright &copy; 2011 - Ben Scheirman -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+</body>
+</html>

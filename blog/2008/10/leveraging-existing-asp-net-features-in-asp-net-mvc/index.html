@@ -1,0 +1,369 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Fickle Bits: Leveraging Existing ASP.NET Features in ASP.NET MVC</title>
+  <meta name="author" content="Ben Scheirman">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="canonical" href="http://benscheirman.com/blog/2008/10/leveraging-existing-asp-net-features-in-asp-net-mvc/"/>
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/ficklebits" rel="alternate" title="Fickle Bits" type="application/atom+xml"/>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-210379-10']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">Fickle Bits</a></h1>
+  
+    <h2>You're doing it wrong.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/ficklebits" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:benscheirman.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry">
+  
+  <header>
+    
+      <h1 class="entry-title">Leveraging Existing ASP.NET Features in ASP.NET MVC</h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2008-10-20 00:00:00 -0500" pubdate  updated >Oct 20<span>th</span>, 2008</time>
+
+
+</p>
+    
+  </header>
+
+
+<div class="entry-content"><p><em>The following is an excerpt from my upcoming book, </em><a href="http://manning.com/palermo" target="_blank"><em>ASP.NET MVC in Action</em></a><em>&#8230;</em></p>
+
+
+<p>Many of us have invested heavily in ASP.NET. With ASP.NET MVC now available as an alternative to WebForms, is all that knowledge lost? Do we have to relearn this platform entirely from scratch? You&#8217;ll be relieved to know that many of ASP.NET&#8217;s platform features work the same way they always have. Some ASP.NET server controls even work. In this chapter we&#8217;ll cover what works in ASP.NET MVC and what does not. By the end of the chapter, you should feel comfortable leveraging your existing knowledge of ASP.NET to build robust web sites with ASP.NET MVC.</p>
+
+
+<h2>8.1 ASP.NET Server Controls</h2>
+
+
+<p>As you just discovered, some ASP.NET server controls work with ASP.NET MVC, but which ones? How can we tell if a control will work or not? To put it simply, any control that depends on ViewState or generates post-backs will not work. Some controls will render, but they require a &lt;form runat=&#8221;server&#8221;&gt; which you might not want to add. Adding a server-side form tag will put hidden fields on the page for ViewState and event validation. The form will also POST to the same action you&#8217;re on, which is usually unacceptable.</p>
+
+
+<blockquote> <h4>Note:</h4><p>The code you&#8217;ll read in this section is purely exploratory. Most of it contains hacks and other workarounds that go against the intended design of an MVC web application. The intent of this section is to see how far we can bend the framework without breaking it. Your authors would not recommend using most of these methods in a production application unless absolutely necessary.</p> </blockquote>
+
+
+<h3><a name="_Toc212290640">8.1.1 The TextBox</a></h3>
+
+
+<p>The first control we&#8217;ll examine is the &lt;asp:TextBox /&gt;. It renders as an &lt;input /&gt; HTML element. It requires a &lt;form runat=&#8221;server&#8221;&gt; tag to function, and will be given a generated ID, again which is what we&#8217;re trying to avoid here! Since it is a form field, and the form is required to be runat=&#8221;server&#8221;, it is crippled in its function. Figure 8.1 shows it in action, while Listing 8.1 shows the resulting HTML.</p>
+
+
+<p><img src="/images/figure8_1_.png" alt="figure8_1"  border="0"  />&#160; <br /><strong>Figure 8.1 - The TextBox renders correctly</strong></p>
+
+
+<p><strong>Listing 8.2 - The resulting HTML for the TextBox is less than desirable</strong> </p>
+
+
+<p><img src="/images/figure8_2_.png" alt="figure8_2"  border="0"  /> </p>
+
+
+<p>We can see here that the rendered HTML contains a lot of things that we didn&#8217;t ask for. In addition, notice that the form tag has an action attribute that we didn&#8217;t specify. This will prevent the form from submitting to an action that we request. Since a textbox in ASP.NET MVC is as simple as &lt;%= Html.TextBox(&#8220;name&#8221;) %&gt;, the TextBox server control offers no functionality - only baggage - for your ASP.NET MVC views.</p>
+
+
+<h3>8.1.2 Other Common Controls</h3>
+
+
+<p>We can see from our simple text box example that most ASP.NET WebForms input controls have little to offer. However, some of the controls have very functional rendered output. An excellent example is the &lt;asp:Menu /&gt; control. It doesn&#8217;t require or generate any post-backs and it doesn&#8217;t require view state. It simply renders HTML and JavaScript to allow elements to expand and hide on mouse events. Leaving aside that the &lt;asp:Menu /&gt; renders a nasty pile of HTML tables to display properly, it&#8217;s purely a client rendered control, and it works just fine in ASP.NET MVC. Luckily we can fix the poor markup with ASP.NET Control Adapters, which also function in ASP.NET MVC. Figure 8.3 demonstrates the menu control.</p>
+
+
+<p><img src="/images/figure8_3_.png" alt="figure8_3"  border="0"  /> </p>
+
+
+<p><strong>Figure 8.3 - The menu control renders, unfortunately the links require post-backs. More surgery is needed to make it function.</strong></p>
+
+
+<p><img src="/images/figure8_4_.png" alt="figure8_4"  border="0"  /> </p>
+
+
+<p><strong>Figure 8.4 - The horrific markup that is rendered by the Menu control. Stay tuned for a better way.</strong></p>
+
+
+<p>While the &lt;asp:Menu /&gt; control renders properly, the links in the menu are post-back links, and don&#8217;t work. We could conjure up some javascript to alter this behavior, however doing so would just add to the mess. Additionally, take a look at the rendered markup in Figure 8.4. Hard-coded styles, deeply nested tables, highly obtrusive javascript make this tiny menu render nothing short of a headache. </p>
+
+
+<blockquote> <p><strong>Note:</strong></p><p>This type of markup is a constant reminder of why we want more control over our HTML! Later, in Chapter 14 (Recipes) we&#8217;ll see how we can do much better. For now, let&#8217;s continue on with our exploration of ASP.NET server controls. </p> </blockquote>
+
+
+<p>Two controls that would be hard to live without would be the &lt;asp:TreeView /&gt; and the &lt;asp:Calendar /&gt;. The TreeView works fairly well, however it generates post-backs that do nothing. The visual aspect works just fine, however. The calendar relies heavily on post-back for navigation, so unfortunately it does not function in ASP.NET MVC.</p>
+
+
+<p>I&#8217;ve so far neglected the big-daddy of ASP.NET server controls. That&#8217;s right; I&#8217;m talking about the GridView. The GridView is an interesting case, because it has so many different forms. At its simplest, the GridView is just an HTML table. It&#8217;s great for displaying tabular data. If we don&#8217;t require any post-back, then it should work, right? In short it does work, however there are a view gotchas along the way.</p>
+
+
+<h3>8.1.3 The GridView</h3>
+
+
+<p>The first issue you face is there is no declarative way to bind the GridView to data coming from ViewData. For this we can poke into the code-behind class, which up until now has been mostly useless. In standard ASP.NET Form, you can add an OnLoad event handler and set the grid&#8217;s DataSource property to the data coming from ViewData. Listing 8.1 shows how you might accomplish this. Another method you could employ is to take the data binding code and put it directly in the view markup, inside &lt;% %&gt; code blocks. Listing 8.2 demonstrates this. Both of these methods send bad vibes up my spine, but the point is that it is possible.</p>
+
+
+<p><strong>Listing 8.1 - Binding a GridView from the code-behind</strong></p>
+
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>public partial class grid : ViewPage&lt;Customer[]&gt;{ protected override void OnLoad(System.EventArgs e) {base.OnLoad(e);grid1.DataSource = ViewData.Model;grid1.DataBind(); }}</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p><strong>Listing 8.2 - Binding a GridView from the view itself</strong></p>
+
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>&lt;% grid1.DataSource = ViewData.Model; grid1.DataBind();%&gt;</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>You also have the option of using the DataSource controls such as ObjectDataSource, SqlDataSource, and XmlDataSource. Of course, in doing this you&#8217;ve completely circumvented the MVC pattern and placed all of your data access directly in the view!</p>
+
+
+<p><img src="/images/figure8_5_.png" alt="figure8_5"  border="0"  /> </p>
+
+
+<p><strong>Figure 8.5 - The GridView ren
+ders properly</strong></p>
+
+
+<p>Figure 8.5 shows our newly bound GridView in action. Unfortunately, that&#8217;s all you get, because none of the advanced features of the GridView will work. No sorting, paging, editing, or selecting. Because of this, it is of limited utility, and will probably only aid you during prototyping and demos.</p>
+
+
+<p>All is not lost, however. In ASP.NET MVC you can achieve the holy grail of an editable data grid, complete with sorting, paging, and editing. You just have to structure it in a different way. You&#8217;ll see an example of this in Chapter 14 (Recipes).</p>
+
+
+<p><a name="_Toc212290643">8.1.4 So Where Do I Get The Good Stuff?</a></p>
+
+
+<p>The examples I&#8217;ve shown here might give you a sour taste in your mouth about ASP.NET MVC. Before you scoff at it and decide that you don&#8217;t want to live without your TreeView and Menu controls, consider this: many thousands of samples online show how you can achieve the same functionality with a little bit of Javascript and CSS. These are freely available solutions that many other platforms leverage. With ASP.NET MVC we can do the same, and with minimal friction in applying it. Often, these solutions are so simple; they make the declarative ASP.NET controls look like a sledgehammer. Here are a few references for platform-agnostic solutions to tree views, menus, and tabs using jQuery.</p>
+
+
+<table cellspacing="0" cellpadding="4" border="0"><tbody><tr><td>jQuery Treeview Example</td><td><a href="http://jquery.bassistance.de/treeview/demo/">http://jquery.bassistance.de/treeview/demo/</a></td></tr><tr><td valign="top"><p>jQuery Menu Example</p></td><td><a href="http://jdsharp.us/jQuery/plugins/jdMenu/">http://jdsharp.us/jQuery/plugins/jdMenu/</a></td></tr><tr><td>jQuery Tabs Example</td><td><p><a href="http://stilbuero.de/jquery/tabs/">http://stilbuero.de/jquery/tabs/</a></p></td></tr></tbody></table>
+
+
+<p>&#160;</p>
+
+
+<p>______________________________</p>
+
+
+<p>For more early sections of ASP.NET MVC in Action, check out the pre-release PDFs available at <a href="http://manning.com/palermo" target="_blank">Manning Press</a>.</p>
+
+
+<p>My co-authors may also be posting some excerpts, so pay attention to them:&#160; <a href="http://www.jeffreypalermo.com" target="_blank">Jeffrey Palermo</a> and <a href="http://www.lostechies.com/blogs/jimmy_bogard/" target="_blank">Jimmy Bogard</a>.</p>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ben Scheirman</span></span>
+
+      
+
+
+
+
+<time datetime="2008-10-20 00:00:00 -0500" pubdate  updated >Oct 20<span>th</span>, 2008</time>
+
+
+
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://benscheirman.com/blog/2008/10/leveraging-existing-asp-net-features-in-asp-net-mvc/" data-via="subdigital" data-counturl="http://benscheirman.com/blog/2008/10/leveraging-existing-asp-net-features-in-asp-net-mvc/" >Tweet</a>
+  
+  
+  <g:plusone size="medium"></g:plusone>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread"><div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_shortname = 'subdigital';
+  var disqus_identifier = 'http://benscheirman.com/blog/2008/10/leveraging-existing-asp-net-features-in-asp-net-mvc/';
+  var disqus_url = 'http://benscheirman.com/blog/2008/10/leveraging-existing-asp-net-features-in-asp-net-mvc/';
+  //var disqus_developer = 1;
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside role=sidebar>
+  
+    <section>
+  <h1>Who am I?</h1>
+  <p>I&#8217;m Ben Scheirman. I make Rails &amp; iPhone apps for <a href="http://chaione.com" target="_blank">ChaiONE</a> in Houston, TX.</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/08/vim---could-not-invoke-jslint/">Vim - Could Not Invoke JSLint</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/is-rails-exempt-from-software-principles/">Is Rails Exempt?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/when-viewwillappear-isnt-called/">When viewWillAppear: Isn&#8217;t Called</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/moving-my-blog/">Moving My Blog</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/my-vim-journey/">My Vim Journey</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("subdigital", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/subdigital" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @subdigital</a>
+  
+</section>
+
+
+<section>
+  <h1>On Delicious</h1>
+  <script type="text/javascript" src="http://feeds.delicious.com/v2/js/subdigital?title=&count=3&sort=date&extended"></script>
+  <p><a href="http://delicious.com/subdigital">My Delicious Bookmarks &raquo;</a></p>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer>
+<a style="display:block; float: right" title="Real Time Analytics" href="http://getclicky.com/66470389"><img alt="Real Time Analytics" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
+<script src="//static.getclicky.com/js" type="text/javascript"></script>
+<script type="text/javascript">try{ clicky.init(66470389); }catch(e){}</script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/66470389ns.gif" /></p></noscript>
+
+<p>
+  Copyright &copy; 2011 - Ben Scheirman -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+</body>
+</html>

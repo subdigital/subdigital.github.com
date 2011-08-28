@@ -1,0 +1,282 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Fickle Bits: Getting Started With CAB</title>
+  <meta name="author" content="Ben Scheirman">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="canonical" href="http://benscheirman.com/blog/2007/03/getting-started-with-cab/"/>
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/ficklebits" rel="alternate" title="Fickle Bits" type="application/atom+xml"/>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-210379-10']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">Fickle Bits</a></h1>
+  
+    <h2>You're doing it wrong.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/ficklebits" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:benscheirman.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry">
+  
+  <header>
+    
+      <h1 class="entry-title">Getting Started With CAB</h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-03-06 00:00:00 -0600" pubdate  updated >Mar 6<span>th</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+<div class="entry-content"><p>I&rsquo;m starting to scratch the massive surface that is CAB.&nbsp; CAB is better known as the Composite UI Application Block developed by the Patterns &amp; Practices Group at Microsoft.</p>
+
+
+<p>It&rsquo;s hard to define exactly what CAB gives you in one sentence, but I&rsquo;ll try.&nbsp; How about <em>manageable windows forms architecture with an emphasis on patterns </em>?&nbsp; I&rsquo;m an ASP.NET guy, so that&rsquo;s where my expertise lies, however I have built a few moderately sized WinForms apps and they get unwieldy very quickly.</p>
+
+
+<p>I plan on posting a bit about CAB as I dig into it, so stay tuned for that.&nbsp; For now I&rsquo;ll just post my first experience with it:&nbsp; Getting the darn thing installed.&nbsp; In tune with many CTP and early release software, it doesn&rsquo;t always go as smoothly as planned.</p>
+
+
+<p>First thing to do is install the following things <strong>in the correct order</strong>:<br />(<em>I assume you already have .NET 2.0 and Visual Studio 2005 installed)</em></p>
+
+
+<ul><li><a title="Microsoft - Download GAX" href="http://www.microsoft.com/downloads/details.aspx?FamilyID=C0A394C0-5EEB-47C4-9F7B-71E51866A7ED&amp;displaylang=en" target="_blank">Guidance Automation Extensions</a></li><li><a title="Microsoft - Download GAT" href="http://www.microsoft.com/downloads/details.aspx?FamilyID=E3D101DB-6EE1-4EC5-884E-97B27E49EAAE&amp;displaylang=en" target="_blank">Guidance Automation Toolkit for Visual Studio 2005</a></li><li><a title="Microsoft - Download CAB" href="http://www.microsoft.com/downloads/details.aspx?familyid=7b9ba1a7-dd6d-4144-8ac6-df88223aee19&amp;displaylang=en" target="_blank">Composite UI Application Block (CAB)</a></li><li><a title="Microsoft - Download EntLib" href="http://www.microsoft.com/downloads/details.aspx?familyid=5a14e870-406b-4f2a-b723-97ba84ae80b5&amp;displaylang=en" target="_blank">Enterprise Library (June 2006)</a></li></ul>
+
+
+<p>I found some sources on the internet that listed those in reverse, and I got an error at the Guidance Automation Toolkit installation that said &ldquo;<em>Operation invalid for the current state of the object</em>.&rdquo;</p>
+
+
+<p>In my case, I got the error even after uninstalling them all, but I was able to fix the error by modifying the registry.&nbsp; Open <em>regedit<strong> </strong></em>and navigate to <em>HKEY LOCAL MACHINE\SOFTWARE\MICROSOFT\COMMAND PROCESSOR&#46;</em>&nbsp; There should be a key in there called <em>AutoRun</em>.&nbsp; I renamed this to <em>AutoRunOld</em> and the installation worked.</p>
+
+
+<p>(I have a feeling that this setting was modified by an XPize installation, since they modify your command prompt settings&hellip; but I haven&rsquo;t confirmed this.)</p>
+
+
+<p>Now that everything is installed and running, check out these resources to get your feet wet with CAB:</p>
+
+
+<ul><li><a title="Bill Simser's blog (CAB)" href="http://weblogs.asp.net/bsimser/archive/tags/CAB/default.aspx" target="_blank">Bill Simser&rsquo;s blog</a> has a few nice gems about CAB</li><li><a title=".NET Developer's Journal article" href="http://dotnet.sys-con.com/read/133764.htm" target="_blank">A First Look at CAB</a> at .NET Developer&rsquo;s Journal</li><li><a title="Microsoft Whitepaper PDF" href="http://download.microsoft.com/download/1/0/3/103adb7f-1e45-42f8-8696-63e513875258/CAB%20SCSF%20-%20Architecture%20Guidance%20-%20Raiffeisen.pdf" target="_blank">Microsoft Whitepaper on Designing Smart Clients with CAB</a>&nbsp;(PDF)</li><li><a title="CAB Wiki" href="http://cabpedia.com/" target="_blank">CABPedia (wiki)</a></li></ul>
+
+
+<p>The next post will definitely contain more &ldquo;meat.&rdquo;</p>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ben Scheirman</span></span>
+
+      
+
+
+
+
+<time datetime="2007-03-06 00:00:00 -0600" pubdate  updated >Mar 6<span>th</span>, 2007</time>
+
+
+
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://benscheirman.com/blog/2007/03/getting-started-with-cab/" data-via="subdigital" data-counturl="http://benscheirman.com/blog/2007/03/getting-started-with-cab/" >Tweet</a>
+  
+  
+  <g:plusone size="medium"></g:plusone>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread"><div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_shortname = 'subdigital';
+  var disqus_identifier = 'http://benscheirman.com/blog/2007/03/getting-started-with-cab/';
+  var disqus_url = 'http://benscheirman.com/blog/2007/03/getting-started-with-cab/';
+  //var disqus_developer = 1;
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside role=sidebar>
+  
+    <section>
+  <h1>Who am I?</h1>
+  <p>I&#8217;m Ben Scheirman. I make Rails &amp; iPhone apps for <a href="http://chaione.com" target="_blank">ChaiONE</a> in Houston, TX.</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/08/vim---could-not-invoke-jslint/">Vim - Could Not Invoke JSLint</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/is-rails-exempt-from-software-principles/">Is Rails Exempt?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/when-viewwillappear-isnt-called/">When viewWillAppear: Isn&#8217;t Called</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/moving-my-blog/">Moving My Blog</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/my-vim-journey/">My Vim Journey</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("subdigital", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/subdigital" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @subdigital</a>
+  
+</section>
+
+
+<section>
+  <h1>On Delicious</h1>
+  <script type="text/javascript" src="http://feeds.delicious.com/v2/js/subdigital?title=&count=3&sort=date&extended"></script>
+  <p><a href="http://delicious.com/subdigital">My Delicious Bookmarks &raquo;</a></p>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer>
+<a style="display:block; float: right" title="Real Time Analytics" href="http://getclicky.com/66470389"><img alt="Real Time Analytics" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
+<script src="//static.getclicky.com/js" type="text/javascript"></script>
+<script type="text/javascript">try{ clicky.init(66470389); }catch(e){}</script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/66470389ns.gif" /></p></noscript>
+
+<p>
+  Copyright &copy; 2011 - Ben Scheirman -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+</body>
+</html>

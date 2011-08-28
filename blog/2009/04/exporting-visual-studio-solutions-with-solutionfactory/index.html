@@ -1,0 +1,255 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Fickle Bits: Exporting Visual Studio Solutions with SolutionFactory</title>
+  <meta name="author" content="Ben Scheirman">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="canonical" href="http://benscheirman.com/blog/2009/04/exporting-visual-studio-solutions-with-solutionfactory/"/>
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/ficklebits" rel="alternate" title="Fickle Bits" type="application/atom+xml"/>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-210379-10']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">Fickle Bits</a></h1>
+  
+    <h2>You're doing it wrong.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/ficklebits" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:benscheirman.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry">
+  
+  <header>
+    
+      <h1 class="entry-title">Exporting Visual Studio Solutions With SolutionFactory</h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2009-04-13 00:00:00 -0500" pubdate  updated >Apr 13<span>th</span>, 2009</time>
+
+
+</p>
+    
+  </header>
+
+
+<div class="entry-content"><p><img src="/images/visual%20studio_.png" align="right"  height="40" /></p>
+
+
+<p> <p>Part of my job is to create reusable code, patterns, designs, solutions, etc for other developers to leverage.&nbsp; Getting started using some of these things can be initially tough for someone who hasn&#8217;t had a lot of experience with long-term, maintainable solution structures for projects that use:</p> <ul> <li>an automated build  <li>3rd party libraries  <li>machine-specific configuration  <li><a href="http://en.wikipedia.org/wiki/Don't_repeat_yourself" target="_blank">D.R.Y.</a> for things like connection strings, etc.</li></ul> <p>Because of these things, I favor a folder structure similar to this one:</p> <p><img src="/images/image_146df75b-7e7a-46d3-b3a5-bfe159f7ad44_.png" alt="image"  height="529" /> </p> <p>This keeps things tidy.&nbsp; There is a home for everything.&nbsp; Third party libraries get checked in to source control, as well as any light-weight developer tools that we use during the build.&nbsp; Everything you need to build the software on a developer&#8217;s machine should be here.&nbsp; (<em>Of course I assume that you already have the appropriate Visual Studio &amp; database server on your local machine.)</em></p> <p>In addition, <strong>many</strong> of our projects look something like this:</p> <ul> <li>App.UI  <li>App.Core  <li>App.Persistence  <li>App.Tests</li></ul> <p>Granted, this is very short-sighted and won&#8217;t be the end-all-be-all solution structure for all projects.&nbsp; <strong>But the goal here is to get you (a developer) started really quickly</strong>.&nbsp; These projects can already contains some things that get from nothing to something tangible in short time.</p> <p>My sample solution contains:</p> <ul> <li>An MVC project with a standard look &amp; feel  <ul> <li>images  <li>javascript files</li></ul> <li>A sample CRUD screen, showing a small example of the various players in displaying &amp; updating data.  <ul> <li>NHibernate  <li>FluentNHibernate  <li>NHibernate.Linq  <li>an IOC container  <li>an MVC Controller factory</li></ul> <li>A test project that shows both unit and integration style tests.&nbsp; Some nice fluent testing extensions are left in to show how it works. (the target audience will probably only have a C# 2.0 background).</li></ul> <p>All of this is pre-wired up.&nbsp; Dependencies are referenced in each project.&nbsp; The libraries are located in a relative URL, meaning other people who check out this code can build immediately.&nbsp; In addition, there is a sample NAnt script that shows how to build &amp; test the software.</p> <p>It&#8217;s about convention over configuration.&nbsp; For some applications, if they don&#8217;t want to do it this way, fine.&nbsp; It&#8217;s not about enforcement, it&#8217;s about gentle guidance &amp; encouragement.</p> <h2>Packaging it all up</h2> <p><img src="/images/Hell_Alamy460_.jpg" align="left"  height="144" />So I went on the path of trying to export this into a set of Visual Studio project templates.&nbsp; I found the project templates to be less-than helpful for a few reasons.&nbsp; First, it assumes that you keep your projects in the root of the project folder structure.&nbsp; Second, there seemed to be no way to elegantly package up assemblies that the project depended on.&nbsp; I looked at <a href="http://code.google.com/p/sharp-architecture/" target="_blank">S#arp Architecture</a> for some help, but quickly realized that there isn&#8217;t an easy road to doing all of this.&nbsp; In addition, as far as I could tell there is no way to automatically create solution templates.&nbsp; You have to create project templates for each project and then manually stitch them together.</p> <p>This violated my #1 rule with the templates.&nbsp; <strong>In order for them to be successful, they must be really easy to change</strong>.&nbsp; I figure that in 2 months time, something in the template will have changed, or someone will want to tweak the design, or upgrade to a new version of a dependant assembly.&nbsp; If they have to go through all of those hoops to publish a new template, they just won&#8217;t do it.&nbsp; All of the effort on the initial template will be wasted.</p> <p><img src="/images/Factory-Yellow-256x256_dae50722-4932-4e9b-a70c-9f3883ba7050_.png" align="right"  height="100" />Then I came across <a href="http://solutionfactory.codeplex.com" target="_blank">SolutionFactory</a>, which is a project started by <a href="http://www.lostechies.com/blogs/hex/" target="_blank">Eric Hexter</a> up on <a href="http://codeplex.com" target="_blank">Codeplex</a>.&nbsp; It consists of 2 major components:</p> <ul> <li>A template wizard that handles all of the post-launch tasks, such as moving the projects to the right location, fixing up references, etc.  <li>A Visual Studio add-in that creates a large solution template, containing multiple vstemplate files (project templates) and also respects my folder structure.&nbsp; Nice!</li></ul> <p>Usage is pretty dead simple.&nbsp; After installing, you get a new add-in.&nbsp; You have to enable the add-in before using it.</p> <p>&nbsp;<img src="/images/image_ee84c045-c405-4380-aa89-8e4d54bc1d61_.png" alt="image"  height="545" /> </p> <p><img src="/images/image_202a8bd8-c38a-44a2-936c-e9bf8633bb46_.png" alt="image"  height="358" /> </p> <p>Once you place the checkmark next to the Solution Factory add-in and click OK, you should see a new menu item in Visual Studio.</p> <p><img src="/images/image_d9932ca2-4bf1-4919-862f-c56d8874b0cd_.png" alt="image"  height="545" /> </p> <p>When you select &#8220;Export Template&#8221; from the Solution Factory menu, you are presented with this dialog:</p> <p><img src="/images/image_898ce309-7205-469d-bfe9-479a7fe22b79_.png" alt="image"  height="545" /> </p> <p>This controls your exported VSI file.&nbsp; One cool thing to note is that you can have a custom command run as part of the template invocation process.&nbsp; This is especially helpful if you have a firstTimeConfig.bat file or similar.&nbsp; Sometimes you just have to run the build once to make sure everything is in place.</p> <p><strong>During the export, any remnants of TFS source control will be stripped out in the target folder</strong>.&nbsp; Any read-only files will be unlocked, any <em>.</em>scc files will be deleted, and *.csproj files will be modified to remove the source control bindings.&nbsp; If this isn&#8217;t done, you&#8217;ll be prompted to remove source control bindings for each project every time you create a new project based on the template.&nbsp; Yuck!</p> <p>When the export is finished (it takes about a minute) you should see a message box like this:</p> <p><img src="/images/image_334964b7-3f86-4a73-9401-c47554670e03_.png" alt="image"  height="130" /> </p> <p>Now if we look in our <strong>c:\temp</strong> folder, we should see some new files:</p> <p><img src="/images/image_b0d52aef-5cd9-4d96-8ab4-73f70a9cfc5f_.png" alt="image"  height="67" /> </p> <p>The VSI is a <em>Visual Studio Installer</em> file, and it simplifies putting the template zip file into Visual Studio.&nbsp; All you
+really have to do is copy it to the appropriate Visual Studio 2008\Templates folder and run devenv.exe /installvstemplates to get it to rebuild the template cache.&nbsp; When you run the VSI, you&#8217;ll get a simple installer.&nbsp; <strong>It will warn you that the template is not signed, just press OK</strong>.</p> <p>There is one caveat though:&nbsp; Our template relies on SolutionFactory.Wizard.dll to run some custom actions when the template is invoked.&nbsp; The VSI file doesn&#8217;t have permissions to copy files into C:\Program Files, so until a custom installer (MSI) is made, you have to copy this dll manually.</p> <p>To do this, close down all instances of Visual Studio and copy SolutionFactory.Wizard.dll into c:\program files\Microsoft Visual Studio 9.0\Common 7\IDE\Private Assemblies.&nbsp; (on Vista/7 this path may be different, so adjust accordingly).&nbsp; This only has to be done once, and subsequent uses of the template will use this dll.</p> <p>Now, fire up a fresh copy of Visual Studio, choose File-&gt;New Project, and see our new template!</p> <p><img src="/images/image_5d06788c-0d01-4147-b773-e5d9200d4f58_.png" alt="image"  height="496" /> </p> <p>When you click OK, Visual Studio will do a little dance, make sure you wait for it to finish!&nbsp; When it&#8217;s all done, you&#8217;ll end up with this:</p> <p><img src="/images/image_744bafa8-d6c6-4025-8a7e-4daea6ab88d8_.png" alt="image"  height="480" />&nbsp;</p> <p>Every thing is completely packaged up, with multiple projects, 3rd party libraries, tools, and an automated build.&nbsp; The best part is that we can keep the template up to date and re-publish easily.</p></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ben Scheirman</span></span>
+
+      
+
+
+
+
+<time datetime="2009-04-13 00:00:00 -0500" pubdate  updated >Apr 13<span>th</span>, 2009</time>
+
+
+
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://benscheirman.com/blog/2009/04/exporting-visual-studio-solutions-with-solutionfactory/" data-via="subdigital" data-counturl="http://benscheirman.com/blog/2009/04/exporting-visual-studio-solutions-with-solutionfactory/" >Tweet</a>
+  
+  
+  <g:plusone size="medium"></g:plusone>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread"><div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_shortname = 'subdigital';
+  var disqus_identifier = 'http://benscheirman.com/blog/2009/04/exporting-visual-studio-solutions-with-solutionfactory/';
+  var disqus_url = 'http://benscheirman.com/blog/2009/04/exporting-visual-studio-solutions-with-solutionfactory/';
+  //var disqus_developer = 1;
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside role=sidebar>
+  
+    <section>
+  <h1>Who am I?</h1>
+  <p>I&#8217;m Ben Scheirman. I make Rails &amp; iPhone apps for <a href="http://chaione.com" target="_blank">ChaiONE</a> in Houston, TX.</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/08/vim---could-not-invoke-jslint/">Vim - Could Not Invoke JSLint</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/is-rails-exempt-from-software-principles/">Is Rails Exempt?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/when-viewwillappear-isnt-called/">When viewWillAppear: Isn&#8217;t Called</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/moving-my-blog/">Moving My Blog</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/my-vim-journey/">My Vim Journey</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("subdigital", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/subdigital" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @subdigital</a>
+  
+</section>
+
+
+<section>
+  <h1>On Delicious</h1>
+  <script type="text/javascript" src="http://feeds.delicious.com/v2/js/subdigital?title=&count=3&sort=date&extended"></script>
+  <p><a href="http://delicious.com/subdigital">My Delicious Bookmarks &raquo;</a></p>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer>
+<a style="display:block; float: right" title="Real Time Analytics" href="http://getclicky.com/66470389"><img alt="Real Time Analytics" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
+<script src="//static.getclicky.com/js" type="text/javascript"></script>
+<script type="text/javascript">try{ clicky.init(66470389); }catch(e){}</script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/66470389ns.gif" /></p></noscript>
+
+<p>
+  Copyright &copy; 2011 - Ben Scheirman -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+</body>
+</html>

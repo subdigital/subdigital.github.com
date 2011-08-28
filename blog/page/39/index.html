@@ -1,0 +1,459 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Fickle Bits</title>
+  <meta name="author" content="Ben Scheirman">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="canonical" href="http://benscheirman.com/blog/page/39/index.html"/>
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/ficklebits" rel="alternate" title="Fickle Bits" type="application/atom+xml"/>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-210379-10']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">Fickle Bits</a></h1>
+  
+    <h2>You're doing it wrong.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/ficklebits" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:benscheirman.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2005/02/asp-net-enterprise-environment/">ASP.NET Enterprise Environment</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2005-02-12 00:00:00 -0600" pubdate  updated >Feb 12<span>th</span>, 2005</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><div style="clear:both;"></div>
+
+
+<p>I have been reading a lot about agile practices lately, sopping up as much information I can get my hands on.I&#8217;m hooked.I knew immediately that these practices would benefit me at work.The problem is that these are geared towards general development.Web development is slightly different, and it poses some problems with source control, unit testing, and other things&#8230;<br /><br />For source control I setup Subversion on our test server, then installed Apache to serve up the repository over http.It uses WebDAV and Apache permissions to identify the user.As many people know, the subversion admin directory (.svn) doesn&#8217;t play well with Visual Studio .NET Web projects.I think it has something to do with FrontPage server extensions, but whatever.Anyway, there is a modified version of <a href="http://tortoisesvn.tigris.org">TortoiseSVN</a> availalable that can convert this to a more friendly (<em>svn) directory.Beware of using this though&#8230; other tools will not work if you use this method.For Visual Studio integration I am using AnkhSVN (which you can configure to use </em>svn directories).This works very well, however it&#8217;s still not idea.Here&#8217;s why:<br />I frequently run into commit conflicts on my .dlls, .suo, and .pdb files.This really doesn&#8217;t matter since the .dll&#8217;s will be recompiled, but it gets quite annoying.I&#8217;m really looking on a better way to manage my directory structure to easily omit these files from the source control. (I&#8217;m thinking that NAnt may help me setup a different structure, but I haven&#8217;t messed around with it yet)<br /><br />For unit tests, it&#8217;s quite difficult to implement in a web environment (at least it appears to be).One thing I quickly realized is that most of our logic was residing directly in the page.Obviously, this is not desirable so I started work on a robust class library (which is coming along quite nicely now).But how do I write unit tests for code that inserts data into a database?Should I insert, then check to see if the data was inserted?I can easily see this doubling my work. Almost ALL of my code is database interaction.<br /><br />I have also started configuring CruiseControl.NET to do some continuous integration on my repository.This is waiting on a few other factors, but is the next step in improving my development environment at work.<br /><br />I know I&#8217;m on the right track, but I am not finding enough good resources specific to ASP.NET development with architecture, directory structures.I&#8217;d love any advice on how to improve in these areas, maybe some book recommendations&#8230;.Thanks!<div style="clear:both; padding-bottom: 0.25em;"></div></p>
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2005/02/asp-net-enterprise-environment/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2005/01/pass-phrases-are-the-new-thing/">Pass-Phrases Are the New Thing</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2005-01-14 00:00:00 -0600" pubdate  updated >Jan 14<span>th</span>, 2005</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><div style="clear:both;"></div>
+
+
+<p>Well, this link is <span style="font-style: italic;">hardly</span> new, but it&#8217;s link-worthy nonetheless.This is a very interesting article on password security.<br /><br /><a href="http://blogs.msdn.com/robert_hensing/archive/2004/07/28/199610.aspx">Robert Hensing&#8217;s Blog on Passwords</a><br /><div style="clear:both; padding-bottom: 0.25em;"></div></p>
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2005/01/pass-phrases-are-the-new-thing/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2005/01/its-that-time-again-system-wipe/">It&#8217;s That Time Again - System Wipe</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2005-01-09 00:00:00 -0600" pubdate  updated >Jan 9<span>th</span>, 2005</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><div style="clear:both;"></div>
+
+
+<p><span style="font-family: arial;font-family:arial;font-size:85%;">Like many computer power (read: nit-picky) users, I find the need to reformat my machine just about twice a year. This time around I have been lazy and it has been 9 months since my last reformat. This is mainly because I have been utterly dependent upon it as a server.<br /><br />I have been developing applications in PHP that were being shown to different clients, and it seemed each time I was about to finish a project, another one came right along.<br /><br />I also started a couple ASP.NET projects and was becoming very dependent upon my computer (well, a little more than usual).<br /><br />To top it all off my computer serves media content to my xbox, whicch I also didn&#8217;t want to interrupt.<br /><br />I finally realized that I was NEVER going to get a break from being dependent upon my computer, so tonight I will reformat. After this install I plan to &#8220;ghost&#8221; my hard drives and make a set of restore cd&#8217;s. I have heard this is a great tool for many people, but my computer is rarely in a position where I want a &#8220;snapshot&#8221; to always return to. This will be my opportunity to do that.<br /><br />To make my restore state the most useful in the long run, I have written down all the software I want to have on it. Good god! No wonder my system is so damn slow! I hand-wrote an entire page of software titles that I will be installing.<br /><br />I might as well list it out and explain why I like each piece of software&#8230; maybe someone will find it useful. Or maybe you can post a comment making fun of me. In any case, this is my blog NOT YOURS!<br /><br />&#8230;..sorry, got a little carried away.Where were we?Ahh, yes.. the software list, complete with comments.<br /><br />My OS is WinXP Pro, for reasons that are probably obvious. Pretty much the only things I do are play games, develop in .NET and mess with DirectX&#8230; enough said.<br /><br /><span style="font-weight: bold;">Security<br /><hr /></span><span style="font-size:100%;">(these days it is a must to install these programs first! Think how dangerous it could be to visit 1 site without anti-virus / anti-spy with a stock version of IE&#8230;. /shudder)<br /></span></span> <ul style="font-family: arial;font-family:arial;" > <li><span style="font-size:85%;">McAfee Enterprise 7 - far better than Norton imho&#8230;</span></li> <li><span style="font-size:85%;">SpyBot - It&#8217;s free and catches more than Ad-aware</span></li> <li><span style="font-size:85%;">Ad-aware - well, Spybot isn&#8217;t perfect&#8230;.any suggestions on replacing these 2 with one all mighty Anti-Spy solution?</span></li> </ul> <span style="font-weight: bold; font-family: arial;font-family:arial;" >System</span><br /><hr style="font-family: arial;font-family:arial;" ><span style="font-family: arial;font-family:arial;font-size:78%;"><br /></span> <ul style="font-family: arial;font-family:arial;" > <li><span style="font-size:85%;">DirectX 9.0c SDK - For my ventures in game programming with the awe-inspiring Managed DirectX</span></li> <li><span style="font-size:85%;">.NET 1.1 - For my managed development</span></li> <li><span style="font-size:85%;">PHP - cuz a little side money from <a href="http://www.rentacoder.com/">Rent-a-coder</a> never hurts.<br /> </span></li> <li><span style="font-size:85%;">IIS - for asp.net and php</span></li> </ul><span style="font-weight: bold; font-family: arial;font-family:arial;" >Databases</span><br /><hr style="font-family: arial;font-family:arial;" ><br /><span style="font-family: arial;font-family:arial;" >I use 2 because I have to develop for different target database servers. </span><br /><ul style="font-family: arial;"> <li>SQL Server 2000 (for asp.net stuff)</li> <li>MySQL (for php)</li> </ul><span style="font-weight: bold;">Development<br /><hr /><br /></span> <ul> <li>Microsoft Visual Studio .NET 2003</li> <li>Dreamweaver MX 2004</li> <li>EditPlus (though dreamweaver has better builtin ftp support)<br /></li> <li>SQLYog (free!) (wonderful tool for MySQL<br /></li> <li>Enterprise Manager / Query Analyzer</li> <li>Subversion (best source control I&#8217;ve seen)<br /></li> </ul><br /><span style="font-family: arial;font-family:arial;" > <span style="font-weight: bold;">Visual</span></span><br /><hr style="font-family: arial;"><br /><ul style="font-family: arial;"> <li><strike>StyleXP (lots of clean visual styles out there)</strike> (i just recently learned that stylexp only hacks the microsoft dll to provide unsigned styles.The same thing can be accomplished with a manual hack.WindowsBlinds has their own dll for skinning, so I&#8217;m testing that out.I also got a copy of RoyalXP (the 2005 MCE style &#8211; nice!)</li><li>Customize.org (for wallpapers)</li> </ul><span style="font-weight: bold;">Media<br /><hr /><br /></span> <ul> <li>Windows Media Player 10 (though it&#8217;s pissing me off to no end)</li> <li>Winamp 5</li> </ul> <span style="font-weight: bold;">Burning<br /><hr /><br /></span> <ul> <li>Nero</li> <li>Alcohol 120%</li> <li>Daemon-Tools (for mounting images)</li> <li>CloneDVD</li> </ul> I&#8217;d like comments.I&#8217;m always on the lookout for more good software to bloat my machine!<span style="font-family: arial;font-family:arial;font-size:78%;"><br /></span><div style="clear:both; padding-bottom: 0.25em;"></div></p>
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2005/01/its-that-time-again-system-wipe/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2005/01/the-antec-p160-atx-case/">The Antec P160 ATX Case</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2005-01-01 00:00:00 -0600" pubdate  updated >Jan 1<span>st</span>, 2005</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><div style="clear:both;"></div>
+
+
+<p>I have been building computers for as long as I can remember. There was a time when I could actually make quite a bit of profit, and still stay well below what other major pc manufacturers were charging. That is not the case anymore, however the experience is still with me.<br /><br />When someone would ask me to build them a computer, I would generally assess what they could do without and skimp on that. Most business users (in fact most users in general) do not need a good video card. Nor do they need that much hard drive space. I would go for the cheapest price when it came down to these componenents.<br /><br />The computer chassis was the same thing. I would pay the extra money to get an ATX case, since they were far superior to old AT style cases, but still I would only spend about $30 on it. (Looking back on it, it was no wonder I cut myself so many times on jagged sheet metal found in cheap cases).<br /><br />I recently discovered why <a href="http://www.blogger.com/app/www.antec.com">Antec</a> and other major case manufacturers charge upwards of $100 for their cases. I purchased the Antec P160 from Microcenter for $108.00 - $40 MIR = $68. Not bad, considering <a href="http://www.blogger.com/app/www.newegg.com">NewEgg</a> had it for $115. Soon after I found that CompUSA had it for $60, but oh well. Who shops there anyway? Anyway, I&#8217;m getting side tracked. Here&#8217;s a picture of the case:<br /><br /><br /><img src="/images/P160_front_.jpg"   /><br />Sure it looks nice from the outside, but is it worth $100 just from the front? Absolutely not. Sure the asthetics are nice, and the Power button / usb ports are cleverly positioned at the top of the case, but I can find an equally pleasing case for $40 or so from <a href="http://www.blogger.com/app/www.dealsonic.com">DealSonic</a>. What&#8217;s inside is even greater than the exterior.<br /><br />First thing I noticed: When they say aluminum&#8230; they mean it. The whole thing is made of 2mm rolled aluminum. Most aluminum cases I had dealt with before had aluminum side panels or something. This is way better quality.<br /><br />The hard drive cage is rotated perpendicular to the case, to allow easier access to the drives. You can see this in the next picture:<br /><br /><img src="/images/P160_inside_.jpg"   /><br /><br />This is very clever. Though I have heard people have space issues when it comes to connecting SATA hard drives, but I don&#8217;t have any of these. Not to mention you could easily stick SATA hard drives in the 3.5&#8221; slot below the floppy. The drive cage has rails for these sliding frames that you attach to the hard drives. Then you just slide the drive it and it clicks and locks. Easy!<br /><br />The 5.25&#8221; drive bays have the same rail system. Man, I&#8217;m starting to love this case! In front of the hard-drive cage (which is detachable, by the way) is space for a fan. Hrmm, how can I get a fan in there, I wonder. I unscrew the thumbscrew on the panel seen in the picture and the piece slides out! The fan can screw into this metal frame and slide right into place. The thumb screw even stays attached to the piece so you won&#8217;t lose it.<br /><br />As for the fan on the back, it is attached by 4 rubber screws that you just pull through until they fan out, then you cut of the excess rubber hanging out the back. This gives you a fan that doesn&#8217;t actually touch the chassis. They advertise that this is a quiet fan, but I have yet to ascertain that fact. I know that the rubber screws will definitely help.<br /><br />The motherboard tray comes out to make installation easy. It includes 2 temperature sensors that you can place where you like, and the front panel houses a washable dust filter.2 of the 5.25&#8221; drive bays have fake bezels to make your drives look uniform.I like this idea, but I have seen some crappy ones in the past, so I hope these function like they should.<br /><br />The only thing I could ask for would be to replace the thumb screws on the PCI panel and replace them with the pci clamps. I saw those on a couple <a href="www.thermaltake.com">Thermaltake</a> cases.(The Tsunami dream was my 2nd choice, but I really didn&#8217;t want a door in front of my optical drives.)<br /><br />So, I finally realized, after more than a decade of building computers, that the case is the same as just about any other component in a computer: you get what you pay for. Sadly I feel that I am not surprising anyone here. I just thought I would share my excitement with my new case.<div style="clear:both; padding-bottom: 0.25em;"></div></p>
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2005/01/the-antec-p160-atx-case/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2004/08/rentacoder-is-my-friend/">Rentacoder Is My Friend</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2004-08-25 00:00:00 -0500" pubdate  updated >Aug 25<span>th</span>, 2004</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><div style="clear:both;"></div>
+
+
+<p>I am really liking rentacoder.com(why didn&#8217;t I find this sooner?)&#8230;.it&#8217;s nice to be able to make a few hundred extra dollars per month for doing what I love:coding.<br /><br />My only issues are that the RAC fee is huge, and that when they pay me, Paypal takes a tiny bit as well!Good god, by the time I get my money it will have diminished almost 20%!<br /><div style="clear:both; padding-bottom: 0.25em;"></div></p>
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2004/08/rentacoder-is-my-friend/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2004/08/ahh-first-week-of-classes/">Ahh, First Week of Classes</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2004-08-25 00:00:00 -0500" pubdate  updated >Aug 25<span>th</span>, 2004</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><div style="clear:both;"></div>
+
+
+<p>There is nothing like the bombardment of fraternaties and organizations that hound you into joining or donating or whatever.I often see signs like NBSA (National Black Student Association)or HSA (Hispanic Student Association)&#8230;and there are many others.In fact, I think there is one for just about every race out there, except white.Why is this?Because if there was a National White Student Association, it would be considered racist.Hrm, what is wrong with us?<br /><div style="clear:both; padding-bottom: 0.25em;"></div></p>
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2004/08/ahh-first-week-of-classes/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2004/08/different-browsers/">Different Browsers</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2004-08-24 00:00:00 -0500" pubdate  updated >Aug 24<span>th</span>, 2004</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><div style="clear:both;"></div>
+
+
+<p>I finally made the switch from IE (long-time user) to Mozilla Firefox and I can&#8217;t believe I didn&#8217;t do this sooner!IE is very annoying compared to Firefox, and is riddled with security flaws. My favorite feature is how you can break out of framed pages, such as those that open from links inside hotmail messages&#8230;.very cool.<br /><div style="clear:both; padding-bottom: 0.25em;"></div></p>
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2004/08/different-browsers/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2004/08/mathematical-proof-that-girls-are-evil/">Mathematical Proof That Girls Are Evil</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2004-08-23 00:00:00 -0500" pubdate  updated >Aug 23<span>rd</span>, 2004</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><div style="clear:both;"></div>
+
+
+<p>First we know that girls take time and money, so<br /><br /><span style="font-weight: bold;">girl = time X money<br /><br /><span style="font-weight: bold;"></span></span>next we know that time IS money, so<br /><br /><span style="font-weight: bold;">time = money</span><br /><br />substitute in for time in the first equation:<br /><br /><span style="font-weight: bold;">girl = money X money</span> or<span style="font-weight: bold;">girl = money<sup>2&lt;br</sup> /><br /></span>now we know that money is the root of all evil, so:<br /><br /><span style="font-weight: bold;">money = sqrt(evil)<br /><br /></span>and substitute in for the other equation<br /><br /><span style="font-weight: bold;">girl = money<sup>2</sup> </span>and <span style="font-weight: bold;">money<sup>2</sup> = evil</span>thus:<br /><br /><span style="font-weight: bold;">girl = evil</span><br /><br />That is the lesson of the day&#8230;.<br /><span style="font-weight: bold;"></span><div style="clear:both; padding-bottom: 0.25em;"></div></p>
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2004/08/mathematical-proof-that-girls-are-evil/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+<nav role="pagination">
+  <div>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/38/">Newer &rarr;</a>
+    
+  </div>
+</nav>
+
+<script type="text/javascript">
+    var disqus_shortname = 'subdigital';
+    (function () {
+      var s = document.createElement('script'); s.async = true;
+      s.type = 'text/javascript';
+      s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+      (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+
+</div>
+<aside role=sidebar>
+  
+    <section>
+  <h1>Who am I?</h1>
+  <p>I&#8217;m Ben Scheirman. I make Rails &amp; iPhone apps for <a href="http://chaione.com" target="_blank">ChaiONE</a> in Houston, TX.</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/08/vim---could-not-invoke-jslint/">Vim - Could Not Invoke JSLint</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/is-rails-exempt-from-software-principles/">Is Rails Exempt?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/when-viewwillappear-isnt-called/">When viewWillAppear: Isn&#8217;t Called</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/moving-my-blog/">Moving My Blog</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/my-vim-journey/">My Vim Journey</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("subdigital", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/subdigital" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @subdigital</a>
+  
+</section>
+
+
+<section>
+  <h1>On Delicious</h1>
+  <script type="text/javascript" src="http://feeds.delicious.com/v2/js/subdigital?title=&count=3&sort=date&extended"></script>
+  <p><a href="http://delicious.com/subdigital">My Delicious Bookmarks &raquo;</a></p>
+</section>
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer>
+<a style="display:block; float: right" title="Real Time Analytics" href="http://getclicky.com/66470389"><img alt="Real Time Analytics" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
+<script src="//static.getclicky.com/js" type="text/javascript"></script>
+<script type="text/javascript">try{ clicky.init(66470389); }catch(e){}</script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/66470389ns.gif" /></p></noscript>
+
+<p>
+  Copyright &copy; 2011 - Ben Scheirman -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+</body>
+</html>

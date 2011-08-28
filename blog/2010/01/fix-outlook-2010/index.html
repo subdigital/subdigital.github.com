@@ -1,0 +1,254 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Fickle Bits: Fix Outlook 2010</title>
+  <meta name="author" content="Ben Scheirman">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="canonical" href="http://benscheirman.com/blog/2010/01/fix-outlook-2010/"/>
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/ficklebits" rel="alternate" title="Fickle Bits" type="application/atom+xml"/>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-210379-10']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">Fickle Bits</a></h1>
+  
+    <h2>You're doing it wrong.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/ficklebits" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:benscheirman.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry">
+  
+  <header>
+    
+      <h1 class="entry-title">Fix Outlook 2010</h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2010-01-21 00:00:00 -0600" pubdate  updated >Jan 21<span>st</span>, 2010</time>
+
+
+</p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Use GMail?&#160; Have you gotten an email from somebody that looks like this?</p>
+
+
+<p>  <p><img src="/images/image_3___.png" alt="image"  height="220"  /> </p>  <p>They are likely using Outlook 2010.&#160; So what’s the issue?&#160; Well if you click the button to see the entire message, you see a fairly innocuous message.&#160; Nothing really out of the ordinary.&#160; But if you click on the drop down menu (next to the Reply button) and choose the option &quot;<strong>Show Original</strong>”&#160; You’ll see what the problem is:</p>  <p><img src="/images/image_6_.png" alt="image"  height="225"  /> </p>  <p>I was originally going to paste the HTML here for you to view, but it’s just too big.&#160; <strong>It crashed Windows Live Writer</strong>.</p>  <p>Let’s put it into perspective.&#160; If I were to send someone a letter with a simple request, it would likely take 1 page + envelope, etc.&#160; Now imagine their response was over 1 <em>thousand</em> pages.&#160; That’s how big the response is.&#160; It’s almost a megabyte when pasted into Notepad2:</p>  <p><img src="/images/image_9_.png" alt="image"  height="222"  /> </p>  <p>Why is Outlook generating such a disgusting excuse for an email reply?&#160; The answer lies in their decision to switch from the IE HTML rendering engine to the one found in Word.&#160; That’s right, that horrid-HTML producing pile of software, Microsoft Word.</p>  <p>Why the switch?&#160;&#160; According a <a href="http://www.campaignmonitor.com/blog/post/2799/microsoft-to-ignore-web-standards-in-outlook-2010/" target="_blank">blog post from CampaignMonitor</a>:</p>  <blockquote>   <p>When asked why Outlook is using Word to compose HTML emails, this was his response:</p>    <blockquote>     <p>&quot;The reason for this lies in the benefit Outlook users gain by having Word as their e-mail authoring tool; rich tools like SmartArt, automatic styles and templates, and other benefits found in Word 2007 and 2010 enable Outlook users to write professional looking and visually stunning messages.&quot;</p>      <p>&quot;I am aware of where this decision on our part places Outlook from a standards perspective - at the same time, we ask that you consider the benefits Outlook users get from having Word tools in their e-mail authoring experience.&quot;</p>   </blockquote>    <p>When asked why Word is also used to render HTML emails, Dev explained:</p>    <blockquote>     <p>&quot;Having multiple HTML engines could reduce performance, as well as create an inconsistency in terms of what type of content the user is able to create vs. consume.&quot;</p>   </blockquote>    <p>Basically, Microsoft are using the Word rendering engine so emails <em>composed</em> in Outlook will look consistent when viewed by other Outlook users (also confirmed in <a href="http://office.microsoft.com/en-us/outlook/HA102109301033.aspx">this Microsoft white paper</a>).</p> </blockquote>  <p>I sincerely hope that Microsoft decides to either <strong>fix the Word HTML engine</strong> to actually render markup worthy of the web (and your email inbox) OR to <strong>abandon the goal to get Smart Art, automatic-styling, and templates for Outlook 2010</strong>.</p>  <p>What can you do?</p>  <p>Glad you asked!&#160; You can join the many thousands of others who are frustrated with this here:</p>  <p><a href="http://www.fixoutlook.org/">http://www.fixoutlook.org/</a></p>  <p>I probably won’t be using Outlook 2010, however so many of my colleagues and clients do, so I’ll be forced to cope with this.&#160; I actually think we have a better chance of Gmail filtering this crappy HTML before it hits your inbox than Microsoft to change its direction and likely delay Office 2010.&#160; However, I’d love to be proven wrong.</p></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ben Scheirman</span></span>
+
+      
+
+
+
+
+<time datetime="2010-01-21 00:00:00 -0600" pubdate  updated >Jan 21<span>st</span>, 2010</time>
+
+
+
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://benscheirman.com/blog/2010/01/fix-outlook-2010/" data-via="subdigital" data-counturl="http://benscheirman.com/blog/2010/01/fix-outlook-2010/" >Tweet</a>
+  
+  
+  <g:plusone size="medium"></g:plusone>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread"><div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_shortname = 'subdigital';
+  var disqus_identifier = 'http://benscheirman.com/blog/2010/01/fix-outlook-2010/';
+  var disqus_url = 'http://benscheirman.com/blog/2010/01/fix-outlook-2010/';
+  //var disqus_developer = 1;
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside role=sidebar>
+  
+    <section>
+  <h1>Who am I?</h1>
+  <p>I&#8217;m Ben Scheirman. I make Rails &amp; iPhone apps for <a href="http://chaione.com" target="_blank">ChaiONE</a> in Houston, TX.</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/08/vim---could-not-invoke-jslint/">Vim - Could Not Invoke JSLint</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/is-rails-exempt-from-software-principles/">Is Rails Exempt?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/when-viewwillappear-isnt-called/">When viewWillAppear: Isn&#8217;t Called</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/moving-my-blog/">Moving My Blog</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/my-vim-journey/">My Vim Journey</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("subdigital", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/subdigital" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @subdigital</a>
+  
+</section>
+
+
+<section>
+  <h1>On Delicious</h1>
+  <script type="text/javascript" src="http://feeds.delicious.com/v2/js/subdigital?title=&count=3&sort=date&extended"></script>
+  <p><a href="http://delicious.com/subdigital">My Delicious Bookmarks &raquo;</a></p>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer>
+<a style="display:block; float: right" title="Real Time Analytics" href="http://getclicky.com/66470389"><img alt="Real Time Analytics" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
+<script src="//static.getclicky.com/js" type="text/javascript"></script>
+<script type="text/javascript">try{ clicky.init(66470389); }catch(e){}</script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/66470389ns.gif" /></p></noscript>
+
+<p>
+  Copyright &copy; 2011 - Ben Scheirman -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+</body>
+</html>

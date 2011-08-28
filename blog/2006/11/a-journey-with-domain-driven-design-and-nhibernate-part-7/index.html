@@ -1,0 +1,397 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Fickle Bits: A Journey with Domain Driven Design (and NHibernate) - Part 7</title>
+  <meta name="author" content="Ben Scheirman">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="canonical" href="http://benscheirman.com/blog/2006/11/a-journey-with-domain-driven-design-and-nhibernate-part-7/"/>
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/ficklebits" rel="alternate" title="Fickle Bits" type="application/atom+xml"/>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-210379-10']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">Fickle Bits</a></h1>
+  
+    <h2>You're doing it wrong.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/ficklebits" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:benscheirman.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry">
+  
+  <header>
+    
+      <h1 class="entry-title">A Journey With Domain Driven Design (and NHibernate) - Part 7</h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2006-11-13 00:00:00 -0600" pubdate  updated >Nov 13<span>th</span>, 2006</time>
+
+
+</p>
+    
+  </header>
+
+
+<div class="entry-content"><p>After a very long spell of inactivity, we&rsquo;re back for Part 7 of the series!</p>
+
+
+<p>Last time we left off with a decent domain model, a database, and the beginnings of NHibernate.</p>
+
+
+<p>Since the last article, the NHibernate team has produced the ever-so-fantastic v1.2.0 beta 1.&nbsp; This release supports numerous new exciting features.&nbsp; Topping the list of cool new features is:&nbsp; <strong>native support for .NET Generics</strong>!&nbsp; <strong>Native SQL 2005</strong> is also supported.&nbsp; Another feature was just enabled that will really help bridge the gap for those folks who will clutch to stored procedures forever:&nbsp; <strong>Stored Procedure / Custom Query Support</strong>.</p>
+
+
+<p>I&rsquo;ll start today by slapping in this version of NHibernate and do a little bit of housekeeping.&nbsp; With this new version of NHibernate, I no longer have a need for NHibernate.Generics (and thus I will remove it).&nbsp; Some people might still use it, as it has the nice side-effect of automatically managing bi-directional relationships (which we&rsquo;ll visit later), however I&rsquo;m going to show this manually in this series.</p>
+
+
+<p>I&rsquo;ve changed my EntityList&lt;T&gt; / EntityRef&lt;T&gt; / EntitySet&lt;T&gt; to normal generic collections, and NHibernate will use them automatically.&nbsp; <em>These classes do provide you with an extra&nbsp;nifty feature (explained later), but it&rsquo;s important to understand what it does under the hood, so I will implement the functionality the manual way, and later I&rsquo;ll reference these classes to show how you might still want to use them.</em></p>
+
+
+<p>So&nbsp;I&rsquo;ve remove the old dll of NHibernate and I&nbsp;referenced in the new one.&nbsp; I also updated my nhibernate schema file in Visual Studio so that I get the updated intellisense.&nbsp; I compile, nothing is broken,&nbsp;and we&rsquo;re ready to test!&nbsp; The beauty of having our unit tests is that we have much more confidence that we know exactly what to fix, and we also know the instant that we are done fixing any breaking changes.&nbsp; Our application returns to a known state of behavior very quickly.</p>
+
+
+<p>Since I&rsquo;ve made persistence level changes (<em>the new NHibernate dll) </em>as well as domain model changes (<em>replacing NHibernate.Generics.Entity*&lt;T&gt; with standard .NET generic lists) </em>I need to run both test assemblies.</p>
+
+
+<p>&nbsp;Here are the immediate results of the tests:</p>
+
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>TestCase 'Flux88.Videocracy.Persistence.Tests.PersonTester.TestCanListPeople' failed: NHibernate.InvalidProxyTypeException : Type 'Flux88.Videocracy.DomainModel.Person' cannot be specified as proxy: method get_Id should be virtual   c:\net\nhibernate-1.2.0.Beta1\nhibernate\src\NHibernate\Proxy\ProxyTypeValidator.cs(28,0): at NHibernate.Proxy.ProxyTypeValidator.Error(Type type, String reason)   c:\net\nhibernate-1.2.0.Beta1\nhibernate\src\NHibernate\Proxy\ProxyTypeValidator.cs(76,0): at NHibernate.Proxy.ProxyTypeValidator.CheckMethodIsVirtual(Type type, MethodInfo method)    c:\net\nhibernate-1.2.0.Beta1\nhibernate\src\NHibernate\Proxy\ProxyTypeValidator.cs(63,0): at NHibernate.Proxy.ProxyTypeValidator.CheckEveryPublicMemberIsVirtual(Type type)    c:\net\nhibernate-1.2.0.Beta1\nhibernate\src\NHibernate\Proxy\ProxyTypeValidator.cs(22,0): at NHibernate.Proxy.ProxyTypeValidator.ValidateType(Type type)   c:\net\nhibernate-1.2.0.Beta1\nhibernate\src\NHibernate\Cfg\Configuration.cs(915,0): at NHibernate.Cfg.Configuration.ValidateProxyInterface(PersistentClass persistentClass)    c:\net\nhibernate-1.2.0.Beta1\nhibernate\src\NHibernate\Cfg\Configuration.cs(891,0): at NHibernate.Cfg.Configuration.Validate() c:\net\nhibernate-1.2.0.Beta1\nhibernate\src\NHibernate\Cfg\Configuration.cs(1035,0): at NHibernate.Cfg.Configuration.BuildSessionFactory() c:\sandbox\Videocracy\Flux88.Videocracy.Persistence\SessionSource.cs(55,0): at Flux88.Videocracy.Persistence.SessionSource.Initialize() c:\sandbox\Videocracy\Flux88.Videocracy.Persistence\SessionSource.cs(81,0): at Flux88.Videocracy.Persistence.SessionSource.GetSession() c:\sandbox\Videocracy\Flux88.Videocracy.Persistence.Tests\PersonTester.cs(27,0): at Flux88.Videocracy.Persistence.Tests.PersonTester.TestCanListPeople()</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>We have a few failing tests, however they all relate to the same problem.&nbsp; NHibernate 1.2.0 beta 1 now sets <em>everything to lazy-load</em> <em>by default.&nbsp; </em>This means that our objects must be able to be inherited so that&nbsp;NHibernate can inject proxy subclasses of our&nbsp;objects (the consumer doesn&rsquo;t know or care that&nbsp;this happens).&nbsp; To do this&nbsp;all of the methods and properties need to be <strong>virtual</strong>.&nbsp;&nbsp;&nbsp;This is a large change, and it&rsquo;s not something I entirely agree with, but it&rsquo;s very easy to turn off.&nbsp;&nbsp; (It pays to read the release notes of these 3rd party products!)&nbsp; We&rsquo;ll discuss how to effectively lazy-load a bit further on.</p>
+
+
+<p>In our mapping file, we can specify <strong>default-lazy=&rdquo;false&rdquo;</strong> to override this behavior.&nbsp; At a later time we may investigate and find that the class will benefit from lazy loading and we&rsquo;ll revert it, but until then I&rsquo;ll just make all the classes <em>default-lazy=&rdquo;false&rdquo;</em>.</p>
+
+
+<p>Here&rsquo;s the change:</p>
+
+
+<div style="FONT-SIZE: 9pt; BACKGROUND: white; COLOR: black; FONT-FAMILY: Consolas"><p style="MARGIN: 0px"><span style="COLOR: blue">&lt;?</span><span style="COLOR: maroon">xml</span><span style="COLOR: blue"> </span><span style="COLOR: red">version</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">1.0</SPAN>&#8221;<span style="COLOR: blue"> </span><span style="COLOR: red">encoding</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">utf-8</SPAN>&#8221;<span style="COLOR: blue"> ?&gt;</span></p><p style="MARGIN: 0px"><span style="COLOR: blue">&lt;</span><span style="COLOR: maroon">hibernate-mapping</span><span style="COLOR: blue"> </span><span style="COLOR: red">xmlns</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">urn:nhibernate-mapping-2.0</SPAN>&#8221;<span style="COLOR: blue"> </span></p><p style="MARGIN: 0px"><span style="COLOR: blue">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span style="COLOR: red">namespace</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">Flux88.Videocracy.DomainModel</SPAN>&#8221;<span style="COLOR: blue"> </span></p><p style="MARGIN: 0px"><span style="COLOR: blue">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span style="COLOR: red">assembly</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">Flux88.Videocracy.DomainModel</SPAN>&#8221;</p><p style="MARGIN: 0px"><span style="COLOR: blue">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><strong><span style="COLOR: red">default-lazy</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">false</SPAN>&#8221;</strong></p><p style="MARGIN: 0px"><span style="COLOR: blue">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &gt;</span></p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px"><span style="COLOR: blue">&nbsp; &lt;</span><span style="COLOR: maroon">class</span><span style="COLOR: blue"> </span><span style="COLOR: red">name</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">Person</SPAN>&#8221;<span style="COLOR: blue"> </span><span style="COLOR: red">table</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">People</SPAN>&#8221;<span style="COLOR: blue">&gt;</span></p><p style="MARGIN: 0px"><span style="COLOR: blue">&nbsp;&nbsp;&nbsp; &nbsp;&hellip;</span></p><p style="MARGIN: 0px"><span style="COLOR: blue">&nbsp; &lt;/</span><span style="COLOR: maroon">class</span><span style="COLOR: blue">&gt;</span></p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px"><span style="COLOR: blue">&lt;/</span><span style="COLOR: maroon">hibernate-mapping</span><span style="COLOR: blue">&gt;</span></p></div>
+
+
+<p>Once that change is in place, all 5 of my persistence tests are passing.&nbsp;&nbsp; I have 6 failing tests in my domain model, mostly due
+to my careless replacement of the EntityRef stuff with standard .NET collections.&nbsp;&nbsp;The tests expose my oversights and once I fix them I&rsquo;m back on track.</p>
+
+
+<p>Ok, now where were we?&nbsp; (It&rsquo;s been a while, so I open NUnit and see that we&nbsp;have Save/List/Load for a Person object, but nothing else).&nbsp;We introduced some simple mapping concepts, and this time we&rsquo;ll dig in a bit deeper.</p>
+
+
+<p>How does NHibernate deal with associations?&nbsp; Lets start with Account.&nbsp; Account has a collection of Customer objects that represent its members.&nbsp; In standard database terms, Account is a one-to-many with Customer.&nbsp; How do we map this kind of relationship with NHibernate?</p>
+
+
+<p>There are a few choices when looking at the documentation for NHibernate.&nbsp; To understand them you must understand the semantics of each kind of list.&nbsp; Ask yourself these questions:</p>
+
+
+<ul><li>is it one-to-one?&nbsp; many-to-one?&nbsp; many-to-many?</li><li>does order matter?</li><li>is it bidirectional?</li></ul>
+
+
+<p>From the <a title="NHibernate FAQ" href="http://www.hibernate.org/359.html" target="_blank">NHibernate FAQ</a>, we find this informative nugget, that explains the collections available to us (and their .NET counterparts):</p>
+
+
+<ul><li>The <tt>&lt;list&gt;</tt> <span style="COLOR: rgb(204,0,0)">map</span>s directly to an IList.</li><li>The <tt>&lt;<span style="COLOR: rgb(204,0,0)">map</span>&gt;</tt> <span style="COLOR: rgb(204,0,0)">map</span>s directly to an IDictionary.</li><li>The <tt>&lt;bag&gt;</tt> <span style="COLOR: rgb(204,0,0)">map</span>s to an IList. A <tt>&lt;bag&gt;</tt> does not completely comply with the <tt>IList</tt> interface because the <tt>Add()</tt> method is not guaranteed to return the correct index. An object can be added to a <tt>&lt;bag&gt;</tt> without initializing the <tt>IList</tt>. Make sure to either hide the <tt>IList</tt> from the consumers of your API or make it well documented.</li><li>The <tt>&lt;<span style="COLOR: rgb(204,0,0)">set</span>&gt;</tt> <span style="COLOR: rgb(204,0,0)">map</span>s to an <tt>Iesi.Collections.I<span style="COLOR: rgb(204,0,0)">Set</span></tt>. That interface is part of the <tt>Iesi.Collections</tt> assembly distributed with <span style="COLOR: rgb(204,0,0)">NHibernate</span>.</li></ul>
+
+
+<p>Our Account -&gt; Customer relationship is <em>one-to-many</em>.&nbsp; I could choose to allow one customer to have many accounts, but I don&rsquo;t see any real use for that yet.&nbsp; Order does not matter either.&nbsp; I could have 4 members on an account, and it doesn&rsquo;t really matter what order they are given to my in a list.&nbsp; </p>
+
+
+<p>We also have to consider what each end of the association looks like.&nbsp; Right now I&rsquo;m looking at it from the perspective of <em>Account</em>, where <em>Account </em>has many <em>Customers</em> (members).&nbsp; On the customer object, the customer only has one Account, so this isn&rsquo;t a bidirectional association.&nbsp; (We&rsquo;ll see an example of this later).&nbsp; Techically our collection maps to an ISet, but I&rsquo;d rather not depend on the Iesi.Collections.dll, so I&rsquo;m going to map it to a list (the only drawback is that the list will allow the same member twice, so I&rsquo;ll just get around this in our model manually).</p>
+
+
+<p>Here&rsquo;s how we&rsquo;ll deal with that:</p>
+
+
+<div style="FONT-SIZE: 9pt; BACKGROUND: white; COLOR: black; FONT-FAMILY: Consolas"><p style="MARGIN: 0px"><span style="COLOR: gray">///</span><span style="COLOR: green"> </span><span style="COLOR: gray">&lt;summary&gt;</span></p><p style="MARGIN: 0px"><span style="COLOR: gray">///</span><span style="COLOR: green"> Adds a member to this account</span></p><p style="MARGIN: 0px"><span style="COLOR: gray">///</span><span style="COLOR: green"> </span><span style="COLOR: gray">&lt;/summary&gt;</span></p><p style="MARGIN: 0px"><span style="COLOR: gray">///</span><span style="COLOR: green"> </span><span style="COLOR: gray">&lt;param name=&#8221;customer&#8221;&gt;&lt;/param&gt;</span></p><p style="MARGIN: 0px"><span style="COLOR: blue">public</span> <span style="COLOR: blue">void</span> AddMember(<span style="COLOR: teal">Customer</span> customer)</p><p style="MARGIN: 0px">{</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; <span style="COLOR: green">//ignore multiple adds for the same customer.</span></p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; <span style="COLOR: blue">if</span>(_members.Contains(customer)) <span style="COLOR: blue">return</span>;</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; _members.Add(customer);</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; <span style="COLOR: green">//make sure that our association is handled on both sides</span></p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; customer.Account = <span style="COLOR: blue">this</span>;</p><p style="MARGIN: 0px">}</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px"><span style="COLOR: gray">///</span><span style="COLOR: green"> </span><span style="COLOR: gray">&lt;summary&gt;</span></p><p style="MARGIN: 0px"><span style="COLOR: gray">///</span><span style="COLOR: green"> Removes a member from this account.</span></p><p style="MARGIN: 0px"><span style="COLOR: gray">///</span><span style="COLOR: green"> </span><span style="COLOR: gray">&lt;/summary&gt;</span></p><p style="MARGIN: 0px"><span style="COLOR: gray">///</span><span style="COLOR: green"> </span><span style="COLOR: gray">&lt;param name=&#8221;customer&#8221;&gt;&lt;/param&gt;</span></p><p style="MARGIN: 0px"><span style="COLOR: blue">public</span> <span style="COLOR: blue">void</span> RemoveMember(<span style="COLOR: teal">Customer</span> customer)</p><p style="MARGIN: 0px">{</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; <span style="COLOR: green">//ignore the call if the customer isn&#8217;t a member of this account</span></p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; <span style="COLOR: blue">if</span> (!_members.Contains(customer)) <span style="COLOR: blue">return</span>;</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; _members.Remove(customer);</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; <span style="COLOR: green">//make sure that our association is handled on both sides</span></p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp; customer.Account = <span style="COLOR: blue">null</span>;</p><p style="MARGIN: 0px">}</p></div>
+
+
+<!--EndFragment-->
+
+
+<p><em>&nbsp;The rest of the class is self-explanatory, so I won&rsquo;t include it here.&nbsp; You&rsquo;ll&nbsp; be able to download the project at the end of today&rsquo;s article, however.</em></p>
+
+
+<p>Next up is the mapping.&nbsp; Let&rsquo;s take another look at the table structure for reference:</p>
+
+
+<p><img src="/images/CropperCapture%5B4%5D_small_.jpg" alt="CropperCapture[4]"  border="0"  /></p>
+
+
+<p><em>This is slightly different than what was in the last archive.&nbsp; Instead of an account having a single primary customer, any customer can be the &lsquo;Owner&rsquo; of his/her account.&nbsp; I chose to keep the association simple for this demo.&nbsp; I also wanted to allow multiple &lsquo;Owners&rsquo; for a single account.&nbsp; I&rsquo;ve updated the tests to reflect this change.</em></p>
+
+
+<p>Here you see that many customers belong to exactly one account.&nbsp;&nbsp;&nbsp; This is a one-to-many relationship from Account to Customer.</p>
+
+
+<p>If we stop and think about the domain for a minute, we can&nbsp;determine that the Customer will be identified first (by his/her ID or Account #) and that needs to be able to pull up the account.&nbsp; I&rsquo;d also like to keep this relationship bidirectional.&nbsp; That means that I need to map the relationship on both classes so that we can do this:</p>
+
+
+<p><strong>customer.Account &hellip;.&nbsp;&nbsp; </strong></p>
+
+
+<p>or this:</p>
+
+
+<p><strong>for each Customer c in _account.Members&nbsp;{ &hellip;&nbsp;}</strong></p>
+
+
+<p>Here is the relevant mapping for Customer:</p>
+
+
+<div style="FONT-SIZE: 9pt; BACKGROUND: white; COLOR: black; FONT-FAMILY: Consolas"><p style="MARGIN: 0px"><span style="COLOR: blue">&nbsp;&lt;!&#8211;</span
+><span style="COLOR: green"> CUSTOMER&nbsp; </span><span style="COLOR: blue">&#8211;&gt;</span></p><p style="MARGIN: 0px"><span style="COLOR: blue">&nbsp;&lt;</span><span style="COLOR: maroon">joined-subclass</span><span style="COLOR: blue"> </span><span style="COLOR: red">name</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">Customer</SPAN>&#8221;<span style="COLOR: blue"> </span><span style="COLOR: red">table</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">Customers</SPAN>&#8221;<span style="COLOR: blue">&gt;</span></p><p style="MARGIN: 0px"><span style="COLOR: blue">&nbsp; &lt;</span><span style="COLOR: maroon">key</span><span style="COLOR: blue"> </span><span style="COLOR: red">column</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">PersonId</SPAN>&#8221;<span style="COLOR: blue"> /&gt;</span></p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px"><span style="COLOR: blue">&nbsp; &lt;!&#8211;</span><span style="COLOR: green"> todo:&nbsp; map this to an enumeration </span><span style="COLOR: blue">&#8211;&gt;</span></p><p style="MARGIN: 0px"><span style="COLOR: blue">&nbsp; &lt;</span><span style="COLOR: maroon">property</span><span style="COLOR: blue"> </span><span style="COLOR: red">name</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">RentalRestriction</SPAN>&#8221;<span style="COLOR: blue"> </span><span style="COLOR: red">type</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">Int32</SPAN>&#8221;<span style="COLOR: blue"> </span><span style="COLOR: red">column</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">rentalRestrictionId</SPAN>&#8221;<span style="COLOR: blue"> /&gt;</span></p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px"><strong><span style="COLOR: blue">&nbsp; &lt;</span><span style="COLOR: maroon">many-to-one</span><span style="COLOR: blue"> </span><span style="COLOR: red">name</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">Account</SPAN>&#8221;<span style="COLOR: blue"> </span><span style="COLOR: red">class</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">Account</SPAN>&#8221;<span style="COLOR: blue"> </span><span style="COLOR: red">column</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">accountId</SPAN>&#8221;<span style="COLOR: blue"> </span><span style="COLOR: red">cascade</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">save-update</SPAN>&#8221;<span style="COLOR: blue"> /&gt; </span></strong></p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px"><span style="COLOR: blue">&nbsp;&lt;/</span><span style="COLOR: maroon">joined-subclass</span><span style="COLOR: blue">&gt;<br /><br /></span></p></div>
+
+
+<p><!--EndFragment-->This tells NHibernate that this is the *many* end of a one-to-many association.&nbsp; We tell it the property name, type, foreign key column name, and our cascade strategy.&nbsp; This basically means, whenever we save or update our Customer, cascade the save/update to the Account as well.&nbsp; You can also specify to cascade deletes as well if you need to.</p>
+
+
+<p>The Account mapping looks like this:</p>
+
+
+<div style="FONT-SIZE: 9pt; BACKGROUND: white; COLOR: black; FONT-FAMILY: Consolas"><p style="MARGIN: 0px"><span style="COLOR: blue">&nbsp;&lt;</span><span style="COLOR: maroon">class</span><span style="COLOR: blue"> </span><span style="COLOR: red">name</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">Account</SPAN>&#8221;<span style="COLOR: blue"> </span><span style="COLOR: red">table</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">Accounts</SPAN>&#8221;<span style="COLOR: blue"> </span><span style="COLOR: red">where</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">Active=1</SPAN>&#8221;<span style="COLOR: blue">&gt;</span></p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px"><span style="COLOR: blue"></span></p><p style="MARGIN: 0px"><span style="COLOR: blue">&nbsp;&nbsp;&nbsp; &lt;!&#8211;</span><span style="COLOR: green"> &#8230; </span><span style="COLOR: blue">&#8211;&gt;</span></p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px"><span style="COLOR: blue">&nbsp;&nbsp;</span><span style="COLOR: blue">&nbsp; <strong>&lt;</strong></span><strong><span style="COLOR: maroon">bag</span><span style="COLOR: blue"> </span><span style="COLOR: red">name</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">Members</SPAN>&#8221;<span style="COLOR: blue"> </span><span style="COLOR: red">access</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">nosetter.camelcase-underscore</SPAN>&#8221;<span style="COLOR: blue"> </span><span style="COLOR: red">lazy</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">true</SPAN>&#8221;</strong><strong><span style="COLOR: blue">&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="COLOR: red">cascade</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">save-update</SPAN>&#8221;<span style="COLOR: blue"> </span><span style="COLOR: red">inverse</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">true</SPAN>&#8221;<span style="COLOR: blue">&gt;</span></strong></p><p style="MARGIN: 0px"><strong><span style="COLOR: blue">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;!&#8211;</span><span style="COLOR: green"> this key refers to the Account key in the Customer table </span><span style="COLOR: blue">&#8211;&gt;</span></strong></p><p style="MARGIN: 0px"><strong><span style="COLOR: blue">&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &lt;</span><span style="COLOR: maroon">key</span><span style="COLOR: blue"> </span><span style="COLOR: red">column</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">accountId</SPAN>&#8221;<span style="COLOR: blue"> /&gt;</span></strong></p><p style="MARGIN: 0px"><strong><span style="COLOR: blue">&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &lt;</span><span style="COLOR: maroon">one-to-many</span><span style="COLOR: blue"> </span><span style="COLOR: red">class</span><span style="COLOR: blue">=</span>&#8221;<SPAN style="color: blue">Customer</SPAN>&#8221;<span style="COLOR: blue"> /&gt;&nbsp; &nbsp; &nbsp; </span></strong></p><p style="MARGIN: 0px"><strong><span style="COLOR: blue">&nbsp; &nbsp; &lt;/</span><span style="COLOR: maroon">bag</span><span style="COLOR: blue">&gt;</span></strong></p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px"><span style="COLOR: blue">&nbsp;&lt;/</span><span style="COLOR: maroon">class</span><span style="COLOR: blue">&gt;</span></p></div>
+
+
+<p><!--EndFragment--></p>
+
+
+<p>This section tells NHibernate to map this association as a bag.&nbsp; Lazy=true means that the collection will only actually be retrieved from the database once it is accessed.&nbsp; NHibernate does this by silently replacing our IList with a proxy that knows about the session and how to hydrate the collection.&nbsp; This is 100% transparent to our consumers, so make sure you are using this in appropriate places.&nbsp; Lazy=false will force NHibernate to pre-load the entire association (and it&rsquo;s associations(and it&rsquo;s associations(&hellip;. you get the point&hellip;))).&nbsp;</p>
+
+
+<p>To test that this association worked, I wrote a simple test:</p>
+
+
+<div style="FONT-SIZE: 9pt; BACKGROUND: white; COLOR: black; FONT-FAMILY: Consolas"><p style="MARGIN: 0px">&nbsp;[<span style="COLOR: teal">Test</span>]</p><p style="MARGIN: 0px">&nbsp;<span style="COLOR: blue">public</span> <span style="COLOR: blue">void</span> CanSaveCustomerAndAccount()</p><p style="MARGIN: 0px">&nbsp;{</p><p style="MARGIN: 0px">&nbsp; &nbsp; <span style="COLOR: teal">Customer</span> c = <span style="COLOR: teal">TestHelper</span>.GetTestCustomer();</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp; &nbsp; <span style="COLOR: teal">Account</span> a = <span style="COLOR: blue">new</span> <span style="COLOR: teal">Account</span>();</p><p style="MARGIN: 0px">&nbsp; &nbsp; a.AddMember(c);</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp; &nbsp; <span style="COLOR: blue">using</span> (<span style="COLOR: teal">ISession</span> session = <span style="COLOR: teal">SessionSource</span>.Current.GetSession())</p><p style="MARGIN: 0px">&nbsp; &nbsp; {</p><p s
+tyle="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; <span style="COLOR: blue">using</span> (<span style="COLOR: teal">ITransaction</span> tx = session.BeginTransaction())</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; {</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; session.SaveOrUpdate(c);</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; session.Flush();</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; session.Evict(c); <span style="COLOR: green">//make sure we don&#8217;t get an object from the cache</span></p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="COLOR: teal">Assert</span>.AreNotEqual(0, c.Id, <span style="COLOR: maroon">&#8220;Customer didn&#8217;t get an Id after save&#8221;</span>);</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="COLOR: teal">Assert</span>.AreNotEqual(0, a.Id, <span style="COLOR: maroon">&#8220;Account didn&#8217;t get an Id after save&#8221;</span>);</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="COLOR: teal">Customer</span> customerFromDb = session.Get&lt;<span style="COLOR: teal">Customer</span>&gt;(c.Id);</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="COLOR: teal">Assert</span>.AreNotSame(c, customerFromDb, <span style="COLOR: maroon">&#8220;Got same instance of customer!&#8221;</span>);</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="COLOR: teal">Assert</span>.AreEqual(a, customerFromDb.Account, <span style="COLOR: maroon">&#8220;Account didn&#8217;t get saved&#8221;</span>);</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; tx.Rollback();</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; }</p><p style="MARGIN: 0px">&nbsp; &nbsp; }</p><p style="MARGIN: 0px">&nbsp;}</p></div>
+
+
+<p>This test is passing and we have our first association mapped!</p>
+
+
+<p>I think this is a good stopping point.&nbsp;&nbsp; We have migrated our version of NHibernate and our tests forced us to fix any outstanding issues before continuing.&nbsp; We also identified our first association, mapped it, and tested it.</p>
+
+
+<p>From here on out I will step up the pace and start glossing over the details a bit and focus on getting working product done using this domain model.&nbsp; As I begin writing some UI components I will come across some&nbsp;features I have not developed, which may require more mapping changes and tests.&nbsp;&nbsp;In order to finish this series sometime this year I&rsquo;ll be speeding up a bit.&nbsp; I will still continue to post the source so that you may follow along.&nbsp; If you have comments or questions, feel free to comment.</p>
+
+
+<p>Here is the latest source:</p>
+
+
+<p><a href="http://www.flux88.com/uploads/Videocracy_07.zip">File Attachment: Videocracy_07.zip (44 KB)</a></p>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ben Scheirman</span></span>
+
+      
+
+
+
+
+<time datetime="2006-11-13 00:00:00 -0600" pubdate  updated >Nov 13<span>th</span>, 2006</time>
+
+
+
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://benscheirman.com/blog/2006/11/a-journey-with-domain-driven-design-and-nhibernate-part-7/" data-via="subdigital" data-counturl="http://benscheirman.com/blog/2006/11/a-journey-with-domain-driven-design-and-nhibernate-part-7/" >Tweet</a>
+  
+  
+  <g:plusone size="medium"></g:plusone>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread"><div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_shortname = 'subdigital';
+  var disqus_identifier = 'http://benscheirman.com/blog/2006/11/a-journey-with-domain-driven-design-and-nhibernate-part-7/';
+  var disqus_url = 'http://benscheirman.com/blog/2006/11/a-journey-with-domain-driven-design-and-nhibernate-part-7/';
+  //var disqus_developer = 1;
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside role=sidebar>
+  
+    <section>
+  <h1>Who am I?</h1>
+  <p>I&#8217;m Ben Scheirman. I make Rails &amp; iPhone apps for <a href="http://chaione.com" target="_blank">ChaiONE</a> in Houston, TX.</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/08/vim---could-not-invoke-jslint/">Vim - Could Not Invoke JSLint</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/is-rails-exempt-from-software-principles/">Is Rails Exempt?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/when-viewwillappear-isnt-called/">When viewWillAppear: Isn&#8217;t Called</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/moving-my-blog/">Moving My Blog</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/my-vim-journey/">My Vim Journey</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("subdigital", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/subdigital" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @subdigital</a>
+  
+</section>
+
+
+<section>
+  <h1>On Delicious</h1>
+  <script type="text/javascript" src="http://feeds.delicious.com/v2/js/subdigital?title=&count=3&sort=date&extended"></script>
+  <p><a href="http://delicious.com/subdigital">My Delicious Bookmarks &raquo;</a></p>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer>
+<a style="display:block; float: right" title="Real Time Analytics" href="http://getclicky.com/66470389"><img alt="Real Time Analytics" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
+<script src="//static.getclicky.com/js" type="text/javascript"></script>
+<script type="text/javascript">try{ clicky.init(66470389); }catch(e){}</script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/66470389ns.gif" /></p></noscript>
+
+<p>
+  Copyright &copy; 2011 - Ben Scheirman -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+</body>
+</html>

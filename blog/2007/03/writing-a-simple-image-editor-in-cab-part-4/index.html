@@ -1,0 +1,374 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Fickle Bits: Writing a Simple Image Editor in CAB - Part 4</title>
+  <meta name="author" content="Ben Scheirman">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="canonical" href="http://benscheirman.com/blog/2007/03/writing-a-simple-image-editor-in-cab-part-4/"/>
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/ficklebits" rel="alternate" title="Fickle Bits" type="application/atom+xml"/>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-210379-10']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">Fickle Bits</a></h1>
+  
+    <h2>You're doing it wrong.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/ficklebits" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:benscheirman.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry">
+  
+  <header>
+    
+      <h1 class="entry-title">Writing a Simple Image Editor in CAB - Part 4</h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-03-15 00:00:00 -0500" pubdate  updated >Mar 15<span>th</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+<div class="entry-content"><p>In today&rsquo;s installment we&rsquo;ll continue <a title="Part 3" href="http://www.flux88.com/2007/03/13/Writing+A+Simple+Image+Editor+In+CAB++Part+3.aspx">where we left off</a> and add the functionality to apply image filters.</p>
+
+
+<p>In order to do this, let&rsquo;s take a step back and think about how we want to accomplish this.&nbsp; I&rsquo;m imagining two use cases:</p>
+
+
+<ul><li>Load filters from dynamic assemblies</li><li>Apply a filter to the image</li></ul>
+
+
+<p>To load the filters, I&rsquo;ll have a separate assembly implement a specific interface, then they will be loaded from a directory and placed in the menu.</p>
+
+
+<p>First, our core interface:</p>
+
+
+<div style="FONT-SIZE: 8pt; BACKGROUND: white; COLOR: black; FONT-FAMILY: Consolas"><p style="MARGIN: 0px"><span style="COLOR: blue">using</span> System;</p><p style="MARGIN: 0px"><span style="COLOR: blue">using</span> System.Drawing;</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px"><span style="COLOR: blue">namespace</span> ImageFiltering</p><p style="MARGIN: 0px">{</p><p style="MARGIN: 0px">&nbsp; &nbsp; <span style="COLOR: blue">public</span> <span style="COLOR: blue">interface</span> <span style="COLOR: teal">IImageFilter</span></p><p style="MARGIN: 0px">&nbsp; &nbsp; {</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; <span style="COLOR: blue">string</span> Name { <span style="COLOR: blue">get</span>; }</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; <span style="COLOR: teal">Bitmap</span> Filter(<span style="COLOR: teal">Bitmap</span> source);</p><p style="MARGIN: 0px">&nbsp; &nbsp; }</p><p style="MARGIN: 0px">}</p></div>
+
+
+<!--EndFragment-->
+
+
+<p>The name property determines what will be displayed on the menu.&nbsp; The Filter method is, as they say on MTV Cribs, &ldquo;where the magic happens.&rdquo;</p>
+
+
+<p>I&rsquo;ll implement some basic image filters in a bit.&nbsp; Since both of these use cases are related, I can package them up in the same module.&nbsp; I create a module called <em>ImageFiltering.</em></p>
+
+
+<p>The first workitem is going to be the LoadFiltersWorkItem.&nbsp; It will run at startup and read up the assemblies and obtain a list of IImageFilter implementations:</p>
+
+
+<div style="FONT-SIZE: 8pt; BACKGROUND: white; COLOR: black; FONT-FAMILY: Consolas"><p style="MARGIN: 0px"><span style="COLOR: blue">private</span> <span style="COLOR: teal">UIExtensionSite</span> GetMainMenu()</p><p style="MARGIN: 0px">{</p><p style="MARGIN: 0px">&nbsp; &nbsp; <span style="COLOR: green">//return the well known ui extension site for the main menu</span></p><p style="MARGIN: 0px">&nbsp; &nbsp; <span style="COLOR: blue">return</span> RootWorkItem.UIExtensionSites[<span style="COLOR: maroon">&#8220;MainMenuStrip&#8221;</span>];</p><p style="MARGIN: 0px">}</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px"><span style="COLOR: blue">protected</span> <span style="COLOR: blue">override</span> <span style="COLOR: blue">void</span> OnRunStarted()</p><p style="MARGIN: 0px">{</p><p style="MARGIN: 0px">&nbsp; &nbsp; <span style="COLOR: blue">base</span>.OnRunStarted();</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp; &nbsp; <span style="COLOR: green">//get the menu strip</span></p><p style="MARGIN: 0px">&nbsp; &nbsp; <span style="COLOR: teal">UIExtensionSite</span> site = GetMainMenu();</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp; &nbsp; <span style="COLOR: green">//create the new menu item</span></p><p style="MARGIN: 0px">&nbsp; &nbsp; <span style="COLOR: teal">ToolStripMenuItem</span> filterMenu = <span style="COLOR: blue">new</span> <span style="COLOR: teal">ToolStripMenuItem</span>();</p><p style="MARGIN: 0px">&nbsp; &nbsp; filterMenu.Text = <span style="COLOR: maroon">&#8220;Filters&#8221;</span>;</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp; &nbsp; <span style="COLOR: green">//load the filters</span></p><p style="MARGIN: 0px">&nbsp; &nbsp; LoadFiltersFromDirectory(filterMenu);</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp; &nbsp; <span style="COLOR: green">//add the filters menu to the site</span></p><p style="MARGIN: 0px">&nbsp; &nbsp; site.Add&lt;<span style="COLOR: teal">ToolStripMenuItem</span>&gt;(filterMenu);</p><p style="MARGIN: 0px">}</p></div>
+
+
+<!--EndFragment-->
+
+
+<p>The LoadFiltesrFromDirectory(filterMenu) method basically uses reflection to pull out all of the assemblies in the /filters directory of our application.&nbsp; The details of this aren&rsquo;t important here, but if you want to see it you can download the project at the end of today&rsquo;s article.</p>
+
+
+<p>Since this needs to run when the application starts up, we code that up in the Module Init class:</p>
+
+
+<div style="FONT-SIZE: 8pt; BACKGROUND: white; COLOR: black; FONT-FAMILY: Consolas"><p style="MARGIN: 0px"><span style="COLOR: blue">public</span> <span style="COLOR: blue">class</span> <span style="COLOR: teal">ImageFilteringModuleInit</span> : <span style="COLOR: teal">ModuleInit</span></p><p style="MARGIN: 0px">{</p><p style="MARGIN: 0px">&nbsp; &nbsp; <span style="COLOR: blue">private</span> <span style="COLOR: teal">WorkItem</span> _rootWorkItem;</p><p style="MARGIN: 0px">&nbsp; &nbsp; [<span style="COLOR: teal">ServiceDependency</span>]</p><p style="MARGIN: 0px">&nbsp; &nbsp; <span style="COLOR: blue">public</span> <span style="COLOR: teal">WorkItem</span> RootWorkItem</p><p style="MARGIN: 0px">&nbsp; &nbsp; {</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; <span style="COLOR: blue">get</span> { <span style="COLOR: blue">return</span> _rootWorkItem; }</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; <span style="COLOR: blue">set</span> { _rootWorkItem = <span style="COLOR: blue">value</span>; }</p><p style="MARGIN: 0px">&nbsp; &nbsp; }</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp; &nbsp; <span style="COLOR: blue">private</span> <span style="COLOR: teal">LoadFiltersWorkItem</span> _loadFiltersWorkItem;</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp; &nbsp; <span style="COLOR: blue">public</span> <span style="COLOR: blue">override</span> <span style="COLOR: blue">void</span> Load()</p><p style="MARGIN: 0px">&nbsp; &nbsp; {</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; <span style="COLOR: blue">base</span>.Load();</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; <span style="COLOR: green">//load up our work items</span></p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; _loadFiltersWorkItem = <span style="COLOR: blue">this</span>.RootWorkItem.WorkItems.AddNew&lt;<span style="COLOR: teal">LoadFiltersWorkItem</span>&gt;(<span style="COLOR: maroon">&#8220;LoadFiltersWorkItem&#8221;</span>);</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; _loadFiltersWorkItem.Run();</p><p style="MARGIN: 0px">&nbsp; &nbsp; }&nbsp;</p><p style="MARGIN: 0px">}</p></div>
+
+
+<!--EndFragment-->
+
+
+<p>This is pretty basic Module Init stuff.&nbsp; Create the work item and run it.&nbsp; Assuming we&rsquo;ve already created some filters and placed the dll inside of the filters directory, we should be able to run the application and see the filters loaded in the menu.</p>
+
+
+<p><img src="/images/CropperCapture%5B51%5D_.jpg" alt="Our filters have been loaded"  border="1"  /></p>
+
+
+<p>Notice how I initially set the menu items to be <em>disabled</em>.&nbsp; This is because no image has been loaded yet!&nbsp; We already have an event being raise when the image is loaded, so I handle that in the LoadFiltersWorkItem and enable the menu items:</p>
+
+
+<div style="FONT-SIZE: 8pt; BACKGROUND: white; COLOR: black; FONT-FAMILY: Consolas"><p style="MARGIN: 0px">[<span style="COLOR: teal">EventSubscription</span>(<span style="COLOR: maroon">&#8220;topic://ImageEditor/ImageDisplayModule/ImageLoaded&#8221;</span>, <span style="COLOR: teal">ThreadOption</span>.UserInterface)]</p><p style="MARGIN: 0px"><span style="COLOR: blue">public</span> <span style="COLOR: blue">void</span> OnImageSelected(<span style="COLOR: blue">object</span> sender, <span style="COLOR: teal">DataEventArgs</span>&lt;<span style="COLOR: teal">Bitmap</span>&gt; e)</p><p style="MARGIN: 0px">{</p><p style="MARGIN: 0px">&nbsp; &nbsp; _image = e.Data;</p
+><p style="MARGIN: 0px">&nbsp; &nbsp; <span style="COLOR: blue">foreach</span> (<span style="COLOR: teal">ToolStripMenuItem</span> filterItem <span style="COLOR: blue">in</span> _filterItems)</p><p style="MARGIN: 0px">&nbsp; &nbsp; {</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; filterItem.Enabled = <span style="COLOR: blue">true</span>;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </p><p style="MARGIN: 0px">&nbsp; &nbsp; }</p><p style="MARGIN: 0px">}</p></div>
+
+
+<p>Attached to the <em>Tag</em> property of each of these menu items is the concrete filter that we dynamically loaded.&nbsp; The next step is to raise an event when the filter is clicked, so that the other work item (that we&rsquo;re about to create) can apply the filter.</p>
+
+
+<p>As I create each of the menu items, I wire up the click event to call this handler:</p>
+
+
+<div style="FONT-SIZE: 8pt; BACKGROUND: white; COLOR: black; FONT-FAMILY: Consolas"><p style="MARGIN: 0px"><span style="COLOR: blue">void</span> filterItem_Click(<span style="COLOR: blue">object</span> sender, <span style="COLOR: teal">EventArgs</span> e)</p><p style="MARGIN: 0px">{</p><p style="MARGIN: 0px">&nbsp; &nbsp; <span style="COLOR: teal">ToolStripMenuItem</span> menuItem = sender <span style="COLOR: blue">as</span> <span style="COLOR: teal">ToolStripMenuItem</span>;</p><p style="MARGIN: 0px">&nbsp; &nbsp; <span style="COLOR: teal">IImageFilter</span> filter = menuItem.Tag <span style="COLOR: blue">as</span> <span style="COLOR: teal">IImageFilter</span>;</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp; &nbsp; <span style="COLOR: blue">if</span> (FilterSelected != <span style="COLOR: blue">null</span>)</p><p style="MARGIN: 0px">&nbsp; &nbsp; {</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; <span style="COLOR: teal">DataEventArgs</span>&lt;<span style="COLOR: teal">IImageFilter</span>&gt; args = <span style="COLOR: blue">new</span> <span style="COLOR: teal">DataEventArgs</span>&lt;<span style="COLOR: teal">IImageFilter</span>&gt;(filter);</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; FilterSelected(<span style="COLOR: blue">this</span>, args);</p><p style="MARGIN: 0px">&nbsp; &nbsp; }</p><p style="MARGIN: 0px">}</p></div>
+
+
+<!--EndFragment-->
+
+
+<p>The event is raised with the concrete filter passed along as data event args.</p>
+
+
+<p>The next work item doesn&rsquo;t get created at start up.&nbsp; It begins when the user clicks the menu item.&nbsp; So when/where do we kick off the work item?&nbsp; We handle the FilterSelected event (that is being published as a CAB event) in our module, and create the workitem there:</p>
+
+
+<div style="FONT-SIZE: 8pt; BACKGROUND: white; COLOR: black; FONT-FAMILY: Consolas"><p style="MARGIN: 0px">&nbsp;[<span style="COLOR: teal">EventSubscription</span>(<span style="COLOR: teal">ModuleConstants</span>.<span style="COLOR: teal">Events</span>.FilterSelected, <span style="COLOR: teal">ThreadOption</span>.UserInterface)]</p><p style="MARGIN: 0px">&nbsp;<span style="COLOR: blue">public</span> <span style="COLOR: blue">void</span> OnFilterSelected(<span style="COLOR: blue">object</span> sender, <span style="COLOR: teal">DataEventArgs</span>&lt;<span style="COLOR: teal">IImageFilter</span>&gt; e)</p><p style="MARGIN: 0px">&nbsp;{</p><p style="MARGIN: 0px">&nbsp; &nbsp; <span style="COLOR: green">//get the current image</span></p><p style="MARGIN: 0px">&nbsp; &nbsp; <span style="COLOR: teal">Bitmap</span> image = _loadFiltersWorkItem.Image; </p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp; &nbsp; <span style="COLOR: green">//create a new workitem to apply the filter&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span></p><p style="MARGIN: 0px">&nbsp; &nbsp; <span style="COLOR: teal">WorkItem</span> wi = <span style="COLOR: blue">new</span> <span style="COLOR: teal">FilterImageWorkItem</span>(e.Data, image);</p><p style="MARGIN: 0px">&nbsp; &nbsp; <span style="COLOR: blue">this</span>.RootWorkItem.WorkItems.Add(wi);</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp; &nbsp; wi.Run();</p><p style="MARGIN: 0px">&nbsp;}</p></div>
+
+
+<!--EndFragment-->
+
+
+<p>We have to get a handle on the current image as well as the filter, and this proved to be a bit difficult.&nbsp; I&rsquo;d like to have some sort of global state (and maybe I&rsquo;m missing something) but the State property is WorkItem specific.&nbsp; I was already handling the ImageLoaded event in the LoadFiltersWorkItem, so I snag the image from that event and hang on to it.&nbsp; The module reads this and passes it to the FilterImageWorkItem.&nbsp; Until I can figure out a cleaner way to do this, it will have to stay for now.</p>
+
+
+<p>Here&rsquo;s the FilterImageWorkItem:</p>
+
+
+<div style="FONT-SIZE: 8pt; BACKGROUND: white; COLOR: black; FONT-FAMILY: Consolas"><p style="MARGIN: 0px"><span style="COLOR: blue">public</span> <span style="COLOR: blue">class</span> <span style="COLOR: teal">FilterImageWorkItem</span> : <span style="COLOR: teal">WorkItem</span></p><p style="MARGIN: 0px">{</p><p style="MARGIN: 0px">&nbsp; &nbsp; <span style="COLOR: blue">private</span> <span style="COLOR: teal">IImageFilter</span> _filter;</p><p style="MARGIN: 0px">&nbsp; &nbsp; <span style="COLOR: blue">private</span> <span style="COLOR: teal">Bitmap</span> _image;</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp; &nbsp; [<span style="COLOR: teal">EventPublication</span>(<span style="COLOR: teal">ModuleConstants</span>.<span style="COLOR: teal">Events</span>.ImageLoaded, <span style="COLOR: teal">PublicationScope</span>.Global)]</p><p style="MARGIN: 0px">&nbsp; &nbsp; <span style="COLOR: blue">public</span> <span style="COLOR: blue">event</span> <span style="COLOR: teal">EventHandler</span>&lt;<span style="COLOR: teal">DataEventArgs</span>&lt;<span style="COLOR: teal">Bitmap</span>&gt;&gt; ImageLoaded;</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp; &nbsp; <span style="COLOR: blue">public</span> FilterImageWorkItem(<span style="COLOR: teal">IImageFilter</span> filter, <span style="COLOR: teal">Bitmap</span> image)</p><p style="MARGIN: 0px">&nbsp; &nbsp; {</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; _filter = filter;</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; _image = image;</p><p style="MARGIN: 0px">&nbsp; &nbsp; }&nbsp; &nbsp; </p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp; &nbsp; <span style="COLOR: blue">protected</span> <span style="COLOR: blue">override</span> <span style="COLOR: blue">void</span> OnRunStarted()</p><p style="MARGIN: 0px">&nbsp; &nbsp; {</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; <span style="COLOR: blue">base</span>.OnRunStarted();</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; <span style="COLOR: teal">Bitmap</span> newImage = _filter.Filter(_image);</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; <span style="COLOR: blue">if</span> (ImageLoaded != <span style="COLOR: blue">null</span>)</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; {</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ImageLoaded(<span style="COLOR: blue">this</span>, <span style="COLOR: blue">new</span> <span style="COLOR: teal">DataEventArgs</span>&lt;<span style="COLOR: teal">Bitmap</span>&gt;(newImage));</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; }</p><p style="MARGIN: 0px">&nbsp; &nbsp; }</p><p style="MARGIN: 0px">}</p></div>
+
+
+<!--EndFragment-->
+
+
+<p>Pretty plain and simple.&nbsp; It calls the filter on the image when it runs.&nbsp; We need to notify the canvas to redraw the new image, so we raise the already implemented event <em>ImageLoaded</em>.&nbsp; Once this fires, the DisplayImageWorkItem picks it up and displays the filtered image.</p>
+
+
+<p>Let&rsquo;s check out the app in action.</p>
+
+
+<p><em>The original image<br /><img src="/images/CropperCapture%5B52%5D_small_.jpg" alt="The original image"  border="0"  /></em></p>
+
+
+<p><em>The Black &amp; White filter applied<br /><img src="/images/CropperCapture%5B53%5D_small_.jpg" alt="The Black &amp; White filter applied"  border="0"  /></em></p>
+
+
+<p><em>The inversion filter applied<br /><img
+alt="The inversion filter applied" src="http://www.flux88.com/uploads/CropperCapture[54]_small.jpg" border="0" /></em></p>
+
+
+<p>The image filters I originally wrote were painfully slow, so I borrowed some excellent filters from the code project article <a title="codeproject image processing" href="http://www.codeproject.com/cs/media/displacementfilters.asp" target="_blank">here</a>&nbsp;by Christian Graus.&nbsp; I&rsquo;m glad I could leverage somebody else&rsquo;s hard work, because it&rsquo;s been a few years since I did complex image processing <img src="/images/smile1___________________________.gif"   />.</p>
+
+
+<p>I hope you enjoyed this short series of articles on building an application using CAB.&nbsp; I only touched on some of the topics.&nbsp; For example, ObjectBuilder was barely used in this application.&nbsp; I also didn&rsquo;t use WorkItem State or the StatePersistenceService.&nbsp; This would be a quick and easy way to save the users work, or you could provide a standard FileSaveDialog box.</p>
+
+
+<p>You can download the source here:<br /><a href="http://www.flux88.com/uploads/CAB_2DImageEditor.zip" target="_blank">File Attachment: CAB-ImageEditor.zip (86 KB)</a><br /><em>(you&rsquo;ll need to have CAB already installed and you need to point the reference to the CAB dlls)</em></p>
+
+
+<p>I&rsquo;d appreciate any comments or criticisms you may have for me.</p>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ben Scheirman</span></span>
+
+      
+
+
+
+
+<time datetime="2007-03-15 00:00:00 -0500" pubdate  updated >Mar 15<span>th</span>, 2007</time>
+
+
+
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://benscheirman.com/blog/2007/03/writing-a-simple-image-editor-in-cab-part-4/" data-via="subdigital" data-counturl="http://benscheirman.com/blog/2007/03/writing-a-simple-image-editor-in-cab-part-4/" >Tweet</a>
+  
+  
+  <g:plusone size="medium"></g:plusone>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread"><div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_shortname = 'subdigital';
+  var disqus_identifier = 'http://benscheirman.com/blog/2007/03/writing-a-simple-image-editor-in-cab-part-4/';
+  var disqus_url = 'http://benscheirman.com/blog/2007/03/writing-a-simple-image-editor-in-cab-part-4/';
+  //var disqus_developer = 1;
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside role=sidebar>
+  
+    <section>
+  <h1>Who am I?</h1>
+  <p>I&#8217;m Ben Scheirman. I make Rails &amp; iPhone apps for <a href="http://chaione.com" target="_blank">ChaiONE</a> in Houston, TX.</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/08/vim---could-not-invoke-jslint/">Vim - Could Not Invoke JSLint</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/is-rails-exempt-from-software-principles/">Is Rails Exempt?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/when-viewwillappear-isnt-called/">When viewWillAppear: Isn&#8217;t Called</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/moving-my-blog/">Moving My Blog</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/my-vim-journey/">My Vim Journey</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("subdigital", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/subdigital" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @subdigital</a>
+  
+</section>
+
+
+<section>
+  <h1>On Delicious</h1>
+  <script type="text/javascript" src="http://feeds.delicious.com/v2/js/subdigital?title=&count=3&sort=date&extended"></script>
+  <p><a href="http://delicious.com/subdigital">My Delicious Bookmarks &raquo;</a></p>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer>
+<a style="display:block; float: right" title="Real Time Analytics" href="http://getclicky.com/66470389"><img alt="Real Time Analytics" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
+<script src="//static.getclicky.com/js" type="text/javascript"></script>
+<script type="text/javascript">try{ clicky.init(66470389); }catch(e){}</script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/66470389ns.gif" /></p></noscript>
+
+<p>
+  Copyright &copy; 2011 - Ben Scheirman -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+</body>
+</html>

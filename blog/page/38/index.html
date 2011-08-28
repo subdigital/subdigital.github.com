@@ -1,0 +1,545 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Fickle Bits</title>
+  <meta name="author" content="Ben Scheirman">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="canonical" href="http://benscheirman.com/blog/page/38/index.html"/>
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/ficklebits" rel="alternate" title="Fickle Bits" type="application/atom+xml"/>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-210379-10']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">Fickle Bits</a></h1>
+  
+    <h2>You're doing it wrong.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/ficklebits" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:benscheirman.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2005/04/nhibernate-and-asp-net-part-2/">NHibernate and ASP.NET - Part 2</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2005-04-28 00:00:00 -0500" pubdate  updated >Apr 28<span>th</span>, 2005</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><div style="clear:both;"></div>
+
+
+<p>After some toying around, I have my first object Saving/Updating/Deleting and using a GetAll method to bind to a Datagrid. All of this with about 5 or 6 lines of UI code!Yummy!<br /><br />I still have some design concerns to wrinkle out, though.Here&#8217;s how I have mine set up:<br /><br /><div id="code"></p>
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>public class NHManager&lt;br />{&lt;br /> public NHManager()&lt;br /> {&lt;br /> &lt;span class="comments">//load config&lt;/span>&lt;br />&lt;br /> &lt;span class="comments">//create session factory&lt;/span>&lt;br /> }&lt;br />}</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p></div><br /><br /><div id="code"></p>
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>public abstract class BusinessBase&lt;br />{&lt;br />private static NHManager _mgr = null;&lt;br />[ThreadStatic()]&lt;br />protected static NHManager Manager&lt;br />{&lt;br />get &lt;br />{ &lt;br />if( _mgr == null) &lt;br />_mgr = new NHManager();&lt;br />return _mgr;&lt;br />}&lt;br />}&lt;br />&lt;br />private ISession _session = null;&lt;br />protected ISession CurrentSession&lt;br />{&lt;br />get&lt;br />{&lt;br />if( _session == null )&lt;br />{&lt;br />&lt;span class="comments">//see if context contains it&lt;/span>&lt;br />if( HttpContext.Current[NHSESSION] == null ) &lt;br />&lt;span class="comments">//key is a constant&lt;/span>&lt;br />{&lt;br />&lt;span class="comments">&lt;br />//this is the first access for this request, &lt;br />//load the object&lt;br />&lt;/span>&lt;br />_session = Manager.OpenSession();&lt;br />HttpContext.Current[NHSESSION] = _session;&lt;br />}&lt;br />else&lt;br />{&lt;br />&lt;span class="comments">//it exists in this request&lt;/span>&lt;br />_session = HttpContext.Current[NHSESSION] &lt;br />as ISession;&lt;br />}&lt;br />}&lt;br />&lt;span class="comments">//make sure it's connected&lt;/span>&lt;br />if(! _session.IsConnected)&lt;br />_session.ReConnect();&lt;br />return _session;&lt;br />}&lt;br />}&lt;br />}</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p></div><br /><br />Is there anything glaringly wrong about the above sample?I am expecting a little flaming due to the [ThreadStatic()] in my ASP.NET Application, but is it really that bad since my manager object is WORM (Write Once Read Many) ???<br /><br />I welcome suggestions and comments (now that they will actually work :P )<div style="clear:both; padding-bottom: 0.25em;"></div></p>
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2005/04/nhibernate-and-asp-net-part-2/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2005/04/new-template/">New Template</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2005-04-28 00:00:00 -0500" pubdate  updated >Apr 28<span>th</span>, 2005</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><div style="clear:both;"></div>
+
+
+<p>Well I gave up on the old template because I recently was told that <b>nobody can reply to any of my posts!</b>I wonder what this has to do with the template that I was using, but I think that was the culprit.Maybe people actually <i>do</i> read this after all. :)<div style="clear:both; padding-bottom: 0.25em;"></div></p>
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2005/04/new-template/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2005/04/nhibernate-and-asp-net/">NHibernate and ASP.NET</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2005-04-27 00:00:00 -0500" pubdate  updated >Apr 27<span>th</span>, 2005</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><div style="clear:both;"></div>
+
+
+<p>If you haven&#8217;t seen Nhibernate yet, you should really check it out. There are a lot of free ORM tools out there, but this one seems to be the most liked, as far as I&#8217;ve read. I am implementing it in a new project at work and so far I am liking it. A lot.<br /><br />What I like best is that my Base business object can implement all of the details in Saving, Updating, and deleting objects&#8230; all I have to do is make sure and create the xml mapping file and all is taken care of for me.<br /><br />I do have some design concerns though, as I don&#8217;t want my front-end coupled to NHibernate at all. The UI developer shouldn&#8217;t even have to know the workings of the object persistance, he/she should just call <i>BusinessObject.Save()</i> and let the Data Layer handle it.<br /><br />So, following some advice on <a href="http://www.theserverside.net/">TSS</a> and <a href="http://www.codeproject.com/">Code Project</a> I decided to abstract the <i>nitty-gritty</i> into a static class.<br /><br /><b>Ooh</b>, did I just say static? That must be wrong&#8230; Static classes are not very reliable in a web application, as you don&#8217;t control it&#8217;s lifetime at all. So I have some basic code that generates the necessary configuration, loads my persistant classes into NHibernate, and builds the session factory, and this is all static. As far as the application goes, we won&#8217;t be able to tell it isn&#8217;t working because the static members will just be recreated once they are lost. I&#8217;m concerned about the performance hit that we will suffer because of this.<br /><br />I also want to avoid tying it to the Application bag, because that introduces a coupling between the UI and the Class library.<br /><br />I&#8217;m sort of stumped at this point, and I haven&#8217;t read anything yet that gives me a better alternative. Can someone recommend a solution?</i><div style="clear:both; padding-bottom: 0.25em;"></div></p>
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2005/04/nhibernate-and-asp-net/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2005/03/ie-firefox-and-javascript/">IE / Firefox and Javascript</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2005-03-21 00:00:00 -0600" pubdate  updated >Mar 21<span>st</span>, 2005</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><div style="clear:both;"></div>
+
+
+<p>I&#8217;m pretty sure all web developers have been annoyed a time or two (thousand) at the differences in the way Firefox and IE perform with the same HTML / Javascript. I am forced to use IE primarily at work because half of the legacy code is only IE compliant, which is kind of sad.<br /><br />One recent annoyance I had was a simple one: opening a pop-up window. Here was the code:<br /><br /><div id="code" height="50"><br /></p>
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>&lta onclick="window.open('url.html', 'some page', 'toolbar=no, location=no, scrollable=no');" href="#" &gt link &lt /a &gt</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p></div><br /><br /><span style="font-family:Verdana; overflow: auto;">This worked fine in Firefox, but not in IE. IE complained about &#8220;invalid argument&#8221; &#8230; after about 3 hours of googling I found out that the page title (what I had put as &#8220;some page&#8221;) has to be 1 word for IE to function properly. How retarded is that?</span><br /><span style="font-family:Verdana;"></span><br /><span style="font-family:Verdana;">On a side note, checkout these cool extensions for firefox! &#8230; Tidy is my new favorite&#8230;</span><br /><span style="font-family:Verdana; border: solid 1px Blue; background: #808080;"></span><br /><ul><li>EditCSS for on-the-fly css editing of viewed content (user edit, notpermanent) (<a onclick="return top.js.OpenExtLink(window,event,this)" href="http://editcss.mozdev.org/" target="_blank">http://editcss.mozdev.org/</a>)</li><li>NukeAnything. Highlight, right-click, Remove. Remove any element from thecurrent browser view (not permanent).(<a onclick="return top.js.OpenExtLink(window,event,this)" href="http://extensionroom.mozdev.org/more-info/nukeanything" target="_blank">http://extensionroom.mozdev.org/more-info/nukeanything</a>) </li><li>Tidy extension(<a onclick="return top.js.OpenExtLink(window,event,this)" href="http://users.skynet.be/mgueury/mozilla/" target="_blank">http://users.skynet.be/mgueury/mozilla/</a>) or the HTTP headers extension(<a onclick="return top.js.OpenExtLink(window,event,this)" href="http://livehttpheaders.mozdev.org/" target="_blank">http://livehttpheaders.mozdev.org/</a>). Very friendly for checking code.</li></ul><div style="clear:both; padding-bottom: 0.25em;"></div></p>
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2005/03/ie-firefox-and-javascript/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2005/03/free-books-from-apress/">Free Books From Apress</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2005-03-08 00:00:00 -0600" pubdate  updated >Mar 8<span>th</span>, 2005</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><div style="clear:both;"></div>
+
+
+<p>Thanks to a link from <a href="http://www.ircomm.net">Mykre</a> , I now have some new books to read!Apress is <a href="http://www.apress.com/free/index.html">giving out some eBooks for free</a>, and they might just be worth the download!Enjoy!<div style="clear:both; padding-bottom: 0.25em;"></div></p>
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2005/03/free-books-from-apress/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2005/03/team-development-with-asp-net-multiple-projects/">Team Development With ASP.NET Multiple Projects</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2005-03-04 00:00:00 -0600" pubdate  updated >Mar 4<span>th</span>, 2005</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><div style="clear:both;"></div>
+
+
+<p>I thought I&#8217;d share my little setup with the world. I have been googling my ass off trying to find out the best way to do what I need done, but I haven&#8217;t had much luck.<br /><br />Basically here was my problem:<br /><ul> <li>Multiple Developers accessing the solution &#8211; need multiple projects (this was before source control &#8211; yuck).</li> <li>Different components in VB.NET / C# (can&#8217;t combine languages until 2.0)<br /></li> <ul> <li>the previous code used single file aspx pages&#8230;(double yuck)<br /></li></ul> <ul> <li>need to maintain common directory structure as on live server<br /></li> </ul></ul> Now I read a solution somewhere that just said to keep adding projects underneath your web projects root directory, and remove the &#8220;application&#8221; in iis, remove global.asax &amp; web.config and you&#8217;re good to go. But wait, when you compile it leaves the .dll in the local \bin folder. I tried to set the output directory to the root bin folder, but Visual Studio didn&#8217;t keep the changes. In fact, when I clicked apply it just reverted to &#8220;\bin&#8221; instead of &#8221; &#8230;.\bin&#8221;<br />I recieve a (stupid) suggestion from a website to add each project as a reference in the main project &#8211; well this caused all 10 projects to be built each time I compiled&#8230; yuck.<br /><br />Finally, after a few problems of not being able to debug certain dll&#8217;s, I started at the solution again.<a href="http://jolson.geekswithblogs.net">Jason Olson</a> recommended I try editing the project file directly with notepad. DAMNIT why didn&#8217;t I think of this in the first place?!?! It worked like a charm!I&#8217;m not sure why Visual Studio compained about the output folder in the first place.In any case, I have been so used to just building all of the projects each time I wanted to compile, that it feels like the build speed is lightning fast!<div style="clear:both; padding-bottom: 0.25em;"></div></p>
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2005/03/team-development-with-asp-net-multiple-projects/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2005/02/annoyances-while-combining-vb-net-and-c/">Annoyances While Combining VB.NET and C#</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2005-02-26 00:00:00 -0600" pubdate  updated >Feb 26<span>th</span>, 2005</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><div style="clear:both;"></div>
+
+
+<p>I ran across this annoyance today, probably a bug in Visual Studio.I have a custom collection that encapsulates an arraylist, and it basically has 5 different overloads for the Add() method.<br /><br />well this is written in VB.NET, while 1 of the instances of this class is in C#.When I added a new overload to the collection, I named it add() instead of Add() (VB.NET takes the first declared name as the correct case usage for variables and methods, so my other methods were changed as well, but the compiler doesn&#8217;t actually show this change unless you visit the line again &#8211; and hit a carriage return). <br /><br />My C# project complained no method named Add() existed.Hrm, so I use intellisense to find out that the method is now called add() &#8211; weird.So I change it to add() to get it to compile, then go fix it.<br /><br />Well the compiler this time complained that there didn&#8217;t exist an add() method.Ok, now I&#8217;m a little upset.This is just stupid.The compiler is obviously confused.I go back in to the VB.NET project, fix the case to read Add(), and I get ANOTHER compile error.This time saying that there was no Add() method.Arg!<br /><br />Viewing the object in intellisense must&#8217;ve slapped VS back into shape because it showed the correct method: Add().Rewriting the line verbatim solved the problem and compiled just fine.<br /><br />Ahh, that&#8217;s why they say,&#8221;Where do you want to go today?&#8221; (one of my old professors used to say that&#8230;.)<div style="clear:both; padding-bottom: 0.25em;"></div></p>
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2005/02/annoyances-while-combining-vb-net-and-c/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2005/02/i-swear-im-the-last-to-know-everything/">I Swear I&#8217;m the Last to Know Everything&#8230;.</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2005-02-21 00:00:00 -0600" pubdate  updated >Feb 21<span>st</span>, 2005</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><div style="clear:both;"></div>
+
+
+<p>I must be really out of the loop.Even searching on google before I never ran into this until yesterday:NUnitASP.Whata cool extension.I must&#8217;ve been searching on the wrong terms because it&#8217;s been out for over a year.Anyway it lets you grab pages and test things with full HtppContext so you can really test the front end behavior and be confident in your pages.<br /><br />Anyway, if there exists such a soul that has not heard/used ASP.NET unit testing before I suggest checking out NUnitASP.There&#8217;s a pretty easy-to-follow tutorial at <a href="http://www.theserverside.net/articles/showarticle.tss?id=TestingASP">http://www.theserverside.net/articles/showarticle.tss?id=TestingASP</a><br /><br />Now to write tests for my 100+ pages&#8230; /quiver<br /><br />(on a side note I&#8217;m still looking for some practicle examples of testing my class library code with NUnit&#8230; I&#8217;m missing the bigger picture I think, but how can I easily test a class library that almost primarily deals with database interaction?? )<div style="clear:both; padding-bottom: 0.25em;"></div></p>
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2005/02/i-swear-im-the-last-to-know-everything/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2005/02/empiresdawn-of-the-modern-world/">Empires:Dawn of the Modern World</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2005-02-15 00:00:00 -0600" pubdate  updated >Feb 15<span>th</span>, 2005</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><div style="clear:both;"></div>
+
+
+<p><a href="http://www.empiresrts.com/">Empires:Dawn of the Moder World</a><br /><br />I am ADDICTED to this game!I played the original Empire Earth for a really long time, and this is a pretty good sequel.<br /><br />One really cool thing is that Empire Earth 2 is coming out pretty soon, and it looks like another good addition to the series.The original EE will probably be offered free from Sierra once it hits stores, so keep an eye out for that.<br /><br />Playing these types of games makes me think of how good of an example they are for good object oriented design and opportunity for lots of design patterns.I really think a game like this is over my head at the moment, but it&#8217;s nice to have something to strive for.<br /><br />Most resell shops will have this game for about $10-$15, so pick it up&#8230; it&#8217;s good.<div style="clear:both; padding-bottom: 0.25em;"></div></p>
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2005/02/empiresdawn-of-the-modern-world/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2005/02/categories/">Categories</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2005-02-12 00:00:00 -0600" pubdate  updated >Feb 12<span>th</span>, 2005</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><div style="clear:both;"></div>
+
+
+<p>When is Blogger going to supporting Post Categories?It&#8217;s one of the neater features of .Text and Drupal (2 other other blogging platforms that I have used.)<br /><br />It would serve as a tool for people to ignore my non-technical posts if they were so inclined.(Wait, who in the hell would wanna do that?!?!)<br /><br />File this under:Blogging!<div style="clear:both; padding-bottom: 0.25em;"></div></p>
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2005/02/categories/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+<nav role="pagination">
+  <div>
+    
+      <a class="prev" href="/blog/page/39/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/37/">Newer &rarr;</a>
+    
+  </div>
+</nav>
+
+<script type="text/javascript">
+    var disqus_shortname = 'subdigital';
+    (function () {
+      var s = document.createElement('script'); s.async = true;
+      s.type = 'text/javascript';
+      s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+      (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+
+</div>
+<aside role=sidebar>
+  
+    <section>
+  <h1>Who am I?</h1>
+  <p>I&#8217;m Ben Scheirman. I make Rails &amp; iPhone apps for <a href="http://chaione.com" target="_blank">ChaiONE</a> in Houston, TX.</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/08/vim---could-not-invoke-jslint/">Vim - Could Not Invoke JSLint</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/is-rails-exempt-from-software-principles/">Is Rails Exempt?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/when-viewwillappear-isnt-called/">When viewWillAppear: Isn&#8217;t Called</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/moving-my-blog/">Moving My Blog</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/my-vim-journey/">My Vim Journey</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("subdigital", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/subdigital" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @subdigital</a>
+  
+</section>
+
+
+<section>
+  <h1>On Delicious</h1>
+  <script type="text/javascript" src="http://feeds.delicious.com/v2/js/subdigital?title=&count=3&sort=date&extended"></script>
+  <p><a href="http://delicious.com/subdigital">My Delicious Bookmarks &raquo;</a></p>
+</section>
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer>
+<a style="display:block; float: right" title="Real Time Analytics" href="http://getclicky.com/66470389"><img alt="Real Time Analytics" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
+<script src="//static.getclicky.com/js" type="text/javascript"></script>
+<script type="text/javascript">try{ clicky.init(66470389); }catch(e){}</script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/66470389ns.gif" /></p></noscript>
+
+<p>
+  Copyright &copy; 2011 - Ben Scheirman -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+</body>
+</html>

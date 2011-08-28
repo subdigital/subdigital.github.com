@@ -1,0 +1,285 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Fickle Bits: Professional XNA Game Programming - Review</title>
+  <meta name="author" content="Ben Scheirman">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="canonical" href="http://benscheirman.com/blog/2007/08/professional-xna-game-programming-review/"/>
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/ficklebits" rel="alternate" title="Fickle Bits" type="application/atom+xml"/>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-210379-10']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">Fickle Bits</a></h1>
+  
+    <h2>You're doing it wrong.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/ficklebits" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:benscheirman.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry">
+  
+  <header>
+    
+      <h1 class="entry-title">Professional XNA Game Programming - Review</h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-08-30 00:00:00 -0500" pubdate  updated >Aug 30<span>th</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+<div class="entry-content"><p><img src="/images/xna_2Dbook_.jpg" hspace="10"  border="0"  />I just finished reading Professional <a href="http://www.amazon.com/Professional-XNA-Game-Programming-Windows/dp/0470126779/ref=pd_bbs_sr_1/104-8400577-8532738?ie=UTF8&amp;s=books&amp;qid=1188482950&amp;sr=8-1">XNA Game Development</a> by <a href="http://abi.exdream.com/">Benjamin Nitchske</a>.&nbsp; It was my first attempt at using the XNA Framework.&nbsp; I have some experience with DirectX, as I have been tinkering with it since version 5. Most of my work has been with the Managed DirectX bits for .NET 1.1. I found it to be much easier and readable than C++, just because of the language differences.</p>
+
+
+<p>XNA takes that next productivity leap and really allows you to hit the ground running.&nbsp; You start out with a game loop (complete with elapsed time already calculated for you), a graphics device already setup, and a managed content pipeline for imported models, sounds, and textures.&nbsp; Things like graphics memory getting lost when you alt-tab are already handled for you.</p>
+
+
+<p>But enough about XNA, this post is a review for Benjamin&#8217;s book.&nbsp; If you haven&#8217;t heard of him before, he was the author of the first Managed DirectX game called Arena Wars, and later wrote RocketCommander. Both games are very well done and he ported RocketCommander to XNA so that you can play it on the XBOX 360. XNA Racer was also done completely by himself, which is very impressive.&nbsp; Needless to say, with all that background and expertise&#8230; I had high hopes for this book.</p>
+
+
+<p>The first few chapters introduced how Benjamin approaches game development.&nbsp; He calls them &#8220;Unit Tests&#8221; but that term often implies that the tests are automated.&nbsp; His tests are basically slices of game functionality that he calls manually.&nbsp; For example he might have a unit test to verify that shadows work properly, or that a specific collision detection algorithm works.&nbsp; He is able to setup the update and render loops using anonymous methods and execute them using batch files or manually calling the unit test instead of the main game.&nbsp; I found this to be very interesting, however the code that he used to write it was somewhat ugly and unintuitive.&nbsp; I coded the Pong game following his coding style and was disappointed the whole way through it.&nbsp; While he does say that we will utilize better code for the next game, the code he wrote here was inexcusably bad. I got the game working, however new features and modifications would prove to be difficult because it is just spaghetti code.&nbsp; I swallowed my pride and told myself, &#8220;.. it will get better.&#8221;</p>
+
+
+<p>So then I started to follow his next example: Breakout.&nbsp; I have built breakout before using Managed DirectX, and it was quite fun.&nbsp; I was disappointed to find out that he didn&#8217;t really <em>buid</em> the game through the book, he rather took the reader on an exploration of code already written. And he was true to his word, the code pulled a lot of functionality into &#8220;helper&#8221; classes which made them reusable.&nbsp; And yes, the code was still horrid.</p>
+
+
+<p>I mentioned reusable code.&nbsp; It wasn&#8217;t reusable like you&#8217;re thinking.&nbsp; He actually tells you to copy the code from the previous game and paste it into the new game.&nbsp; I&#8217;m not kidding.&nbsp; I&#8217;m a professional developer.&nbsp; This book is called&nbsp;<em>Professional</em> XNA.&nbsp; Professionals don&#8217;t write code like that. He begins to talk about 3D programming in a way that is &#8211; while full of information &#8211; poorly organized and generally boring.&nbsp; I learned a lot in this section, but nothing I can really refer to later.&nbsp; It was more like a stream of conciousness than organized writing. </p>
+
+
+<p>Let me give you a hard example of how bad the code is.&nbsp; At one point he is talking about how he handles car physics, which was very interesting.&nbsp; Then I saw the class diagram where he implemented it.&nbsp; It looked something like this: </p>
+
+
+<p><img src="/images/carPhysics_2Dcrap_small_.jpg" alt="CarPhysics-crap"  border="0"  /></p>
+
+
+<p>What!?!? So `ChaseCamera` inherits from `CarPhysics` which in turn inherits from `Player?`&nbsp; Sounds like an object model from the Twilight Zone. This is pure junk as an object model, and is really only there because the CarPhysics object needs to know details about what the player is doing, and indeed so does the camera. But that doesn&#8217;t mean you should break all rules of OO just to achieve a hack that works.&nbsp; I was so appalled by this I almost didn&#8217;t finish the book.</p>
+
+
+<p>Benjamin knows his stuff, no doubt.&nbsp; I think it&rsquo;s amazing that someone can build something as beautiful as RocketCommander or XNA Racer in less than a month <strong>by yourself</strong>.&nbsp; But I just can&rsquo;t recommend this book because of the code quality.</p>
+
+
+<p>I will wrap this up by saying that I *did* enjoy the book because it got me into game programming again, but I find this type of writing almost intolerable.&nbsp; I enjoyed to learn about some nuances around XBOX 360 vs. PC versions of XNA Games, and I especially liked his Unit Testing technique. The information on Shaders was mildly useful, albeit boring. But if you&#8217;re going to be reading this book, be fore-warned that the code sucks.</p>
+
+
+<p>I give it 2.5 / 5 stars. </p>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ben Scheirman</span></span>
+
+      
+
+
+
+
+<time datetime="2007-08-30 00:00:00 -0500" pubdate  updated >Aug 30<span>th</span>, 2007</time>
+
+
+
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://benscheirman.com/blog/2007/08/professional-xna-game-programming-review/" data-via="subdigital" data-counturl="http://benscheirman.com/blog/2007/08/professional-xna-game-programming-review/" >Tweet</a>
+  
+  
+  <g:plusone size="medium"></g:plusone>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread"><div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_shortname = 'subdigital';
+  var disqus_identifier = 'http://benscheirman.com/blog/2007/08/professional-xna-game-programming-review/';
+  var disqus_url = 'http://benscheirman.com/blog/2007/08/professional-xna-game-programming-review/';
+  //var disqus_developer = 1;
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside role=sidebar>
+  
+    <section>
+  <h1>Who am I?</h1>
+  <p>I&#8217;m Ben Scheirman. I make Rails &amp; iPhone apps for <a href="http://chaione.com" target="_blank">ChaiONE</a> in Houston, TX.</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/08/vim---could-not-invoke-jslint/">Vim - Could Not Invoke JSLint</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/is-rails-exempt-from-software-principles/">Is Rails Exempt?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/when-viewwillappear-isnt-called/">When viewWillAppear: Isn&#8217;t Called</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/moving-my-blog/">Moving My Blog</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/my-vim-journey/">My Vim Journey</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("subdigital", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/subdigital" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @subdigital</a>
+  
+</section>
+
+
+<section>
+  <h1>On Delicious</h1>
+  <script type="text/javascript" src="http://feeds.delicious.com/v2/js/subdigital?title=&count=3&sort=date&extended"></script>
+  <p><a href="http://delicious.com/subdigital">My Delicious Bookmarks &raquo;</a></p>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer>
+<a style="display:block; float: right" title="Real Time Analytics" href="http://getclicky.com/66470389"><img alt="Real Time Analytics" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
+<script src="//static.getclicky.com/js" type="text/javascript"></script>
+<script type="text/javascript">try{ clicky.init(66470389); }catch(e){}</script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/66470389ns.gif" /></p></noscript>
+
+<p>
+  Copyright &copy; 2011 - Ben Scheirman -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+</body>
+</html>

@@ -1,0 +1,436 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Fickle Bits: Connecting to SQL Server 2008 from Ruby on Linux</title>
+  <meta name="author" content="Ben Scheirman">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="canonical" href="http://benscheirman.com/blog/2011/01/connecting-to-sql-server-2008-from-ruby-on-linux/"/>
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/ficklebits" rel="alternate" title="Fickle Bits" type="application/atom+xml"/>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-210379-10']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">Fickle Bits</a></h1>
+  
+    <h2>You're doing it wrong.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/ficklebits" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:benscheirman.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry">
+  
+  <header>
+    
+      <h1 class="entry-title">Connecting to SQL Server 2008 From Ruby on Linux</h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2011-01-20 00:00:00 -0600" pubdate  updated >Jan 20<span>th</span>, 2011</time>
+
+
+</p>
+    
+  </header>
+
+
+<div class="entry-content"><p>This is way hard than it should be, but once you go &#8220;off the rails&#8221; not everything is candy &amp; roses and chocolate covered bunnies. Of course, there is still a great community of talented folks producing stuff that makes all of this work.</p>
+
+
+<p>The trick is to know what to look for. This post is for you, dear reader, to hopefully avoid all of the trial and error that I went through and hopefully get it to just work.</p>
+
+
+<p>So, in my quest to connect a little ruby app on Linux to a SQL Server 2008 instance on Windows, I stumbled across the magical combination that allowed me to perform this task.<br /></p>
+
+
+<p>All of these commands were run on Ubuntu 10.4.</p>
+
+
+<h2>Step 1: Get unixODBC.</h2>
+
+
+<p>You&#8217;ll be connecting via ODBC, so let&#8217;s grab this one. There&#8217;s also iODBC, but I didn&#8217;t give that one a try.<br /></p>
+
+
+
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>sudo apt-get install unixodbc-dev</div></code></pre></td></tr></table></div></figure></div>
+
+
+
+
+<h2>Step 2: Get FreeTDS</h2>
+
+
+<p>TDS stands for &#8220;Table Data Stream&#8221; and is the communication protocol that Sybase &amp; SQL Server use. There are plenty of commercial drivers out there for just about every operating system, but one stood out to me&#8230; <a href="http://freetds.org/">FreeTDS</a>. I&#8217;ll give you 3 guesses why I liked this one (but you&#8217;ll only need 1).<br /></p>
+
+
+<p>We&#8217;ll also need the ODBC connector for this.</p>
+
+
+<p>
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>sudo apt-get install freetds tdsodbc</div></code></pre></td></tr></table></div></figure></div>
+</p>
+
+
+<h2>Step 3: Configure-shit</h2>
+
+
+<p>There are 3 INI files that we need to modify. When I did this on my Mac, they were in /usr/local/etc, but on Ubuntu it was all in the /etc directory.<br /></p>
+
+
+<p>Confirm that the FreeDTS &amp; TDSODBC drivers are in place by looking in `/usr/lib/odbc` for the files `libtdsodbc.so` and `libtdsS.so`. We&#8217;ll be using those in the next step.</p>
+
+
+<p>Using your favorite editor, open up `/etc/odbcinst.ini`. This file might not exist yet, that&#8217;s okay.</p>
+
+
+
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>sudo vim /etc/odbcinst.ini</div></code></pre></td></tr></table></div></figure></div>
+
+
+<br />
+
+
+<p>Here&#8217;s where we tell unixODBC which ODBC drivers the system supports. We&#8217;ll add the following text:</p>
+
+
+
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+<span class='line'>6</span>
+<span class='line'>7</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>[FreeTDS]
+</div><div class='line'>Description = FreeTDS Driver
+</div><div class='line'>Driver = /usr/lib/odbc/libtdsodbc.so
+</div><div class='line'>Setup = /usr/lib/odbc/libtdsS.so
+</div><div class='line'>FileUsage = 1
+</div><div class='line'>CPTimeout = 5
+</div><div class='line'>CPReuse = 5</div></code></pre></td></tr></table></div></figure></div>
+
+
+<br />
+
+
+<p>Save that file. Next up we should configure FreeTDS to define our data sources.<br /></p>
+
+
+
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>sudo vim /etc/odbc/freetds/freetds.conf</div></code></pre></td></tr></table></div></figure></div>
+
+
+<br />
+
+
+<p>There should be some example configurations in here. Also note that here is where you can un-comment a line to enable debug output if you&#8217;re having trouble (I needed this). Here is my configuration:</p>
+
+
+
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+<span class='line'>5</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>#my sql server (SQL Server 2008)
+</div><div class='line'>[my_database]
+</div><div class='line'>host = 11.22.33.44 #no this isn't a real IP. you think I'm crazy?
+</div><div class='line'>port = 1433 #change this if you're running your db on a non-standard port
+</div><div class='line'>tds version = 8.0</div></code></pre></td></tr></table></div></figure></div>
+
+
+
+
+<p>One last piece of configuration is needed. This is the general system datasources configuration.<br /></p>
+
+
+
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>sudo vim /etc/odbc.ini</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>The following should be fairly obvious configuration:<br /></p>
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>[my_database] #note this doesn't have to match what's in freetds.conf
+</div><div class='line'>Servername = my_database #this matches what's in freetds.conf
+</div><div class='line'>Driver = FreeTDS #this matches the driver you configured in odbcinst.ini
+</div><div class='line'>Database = YOUR_DATABASE_HERE</div></code></pre></td></tr></table></div></figure></div>
+
+
+
+
+<h2>Step 4: Try it out</h2>
+
+
+<br />
+
+
+<p>Using the unixODBC tool, test out your connection:<br /></p>
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>isql my_database uid password</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>If you had any errors, you&#8217;ll get something like &#8220;Cannot SQLConnect&#8221;. If this happens, check your debug log (if you enabled it in freetds.conf). In my case I forgot to enable Mixed Mode authentication on the SQL Server side.<br /></p>
+
+<br />
+
+
+<h2>Step 5: Install the gem</h2>
+
+
+<br />
+
+
+<p>We&#8217;ll be using a nice gem called <a href="https://github.com/rails-sqlserver/tiny_tds">tiny_tds</a>.<br /></p>
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>gem install tiny_tds</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>With that installed, let&#8217;s test it out!<br />
+Launch <code>irb</code>:<br /></p>
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+<span class='line'>2</span>
+<span class='line'>3</span>
+<span class='line'>4</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>require 'tiny_tds'
+</div><div class='line'>client = TinyTds::Client.new(:dataserver =&gt; 'my_database', :username=&gt;'user', :password=&gt;'password')
+</div><div class='line'>client.closed? # should be false, if it's true you probably had an error connecting
+</div><div class='line'>client.execute("SELECT getdate()").each {|row| puts row}</div></code></pre></td></tr></table></div></figure></div>
+
+
+
+
+<p>If you got a date back, then your connection is working properly. <strong>Huzzah</strong>!</p>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ben Scheirman</span></span>
+
+      
+
+
+
+
+<time datetime="2011-01-20 00:00:00 -0600" pubdate  updated >Jan 20<span>th</span>, 2011</time>
+
+
+
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://benscheirman.com/blog/2011/01/connecting-to-sql-server-2008-from-ruby-on-linux/" data-via="subdigital" data-counturl="http://benscheirman.com/blog/2011/01/connecting-to-sql-server-2008-from-ruby-on-linux/" >Tweet</a>
+  
+  
+  <g:plusone size="medium"></g:plusone>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread"><div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_shortname = 'subdigital';
+  var disqus_identifier = 'http://benscheirman.com/blog/2011/01/connecting-to-sql-server-2008-from-ruby-on-linux/';
+  var disqus_url = 'http://benscheirman.com/blog/2011/01/connecting-to-sql-server-2008-from-ruby-on-linux/';
+  //var disqus_developer = 1;
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside role=sidebar>
+  
+    <section>
+  <h1>Who am I?</h1>
+  <p>I&#8217;m Ben Scheirman. I make Rails &amp; iPhone apps for <a href="http://chaione.com" target="_blank">ChaiONE</a> in Houston, TX.</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/08/vim---could-not-invoke-jslint/">Vim - Could Not Invoke JSLint</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/is-rails-exempt-from-software-principles/">Is Rails Exempt?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/when-viewwillappear-isnt-called/">When viewWillAppear: Isn&#8217;t Called</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/moving-my-blog/">Moving My Blog</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/my-vim-journey/">My Vim Journey</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("subdigital", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/subdigital" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @subdigital</a>
+  
+</section>
+
+
+<section>
+  <h1>On Delicious</h1>
+  <script type="text/javascript" src="http://feeds.delicious.com/v2/js/subdigital?title=&count=3&sort=date&extended"></script>
+  <p><a href="http://delicious.com/subdigital">My Delicious Bookmarks &raquo;</a></p>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer>
+<a style="display:block; float: right" title="Real Time Analytics" href="http://getclicky.com/66470389"><img alt="Real Time Analytics" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
+<script src="//static.getclicky.com/js" type="text/javascript"></script>
+<script type="text/javascript">try{ clicky.init(66470389); }catch(e){}</script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/66470389ns.gif" /></p></noscript>
+
+<p>
+  Copyright &copy; 2011 - Ben Scheirman -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+</body>
+</html>

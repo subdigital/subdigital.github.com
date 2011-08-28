@@ -4,7 +4,7 @@
   <title>Fickle Bits</title>
   <link href="http://benscheirman.com/atom.xml" rel="self"/>
   <link href="http://benscheirman.com/"/>
-  <updated>2011-08-26T09:55:27-05:00</updated>
+  <updated>2011-08-28T16:01:57-05:00</updated>
   <id>http://benscheirman.com/</id>
   <author>
     <name>Ben Scheirman</name>
@@ -14,9 +14,9 @@
   
   <entry>
     <title>Vim - Could Not Invoke JSLint</title>
-    <link href="http://benscheirman.com/blog/2011/08/26/vim---could-not-invoke-jslint/"/>
+    <link href="http://benscheirman.com/blog/2011/08/vim---could-not-invoke-jslint/"/>
     <updated>2011-08-26T08:59:00-05:00</updated>
-    <id>http://benscheirman.com/blog/2011/08/26/vim---could-not-invoke-jslint</id>
+    <id>http://benscheirman.com/blog/2011/08/vim---could-not-invoke-jslint</id>
     <content type="html">&lt;p&gt;If you're running MacVim with Janus and have upgraded to Lion, you may
 have noticed a little error when you open JavaScript files:&lt;/p&gt;
 
@@ -48,9 +48,9 @@ figuring this out.&lt;/p&gt;
   
   <entry>
     <title>Is Rails Exempt?</title>
-    <link href="http://benscheirman.com/blog/2011/08/26/is-rails-exempt-from-software-principles/"/>
+    <link href="http://benscheirman.com/blog/2011/08/is-rails-exempt-from-software-principles/"/>
     <updated>2011-08-26T07:58:00-05:00</updated>
-    <id>http://benscheirman.com/blog/2011/08/26/is-rails-exempt-from-software-principles</id>
+    <id>http://benscheirman.com/blog/2011/08/is-rails-exempt-from-software-principles</id>
     <content type="html">&lt;p&gt;If you've been following the Ruby community recently, you'd notice that
 there's are people calling our Rails (and Rails developers) for treating
 Rails as if it is somehow &lt;em&gt;exempt&lt;/em&gt; from long-standing software
@@ -234,9 +234,9 @@ to rock the boat &amp;amp; try something new.&lt;/p&gt;
   
   <entry>
     <title>When viewWillAppear: Isn't Called</title>
-    <link href="http://benscheirman.com/blog/2011/08/24/when-viewwillappear-isnt-called/"/>
+    <link href="http://benscheirman.com/blog/2011/08/when-viewwillappear-isnt-called/"/>
     <updated>2011-08-24T10:11:00-05:00</updated>
-    <id>http://benscheirman.com/blog/2011/08/24/when-viewwillappear-isnt-called</id>
+    <id>http://benscheirman.com/blog/2011/08/when-viewwillappear-isnt-called</id>
     <content type="html">&lt;p&gt;The &lt;code&gt;UIViewController&lt;/code&gt; lifecycle is pretty simple.  &lt;code&gt;viewDidLoad&lt;/code&gt; is
 called when the view is loaded (usually from a XIB) and when the view
 controller's view is about to be displayed &lt;code&gt;viewWillAppear:&lt;/code&gt; gets called
@@ -328,10 +328,32 @@ you'd have to implement this method as well:&lt;/p&gt;
   </entry>
   
   <entry>
+    <title>Moving My Blog</title>
+    <link href="http://benscheirman.com/blog/2011/08/moving-my-blog/"/>
+    <updated>2011-08-21T00:00:00-05:00</updated>
+    <id>http://benscheirman.com/blog/2011/08/moving-my-blog</id>
+    <content type="html">&lt;p&gt;I've decided to transition over to a new blog.&lt;/p&gt;
+
+
+&lt;p&gt;The reasons? Mostly because I'm questioning more &amp;amp; more the need to have a dynamic blog that I need to maintain. Static HTML blog generators are very interesting and I thought I'd give one a try.&lt;/p&gt;
+
+
+&lt;p&gt;I'll leave this one around for historical reasons. It gets a decent amount of traffic and has content going back to 2004.&lt;br /&gt;&lt;/p&gt;
+
+
+&lt;p&gt;So without further ado I present my new blog, &lt;a href=&quot;http://benscheirman.com&quot;&gt;Fickle Bits&lt;/a&gt;.&lt;br /&gt;&lt;/p&gt;
+
+
+&lt;p&gt;(Note to RSS readers, your feeds will not auto-update. Subscribe to the new blog here: &lt;a href=&quot;http://feeds.feedburner.com/ficklebits&quot; target=&quot;_blank&quot;&gt;Subscribe&lt;/a&gt; )&lt;br /&gt;&lt;/p&gt;
+
+</content>
+  </entry>
+  
+  <entry>
     <title>My Vim Journey</title>
-    <link href="http://benscheirman.com/blog/2011/08/17/my-vim-journey/"/>
+    <link href="http://benscheirman.com/blog/2011/08/my-vim-journey/"/>
     <updated>2011-08-17T23:53:00-05:00</updated>
-    <id>http://benscheirman.com/blog/2011/08/17/my-vim-journey</id>
+    <id>http://benscheirman.com/blog/2011/08/my-vim-journey</id>
     <content type="html">&lt;p&gt;For my Rails work, I've largely leaned on &lt;a href=&quot;http://macromates.org&quot;&gt;TextMate&lt;/a&gt;.  It's used by many Rubyists, looks sexy,
 and is easily extended.&lt;/p&gt;
 
@@ -556,9 +578,9 @@ sheet.  Pair with someone else who uses Vim.&lt;/p&gt;
   
   <entry>
     <title>A Fresh Start?</title>
-    <link href="http://benscheirman.com/blog/2011/08/17/a-fresh-start/"/>
+    <link href="http://benscheirman.com/blog/2011/08/a-fresh-start/"/>
     <updated>2011-08-17T23:37:00-05:00</updated>
-    <id>http://benscheirman.com/blog/2011/08/17/a-fresh-start</id>
+    <id>http://benscheirman.com/blog/2011/08/a-fresh-start</id>
     <content type="html">&lt;p&gt;So I've been thinking of ditching the traditional blog for a while now.  My &lt;a href=&quot;http://flux88.com&quot;&gt;current blog&lt;/a&gt; is powered by WordPress, which
 is powerful enough, however it always seems like a hassle to maintain.
 There are also no fantastic blog editors for the Mac (still).&lt;/p&gt;
@@ -572,6 +594,1254 @@ of features. Just epic content, that's it!&lt;/p&gt;
 &lt;p&gt;Posts are composed in Markdown (I'm using vim to write this), static HTML is generated and the blog is then deployed to a git repository.&lt;/p&gt;
 
 &lt;p&gt;Will it make me blog more? I hope so, but only time will tell!&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <title>Houston Code Camp Registration is Now Open</title>
+    <link href="http://benscheirman.com/blog/2011/06/houston-code-camp-registration-is-now-open/"/>
+    <updated>2011-06-17T00:00:00-05:00</updated>
+    <id>http://benscheirman.com/blog/2011/06/houston-code-camp-registration-is-now-open</id>
+    <content type="html">&lt;h2&gt;Houston Code Camp 2011&lt;/h2&gt;
+
+
+&lt;h3&gt;August 20th, 2011&lt;/h3&gt;
+
+
+&lt;p&gt;&lt;img src=&quot;http://benscheirman.com/images/logo_____.jpg&quot; style=&quot;float:right; margin: 25px;&quot;   /&gt;&lt;/p&gt;
+
+&lt;p&gt;Houston Code Camp is a free day of sessions relating to software development. The event is free to attend, but registration is required.&lt;/p&gt;
+
+
+&lt;p&gt;A Code Camp follows these rules:&lt;/p&gt;
+
+
+&lt;ul&gt;
+  &lt;li&gt;They are a organized by developers and for developers to come and learn from their peers. Topics are always based on community interest and never determined by anyone other than the community.&lt;/li&gt;
+
+  &lt;li&gt;Code Camps are always FREE for attendees&lt;/li&gt;
+
+  &lt;li&gt;The success of the Code Camp is determined by the community. All content that is delivered is original and voted for by you! Make sure your vote counts, and vote for the sessions you'd like to see at our &lt;a href=&quot;http://houstoncodecamp.uservoice.com/forums/116507-speaker-submissions&quot; target=&quot;_blank&quot;&gt;speaker submission site&lt;/a&gt;.&lt;/li&gt;
+
+  &lt;li&gt;No Fluff - Code Camps are about Code, not slides. You won't find any marketing heavy powerpoint decks here&lt;/li&gt;
+
+  &lt;li&gt;All are welcome to attend and speak and do so without expectation of payment. Learn more about speaking on our &lt;a href=&quot;http://houstoncodecamp.uservoice.com/forums/116507-speaker-submissions&quot; target=&quot;_blank&quot;&gt;speaking&lt;/a&gt; page.&lt;/li&gt;
+
+  &lt;li&gt;The beauty of the Code Camp is that they always occur on weekends.&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;The schedule is still being formed. Take a look at the list of submissions &lt;a href=&quot;http://houstoncodecamp.uservoice.com/forums/116507-speaker-submissions&quot; target=&quot;_blank&quot;&gt;here&lt;/a&gt;. You can still get your session proposal in if you're interested in speaking!&lt;/p&gt;
+
+
+&lt;p&gt;Space is limited, so make sure and snag your ticket today. It's FREE!.&lt;/p&gt;
+
+
+
+
+&lt;p&gt;What are you waiting for? &lt;strong&gt;&lt;a href=&quot;http://houstoncodecamp.com/registration&quot; target=&quot;_blank&quot;&gt;Go register&lt;/a&gt;&lt;/strong&gt;!&lt;/p&gt;
+
+</content>
+  </entry>
+  
+  <entry>
+    <title>Fixing Xcode 4's Broken Code Completion</title>
+    <link href="http://benscheirman.com/blog/2011/06/fixing-xcode-4s-broken-code-completion/"/>
+    <updated>2011-06-08T00:00:00-05:00</updated>
+    <id>http://benscheirman.com/blog/2011/06/fixing-xcode-4s-broken-code-completion</id>
+    <content type="html">&lt;p&gt;In my continued quest to actually use Xcode 4 full time, I've run into yet another major issue: Xcode 4's code index sometimes gets borked and syntax highlighting &amp;amp; code completion stop working.&lt;/p&gt;
+
+
+&lt;p&gt;In the past, this has been fixed (temporarily) by deleting the Derived Data folder in Organizer, restarting Xcode, changing the compiler from LLVM to GCC &amp;amp; back again or some random combination of the 3. This doesn't always work, and today I sat down to figure out what the cause was and how to fix it.&lt;/p&gt;
+
+
+&lt;p&gt;In searching stackoverflow and the developer forums, I found that Xcode's code index can hang on recursive and/or relative search paths.&lt;/p&gt;
+
+
+&lt;p&gt;My project utilizes 2 static libraries, so I must provide proper header search paths, otherwise the compiler doesn't recognize any of the symbols.&lt;/p&gt;
+
+
+&lt;p&gt;So if you have a Header Search Path setting of &lt;strong&gt;`../lib/MyAwesomeLib`&lt;/strong&gt; or &lt;strong&gt;`../lib/MyAwesomeLib/**`&lt;/strong&gt; then you might be having this problem too.&lt;/p&gt;
+
+
+&lt;h2&gt;Step 1: Correcting relative paths&lt;/h2&gt;
+
+
+&lt;p&gt;You might be tempted to hard code the path to the file. Don't! This will break on somebody else's machine, and most of the time you're not working on this stuff alone.&lt;br /&gt;
+You can utilize the $(SOURCE_ROOT) build variable to construct a dynamic path relative to the Xcode project directory.&lt;br /&gt;
+This step might be all you need, but in my case I needed to follow the next step as well...&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2&gt;Step 2: Remove the need for recursive searches&lt;/h2&gt;
+
+
+&lt;p&gt;I have two subprojects, each of which symlink their build output to a build/current folder. This makes it easy to add a non-recursive library search path reference for similar reasons. I also want to copy headers into this folder so there's always a deterministic location to find the headers, regardless of the platform &amp;amp; configuration we're building for.&lt;br /&gt;
+So I added a Run Script build phase to do this work for me:&lt;br /&gt;&lt;/p&gt;
+
+&lt;div&gt;&lt;figure role=code&gt;&lt;figcaption&gt;&lt;span&gt;lang:shell &lt;/span&gt;&lt;/figcaption&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;span class='line'&gt;2&lt;/span&gt;
+&lt;span class='line'&gt;3&lt;/span&gt;
+&lt;span class='line'&gt;4&lt;/span&gt;
+&lt;span class='line'&gt;5&lt;/span&gt;
+&lt;span class='line'&gt;6&lt;/span&gt;
+&lt;span class='line'&gt;7&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class=''&gt;&lt;div class='line'&gt;# Symlink build output to a common directory for easy referencing in other projects
+&lt;/div&gt;&lt;div class='line'&gt;rm -rf &quot;$BUILD_DIR/current&quot;
+&lt;/div&gt;&lt;div class='line'&gt;ln -s &quot;$BUILT_PRODUCTS_DIR&quot; &quot;$BUILD_DIR/current&quot;
+&lt;/div&gt;&lt;div class='line'&gt;
+&lt;/div&gt;&lt;div class='line'&gt;# Copy headers to a shared location
+&lt;/div&gt;&lt;div class='line'&gt;mkdir -p &quot;$BUILD_DIR/current/headers&quot;
+&lt;/div&gt;&lt;div class='line'&gt;for file in `find . -name &quot;*.h&quot;`; do cp $file &quot;$BUILD_DIR/current/headers/&quot;; done;&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The line is a bash for loop that copies all the header files in any subfolder &amp;amp; flattens it out for a single headers folder reference.&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2&gt;Step 3: Add the new common header search paths&lt;/h2&gt;
+
+
+&lt;p&gt;In my case I exchanged a relative, recursive search path of:&lt;br /&gt;&lt;/p&gt;
+
+&lt;div&gt;&lt;figure role=code&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class=''&gt;&lt;div class='line'&gt;../lib/**&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
+
+
+&lt;br /&gt;
+
+
+&lt;p&gt;to the more explicit, and more Xcode 4 friendly:&lt;br /&gt;&lt;/p&gt;
+
+&lt;br /&gt;
+
+
+&lt;p&gt;&lt;img src=&quot;http://benscheirman.com/images/Xcode4_.png&quot;  alt=&quot;Xcode.png&quot;  /&gt;&lt;br /&gt;
+As soon as I did that, my code lit up like a Christmas tree! Symbols were recognized, code was highlighted, and best of all... code completion resumed.&lt;br /&gt;
+Here's to hoping the Xcode 4 continues to be improved. In the meantime, hope this fix saves you the headache I've been having.&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <title>Creating Proper IPA Files in Xcode 4</title>
+    <link href="http://benscheirman.com/blog/2011/06/creating-proper-ipa-files-in-xcode-4/"/>
+    <updated>2011-06-02T00:00:00-05:00</updated>
+    <id>http://benscheirman.com/blog/2011/06/creating-proper-ipa-files-in-xcode-4</id>
+    <content type="html">&lt;p&gt;Xcode 4 has changed a lot of things. Most of those things are ok, but occasionally I find that I just cannot do something any other way than to use Xcode 3.&lt;/p&gt;
+
+
+&lt;p&gt;Until today, I was creating Ad-hoc builds for my current project with Xcode 3, then selecting Share &amp;amp; saving the resulting IPA file to disk.&lt;/p&gt;
+
+
+&lt;p&gt;Xcode 4 has the new &quot;Build -&amp;gt; Archive&quot; menu option, but every time I'd try to share this file, I'd presented with this lovely restricted dialog box:&lt;/p&gt;
+
+
+&lt;p&gt;&lt;br /&gt;
+&lt;img src=&quot;http://benscheirman.com/images/Xcode3_.png&quot;  alt=&quot;Xcode.png&quot;  /&gt;&lt;/p&gt;
+
+
+&lt;p&gt;With the errors &lt;i&gt;&lt;b&gt;No Packager exists for the type of archive&lt;/b&gt;&lt;/i&gt; and &lt;i&gt;&lt;b&gt;This kind of archive cannot be signed&lt;/b&gt;&lt;/i&gt;.&lt;/p&gt;
+
+
+&lt;p&gt;As it turns out, if you have static libraries that you're linking in, your Archive step actually outputs those as well. Xcode doesn't know how to create an IPA out of 1 .app file and a handful of .a files, so it gives up.&lt;/p&gt;
+
+
+&lt;p&gt;You can tell that Xcode 4 is doing this if your Organizer -&amp;gt; Applications list shows an icon like this:&lt;/p&gt;
+
+
+&lt;p&gt;&lt;br /&gt;
+&lt;img src=&quot;http://benscheirman.com/images/Xcode2_.png&quot;  alt=&quot;Xcode.png&quot;  /&gt;&lt;/p&gt;
+
+
+&lt;p&gt;If you right-click on this build, and select &quot;Reveal in Finder&quot; you'll see the files are .xcarchive files. Right click on that and select &quot;Show Package Contents&quot; to see what I'm talking about. If you see a usr/lib/mystaticlibary.a file, then read on for the fix.&lt;/p&gt;
+
+
+&lt;p&gt;You need to tell Xcode 4 &lt;b&gt;not&lt;/b&gt; to &quot;install&quot; the static libraries. For each of the static library targets, select them in Xcode 4, and under Build Settings, search for &quot;Skip Install&quot;. Set that flag to YES. I had to do this to both of the static libraries I include in my project.&lt;/p&gt;
+
+
+&lt;p&gt;&lt;img src=&quot;http://benscheirman.com/images/Xcode1_.png&quot;  alt=&quot;Xcode1.png&quot;  /&gt;&lt;/p&gt;
+
+
+&lt;p&gt;Once that's done, your app should show a normal icon again &amp;amp; have the ability to export to IPA just like before. Yay!&lt;/p&gt;
+
+
+&lt;p&gt;&lt;br /&gt;
+&lt;img src=&quot;http://benscheirman.com/images/Xcode_.png&quot;  alt=&quot;Xcode.png&quot;  /&gt;&lt;/p&gt;
+
+
+&lt;p&gt;Huge thanks to &lt;a href=&quot;http://stackoverflow.com/questions/5265292/xcode-4-create-ipa-file-instead-of-xcarchive&quot;&gt;this stackoverflow question&lt;/a&gt; for pointing me in the right direction.&lt;/p&gt;
+
+</content>
+  </entry>
+  
+  <entry>
+    <title>Rails Intrigue Video at NHDNUG</title>
+    <link href="http://benscheirman.com/blog/2011/05/rails-intrigue-video-at-nhdnug/"/>
+    <updated>2011-05-31T00:00:00-05:00</updated>
+    <id>http://benscheirman.com/blog/2011/05/rails-intrigue-video-at-nhdnug</id>
+    <content type="html">&lt;p&gt;I gave a presentation at the North Houston .NET User Group a couple weeks ago entitled &quot;Rails Intrigue&quot;.  My friend, &lt;a href=&quot;http://claudiolassala.wordpress.com/&quot;&gt;Claudio Lassala&lt;/a&gt; recorded it and posted the video on YouTube.&lt;/p&gt;
+
+
+
+
+&lt;p&gt;In the presentation, I tried to give a little glimpse of what it feels like to build an application with Rails.  I also tried to convey a little of why I think &lt;strong&gt;Rails is just Fun&lt;/strong&gt;.&lt;/p&gt;
+
+
+
+
+&lt;p&gt;I think it went pretty well, for being mostly off the cuff.  Give it a watch, and let me know what you think.&lt;/p&gt;
+
+
+
+
+&lt;iframe width=&quot;560&quot; height=&quot;349&quot; src=&quot;http://www.youtube.com/embed/GIksgdjQ82g&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
+
+</content>
+  </entry>
+  
+  <entry>
+    <title>Houston Code Camp - Call for Speakers</title>
+    <link href="http://benscheirman.com/blog/2011/05/houston-code-camp-call-for-speakers/"/>
+    <updated>2011-05-25T00:00:00-05:00</updated>
+    <id>http://benscheirman.com/blog/2011/05/houston-code-camp-call-for-speakers</id>
+    <content type="html">&lt;p&gt;I'm excited to announce the first annual &lt;a href=&quot;http://houstoncodecamp.com&quot; target=&quot;_blank&quot;&gt;Houston Code Camp 2011&lt;/a&gt;, happening on August 20th! The code camp is a one day conference on Saturday, held by developers - for developers. Here you'll find sessions on a multitude of platforms and of varying skill levels. Best of all? &lt;strong&gt;It's FREE&lt;/strong&gt;.&lt;/p&gt;
+
+
+&lt;p&gt;&lt;br /&gt;
+&lt;a href=&quot;http://houstoncodecamp.com&quot; target=&quot;_blank&quot;&gt;
+&lt;img src=&quot;http://benscheirman.com/images/logo____.jpg&quot;  alt=&quot;logo.jpg&quot;  /&gt;&lt;/a&gt;&lt;/p&gt;
+
+
+&lt;h4&gt;Call for speakers&lt;/h4&gt;
+
+
+&lt;p&gt;We're currently looking for speakers, so if you are interested in speaking please feel free to submit a session. We're interested in both veteran &amp;amp; novice speakers alike, as a code camp is the perfect opportunity to start speaking if it's something you've been wanting to do.&lt;/p&gt;
+
+
+&lt;h4&gt;Community Voting of Sessions&lt;/h4&gt;
+
+
+&lt;p&gt;We want this conference to be valuable to the community, so we're letting you vote for the sessions you'd like to see most. As registration draws near I'll announce more details on how this work.&lt;/p&gt;
+
+
+&lt;p&gt;Registration will open soon, but for now.... &lt;b&gt;save the date&lt;/b&gt;!&lt;/p&gt;
+
+</content>
+  </entry>
+  
+  <entry>
+    <title>Dry up Your Rspec Files with subject & let Blocks</title>
+    <link href="http://benscheirman.com/blog/2011/05/dry-up-your-rspec-files-with-subject-let-blocks/"/>
+    <updated>2011-05-14T00:00:00-05:00</updated>
+    <id>http://benscheirman.com/blog/2011/05/dry-up-your-rspec-files-with-subject-let-blocks</id>
+    <content type="html">&lt;p&gt;Rspec is pretty awesome, however due to its flexibility, often times I find that people write specs in ways that either a) aren't structured very well, or b) use the wrong terminology to group up common contexts &amp;amp; behaviors.&lt;/p&gt;
+
+
+
+
+&lt;p&gt;&lt;strong&gt;Update:  Be sure to read David Chelimsky's suggestions in the comments.&lt;/strong&gt;&lt;/p&gt;
+
+
+
+
+&lt;p&gt;A friend of mine who is fairly new to Rspec, and asked me to provide some feedback on some tests that he wrote.&lt;br /&gt;&lt;/p&gt;
+
+
+&lt;p&gt;Here is the before:&lt;/p&gt;
+
+
+
+
+&lt;script src=&quot;https://gist.github.com/972835.js?file=original_card_spec.rb&quot;&gt;&lt;/script&gt;
+
+
+
+
+&lt;p&gt;The only real problems here are:&lt;/p&gt;
+
+
+&lt;ul&gt;
+  &lt;li&gt;Lots of duplicated setup code. If the initialization aspect of the Card design ever called for something other than a string, we'd have a lot of test code to fix.&lt;/li&gt;
+
+  &lt;li&gt;Lots of &quot;extra&quot; code to test a simple value. If it smells like duplication to type &quot;it 'has a value of 13'&quot; and then type the same thing, only in ruby code, then you're right.&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;The rspec constructs I recommend to deal with this are `subject,` `let, and` `its` blocks.&lt;/p&gt;
+
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;b&gt;&lt;span style=&quot;font-weight: normal;&quot;&gt;&lt;b&gt;Subject&lt;/b&gt; blocks allow you to control the initialization of the subject under test. If you don't have any custom initialization required, then you're given a default `subject` method already. All it does is call `new` on the class you're testing.&lt;/span&gt;&lt;/b&gt;&lt;/li&gt;
+
+  &lt;li&gt;&lt;span style=&quot;font-weight: normal;&quot;&gt;&lt;b&gt;Let&lt;/b&gt; blocks allow you to provide some input to the subject block that change in various contexts. This way you can simply provide an alternative `let` block for a given value and not have to duplicate the setup code for the subject over again. Let blocks also work inside of `before :each` blocks if you need them.&lt;/span&gt;&lt;br /&gt;&lt;/li&gt;
+
+  &lt;li&gt;&lt;span style=&quot;font-weight: normal;&quot;&gt;&lt;b&gt;Its&lt;/b&gt; blocks allow you to test methods on the subject that return a simple value. The benefit of using this over the more wordy version above is that it can actually format the test output for you.&lt;/span&gt;&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;Here is the same example above, using the above techniques to clean things up a bit.&lt;/p&gt;
+
+
+
+
+&lt;script src=&quot;https://gist.github.com/972835.js?file=better_card_spec.rb&quot;&gt;&lt;/script&gt;
+
+
+
+
+&lt;p&gt;And here is the output of the above spec:&lt;/p&gt;
+
+
+
+
+&lt;div&gt;&lt;figure role=code&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;span class='line'&gt;2&lt;/span&gt;
+&lt;span class='line'&gt;3&lt;/span&gt;
+&lt;span class='line'&gt;4&lt;/span&gt;
+&lt;span class='line'&gt;5&lt;/span&gt;
+&lt;span class='line'&gt;6&lt;/span&gt;
+&lt;span class='line'&gt;7&lt;/span&gt;
+&lt;span class='line'&gt;8&lt;/span&gt;
+&lt;span class='line'&gt;9&lt;/span&gt;
+&lt;span class='line'&gt;10&lt;/span&gt;
+&lt;span class='line'&gt;11&lt;/span&gt;
+&lt;span class='line'&gt;12&lt;/span&gt;
+&lt;span class='line'&gt;13&lt;/span&gt;
+&lt;span class='line'&gt;14&lt;/span&gt;
+&lt;span class='line'&gt;15&lt;/span&gt;
+&lt;span class='line'&gt;16&lt;/span&gt;
+&lt;span class='line'&gt;17&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class=''&gt;&lt;div class='line'&gt;Card
+&lt;/div&gt;&lt;div class='line'&gt;  #value
+&lt;/div&gt;&lt;div class='line'&gt;    Two of Hearts
+&lt;/div&gt;&lt;div class='line'&gt;      value
+&lt;/div&gt;&lt;div class='line'&gt;        &amp;lt;span style=&quot;color: #2f2&quot;&gt;should == 2&amp;lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    Face Cards
+&lt;/div&gt;&lt;div class='line'&gt;      King of Clubs
+&lt;/div&gt;&lt;div class='line'&gt;        value
+&lt;/div&gt;&lt;div class='line'&gt;          &amp;lt;span style=&quot;color: #2f2&quot;&gt;should == 13&amp;lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;      Queen of Clubs
+&lt;/div&gt;&lt;div class='line'&gt;        value
+&lt;/div&gt;&lt;div class='line'&gt;          &amp;lt;span style=&quot;color: #2f2&quot;&gt;should == 12&amp;lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;      Jack of Hearts
+&lt;/div&gt;&lt;div class='line'&gt;        value
+&lt;/div&gt;&lt;div class='line'&gt;          &amp;lt;span style=&quot;color: #2f2&quot;&gt;should == 11&amp;lt;/span&gt;
+&lt;/div&gt;&lt;div class='line'&gt;    Bad Value
+&lt;/div&gt;&lt;div class='line'&gt;      &amp;lt;span style=&quot;color: #2f2&quot;&gt;should raise StandardError&amp;lt;/span&gt;&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
+
+
+
+
+&lt;p&gt;I think that's a big improvement.&lt;/p&gt;
+
+
+
+
+&lt;p&gt;&lt;em&gt;Note:  The code in this post is delivered via Github Gists, which unfortunately don't render in Google Reader.  Click through to see the code.&lt;/em&gt;&lt;/p&gt;
+
+</content>
+  </entry>
+  
+  <entry>
+    <title>2011 Ultimate Tools List for Mac</title>
+    <link href="http://benscheirman.com/blog/2011/05/2011-ultimate-tools-list-for-mac/"/>
+    <updated>2011-05-05T00:00:00-05:00</updated>
+    <id>http://benscheirman.com/blog/2011/05/2011-ultimate-tools-list-for-mac</id>
+    <content type="html">&lt;p&gt;In pure &lt;a href=&quot;http://www.hanselman.com/blog/ScottHanselmans2009UltimateDeveloperAndPowerUsersToolListForWindows.aspx&quot;&gt;Hanselman&lt;/a&gt;-style, I present to you the 2011 Ultimate Tools List for Mac.&lt;/p&gt;
+
+
+&lt;p&gt;I posed a list of tools last year when I got my first MacBook Pro. Since then I've had plenty of time to find some new gems, retire some old ones, and decided that I should share my list with the world.&lt;/p&gt;
+
+
+&lt;p&gt;In each section, I'll list why I like each app, whether or not it's free or not, and occasionally list some &lt;i&gt;honorable mentions&lt;/i&gt; that lost out to another app, however is worth mentioning anyway.&lt;/p&gt;
+
+
+&lt;p&gt;Without further ado...&lt;/p&gt;
+
+
+&lt;h2&gt;The Big 10 Life Changing apps&lt;/h2&gt;
+
+
+&lt;p&gt;These are the must-haves, and are among the first installed on any new machine.&lt;/p&gt;
+
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://dropbox.com&quot;&gt;Dropbox&lt;/a&gt; (free) - Painless file sync between computers. One of the most useful apps of all time. (if you're going to sign up, consider using &lt;a href=&quot;http://db.tt/sYjPEQl&quot;&gt;my referral link&lt;/a&gt;)&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://alfredapp.com&quot;&gt;Alfred&lt;/a&gt; (free) - Awesome launcher utility. Sort of like Launchy &amp;amp; SlickRun for windows. (Event more awesome with Powerpack paid addon which gives you file operations, clipboard history, iTunes searching/playing and more). Special mention goes to &lt;a href=&quot;http://www.blacktree.com/&quot;&gt;QuickSilver&lt;/a&gt; and &lt;a href=&quot;http://www.obdev.at/products/launchbar/index.html&quot;&gt;LaunchBar&lt;/a&gt;, both of which are fantastic.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://agilewebsolutions.com/onepassword&quot;&gt;1Password&lt;/a&gt; ($40) - Stop using the same password for multiple sites. Keep all of your passwords and secure notes encrypted in one place. Easily access your passwords using browser plugins. Sync with Dropbox. Even use on your iPhone!&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://evernote.com&quot;&gt;Evernote&lt;/a&gt; (free) - I use this to take client meeting notes, scan receipts &amp;amp; documents I need to keep, and anything else I think I'll want to refer to later.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://www.sparrowmailapp.com/&quot;&gt;Sparrow&lt;/a&gt; ($10) - The best desktop Gmail I've used. I like it so much, I stopped using Gmail from the browser.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://macromates.com/&quot;&gt;TextMate&lt;/a&gt; ($60) - The old standard. Still my favorite editor for Rails work. Hopefully TextMate 2 will ship before I'm 40.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://peepcode.com/products/peepopen&quot;&gt;PeepOpen&lt;/a&gt; ($12) - A better file CMD-T file opener for TextMate, MacVim, and Xcode. Does fuzzy searching on path &amp;amp; filename and is insanely fast.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://www.charlesproxy.com/&quot;&gt;Charles Proxy&lt;/a&gt; ($50, free for minor use) - An awesome web debugging proxy. Inspect HTTP traffic including request/response, HTTP Headers, format as JSON, XML, Image, files, etc. Even self-sign SSL certs to view HTTPS traffic.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://rvm.beginrescueend.com/&quot;&gt;rvm&lt;/a&gt; (free) - Leverage many versions of ruby and maintain separate gemsets for each rails application. A must have for any ruby developer.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://itunes.apple.com/us/app/twitter/id409789998?mt=12&quot;&gt;Twitter for Mac&lt;/a&gt; (free) - Of all the Twitter clients, this is by far my favorite.&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;General System Apps&lt;/h2&gt;
+
+
+&lt;p&gt;These are the generally helpful apps that didn't go into any other category&lt;/p&gt;
+
+
+
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://irradiatedsoftware.com/sizeup/&quot;&gt;SizeUp&lt;/a&gt; ($13) - Keyboard shortcuts to pin windows to the left side, right side, switch monitors or spaces, minimize, maximize.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://sourceforge.net/projects/cotvnc/&quot;&gt;Chicken of the VNC&lt;/a&gt; (free) - A VNC client is a must on any system&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://utorrent.com&quot;&gt;uTorrent&lt;/a&gt; (free) - For those Linux distros &amp;amp; stuff&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://fluidapp.com/&quot;&gt;Fluid&lt;/a&gt; (free) - Turn your favorite web apps into real mac apps.&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;Music&lt;/h2&gt;
+
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://rdio.com/&quot;&gt;Rdio&lt;/a&gt; ($10/month) - The Mac client to the Rdio service is awesome. Listen to anything you want, even sync to your iPhone for offline listening.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://pandora.com/&quot;&gt;Pandora&lt;/a&gt; (free) - The amazing internet radio that only plays music that you like. I pay for the Premium subscription to get access to the desktop app and to higher quality feeds.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://www.bitcartel.com/pandorajam/&quot;&gt;Pandora Jam&lt;/a&gt; ($15) (scrobble Pandora with Last.fm, integrate with the keyboard controls &amp;amp; IM clients, and also record Pandora songs, if you so desire)&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://conceitedsoftware.com/&quot;&gt;Tracks&lt;/a&gt; - Quick, keyboard access to your iTunes Library. I stopped using this once I bought the Alfred Powerpack, because it can do the same thing.&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;Productivity&lt;/h2&gt;
+
+
+&lt;p&gt;Apps to make you faster, more organized, and get more things done. This is a favorite of mine.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://culturedcode.com/things&quot;&gt;Things&lt;/a&gt; ($50) - One of the most well designed applications on the Mac. Track things left to do in various projects, set due dates, etc. I have mine synching with Dropbox, which works just fine. An update with &quot;true&quot; sync is in the works and should work on iOS as well. Doesn't do a few things I'd like, such as integrating with iCal for reminders and push notifications on the iPhone app, but all in all, one of the best Mac apps around.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://www.potionfactory.com/thehitlist/&quot;&gt;The Hit List&lt;/a&gt; ($50) - I LOVE this app. I like it better than Things. Unfortunately, I started using it in 2009 and it's still in Beta. Seriously. The last 20 or so updates have simply said &quot;Extending the beta period&quot;. &lt;i&gt;Apparently&lt;/i&gt; they are hard at work at a 1.0 release to coincide with their iPhone app they've been working on since early 2010. But at this pace, I wonder if they'll ever ship.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://www.wunderlist.com/&quot;&gt;Wunderlist&lt;/a&gt; (free) - This app is really nice, however it lacks a lot of the smaller things you'd get from a full-fledged native app like Things or THL. That said, it's a quick &amp;amp; easy way to share todo lists amongst many devices, the web, as well as share with other people. Recommended.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://pomodoro.ugolandini.com/&quot;&gt;Pomodoro App&lt;/a&gt; (free) - If you're into doing &quot;tomatoes,&quot; or time-boxed sprints of distraction-free, focused work, this app can help you manage it.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://manytricks.com/timesink/&quot;&gt;TimeSink&lt;/a&gt; ($5) - Shows you how much time you spend in each app. Answers the question, &quot;How long did I spend reading Twitter today?&quot;&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://www.mindnode.com/&quot;&gt;MindNode&lt;/a&gt; (free/pro versions) - Simple Mind Mapping tool. They even have an iPad app. Great for getting loose ideas down &amp;amp; organizing into groupings.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://smilesoftware.com/TextExpander/&quot;&gt;TextExpander&lt;/a&gt; ($35) - Create snippets that expand into larger, commonly typed expressions. Useful in email for signatures, or even in code. I use them to easily expand the lengthy property syntax in Objective-C.&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;File Transfer / Sync / Backup&lt;/h2&gt;
+
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://panic.com/transmit/&quot;&gt;Transmit&lt;/a&gt; ($34) - Simply the best FTP app out there. Does SSH, SFTP, S3, and more. It's fast and beautiful.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://cyberduck.ch/&quot;&gt;Cyberduck&lt;/a&gt; (free) - Decent FTP program for those who don't want to shell out money for a tool they use maybe twice a year. Also supports S3 &amp;amp; other cloud drives.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://3hubapp.com/&quot;&gt;S3Hub&lt;/a&gt; (free) - Easy, free, access to buckets, files, &amp;amp; permissions on S3.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://receivd.com&quot;&gt;Receivd&lt;/a&gt; (subscription) - Send &amp;amp; receive large files between groups of people. If you need to frequently share large files with peers, forget email, forget skype. Use received.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://www.carbonite.com/&quot;&gt;Carbonite&lt;/a&gt; / &lt;a href=&quot;http://mozy.com/&quot;&gt;Mozy&lt;/a&gt; / &lt;a href=&quot;http://backblaze.com&quot;&gt;Backblaze&lt;/a&gt; / &lt;a href=&quot;http://www.crashplan.com/&quot;&gt;Crashplan&lt;/a&gt; - All of these basically do the same thing: back up your files online in the background. I've used Carbonite &amp;amp; Mozy, and I have had minor issues with both. Ultimately I decided that it wasn't worth the performance hit to do this. I may try this again in the future, and if I do, I'll try out Back Blaze.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://www.bombich.com/&quot;&gt;Carbon Copy Cloner&lt;/a&gt; (free) - Easily clone a drive &amp;amp; restore it later. Seriously easy to use, and completely free.&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;Editors&lt;/h2&gt;
+
+
+&lt;ul&gt;
+  &lt;li&gt;TextMate - as mentioned above.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://code.google.com/p/macvim/&quot;&gt;MacVim&lt;/a&gt; - I really want to get better at vim, and occasionally I'll spend the day in MacVim to keep my chops. I can definitely see some aspects of improvement, but ultimately I'm faster with TextMate.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://www.vicoapp.om&quot;&gt;vico&lt;/a&gt; (alpha) - An interesting marriage of TextMate beauty and VIM speed &amp;amp; efficiency. It's early alpha, but definitely one to watch.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://macrabbit.com/espresso/&quot;&gt;Espresso&lt;/a&gt; ($65) - HTML, CSS, PHP Editor, great for WordPress site maintenance. Sexy UI.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://macrabbit.com/cssedit/&quot;&gt;CSSEdit&lt;/a&gt; ($40) - Powerful CSS editing, live preview, and CSS organization built-in. These MacRabbit guys make a damn fine user interface.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://www.barebones.com/products/textwrangler/&quot;&gt;TextWrangler&lt;/a&gt; (free) - A decent text editor with powerful editing capabilities. A &quot;little brother&quot; to the for-pay BBEdit.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://panic.com/coda/&quot;&gt;Coda&lt;/a&gt; ($99) - If I were doing PHP websites full time, I'd probably use this. Crazy powerful, connect to remote sites with ease, lookup documentation, and access the context-sensitive terminal straight from within the app. Oh, and it also has Subethaedit functionality for shared editing in real-time. Epic!&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;Graphics &amp;amp; Photos&lt;/h2&gt;
+
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://flyingmeat.com/acorn/&quot;&gt;Acorn&lt;/a&gt; ($50) - An excellent, affordable image editor that can do many of the things a web/iOS developer needs. My current favorite. Still not Photoshop though.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://www.pixelmator.com/&quot;&gt;Pixelmator&lt;/a&gt; ($60) - Another cheap alternative to Photoshop. Does a lot of things well. Similar to Acorn in functionality, though not as minimal in design.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://www.omnigroup.com/products/omnigraffle/&quot;&gt;OmniGraffle&lt;/a&gt; ($99) - Seriously powerful diagramming. Worlds better than Visio.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://balsamiq.com/&quot;&gt;Balsamiq Mockups&lt;/a&gt; ($75) - Rapid sketch-wireframing tool. Great way to create mockups to validate a user interface.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://likethought.com/opacity/&quot;&gt;Opacity&lt;/a&gt; ($40) - Great for making icons, buttons, logos, &amp;amp; other artwork. The interesting part: It can give you CoreGraphics code to replicate the same image in code. Also has factories for automatically generating regular size + 2X images for Retina graphics on iOS.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://www.adobe.com/products/photoshop.html&quot;&gt;Photoshop&lt;/a&gt; ($billions) - Still my favorite graphics editor, though too expensive for me to justify a license.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://www.acqualia.com/picturesque/&quot;&gt;Picturesque&lt;/a&gt; ($30) - Quickly add rounded corners, reflections, perspectives, &amp;amp; other effects to photos.&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;Communications&lt;/h2&gt;
+
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.skype.com/intl/en-us/home&quot;&gt;Skype&lt;/a&gt; (free) - An essential part of our workplace. We use it for chat, remote pairing, and small meetings. Unfortunately, Skype has taken a turn for the worse. I'll looking for alternatives.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://gabbleapp.com/&quot;&gt;Gabble&lt;/a&gt; (free) - The only Yammer client that doesn't suck balls. Adobe Air is a joke, this app brings a native Cocoa UI &amp;amp; is much more friendly to use.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://adium.im/&quot;&gt;Adium&lt;/a&gt; (free) - Multi-platform chat client. Not a complete replacement for iChat, though, because it doesn't do voice &amp;amp; video.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://colloquy.info/&quot;&gt;Colloquy&lt;/a&gt; (free) - Excellent IRC program.&lt;/li&gt;
+
+  &lt;li&gt;Facetime ($1) - Call iPhone 4's &amp;amp; iPad 2's. Or call other Macs with Facetime.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://gotomeeting.com&quot;&gt;GotoMeeting&lt;/a&gt; (subscription) - We use GotoMeeting for lots of our meetings. Share your screen, invite lots of people, use the built-in VOIP service or allow your clients to dial into a real phone #. Also works on iPad!&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;Video&lt;/h2&gt;
+
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.videolan.org/vlc/download-macosx.html&quot;&gt;VLC&lt;/a&gt; (free) - Having trouble playing a video format? VLC plays damn near everything you throw at it.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://handbrake.fr/&quot;&gt;Handbrake&lt;/a&gt; (free) - Rip DVDs and batch encode videos for playback on your iPad or iPhone. Seriously powerful. Who needs raw ffmpeg?&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://www.telestream.net/flip4mac-wmv/overview.htm&quot;&gt;Flip4Mac&lt;/a&gt; (free) - Play WMV files on your Mac.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://thelittleappfactory.com/rivet/&quot;&gt;Rivet&lt;/a&gt; ($20) - Have a PS3 or Xbox360? Stream your movies from your Mac while transcoding weird video formats. This is an essential part of my home media experience.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://www.inmethod.com/air-video/download.html&quot;&gt;AirVideo Server&lt;/a&gt; (free Mac client)- Similar to Rivet, but for your iOS devices.&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;Audio&lt;/h2&gt;
+
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.ambrosiasw.com/utilities/wiretap/&quot;&gt;WireTap Studio&lt;/a&gt; ($70) - Record audio from your computer. Even isolate by application! Need to snag some audio from a youtube video? Want to record a skype call? WireTap Studio has you covered.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://www.apple.com/ilife/garageband/&quot;&gt;Garage Band 11&lt;/a&gt; (part of iLife) - I love this app. Powerful multi-track recording, software instruments, and powerful effects. I use this all the time to play electric guitar using nothing but the software amps &amp;amp; pedals. Combine with a cheap tube pre-amp and an M-Audio USB interface and you're good to go!&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;Source Control&lt;/h2&gt;
+
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://gitx.frim.nl/&quot;&gt;GitX&lt;/a&gt; (free) - Simple way to view your git log &amp;amp; all of your branches. Doesn't make your eyes bleed like gitk. Make sure you enable the Terminal command use so you can type &quot;gitx&quot; from your git repo in Terminal.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://www.git-tower.com/&quot;&gt;Tower&lt;/a&gt; ($60) - If you need a gui for git, look no further.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://versionsapp.com/&quot;&gt;Versions&lt;/a&gt; (€ 39.00) - If you're stuck on Subversion still, this app is a must. Gorgeous UI.&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;File Diffs&lt;/h2&gt;
+
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.kaleidoscopeapp.com/&quot;&gt;Kaleidoscope&lt;/a&gt; (€ 29.00) - Wonderfully brilliant file &amp;amp; image comparison tool for Mac. Integrates with Git. Hoping they support merge soon.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://www.perforce.com/perforce/products/merge.html&quot;&gt;p4Merge&lt;/a&gt; (free) - Decent 3-way merge tool for Git. Sucks the least out of all of the ones I've tried.&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;Office&lt;/h2&gt;
+
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.microsoft.com/mac/products&quot;&gt;Microsoft Office for Mac&lt;/a&gt; ($150) - I use this for Word &amp;amp; Excel. Shitty user interface, but seamless compatibility with their Windows counterparts.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://www.apple.com/iwork/&quot;&gt;iWork&lt;/a&gt; ($49) - Not a complete MS Office replacement (though it's darn close). I mostly use this for Keynote &amp;amp; occasionally Pages. Keynote is amazing. 1200% better than PowerPoint.&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;Blogging&lt;/h2&gt;
+
+
+&lt;p&gt;This is one of the sore spots on the Mac. Nothing really comes close to a Windows Live Writer experience on the Mac.&lt;/p&gt;
+
+
+
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://illuminex.com/ecto/&quot;&gt;ecto&lt;/a&gt; ($20) - I'm writing this post in ecto. I like the custom toolbar for adding your own custom tags, but the UI is a little clunky and has some quirks that I don't understand. So far the best I've found.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://www.red-sweater.com/marsedit/&quot;&gt;MarsEdit&lt;/a&gt; ($40) - I want to like this app, but I had issues with it. It emitted some pretty horrid HTML and I found it difficult to work with.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://www.drinkbrainjuice.com/blogo&quot;&gt;Blogo&lt;/a&gt; ($25) - Interesting newcomer, but I didn't find it to fit into my blogging workflow.&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;Databases&lt;/h2&gt;
+
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.sequelpro.com/&quot;&gt;Sequel Pro&lt;/a&gt; (free) - Manage MySQL databases like a pro. Sports a UI that doesn't suck.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://menial.co.uk/software/base/&quot;&gt;Base&lt;/a&gt; (£19) - The best app for managing SQLite databases. Sure SQLiteManager for Firefox is free, but it's awkward to manage databases from Firefox and the UI is terrible. Base is worth the money.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://www.pgadmin.org/&quot;&gt;pgAdmin&lt;/a&gt; (free) - Since postgres is my database of choice these days, I need a good GUI tool. Sadly, there are none. Utterly ugly, but pgAdmin gets the job done.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;https://github.com/bububa/MongoHub&quot;&gt;MongoHub&lt;/a&gt; (free) - A handful of our projects utilize MongoDB, and MongoHub is my preferred way of interacting with these databases. Also has a MapReduce tool!&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://www.navicat.com/&quot;&gt;Navicat Lite&lt;/a&gt; (free) - I don't use this, but a few friends do. Works with many databases.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://www.razorsql.com/&quot;&gt;RazorSQL&lt;/a&gt; ($70) - Possible the ugliest application I have ever seen. But if you need 1 app for just about every SQL database on the planet, RazorSQL has you covered.&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;System&lt;/h2&gt;
+
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://mxcl.github.com/homebrew/&quot;&gt;homebrew&lt;/a&gt; (free) - I don't use MacPorts or Fink anymore. Easily install most OS packages via Homebrew.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://www.pascal.com/software/freeruler/&quot;&gt;FreeRuler&lt;/a&gt; (free) - for keeping pixels inline. Gives you a pixel screen ruler that is super handy.&lt;/li&gt;
+
+  &lt;li&gt;&lt;b&gt;Digital Color Meter&lt;/b&gt; (built-in) - Wanted to mention this one because it is already included on your Mac! Quickly snag a color from anything on your screen. Outputs color as Hex or % values for RGB.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://lightheadsw.com/caffeine/&quot;&gt;Caffeine&lt;/a&gt; (free) - Prevent your Mac from going to sleep when you click on the icon. Super-effective, and such a simple idea. I use this at least once a week.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://bjango.com/mac/istatmenus/&quot;&gt;iStat Menus&lt;/a&gt; ($16) - Monitor your system resources from your menu bar. Better battery meter, bandwidth graphs, cpu/ram/hard disk meters, and more. Completely customizable.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://rubbernetapp.com/&quot;&gt;Rubbernet&lt;/a&gt; (€30) - Detailed analysis of network activity broken down by application. Handy for telling how much bandwidth an app is taking up or for identifying applications that phone home.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://xbench.com/&quot;&gt;Xbench&lt;/a&gt; (free) - Benchmark your Mac's performance. I used this to take before/after hard drive scores when installing my SSD.&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;Email&lt;/h2&gt;
+
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.sparrowmailapp.com/&quot;&gt;Sparrow&lt;/a&gt; ($10) - Awesome, as mentioned above. Other ones you might want to look at are &lt;a href=&quot;http://www.postbox-inc.com/express_features&quot;&gt;Postbox Express&lt;/a&gt; and &lt;a href=&quot;http://mailplaneapp.com/&quot;&gt;MailPlane&lt;/a&gt;.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://toolbar.google.com/gmail-helper/notifier_mac.html&quot;&gt;Google Notifier&lt;/a&gt; (free) - Menu bar icon for showing unread emails and upcoming calendar events.&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;br /&gt;
+
+
+&lt;h2&gt;Grab Bag&lt;/h2&gt;
+
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.delicious-monster.com/&quot;&gt;Delicious Library&lt;/a&gt; ($25) - A seriously cool library application for keeping track of your books, music, movies, &amp;amp; software. Integrates with the iSight camera for bar code reading. Definitely a must-have.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://www.ecamm.com/mac/phoneview/&quot;&gt;PhoneView&lt;/a&gt; ($25) - Read files from your iPhone without iTunes. Has additional features that work with Jailbroken iPhones.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://www.equinux.com/us/products/isale/index.html&quot;&gt;iSale&lt;/a&gt; ($24) - Sell things on Ebay with style.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://acaciatreesoftware.com/&quot;&gt;SousChef&lt;/a&gt; ($30) - Cool recipe management for Mac. Easily paste in recipes, identify the various sections, and it parses ingredients, instructions, and yield as well. Drag a picture from the web &amp;amp; drop it on the recipe to assign an image. Also has a mode with gigantic text that you can read from across the room (works with the remote!)&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://crossloop.com&quot;&gt;Cross Loop&lt;/a&gt; (free) - Remote tech-support with other Mac &amp;amp; Windows computers over the internet.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://www.shatters.net/celestia/&quot;&gt;Celestia&lt;/a&gt; (free) - Take a trip to Neptune, visit other galaxies, and take a look at stars. Cool 3D program, great for kids.&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;Screencasting&lt;/h2&gt;
+
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.telestream.net/screen-flow/overview.htm&quot;&gt;Screenflow&lt;/a&gt; ($99) - Of all of the screencasting programs, I found this one to be the most joy to use. Easily record screen, iSight camera, and audio (both from system audio &amp;amp; mic). The editing features were easy to use and included some really cool effets.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://shinywhitebox.com/ishowu-v1/&quot;&gt;iShowU Classic&lt;/a&gt; ($20) - Cheap and effective. Easily record a small section of the screen. This is what I used to record all of the episodes for the &lt;a href=&quot;http://tekpub.com/productions/iphone&quot;&gt;Tekpub iPhone Series&lt;/a&gt;.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://www.techsmith.com/camtasia/&quot;&gt;Camtasia&lt;/a&gt; ($99) - I got a free license to this from my MVP. It is a good contender. I didn't like it at first because it wasn't possible to just record a small section of the screen. Apparently they've fixed it. If you're familiar with Camtasia on Windows, you'll probably feel right at home with Camtasia for Mac.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://stephendeken.net/software/keycastr/&quot;&gt;KeyCastr&lt;/a&gt; (free) - Of course during screencasting it is usually helpful to show what keystrokes you're using. KeyCastr does that beautifully.&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;Screen Capture&lt;/h2&gt;
+
+
+&lt;p&gt;Capturing your screen (or a portion of it) is built-in to the Mac, but occasionally you want to mark them up &amp;amp; share them quickly on the web.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.realmacsoftware.com/littlesnapper/&quot;&gt;LittleSnapper&lt;/a&gt; ($30) - A good way to quickly annotate pictures, keep a library of shots, and share them on the web.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://skitch.com/&quot;&gt;Skitch&lt;/a&gt; (free) - Also good (feature-wise), but I dislike their non-standard UI immensely.&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;Virtualization&lt;/h2&gt;
+
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.vmware.com/products/fusion/overview.html&quot;&gt;VMWare Fusion&lt;/a&gt; ($80) - Run your VMs with ease.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://www.parallels.com/&quot;&gt;Parallels&lt;/a&gt; ($80) - My current Windows VMs are in Parallels (mostly because Parallels was faster and had better DirectX support, thus games worked better) but nowadays VMWare Fusion &amp;amp; Parallels are pretty much equivalent). I just happen to own both.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://www.virtualbox.org/&quot;&gt;Virtual Box&lt;/a&gt; (free) - If you need free virtualization software, look no further.&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;br /&gt;
+
+
+&lt;h2&gt;General Development&lt;/h2&gt;
+
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://monodevelop.com/&quot;&gt;MonoDevelop&lt;/a&gt; (free) - For when I want to write .NET code without opening a VM. Also used for MonoTouch &amp;amp; MonoDroid.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://ditchnet.org/httpclient/&quot;&gt;HTTP Client&lt;/a&gt; (free) - A fantastic HTTP workbench. Essential when dealing with HTTP APIs.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://ditchnet.org/soapclient/&quot;&gt;SOAP Client&lt;/a&gt; (free) - If you are unlucky enough to have to work with SOAP web services, this little app can help you.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://psionides.github.com/gitifier/&quot;&gt;Gitifier&lt;/a&gt; (free) - A nifty tool to notify you when people push code to your monitored git repositories.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://www.tuffcode.com/&quot;&gt;HTTP Scoop&lt;/a&gt; ($15) - Recommended by Kevin Lee. A great HTTP traffic inspector.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://www.charlesproxy.com/&quot;&gt;Charles Proxy&lt;/a&gt; - As mentioned above.&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;iOS Development&lt;/h2&gt;
+
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.ideaswarm.com/products/appviz/&quot;&gt;AppViz&lt;/a&gt; ($30) - Analyze app store sales &amp;amp; reviews. I use this to keep track of my app income for tax purposes as well.&lt;br /&gt;&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://www.curioustimes.de/iphonesimulatorcropper/&quot;&gt;iOS Simulator Cropper&lt;/a&gt; (free) - Capture screenshots of the iPhone/iPad simulator for use on websites or the app store. A must-have.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://mugunthkumar.com/mac-apps/iconify/&quot;&gt;iConify&lt;/a&gt; (free) - drag one 512px image &amp;amp; spits out every possible icon size needed for iOS development. Also handles the regular/retina resizing.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://codepilot.cc/&quot;&gt;CodePilot&lt;/a&gt; ($30) - Adds some nice productivity enhancements to Xcode 3. Apparently they're working on an Xcode 4 version.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://rentzsch.github.com/mogenerator/&quot;&gt;MoGenerator and Xmo'd&lt;/a&gt; (free) - Automatically generate sensible classes from your Core Data model. with xmo'd, it generates it whenever the model changes.&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://www.gorbster.net/blog/archives/273&quot;&gt;App Resigner&lt;/a&gt; (free) - Stuck with an ad-hoc build of app that was signed without your device included? Resign it in a snap!&lt;/li&gt;
+
+  &lt;li&gt;&lt;a href=&quot;http://soundstageapp.com/&quot;&gt;Sound Stage&lt;/a&gt; ($5) Quick &amp;amp; Easy way to make iPhone app trailers (hat tip to Kevin Lee for this one).&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+
+&lt;p&gt;Phew! That's a big list. I'm sure that I've left out some gems, so if there's something blatantly obvious that I should have included in this list, please feel free to leave a comment.&lt;/p&gt;
+
+</content>
+  </entry>
+  
+  <entry>
+    <title>Using Guard & Spork with Mongoid & Devise</title>
+    <link href="http://benscheirman.com/blog/2011/04/using-guard-spork-with-mongoid-devise/"/>
+    <updated>2011-04-22T00:00:00-05:00</updated>
+    <id>http://benscheirman.com/blog/2011/04/using-guard-spork-with-mongoid-devise</id>
+    <content type="html">&lt;p&gt;On my last project, I eventually settled on using Guard along with Spork to allow for quicker testing. Specifically, I used:&lt;/p&gt;
+
+
+&lt;ul&gt;
+  &lt;li&gt;rspec&lt;/li&gt;
+
+  &lt;li&gt;spork&lt;/li&gt;
+
+  &lt;li&gt;rb-fsevent&lt;/li&gt;
+
+  &lt;li&gt;guard&lt;/li&gt;
+
+  &lt;li&gt;guard-rspec&lt;/li&gt;
+
+  &lt;li&gt;guard-pow&lt;/li&gt;
+
+  &lt;li&gt;guard-spork&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;
+You might be saying, &lt;em&gt;&quot;What the hell are all these gems for?!?!&quot;&lt;/em&gt;
+&lt;/p&gt;
+
+
+
+
+&lt;h3&gt;Guard&lt;/h3&gt;
+
+
+&lt;p&gt;This is a lot of development gem dependencies, but once working, it can vastly grease your testing workflow. &lt;a href=&quot;https://github.com/guard/guard&quot;&gt;Guard&lt;/a&gt; is a framework for watching files &amp;amp; doing something when they change. Make sure to use &lt;a href=&quot;https://github.com/thibaudgg/rb-fsevent&quot;&gt;rb-fsevent&lt;/a&gt; as well to make detecting files not melt your machine polling for changes.&lt;/p&gt;
+
+
+&lt;h3&gt;Guard-rspec&lt;/h3&gt;
+
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/guard/guard-rspec&quot;&gt;guard-rspec&lt;/a&gt; notices that models and/or specs change, and runs the related spec file automatically. Just running one test makes things faster, but you still have to reload all of rails with each run, making the feedback loop completely undesirable.&lt;/p&gt;
+
+
+&lt;h3&gt;Spork&lt;/h3&gt;
+
+
+&lt;p&gt;This is where &lt;a href=&quot;https://github.com/timcharper/spork&quot;&gt;Spork&lt;/a&gt; comes in. Spork pre-loads your environment, allowing rspec files to run with --drb mode &amp;amp; essentially caching your environment for multiple, fast test runs. That is, unless you change something in the environment (such as config/environment, routes.rb, or Gemile). These changes require spork to be restarted, which is SLOOOOW.&lt;/p&gt;
+
+
+&lt;p&gt;It's not always obvious when spork needs reloading, so sometimes you'd find yourself scratching your head, saying, &quot;this test should be failing... but it's not!&quot; Followed by a head-slap, when you realize you need to bounce spork.&lt;/p&gt;
+
+
+&lt;h3&gt;Guard-spork&lt;/h3&gt;
+
+
+&lt;p&gt;So &lt;a href=&quot;https://github.com/guard/guard-spork&quot;&gt;guard-spork&lt;/a&gt; is a nice way of automatically detecting these changes and reloading spork for you.&lt;/p&gt;
+
+
+&lt;h3&gt;Guard-pow&lt;/h3&gt;
+
+
+&lt;p&gt;Lastly, I'm using &lt;a href=&quot;http://pow.cx&quot;&gt;pow&lt;/a&gt; from 37signals, so any env related changes that require a server restart automatically call touch tmp/restart.txt and pow restarts the app. Guard-pow does this for you.&lt;/p&gt;
+
+
+&lt;h2&gt;Workflow&lt;/h2&gt;
+
+
+&lt;p&gt;It's hard to say what all this means for the developer's workflow, but basically all you need to do is run `guard` in a Terminal tab of its own and let it run. I run `guard` almost all day, and it generally does what I need it to.&lt;/p&gt;
+
+
+&lt;p&gt;Life is good, until you try to use this on another project that uses Mongoid &amp;amp; Devise...&lt;/p&gt;
+
+
+&lt;p&gt;The Problem with Mongoid + Spork&lt;/p&gt;
+
+
+&lt;p&gt;Mongoid include its models with Rails, so that means if you change your models you have to reload rails. Not very friendly with a Spork-type model. Hopefully they'll add a lifecycle hook in the future, but until they do, we can utilize a feature of Spork that can save the day: `trap_method/trap_class_method`.&lt;/p&gt;
+
+
+&lt;p&gt;The details are found &lt;a href=&quot;https://github.com/timcharper/spork/wiki/Spork.trap_method-Jujutsu%20(found%20from%20http://ihswebdesign.com/blog/spork-not-reloading/)https://github.com/timcharper/spork/wiki/Spork.trap_method-Jujutsu%20(found%20from%20http://ihswebdesign.com/blog/spork-not-reloading/)https://github.com/timcharper/spork/wiki/Spork.trap_method-Jujutsu%20(found%20from%20http://ihswebdesign.com/blog/spork-not-reloading/&quot;&gt;here&lt;/a&gt;, but for the impatient, I modified my `spec_helper`'s prefork block to look like this:&lt;/p&gt;
+
+
+
+
+&lt;div&gt;&lt;figure role=code&gt;&lt;figcaption&gt;&lt;span&gt;lang:ruby &lt;/span&gt;&lt;/figcaption&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;span class='line'&gt;2&lt;/span&gt;
+&lt;span class='line'&gt;3&lt;/span&gt;
+&lt;span class='line'&gt;4&lt;/span&gt;
+&lt;span class='line'&gt;5&lt;/span&gt;
+&lt;span class='line'&gt;6&lt;/span&gt;
+&lt;span class='line'&gt;7&lt;/span&gt;
+&lt;span class='line'&gt;8&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class=''&gt;&lt;div class='line'&gt;Spork.prefork do&amp;lt;br /&gt;  ENV[&quot;RAILS_ENV&quot;] ||= 'test'&amp;lt;br /&gt;&amp;lt;br /&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  require 'rails/mongoid'
+&lt;/div&gt;&lt;div class='line'&gt;  Spork.trap_class_method(Rails::Mongoid, :load_models)
+&lt;/div&gt;&lt;div class='line'&gt;
+&lt;/div&gt;&lt;div class='line'&gt;  # Now load our environment
+&lt;/div&gt;&lt;div class='line'&gt;  require File.expand_path(&quot;../../config/environment&quot;, __FILE__)
+&lt;/div&gt;&lt;div class='line'&gt;  require 'rspec/rails' 
+&lt;/div&gt;&lt;div class='line'&gt;  ...&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
+
+
+
+
+&lt;p&gt;Basically this forces that call to be loaded later on in the lifecycle.&lt;/p&gt;
+
+
+&lt;p&gt;There's a similar interception done for Device, which likes to load models along with Rails routes. You might also need to use this technique to deal with similar issues with Factory Girl, Machinist, and Shoulda Macros as well.&lt;/p&gt;
+
+
+&lt;p&gt;And now my specs are faster again. Yay!&lt;br /&gt;&lt;/p&gt;
+
+
+&lt;h2&gt;Is the Complexity Worth it?&lt;/h2&gt;
+
+
+&lt;p&gt;Is this complexity worth it? &lt;a href=&quot;http://twitter.com/garybernhardt&quot;&gt;Some&lt;/a&gt; would say no, and I'm certainly aware of how much additional &quot;gem weight&quot; this adds to a project.&lt;/p&gt;
+
+
+&lt;p&gt;For a great discussion about how to make your specs fast without requiring the complexity of Spork, check out the latest episode of Destroy All Software: &lt;a href=&quot;https://www.destroyallsoftware.com/screencasts/catalog/fast-tests-with-and-without-rails&quot;&gt;Fast Specs with and without Rails&lt;/a&gt;. These screencasts are excellent..&lt;/p&gt;
+
+</content>
+  </entry>
+  
+  <entry>
+    <title>Private Categories in Objective-C</title>
+    <link href="http://benscheirman.com/blog/2011/04/private-categories-in-objective-c/"/>
+    <updated>2011-04-16T00:00:00-05:00</updated>
+    <id>http://benscheirman.com/blog/2011/04/private-categories-in-objective-c</id>
+    <content type="html">&lt;p&gt;Sometimes properties can vastly simplify the memory management code when working with your private instance variables (or &lt;em&gt;ivars&lt;/em&gt;). Here is an example:&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;MyTableViewController.h&lt;/em&gt;&lt;/p&gt;
+
+&lt;div&gt;&lt;figure role=code&gt;&lt;figcaption&gt;&lt;span&gt;lang:objc &lt;/span&gt;&lt;/figcaption&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;span class='line'&gt;2&lt;/span&gt;
+&lt;span class='line'&gt;3&lt;/span&gt;
+&lt;span class='line'&gt;4&lt;/span&gt;
+&lt;span class='line'&gt;5&lt;/span&gt;
+&lt;span class='line'&gt;6&lt;/span&gt;
+&lt;span class='line'&gt;7&lt;/span&gt;
+&lt;span class='line'&gt;8&lt;/span&gt;
+&lt;span class='line'&gt;9&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class=''&gt;&lt;div class='line'&gt;@interface MyTableViewController : UITableViewController {
+&lt;/div&gt;&lt;div class='line'&gt;    NSArray *items;
+&lt;/div&gt;&lt;div class='line'&gt;}
+&lt;/div&gt;&lt;div class='line'&gt;
+&lt;/div&gt;&lt;div class='line'&gt;@property (nonatomic, retain) NSArray *items;
+&lt;/div&gt;&lt;div class='line'&gt;
+&lt;/div&gt;&lt;div class='line'&gt;- (void)somethingChanged;
+&lt;/div&gt;&lt;div class='line'&gt;
+&lt;/div&gt;&lt;div class='line'&gt;@end&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;em&gt;MyTableViewController.m&lt;/em&gt;&lt;/p&gt;
+
+&lt;div&gt;&lt;figure role=code&gt;&lt;figcaption&gt;&lt;span&gt;lang:objc &lt;/span&gt;&lt;/figcaption&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;span class='line'&gt;2&lt;/span&gt;
+&lt;span class='line'&gt;3&lt;/span&gt;
+&lt;span class='line'&gt;4&lt;/span&gt;
+&lt;span class='line'&gt;5&lt;/span&gt;
+&lt;span class='line'&gt;6&lt;/span&gt;
+&lt;span class='line'&gt;7&lt;/span&gt;
+&lt;span class='line'&gt;8&lt;/span&gt;
+&lt;span class='line'&gt;9&lt;/span&gt;
+&lt;span class='line'&gt;10&lt;/span&gt;
+&lt;span class='line'&gt;11&lt;/span&gt;
+&lt;span class='line'&gt;12&lt;/span&gt;
+&lt;span class='line'&gt;13&lt;/span&gt;
+&lt;span class='line'&gt;14&lt;/span&gt;
+&lt;span class='line'&gt;15&lt;/span&gt;
+&lt;span class='line'&gt;16&lt;/span&gt;
+&lt;span class='line'&gt;17&lt;/span&gt;
+&lt;span class='line'&gt;18&lt;/span&gt;
+&lt;span class='line'&gt;19&lt;/span&gt;
+&lt;span class='line'&gt;20&lt;/span&gt;
+&lt;span class='line'&gt;21&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class=''&gt;&lt;div class='line'&gt;@implementation MyTableViewController
+&lt;/div&gt;&lt;div class='line'&gt;- (void)viewDidLoad {
+&lt;/div&gt;&lt;div class='line'&gt;    [super viewDidLoad];
+&lt;/div&gt;&lt;div class='line'&gt;    //using the ivar
+&lt;/div&gt;&lt;div class='line'&gt;    items = [[NSArray arrayWithObjects:@&quot;Item 1&quot;, @&quot;Item 2&quot;, nil] retain];
+&lt;/div&gt;&lt;div class='line'&gt;    //using the property
+&lt;/div&gt;&lt;div class='line'&gt;    self.items = [NSArray arrayWithObjects:@&quot;Item 1&quot;, @&quot;Item 2&quot;, nil];}
+&lt;/div&gt;&lt;div class='line'&gt;
+&lt;/div&gt;&lt;div class='line'&gt;- (void)somethingChanged {
+&lt;/div&gt;&lt;div class='line'&gt;    //using the ivar
+&lt;/div&gt;&lt;div class='line'&gt;    [items release];
+&lt;/div&gt;&lt;div class='line'&gt;    items = [[NSArray arrayWithObjects:@&quot;New Item 1&quot;, @&quot;New Item 2&quot;, nil] retain];
+&lt;/div&gt;&lt;div class='line'&gt;    //using the property
+&lt;/div&gt;&lt;div class='line'&gt;    self.items = [NSArray arrayWithObjects:@&quot;New Item 1&quot;, @&quot;New Item 2&quot;, nil];
+&lt;/div&gt;&lt;div class='line'&gt;    [self.tableView reloadData];
+&lt;/div&gt;&lt;div class='line'&gt;}
+&lt;/div&gt;&lt;div class='line'&gt;
+&lt;/div&gt;&lt;div class='line'&gt;- (void)dealloc {
+&lt;/div&gt;&lt;div class='line'&gt;    [items release];
+&lt;/div&gt;&lt;div class='line'&gt;    [super dealloc];
+&lt;/div&gt;&lt;div class='line'&gt;}@end&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Notice that in each use of the ivar, we have to take special care to manage the memory properly. In the first case, we have to make sure to retain the value, because &lt;code&gt;[NSArray arrayWithObjects:]&lt;/code&gt; returns an autoreleased instance. In the second case, we have to make sure and release the first array before assigning it to the second array.&lt;/p&gt;
+
+&lt;p&gt;The only questionable part of using properties is probably obvious: &lt;strong&gt;You have exposed your internal state to outside classes, but only for the benefit of your implentation.&lt;/strong&gt; It seems odd to change your public API simply to make the implementation a bit cleaner. How can we fix this?&lt;/p&gt;
+
+&lt;h2&gt;Categories&lt;/h2&gt;
+
+
+&lt;p&gt;Before we solve the above problem, let's take a slight detour and learn about categories. A category in Objective-C is similar to an extension method in .NET. You basically re-open the class, define a method (or many) and provide your implementation. The result is it appears as if those methods were part of the original class all along.&lt;/p&gt;
+
+&lt;p&gt;Here's an example of putting a startsWith method on the string class:&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;NSString+FLUXAdditions.h&lt;/em&gt;&lt;/p&gt;
+
+&lt;div&gt;&lt;figure role=code&gt;&lt;figcaption&gt;&lt;span&gt;lang:objc &lt;/span&gt;&lt;/figcaption&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;span class='line'&gt;2&lt;/span&gt;
+&lt;span class='line'&gt;3&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class=''&gt;&lt;div class='line'&gt;@interface NSString (FLUXAdditions)
+&lt;/div&gt;&lt;div class='line'&gt;- (BOOL)startsWith:(NSString *)prefix;
+&lt;/div&gt;&lt;div class='line'&gt;@end&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;em&gt;NSString+FLUXAdditions.m&lt;/em&gt;&lt;/p&gt;
+
+&lt;div&gt;&lt;figure role=code&gt;&lt;figcaption&gt;&lt;span&gt;lang:objc &lt;/span&gt;&lt;/figcaption&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;span class='line'&gt;2&lt;/span&gt;
+&lt;span class='line'&gt;3&lt;/span&gt;
+&lt;span class='line'&gt;4&lt;/span&gt;
+&lt;span class='line'&gt;5&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class=''&gt;&lt;div class='line'&gt;@implementation NSString (FLUXAdditions)
+&lt;/div&gt;&lt;div class='line'&gt;- (BOOL)startsWith:(NSString *)prefix {
+&lt;/div&gt;&lt;div class='line'&gt;return [[self substringToIndex:[prefix length]-1] isEqualTo:prefix];
+&lt;/div&gt;&lt;div class='line'&gt;}
+&lt;/div&gt;&lt;div class='line'&gt;@end&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
+
+
+&lt;p&gt;[box type=&quot;info&quot;]Notice the naming of the filename &amp;amp; the category name. Most people use the + syntax to denote a category on the class they're adding on to. The prefix is also important. If you just name your category &quot;Additions&quot; then it's possible that other libraries you include (or future versions of the SDK) could have the same name, leading to a collision. The common practice is to utilize a company prefix on classes that could be reused by others or that could cause collisions in the future.[/box]
+Now that I have that implemented, all I have to do is include my header file anywhere I want to use this method. You can even do this in a global header file.&lt;/p&gt;
+
+&lt;div&gt;&lt;figure role=code&gt;&lt;figcaption&gt;&lt;span&gt;lang:objc &lt;/span&gt;&lt;/figcaption&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class=''&gt;&lt;div class='line'&gt;#import &quot;NSString+FLUXAdditions.h&quot;&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
+
+
+
+
+&lt;div&gt;&lt;figure role=code&gt;&lt;figcaption&gt;&lt;span&gt;lang:objc &lt;/span&gt;&lt;/figcaption&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;span class='line'&gt;2&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class=''&gt;&lt;div class='line'&gt;[@&quot;My awesome string&quot; startsWith:@&quot;My&quot;];  //returns YES
+&lt;/div&gt;&lt;div class='line'&gt;[@&quot;My awesome string&quot; startsWith:@&quot;Foo&quot;]; //returns NO;&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
+
+
+&lt;p&gt;So now that we understand how categories work, how can we utilize this to solve our original problem?&lt;/p&gt;
+
+&lt;h2&gt;Private Categories&lt;/h2&gt;
+
+
+&lt;p&gt;We can utilize private categories to give us the benefit of properties for our ivars, but at the same time, NOT expose those to the outside world. Here's how it works (using our example from above):&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;MyTableViewController.m&lt;/em&gt;&lt;/p&gt;
+
+&lt;div&gt;&lt;figure role=code&gt;&lt;figcaption&gt;&lt;span&gt;lang:objc &lt;/span&gt;&lt;/figcaption&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;span class='line'&gt;2&lt;/span&gt;
+&lt;span class='line'&gt;3&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class=''&gt;&lt;div class='line'&gt;@interface MyTableViewController ()
+&lt;/div&gt;&lt;div class='line'&gt;@property (nonatomic, retain) NSArray *items;
+&lt;/div&gt;&lt;div class='line'&gt;@end@implementation MyTableViewController@synthesize items;...@end&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Notice how we declared the category interface directly the implementation file. This works because the .m file will only be loaded once, and since it's inside the .m file, no other classes will ever know it existed. We can remove the property declaration from the header file and everything should work the same.&lt;/p&gt;
+
+&lt;p&gt;Private categories can also be used to provide method declarations, which can help you order your methods in a way that makes sense, and not worry about the compiler complaining about methods that haven't been declared yet.&lt;/p&gt;
+
+&lt;h2&gt;Private Category Gotcha&lt;/h2&gt;
+
+
+&lt;p&gt;One thing that tripped me up is the name of the private category. When first doing this I originally chose the name &quot;Private&quot;. But there's something peculiar about named category methods versus unnamed ones (like I have above).&lt;/p&gt;
+
+&lt;p&gt;Unfortunately Xcode4 wasn't very smart about telling me what was wrong, instead giving me conflicting error messages:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://flux88.com/wp-content/uploads/2011/04/xcode4-private-category-error.png&quot;&gt;&lt;img src=&quot;http://benscheirman.com/images/xcode4-private-category-error-tm_.jpg&quot;  height=&quot;124&quot;  /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;This &lt;a href=&quot;http://stackoverflow.com/questions/1052233/iphone-obj-c-anonymous-category-or-private-category/1055213#1055213&quot; target=&quot;_blank&quot;&gt;stack overflow answer&lt;/a&gt; helped explain the difference between the two styles.&lt;/p&gt;
+
+&lt;p&gt;Hopefully this helped you understand how to leverage categories to clean up your public APIs!&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <title>Increasing Shared Memory for Postgres on OS X</title>
+    <link href="http://benscheirman.com/blog/2011/04/increasing-shared-memory-for-postgres-on-os-x/"/>
+    <updated>2011-04-14T00:00:00-05:00</updated>
+    <id>http://benscheirman.com/blog/2011/04/increasing-shared-memory-for-postgres-on-os-x</id>
+    <content type="html">&lt;p&gt;I came across a cryptic error while trying to create another database instance for my local Postgresql server. The error was:&lt;/p&gt;
+
+
+&lt;blockquote&gt;
+  
+&lt;div&gt;&lt;figure role=code&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;span class='line'&gt;2&lt;/span&gt;
+&lt;span class='line'&gt;3&lt;/span&gt;
+&lt;span class='line'&gt;4&lt;/span&gt;
+&lt;span class='line'&gt;5&lt;/span&gt;
+&lt;span class='line'&gt;6&lt;/span&gt;
+&lt;span class='line'&gt;7&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class=''&gt;&lt;div class='line'&gt;creating template1 database in data/base/1 ...
+&lt;/div&gt;&lt;div class='line'&gt;FATAL: could not create shared memory segment: Cannot allocate memory
+&lt;/div&gt;&lt;div class='line'&gt;DETAIL: Failed system call was shmget(key=1, size=1318912, 03600).
+&lt;/div&gt;&lt;div class='line'&gt;HINT: This error usually means that PostgreSQL's request for a shared&amp;lt;br /&gt;memory segment exceeded available memory or swap space. To reduce the &amp;lt;br /&gt;request size (currently 1318912 bytes), reduce PostgreSQL's shared_buffers &amp;lt;br /&gt;parameter (currently 50) and/or its max_connections parameter (currently 10).
+&lt;/div&gt;&lt;div class='line'&gt;The PostgreSQL documentation contains more information about shared memory &amp;lt;br /&gt;configuration.
+&lt;/div&gt;&lt;div class='line'&gt;child process exited with exit code 1
+&lt;/div&gt;&lt;div class='line'&gt;initdb: removing contents of data directory &quot;data&quot;&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
+
+&lt;/blockquote&gt;
+
+
+&lt;p&gt;The issue is that your Mac is not configured for &quot;server&quot; level resource usage. In order to check what your kernel settings are for shared memory, type:&lt;/p&gt;
+
+
+
+
+&lt;div&gt;&lt;figure role=code&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class=''&gt;&lt;div class='line'&gt;sysctl -a&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
+
+
+
+
+&lt;p&gt;Look for keys that start with `kern.sysv.sh____`. Note that the numbers are somewhat related, so you have to change them together. Some helpful detail was found on &lt;a href=&quot;http://support.bitrock.com/article/postgresql-cannot-allocate-memory-on-mac-os-x&quot; target=&quot;_blank&quot;&gt;this post&lt;/a&gt;:&lt;/p&gt;
+
+
+&lt;blockquote&gt;
+  Note that (kern.sysv.shmall * 4096) should be greater than or equal to kern.sysv.shmmax. kern.sysv.shmmax must also be a multiple of 4096.
+&lt;/blockquote&gt;
+
+
+&lt;p&gt;You can set these values temporarily with `sysctl -w [keyname] [value]`, but to make them permanent, you can write the values to `/etc/sysctl.conf`. Here are the values I used:&lt;/p&gt;
+
+
+
+
+&lt;div&gt;&lt;figure role=code&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;span class='line'&gt;1&lt;/span&gt;
+&lt;span class='line'&gt;2&lt;/span&gt;
+&lt;span class='line'&gt;3&lt;/span&gt;
+&lt;span class='line'&gt;4&lt;/span&gt;
+&lt;span class='line'&gt;5&lt;/span&gt;
+&lt;span class='line'&gt;6&lt;/span&gt;
+&lt;span class='line'&gt;7&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code' width='100%'&gt;&lt;pre&gt;&lt;code class=''&gt;&lt;div class='line'&gt;kern.sysv.shmmax=1610612736
+&lt;/div&gt;&lt;div class='line'&gt;kern.sysv.shmall=393216
+&lt;/div&gt;&lt;div class='line'&gt;kern.sysv.shmmin=1
+&lt;/div&gt;&lt;div class='line'&gt;kern.sysv.shmmni=32
+&lt;/div&gt;&lt;div class='line'&gt;kern.sysv.shmseg=8
+&lt;/div&gt;&lt;div class='line'&gt;kern.maxprocperuid=512
+&lt;/div&gt;&lt;div class='line'&gt;kern.maxproc=2048&lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/div&gt;
+
+
+
+
+&lt;p&gt;You'll need to reboot, but once you're back up you should be able to create more Postgres databases with ease.&lt;br /&gt;&lt;/p&gt;
+
+</content>
+  </entry>
+  
+  <entry>
+    <title>Presentations from iPhone Dev Con Boston</title>
+    <link href="http://benscheirman.com/blog/2011/04/presentations-from-iphone-dev-con-boston/"/>
+    <updated>2011-04-13T00:00:00-05:00</updated>
+    <id>http://benscheirman.com/blog/2011/04/presentations-from-iphone-dev-con-boston</id>
+    <content type="html">&lt;p&gt;I gave 2 talks at iPhone Dev Con in Boston. I've posted the slides &amp;amp; material online.&lt;/p&gt;
+
+
+&lt;h2&gt;Effective iOS Network Programming Techniques&lt;/h2&gt;
+
+
+&lt;div style=&quot;width:425px&quot; id=&quot;__ss_7615089&quot;&gt;
+  &lt;strong style=&quot;display:block;margin:12px 0 4px&quot;&gt;&lt;a href=&quot;http://www.slideshare.net/subdigital/effective-ios-network-programming-techniques&quot; title=&quot;Effective iOS Network Programming Techniques&quot;&gt;Effective iOS Network Programming Techniques&lt;/a&gt;&lt;/strong&gt; &lt;iframe src=&quot;http://www.slideshare.net/slideshow/embed_code/7615089&quot; width=&quot;425&quot; height=&quot;355&quot; frameborder=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; scrolling=&quot;no&quot;&gt;&lt;/iframe&gt;
+
+  &lt;div style=&quot;padding:5px 0 12px&quot;&gt;
+    View more &lt;a href=&quot;http://www.slideshare.net/&quot;&gt;presentations&lt;/a&gt; from &lt;a href=&quot;http://www.slideshare.net/subdigital&quot;&gt;subdigital&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;h2&gt;Objective-C &amp;amp; iPhone for .NET Developers&lt;/h2&gt;
+
+
+&lt;div style=&quot;width:425px&quot; id=&quot;__ss_7615068&quot;&gt;
+  &lt;strong style=&quot;display:block;margin:12px 0 4px&quot;&gt;&lt;a href=&quot;http://www.slideshare.net/subdigital/objectivec-iphone-for-net-developers&quot; title=&quot;Objective-C &amp;amp; iPhone for .NET Developers&quot;&gt;Objective-C &amp;amp; iPhone for .NET Developers&lt;/a&gt;&lt;/strong&gt; &lt;iframe src=&quot;http://www.slideshare.net/slideshow/embed_code/7615068&quot; width=&quot;425&quot; height=&quot;355&quot; frameborder=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; scrolling=&quot;no&quot;&gt;&lt;/iframe&gt;
+
+  &lt;div style=&quot;padding:5px 0 12px&quot;&gt;
+    View more &lt;a href=&quot;http://www.slideshare.net/&quot;&gt;presentations&lt;/a&gt; from &lt;a href=&quot;http://www.slideshare.net/subdigital&quot;&gt;subdigital&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Demo code &amp;amp; slides for both sessions &lt;a href=&quot;https://github.com/subdigital/iphonedevcon-boston&quot;&gt;can be found on github&lt;/a&gt;.&lt;/p&gt;
+
+
+&lt;p&gt;Thanks to all who attended and left me such great reviews!&lt;/p&gt;
+
+</content>
+  </entry>
+  
+  <entry>
+    <title>Book Review:  Crafting Rails Applications</title>
+    <link href="http://benscheirman.com/blog/2011/04/book-review-crafting-rails-applications/"/>
+    <updated>2011-04-13T00:00:00-05:00</updated>
+    <id>http://benscheirman.com/blog/2011/04/book-review-crafting-rails-applications</id>
+    <content type="html">&lt;p&gt;&lt;img src=&quot;http://benscheirman.com/images/capa_crafting_.png&quot;  style=&quot;float:left; margin-right:10px; margin-bottom:10px;&quot;  /&gt;&lt;/p&gt;
+
+&lt;p&gt;I just finished with &lt;a href=&quot;http://www.amazon.com/gp/product/1934356735/ref=as_li_ss_tl?ie=UTF8&amp;amp;tag=flux88com-20&amp;amp;linkCode=as2&amp;amp;camp=1789&amp;amp;creative=390957&amp;amp;creativeASIN=1934356735&quot;&gt;Crafting Rails Applications&lt;/a&gt;&lt;img src=&quot;http://www.assoc-amazon.com/e/ir?t=&amp;amp;l=as2&amp;amp;o=1&amp;amp;a=1934356735&quot; width=&quot;1&quot; height=&quot;1&quot; border=&quot;0&quot; alt=&quot;&quot; style=&quot;border:none !important; margin:0px !important;&quot; /&gt; by &lt;a href=&quot;http://blog.plataformatec.com.br/author/josevalim/&quot;&gt;José Valim&lt;/a&gt;. The book claims to teach Expert Practices for Everyday Rails Development. I didn't find it to be exactly that, however I did enjoy it and I learned a ton.&lt;/p&gt;
+
+
+&lt;h2&gt;The Good&lt;/h2&gt;
+
+
+&lt;p&gt;The book flows pretty well. Each chapter contains a challenge or set of related challenges and it's pretty easy to follow along with the code. Each example contains automated tests, and he creates a gem for almost each solution, so that it is easy to see how to modularize things.&lt;br /&gt;
+The coverage of Rails internals is really enlightening. Sometimes it can be a bit dry, but you'll learn quite a few things about Renderers, Responders, Engines, Railties, Routing, Rack, Instruments, and more.&lt;br /&gt;
+The book also contains a wide range of technology topics. José doesn't just utilize Rails &amp;amp; ActiveRecord. Other examples include MongoMapper, Redis, and Sinatra.&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2&gt;The Bad&lt;/h2&gt;
+
+
+&lt;p&gt;Even though each of the examples contains unit tests, they are written in a style that I find to be problematic in real systems. The concise nature of the tests is probably an artifact of being printed, but most of the testing examples utilize few test classes with many assertions per test method.&lt;br /&gt;
+In addition, though he &quot;writes&quot; the tests before implementation, this actually hurts understandability in some cases. The reason is most of the tests read as if he already knew the implementation and knew exactly how to test it. But it isn't apparent to the reader.&lt;br /&gt;
+I tend to prefer RSpec with 1 assertion per test method and many fine-grained methods that test various behaviors in each context my system is in. The book's Test::Unit style wasn't something I'd suggest as a good way to test real applications.&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2&gt;The Bottom Line&lt;/h2&gt;
+
+
+&lt;p&gt;Ultimately I think the book is excellent, and certainly gives plenty of information about Rails 3 internals. I think newcomers would probably be lost, but if you're past the newbie stage with Rails then this book is recommended.&lt;br /&gt;&lt;/p&gt;
+
+&lt;br /&gt;
+
+</content>
+  </entry>
+  
+  <entry>
+    <title>Mariachi Product Engineering</title>
+    <link href="http://benscheirman.com/blog/2011/04/mariachi-product-engineering/"/>
+    <updated>2011-04-12T00:00:00-05:00</updated>
+    <id>http://benscheirman.com/blog/2011/04/mariachi-product-engineering</id>
+    <content type="html">&lt;p&gt;I spoke at iPhone Dev Con in Boston last week and I attended Mike Lee's excellent keynote presentation: &quot;Mariachi Product Engineering&quot;&lt;/p&gt;
+
+
+&lt;p&gt;At iPhone Dev Con in San Diego last year, Mike came out dressed like a Pirate. No kidding.&lt;/p&gt;
+
+
+&lt;p&gt;&lt;br /&gt;
+&lt;img src=&quot;http://benscheirman.com/images/mikelee-pirate_.jpg&quot;  alt=&quot;mikelee-pirate&quot;  /&gt;&lt;/p&gt;
+
+
+&lt;p&gt;This year he came with a Mariachi outfit on. It's pretty hilarious as nobody expects a keynote speaker to be dressed this way.&lt;/p&gt;
+
+
+&lt;p&gt;Over beers some of the guys at the conference decided it would be awesomely-epic to hire a real mariachi band to play during his keynote. So how does one find a mariachi band with after midnight on a Monday? Apparently, AMEX. One of the guys called his AMEX service and they &lt;i&gt;delivered&lt;/i&gt;. I swear this could be the makings of a new AMEX commercial.&lt;/p&gt;
+
+
+&lt;p&gt;It made for a memorable keynote to say the least. The talk was excellent as well, as Mike certainly has a lot to say about Product Engineering.&lt;/p&gt;
+
+
+&lt;p&gt;Here is the video of the first 30 or so minutes of the talk (I ran out of battery before it was over).&lt;/p&gt;
+
+
+&lt;iframe src=&quot;http://player.vimeo.com/video/22031658&quot; width=&quot;400&quot; height=&quot;300&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;
+
+
+&lt;p&gt;&lt;a href=&quot;http://vimeo.com/22031658&quot;&gt;Mike Lee - Mariachi Product Engineering&lt;/a&gt; from &lt;a href=&quot;http://vimeo.com/user1579700&quot;&gt;Ben Scheirman&lt;/a&gt; on &lt;a href=&quot;http://vimeo.com&quot;&gt;Vimeo&lt;/a&gt;.&lt;/p&gt;
+
+
+&lt;p&gt;&lt;img src=&quot;http://benscheirman.com/images/mikelee-mariachi_.jpg&quot;  alt=&quot;mikelee-mariachi.jpg&quot;  /&gt;&lt;/p&gt;
+
+
+&lt;p&gt;I'll have links to my presentation material soon, but I wanted to share this awesome event. Certainly one for the books!&lt;/p&gt;
+
+</content>
+  </entry>
+  
+  <entry>
+    <title>[blog reboot]</title>
+    <link href="http://benscheirman.com/blog/2011/04/blog-reboot/"/>
+    <updated>2011-04-11T00:00:00-05:00</updated>
+    <id>http://benscheirman.com/blog/2011/04/blog-reboot</id>
+    <content type="html">&lt;p&gt;My blog was feeling a little stale to me, hence my utter lack of content in the past few months.  I wanted to move it off of Windows hosting which really didn't make sense for me anymore.  Orcsweb graciously provided me with hosting through my MVP, and I would recommend their service to anyone.&lt;/p&gt;
+
+&lt;p&gt;But for me, it doesn't make sense to run a .NET blog anymore.  The days of &quot;oh, maybe I'll be able to extend it somehow&quot; have just not ever mattered much.  In the end, it was a pretty easy decision to move to Wordpress because it's easy to host, easy to extend, there's a gajillion themes &amp;amp; plugins, and the entire thing is fairly polished.  Sure, there's the nasty PHP underneath, but hey it lends itself well to simple hacking of the site to get things up &amp;amp; running.&lt;/p&gt;
+
+&lt;p&gt;So this is my attempt to freshen things up &amp;amp; encourage me to start posting more.  Let me know what you think!&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Side note: My blog has now had a total of 4 homes.  First was blogger, then dasBlog, over to GraffitiCMS, and now finally WordPress.&lt;/em&gt;&lt;/p&gt;
 </content>
   </entry>
   

@@ -1,0 +1,361 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Fickle Bits: Blame NHibernate, Why Not?</title>
+  <meta name="author" content="Ben Scheirman">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="canonical" href="http://benscheirman.com/blog/2007/12/blame-nhibernate-why-not/"/>
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/ficklebits" rel="alternate" title="Fickle Bits" type="application/atom+xml"/>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-210379-10']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">Fickle Bits</a></h1>
+  
+    <h2>You're doing it wrong.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/ficklebits" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:benscheirman.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry">
+  
+  <header>
+    
+      <h1 class="entry-title">Blame NHibernate, Why Not?</h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-12-10 00:00:00 -0600" pubdate  updated >Dec 10<span>th</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+<div class="entry-content"><p>I&rsquo;m currently assisting with another project that is experiencing some performance issues.&nbsp; A lot of finger-pointing and blaming has been going on, and most of the parties involved just want to jump in and blame NHibernate.</p>
+
+
+<p>I figured that we could optimize the way NHibernate is being used to help gain some perf. back in the application and hopefully restore its reputation at the client (and frankly, my company).&nbsp; </p>
+
+
+<p>Some info about the application:</p>
+
+
+<p>It&rsquo;s a WinForms application that communicates via Web Services to a service layer.&nbsp; The service layer utilizes NHibernate over a domain model for persistence.&nbsp; The domain types are serialized and used directly on the client.&nbsp; (more on this later)</p>
+
+
+<p>There are roughly 100 tables and almost as many mapped entities.&nbsp; It is using NHibernate 1.0.2.</p>
+
+
+<p>We did some basic benchmarking of the application so that we could quantify how effective various fixes were.</p>
+
+
+<p>Startup time: <strong>14 seconds</strong>.&nbsp; Ouch!&nbsp; I turned on the <strong>hibernate.show_sql</strong> setting in the config file and watched the SQL queries fly.&nbsp; They were covering the screen!&nbsp; I wrote a simple log4net IAppender that would count the number of log statements that contained a query and found out that 304 queries were being executed at startup.&nbsp; Obviously something is wrong here, so I copied the queries to notepad and began to group them.</p>
+
+
+<p>The domain of the application is shipping (like, in ships across the ocean).&nbsp; So there is a concept of Terminals, Ports, Port Locations, and Geographic Locations.&nbsp; If we load all of the terminals, we need to load the port for each one, the port location for each one of those, and the geographic location for each one of those.&nbsp; It turns out that this many-to-one is not that bad.&nbsp; You can get most of the data you need in one query using left joins.&nbsp; The problem we faced was that GeographicLocations held an IList of all of its PortLocations.&nbsp; And furthermore the PortLocation held an IList of all of its Ports.&nbsp; </p>
+
+
+<p>Picture trying to build up just a single terminal&hellip;</p>
+
+
+<ul><li>select terminal details and build up a Terminal</li><ul><li>need a port, so build it up</li><ul><li>need a port location, so build that up</li><ul><li>need a geographic location, so build that up</li><ul><li>not done?&nbsp; Now we need all of the port locations for the geographic location</li><ul><li>you guess it, now we need all of the ports for all of the portlocations you just loaded</li><ul><li>now we need to get all of the terminals for all of the ports for all of the port locations, &hellip;.</li></ul></ul></ul></ul></ul></ul></ul>
+
+
+<p>This is starting to sound like that children&rsquo;s story <u><a href="http://www.amherst.edu/~rjyanco94/literature/mothergoose/rhymes/thisisthehousethatjackbuilt.html" target="_blank">The House That Jack Built</a></u>.</p>
+
+
+<p>This is EXACTLY the reason that ORM&rsquo;s have lazy-loading.&nbsp; If you haven&rsquo;t used it before, here&rsquo;s how it works:&nbsp; You load up the terminal, but it doesn&rsquo;t fire a query for the port.&nbsp; It gives you a stand-in object instead.&nbsp; The second you access the terminal.Port property, *boom* &ndash; a database query is executed, the port is loaded, and you are returned a port.&nbsp; This allows us to select a minimal amount of data, and is generally favorable unless you <em>know</em> ahead of time that you&rsquo;ll need the port, in which case it&rsquo;s faster to just query for it all at once.&nbsp; Needless to say, you need to at least <em>think</em> about this issue while developing.</p>
+
+
+<p><strong>Lesson #1:&nbsp; Understand Lazy Loading Or Be Doomed</strong></p>
+
+
+<p>But remember that our domain entities are being returned from a web service.&nbsp; There is no way for NHibernate to open a database connection on the client.&nbsp; Thus, we cannot utilize lazy loading at all.</p>
+
+
+<p>I decided to remove the IList of port locations from the GeographicLocation class.&nbsp; As it turns out, there was no code using this method, so it was a simple change.&nbsp; I removed the list, removed the relevant mapping xml, and rebuilt.</p>
+
+
+<p><em>The queries were reduced to 94</em>.&nbsp; That 5&ndash;minute change improved the application load time to about&nbsp;6 seconds.&nbsp; This is not the end of the story on improving startup time, but this was a big win at a very low cost.</p>
+
+
+<p>There are likely other areas like this where we can break collections, but I probably will be breaking client code, and I will have to resort to adding a service method and utilizing NHibernate queries to provide the objects in a collection, rather than object graph traversal.</p>
+
+
+<p><strong>Lesson #2:&nbsp; Don&rsquo;t go crazy with your colleciton associations.&nbsp; Possibly favor querying over object traversal for problem areas.</strong></p>
+
+
+<p><em>As a side-note to lesson 2, read Eric Evans&rsquo; <a href="http://www.amazon.com/Domain-Driven-Design-Tackling-Complexity-Software/dp/0321125215" target="_blank">Domain Driven Design</a> for a much better understanding of aggregates, aggregate roots, and how to partition your domain model.</em></p>
+
+
+<p>Then I started looking at the logs.&nbsp; These were turned off in development, so nodody ever saw this.&nbsp; I noticed that there were a ton of messages like &ldquo;CodeDOM failed for class &hellip;..&nbsp;&nbsp; unknown character `&rdquo; &mdash; this was the reflection optimizer trying to compile some code on the fly to assist with getting/setting property values.&nbsp; The code was listed along with the error and you could clearly see that this happened only on types that had a generic parameter.&nbsp; I searched around and found that this was a bug in 1.0.2 that didn&rsquo;t understand how to read the string representation of generic types.&nbsp; It was fixed in 1.2.0, so I decided to upgrade.&nbsp; </p>
+
+
+<p>The upgraded version reduced the startup time to 3 seconds, and I&rsquo;m pretty confident that we won&rsquo;t get much better than that.&nbsp; Sure we can reduce the number of queries&nbsp;a bit more, but we&rsquo;re getting into the realm of acceptable values here.</p>
+
+
+<p>How did we go from 6 seconds to 3 seconds?&nbsp; Well the reflection optimizer had previously been turned on and was failing&hellip; once for every entitiy.&nbsp; This caused an exception and easily slowed down the startup time.&nbsp; Additionally, the reflection optimizer wasn&rsquo;t helping out getting and settting property values so they fell back on reflection, whcih can contribute to overal runtime performance degredation.&nbsp; The reflection optimizer is FAST, so let it do it&rsquo;s job!&nbsp; (see how fast in <a href="http://jaychapman.blogspot.com/2007/11/nhibernate-access-performance.html" target="_blank">this article</a> by Jay Chapman)</p>
+
+
+<p><strong>Lesson #3: Turn on logging (even in Dev!)</strong></p>
+
+
+<p><strong>Lesson #4:&nbsp; Take advantage of the reflection optimizer!</strong></p>
+
+
+<p>Next we took a look at one of the trouble screens and discussed how to make it faster.&nbsp; The screen needed a lot of different types of data.&nbsp; It had details at the top of the page, most of which were dropdown selections loaded by another entity, and the grid needed data from 3 different entities, flattened out.</p>
+
+
+<p>The issue here is that the UI needs SO many different entities, that a signification portion of the entities are being loaded when only a subset of the data is actually being displayed.&nbsp; This is an excellent opportunity for applying <a title="J.P. Boodhoos blog" href="http://www.jpboodhoo.com/blog/CommentView,guid,21fe23e7-e42c-48d8-8871-86e65bcc9a50.aspx" target="_blank">Screen Bound DTO&rsquo;s</a>.</p>
+
+
+<p>A screen-bound DTO is a custom type that contains a flattened view of only the data I need to fulfill the needs of the screen.&nbsp; I can utilize Projections to create slim entities that only contain name/value pairs for example.&nbsp; I can accomplish this all with HQL.</p>
+
+
+<p>This means less queries being sent to SQL server, and less data going over the wire.</p>
+
+
+<p><strong>Lesson
+#5:&nbsp; Consider Screen-bound DTO&rsquo;s instead of consuming your entities on the UI</strong></p>
+
+
+<p>On the database side, we can probably deal with a more friendly transaction isolation strategy, such as ReadCommitted.&nbsp; This will allow more concurrent reads than other isolation levels.&nbsp; This is accomplished through configuration.</p>
+
+
+<p><strong>Lesson #6:&nbsp; Consider using ReadCommitted as your isolation level</strong></p>
+
+
+<p>We should also configure the default_schema setting to be <em>databasename.dbo</em> because that will be used to fully qualify the objects in all database queries.&nbsp; Without this, SQL Server will not cache the query plan for these queries.</p>
+
+
+<p><strong>Lesson #7:&nbsp; Always make sure you&rsquo;ve set hibernate.default_schema</strong></p>
+
+
+<p>There are still more optimizations that we might make, by analyzing opportunities for cachine on both server side and the client, tweaking the mappings, and loading large data sets on a background thread to keep the UI responsive.</p>
+
+
+<p>I believe that we will be able to achieve very acceptable performance with a lot of analysis and a tweak here and there.&nbsp; Maybe then we can restore some faith in NHibernate, as it is a truly powerful persistence framework and it would be a shame to yank it because it was implemented poorly.</p>
+
+
+<p>An excellent resource is <a href="http://devlicio.us/blogs/billy_mccafferty/" target="_blank">Billy McCafferty</a>&rsquo;s article on <a href="http://www.codeproject.com/KB/architecture/NHibernateBestPractices.aspx" target="_blank">NHibernate Best Practices with ASP.NET</a>.&nbsp; Be sure and read it if you haven&rsquo;t already (it&rsquo;s full of useful advanced tips on NHibernate.</p>
+
+
+<p>Are there any perf. considerations I&rsquo;ve missed?</p>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ben Scheirman</span></span>
+
+      
+
+
+
+
+<time datetime="2007-12-10 00:00:00 -0600" pubdate  updated >Dec 10<span>th</span>, 2007</time>
+
+
+
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://benscheirman.com/blog/2007/12/blame-nhibernate-why-not/" data-via="subdigital" data-counturl="http://benscheirman.com/blog/2007/12/blame-nhibernate-why-not/" >Tweet</a>
+  
+  
+  <g:plusone size="medium"></g:plusone>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread"><div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_shortname = 'subdigital';
+  var disqus_identifier = 'http://benscheirman.com/blog/2007/12/blame-nhibernate-why-not/';
+  var disqus_url = 'http://benscheirman.com/blog/2007/12/blame-nhibernate-why-not/';
+  //var disqus_developer = 1;
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside role=sidebar>
+  
+    <section>
+  <h1>Who am I?</h1>
+  <p>I&#8217;m Ben Scheirman. I make Rails &amp; iPhone apps for <a href="http://chaione.com" target="_blank">ChaiONE</a> in Houston, TX.</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/08/vim---could-not-invoke-jslint/">Vim - Could Not Invoke JSLint</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/is-rails-exempt-from-software-principles/">Is Rails Exempt?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/when-viewwillappear-isnt-called/">When viewWillAppear: Isn&#8217;t Called</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/moving-my-blog/">Moving My Blog</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/my-vim-journey/">My Vim Journey</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("subdigital", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/subdigital" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @subdigital</a>
+  
+</section>
+
+
+<section>
+  <h1>On Delicious</h1>
+  <script type="text/javascript" src="http://feeds.delicious.com/v2/js/subdigital?title=&count=3&sort=date&extended"></script>
+  <p><a href="http://delicious.com/subdigital">My Delicious Bookmarks &raquo;</a></p>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer>
+<a style="display:block; float: right" title="Real Time Analytics" href="http://getclicky.com/66470389"><img alt="Real Time Analytics" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
+<script src="//static.getclicky.com/js" type="text/javascript"></script>
+<script type="text/javascript">try{ clicky.init(66470389); }catch(e){}</script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/66470389ns.gif" /></p></noscript>
+
+<p>
+  Copyright &copy; 2011 - Ben Scheirman -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+</body>
+</html>

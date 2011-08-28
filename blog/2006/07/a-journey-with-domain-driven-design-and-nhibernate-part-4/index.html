@@ -1,0 +1,325 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Fickle Bits: A Journey with Domain Driven Design (and NHibernate) - Part 4</title>
+  <meta name="author" content="Ben Scheirman">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="canonical" href="http://benscheirman.com/blog/2006/07/a-journey-with-domain-driven-design-and-nhibernate-part-4/"/>
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/ficklebits" rel="alternate" title="Fickle Bits" type="application/atom+xml"/>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-210379-10']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">Fickle Bits</a></h1>
+  
+    <h2>You're doing it wrong.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/ficklebits" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:benscheirman.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry">
+  
+  <header>
+    
+      <h1 class="entry-title">A Journey With Domain Driven Design (and NHibernate) - Part 4</h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2006-07-23 00:00:00 -0500" pubdate  updated >Jul 23<span>rd</span>, 2006</time>
+
+
+</p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Welcome back!&nbsp; I’ve gone and switched the title of these articles all together to reflect the content more adequately!&nbsp; (Maybe I should have written the series ahead of time to avoid such issues, ya think?)</p>
+
+
+<p>Anyway, last time we introduced some very basic unit tests.&nbsp; We&nbsp;simply verified that we can indeed create each object and pass in the invariants as constructor parameters.&nbsp; The only real decision making that this influenced was how to create objects.&nbsp; For example, it is no problem at all to allow direct creation (public constructor) on root objects such as <strong>Movie</strong>, <strong>Video</strong>, <strong>Account</strong>, and <strong>Customer</strong>, however I&nbsp;chose not to let <strong>Transaction</strong> be created&nbsp;directly, rather it is created from an existing <strong>Account</strong> object.&nbsp; The reason for this is simple.&nbsp; Picture what happens at a video store:&nbsp; You go to the counter with your card and your videos, the employee scans the card and sees your account details.&nbsp; The next thing that the employee will do is start a new transaction.&nbsp; An account object is always present at the time that we need to get a transaction object.&nbsp; Another reason for this is I decided to satisfy the invariants of the transaction (specifically the account) at creation time.</p>
+
+
+<p>Jimmy Nilsson&nbsp;talks about creating <em>fluent interfaces</em> in his book <a title="amazon:Applying Domain Driven Design" href="http://www.amazon.com/gp/product/0321268202/ref=sr_11_1/002-0541598-4483203?ie=UTF8" target="_blank">Applying Domain Driven Design</a>.&nbsp;&nbsp;We want our object model to express intent and reinforce correct usage.&nbsp; To demonstrate this, consider the following code two segments:</p>
+
+
+<div style="border: 1px solid rgb(51, 51, 51); background: white none repeat scroll 0% 50%; font-size: 9pt; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; color: black; font-family: Consolas;">1)&nbsp; <span style="color: teal;">Transaction</span> tx = <span style="color: blue;">new</span> <span style="color: teal;">Transaction</span>(_account);</div>
+
+
+<div style="border: 1px solid rgb(51, 51, 51); background: white none repeat scroll 0% 50%; font-size: 9pt; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; color: black; font-family: Consolas;">2)&nbsp; <span style="color: teal;">Transaction</span> tx = _account.CreateTransaction();</div>
+
+
+<p>I think that the 2nd option conveys more meaning and is more fluent than the first.&nbsp; This is, however, an early design choice and is always up to change with further refactorings.</p>
+
+
+<p>I left off last time with a list of passing tests.&nbsp; (Sometimes people suggest to leave a failing test so you know right where to pick up the next day.)&nbsp; I have implemented a few more trivial tests, which I won’t bore you with here.&nbsp; Let’s get on with the more interesting tests.&nbsp; Another thing I’d like to note is that, the tests here pass, but only after I write the appropriate code&nbsp;in the model to satisfy the test.&nbsp; I am purposefully omitting the domain model code at this time because it is unimportant.&nbsp; You should be able to understand what the code does without looking inside the class.&nbsp; Onward….</p>
+
+
+<p>As mentioned in the 1st article, a transaction will have many rentals.&nbsp; That is because you can rent more than 1 video per visit.&nbsp; The price of renting movies will vary, so in order to have history of what price was paid for an old transaction, we must allow the <strong>Rental</strong> to carry a price.&nbsp; Another thing we will have to consider is how to determine when an item is due.&nbsp; We’ll have to communicate with some service that will tell us when an item is due, given whether it is a new release, or a hardware item, etc.&nbsp; All we are&nbsp;concerned about&nbsp;at this time is that the rental knows it has a due date.&nbsp; How the due date is calculated is a&nbsp;responsibility&nbsp;outside of the <strong>Rental </strong>class.&nbsp;&nbsp;Agreed?&nbsp; On with the tests.</p>
+
+
+<div style="border: 1px solid rgb(51, 51, 51); background: white none repeat scroll 0% 50%; font-size: 9pt; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; color: black; font-family: Consolas;"><p style="margin: 0px;">[<span style="color: teal;">Test</span>]</p><p style="margin: 0px;"><span style="color: blue;">public</span> <span style="color: blue;">void</span> CanCreateTransactionForAccount()</p><p style="margin: 0px;">{</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: teal;">Account</span> a = <span style="color: blue;">new</span> <span style="color: teal;">Account</span>();</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: teal;">Customer</span> c = <span style="color: blue;">new</span> <span style="color: teal;">Customer</span>(<span style="color: maroon;">&#8220;john&#8221;</span>, <span style="color: maroon;">&#8220;doe&#8221;</span>);</p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: teal;">Transaction</span> tx = a.CreateTransaction();</p><p style="margin: 0px;">&nbsp; &nbsp; tx.Customer = c;&nbsp; </p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: green;">//we can only be accurate up to the millisecond on the date here, but we can create a timespan of 2 hours just</span></p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: green;">//to be sure.</span></p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: teal;">Assert</span>.IsTrue(tx.TransactionDate.CompareTo(<span style="color: teal;">DateTime</span>.Now.AddHours(-1)) &gt; 0 &amp;&amp;</p><p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; tx.TransactionDate.CompareTo(<span style="color: teal;">DateTime</span>.Now.AddHours(1)) &lt; 0, <span style="color: maroon;">&#8220;Date wasn&#8217;t set&#8221;</span>);</p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: teal;">Assert</span>.IsNotNull(tx, <span style="color: maroon;">&#8220;Transaction wasn&#8217;t returned&#8221;</span>);</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: teal;">Assert</span>.AreEqual(a, tx.Account, <span style="color: maroon;">&#8220;Account wasn&#8217;t set&#8221;</span>);</p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: teal;">Assert</span>.IsNotNull(tx.Rentals, <span style="color: maroon;">&#8220;Rentals collection was null&#8221;</span>);</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: teal;">Assert</span>.AreEqual(0, tx.Rentals.Count, <span style="color: maroon;">&#8220;Rentals collection wasn&#8217;t empty&#8221;</span>);</p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: teal;">Assert</span>.AreEqual(0.0, tx.SubTotal);</p><p style="margin: 0px;">}</p></div>
+
+
+<p>This test is a bit longer than previous ones, so I’ll go over it.&nbsp; We start by creating a customer and account to use in our test.&nbsp; Then we use the account object to create a transaction.&nbsp; The next sets the Customer that is actually renting the item.&nbsp; We need this because we may prevent the customer from renting items above his/her rental restriction.&nbsp;&nbsp;I’m now checking to see if the date was set.&nbsp; I used a simple 2 hour date range, because I cannot guarantee how fast this code will run.&nbsp; The idea is that the date and time will change from MinValue to Now after the creation of the <strong>Transaction</strong>.&nbsp; This will be caught by the assertion.&nbsp; The rest of the Asserts should be self-explanatory.</p>
+
+
+<p>Now we are able to create a transaction, we should now be able to create rentals and add them to the transaction.&nbsp; Adding the rental to the transaction should change the transaction’s subtotal properly, so we need to test that as well, however this should be broken up into two tests (Remember, try to only test one unit at
+a time!).</p>
+
+
+<div style="border: 1px solid rgb(51, 51, 51); background: white none repeat scroll 0% 50%; font-size: 9pt; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; color: black; font-family: Consolas;"><p style="margin: 0px;">[<span style="color: teal;">Test</span>]</p><p style="margin: 0px;"><span style="color: blue;">public</span> <span style="color: blue;">void</span> CanAddRentalToTransaction()</p><p style="margin: 0px;">{</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: teal;">Transaction</span> tx = _account.CreateTransaction();</p><p style="margin: 0px;">&nbsp; &nbsp; tx.Customer = _customer;</p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: teal;">Rental</span> r = <span style="color: blue;">new</span> <span style="color: teal;">Rental</span>(_video, 3.50f);</p><p style="margin: 0px;">&nbsp; &nbsp; tx.Rentals.Add(r);</p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: teal;">Assert</span>.AreEqual(1, tx.Rentals.Count, <span style="color: maroon;">&#8220;Rental wasn&#8217;t added to transaction&#8221;</span>);</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: teal;">Assert</span>.IsTrue(tx.Rentals.Contains(r), <span style="color: maroon;">&#8220;Rental wasn&#8217;t the same!&#8221;</span>);</p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: teal;">Rental</span> r2 = <span style="color: blue;">new</span> <span style="color: teal;">Rental</span>(_video2, 3.50f);</p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp; &nbsp; tx.Rentals.Add(r2);</p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: teal;">Assert</span>.AreEqual(2, tx.Rentals.Count, <span style="color: maroon;">&#8220;2nd rental wasn&#8217;t added to transaction&#8221;</span>);</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: teal;">Assert</span>.IsTrue(tx.Rentals.Contains(r2), <span style="color: maroon;">&#8220;2nd rental wasn&#8217;t the same!&#8221;</span>);</p><p style="margin: 0px;">}</p></div>
+
+
+<!--EndFragment-->
+
+
+<p>As you can see, we create a rental, add it to the transaction, and verify that the collection count is correct and contains the new rental.&nbsp; We do it twice just to be sure.</p>
+
+
+<p>One concept I haven’t shown yet is to test invalid usage of the model.&nbsp; We need to do this to make sure our domain model behaves accordingly if it is abused.&nbsp; Here’s a good example:</p>
+
+
+<div style="border: 1px solid rgb(51, 51, 51); background: white none repeat scroll 0% 50%; font-size: 9pt; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; color: black; font-family: Consolas;"><p style="margin: 0px;">[<span style="color: teal;">Test</span>]</p><p style="margin: 0px;"><span style="color: blue;">public</span> <span style="color: blue;">void</span> CanNotAddSameRentalToTransactionTwice()</p><p style="margin: 0px;">{</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: teal;">Transaction</span> tx = _account.CreateTransaction();</p><p style="margin: 0px;">&nbsp; &nbsp; tx.Customer = _customer;</p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: teal;">Rental</span> r = <span style="color: blue;">new</span> <span style="color: teal;">Rental</span>(_video, 3.50f);</p><p style="margin: 0px;">&nbsp; &nbsp; tx.Rentals.Add(r);</p><p style="margin: 0px;">&nbsp; &nbsp; tx.Rentals.Add(r);</p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: teal;">Assert</span>.AreEqual(1, tx.Rentals.Count, <span style="color: maroon;">&#8220;Rental was added twice!&#8221;</span>);</p><p style="margin: 0px;">}</p></div>
+
+
+<p>There is no conceptual reason that a rental should be added twice, so we check to make sure this isn’t allowed.</p>
+
+
+<p>Up next, we need to verify that the Transaction’s subtotal property is calculated correctly.</p>
+
+
+<div style="border: 1px solid rgb(51, 51, 51); background: white none repeat scroll 0% 50%; font-size: 9pt; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; color: black; font-family: Consolas;"><p style="margin: 0px;">[<span style="color: teal;">Test</span>]</p><p style="margin: 0px;"><span style="color: blue;">public</span> <span style="color: blue;">void</span> TransactionSubTotalGiveSumOfRentalPrices()</p><p style="margin: 0px;">{&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: teal;">Transaction</span> tx = _account.CreateTransaction();</p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: teal;">Assert</span>.AreEqual(0.0, tx.SubTotal, <span style="color: maroon;">&#8220;No rentals should yield 0.00 subtotal&#8221;</span>);</p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp; &nbsp; tx.Rentals.Add(<span style="color: blue;">new</span> <span style="color: teal;">Rental</span>(_video, 3.50f));</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: teal;">Assert</span>.AreEqual(3.50, tx.SubTotal, <span style="color: maroon;">&#8220;SubTotal should be 3.50 after adding a 3.50 rental&#8221;</span>);</p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp; &nbsp; tx.Rentals.Add(<span style="color: blue;">new</span> <span style="color: teal;">Rental</span>(_video2, 3.50f));</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: teal;">Assert</span>.AreEqual(7.00, tx.SubTotal, <span style="color: maroon;">&#8220;SubTotal should be 7.00 after adding 2 3.50 rentals&#8221;</span>);</p><p style="margin: 0px;">}</p></div>
+
+
+<p>This test failed initially, and to get it to pass I had 2 choices of implementation:&nbsp; have a dynamic property that calculates the sum of the rental prices on the fly, or capture the collection adding/removing actions and adjust it appropriately.&nbsp; I chose the latter option, because I would like to persist this as a de-normalized column in the database.&nbsp; This way I can deal with a transaction object without actually loading up all the rentals along with it.&nbsp; You’ll see the benefit of this a bit later when we talk about NHibernate’s lazy loading.</p>
+
+
+<p>Here’s&nbsp;&nbsp;the (slightly modified) feature list.&nbsp; I’ve colored the already implemented features in green.</p>
+
+
+<ul><li><font color="#009f00">Add new Customer / Account</font> </li><li><font color="#009f00">Add other members to an account</font> </li><li>Restrict certain members from renting certain content </li><li>Query for a Customer by Customer # (swipe card, etc), phone number, or last name </li><li><font color="#009f00">Add new rental item (movie, video game, game console, vcr, etc)</font> </li><li>Rent an item to a customer <ul><li><font color="#009f00">Create a Transaction</font> </li><li><font color="#009f00">Add Rental To Transaction</font> </li><li>Finalize Transaction </li><li>Calculate due date for an item</li></ul></li><li>Check items back in from a customer </li><li>Get movies checked out for a customer </li><li>Calculate late fees for a customer </li><li>Query for an item, see who has it</li></ul>
+
+
+<p>We’re coming to a point where we need to start persisting our domain model.&nbsp; Most of the remaining&nbsp; features to implement will employ querying a database, so we’ll probably start on persistence next time.</p>
+
+
+<!--EndFragment-->
+
+
+<!--EndFragment-->
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ben Scheirman</span></span>
+
+      
+
+
+
+
+<time datetime="2006-07-23 00:00:00 -0500" pubdate  updated >Jul 23<span>rd</span>, 2006</time>
+
+
+
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://benscheirman.com/blog/2006/07/a-journey-with-domain-driven-design-and-nhibernate-part-4/" data-via="subdigital" data-counturl="http://benscheirman.com/blog/2006/07/a-journey-with-domain-driven-design-and-nhibernate-part-4/" >Tweet</a>
+  
+  
+  <g:plusone size="medium"></g:plusone>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread"><div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_shortname = 'subdigital';
+  var disqus_identifier = 'http://benscheirman.com/blog/2006/07/a-journey-with-domain-driven-design-and-nhibernate-part-4/';
+  var disqus_url = 'http://benscheirman.com/blog/2006/07/a-journey-with-domain-driven-design-and-nhibernate-part-4/';
+  //var disqus_developer = 1;
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside role=sidebar>
+  
+    <section>
+  <h1>Who am I?</h1>
+  <p>I&#8217;m Ben Scheirman. I make Rails &amp; iPhone apps for <a href="http://chaione.com" target="_blank">ChaiONE</a> in Houston, TX.</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/08/vim---could-not-invoke-jslint/">Vim - Could Not Invoke JSLint</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/is-rails-exempt-from-software-principles/">Is Rails Exempt?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/when-viewwillappear-isnt-called/">When viewWillAppear: Isn&#8217;t Called</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/moving-my-blog/">Moving My Blog</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/my-vim-journey/">My Vim Journey</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("subdigital", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/subdigital" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @subdigital</a>
+  
+</section>
+
+
+<section>
+  <h1>On Delicious</h1>
+  <script type="text/javascript" src="http://feeds.delicious.com/v2/js/subdigital?title=&count=3&sort=date&extended"></script>
+  <p><a href="http://delicious.com/subdigital">My Delicious Bookmarks &raquo;</a></p>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer>
+<a style="display:block; float: right" title="Real Time Analytics" href="http://getclicky.com/66470389"><img alt="Real Time Analytics" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
+<script src="//static.getclicky.com/js" type="text/javascript"></script>
+<script type="text/javascript">try{ clicky.init(66470389); }catch(e){}</script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/66470389ns.gif" /></p></noscript>
+
+<p>
+  Copyright &copy; 2011 - Ben Scheirman -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+</body>
+</html>

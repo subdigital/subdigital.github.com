@@ -1,0 +1,399 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Fickle Bits: Building a Hackintosh</title>
+  <meta name="author" content="Ben Scheirman">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="canonical" href="http://benscheirman.com/blog/2009/01/building-a-hackintosh/"/>
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/ficklebits" rel="alternate" title="Fickle Bits" type="application/atom+xml"/>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-210379-10']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">Fickle Bits</a></h1>
+  
+    <h2>You're doing it wrong.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/ficklebits" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:benscheirman.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry">
+  
+  <header>
+    
+      <h1 class="entry-title">Building a Hackintosh</h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2009-01-10 00:00:00 -0600" pubdate  updated >Jan 10<span>th</span>, 2009</time>
+
+
+</p>
+    
+  </header>
+
+
+<div class="entry-content"><p>I&#8217;m writing this post on my new hackintosh - that is - OS X Leopard running on PC hardware. So far the system is pretty stable and I&#8217;m liking it a lot.</p>
+
+
+<p><img src="/images/IMG_0734_.jpg"  alt="IMG_0734.JPG"  /></p>
+
+
+<p><br />
+<img src="/images/leopard_.png"  alt="osx desktop"  /></p>
+
+
+<p>Running OS X on PC hardware isn&#8217;t always easy, I just happened to have the lucky mix of hardware that pretty much just works. The motherboard is the most critical determining factor.</p>
+
+
+<h2>My hardware</h2>
+
+
+<ul>
+<li><a href="http://www.zipzoomfly.com/jsp/ProductDetail.jsp?ProductCode=10008509-OP&#38;prodlist=celebros">Gigabyte EP35-DS3L</a> ($70)</li>
+<li><a href="http://">Intel Core 2 Duo E8400 @ 3.0ghz</a> ($164)</li>
+<li><a href="http://www.newegg.com/Product/Product.aspx?Item=N82E16814150247">NVidia 8600GT 512MB</a> ($69)</li>
+<li><a href="http://www.newegg.com/Product/Product.aspx?Item=N82E16820145184">4GB Corsair Memory</a> ($55)</li>
+<li>Western Digital 500GB MyBook USB Hard drive</li>
+</ul>
+
+
+<p>You could easily build a PC based on this hardware for under $500. We have sound, lan, any hard drive will do, a decent video card, a fast processor, and 4 GB of memory. I&#8217;m using this on my existing Vista machine, so I decided to install on an external drive. Dual booting is possible, and with USB it&#8217;s easy: just unplug the USB drive to boot in windows. Other options allow you to have a boot menu to choose the OS.</p>
+
+
+<h2>Where to start</h2>
+
+
+<p>The definitive place to learn how to do this is the <a href="http://forum.insanelymac.com/">Insanely Mac Forums</a>. Expect to read a TON before you start. Spend most of your time initially in the OSx86 forum.</p>
+
+
+<h2>The software</h2>
+
+
+<ul>
+<li>I got most of my help from <a href="http://forum.insanelymac.com/index.php?showtopic=86167">this tutorial</a>. It is based on this same hardware, and pretty much worked right away for me.</li>
+<li>Kalyway 10.5.2 OS X Installer<br />
+You can get this from the usual places. I originally used this install and it worked okay, however I noticed a handful of application crashes and the occasional GSOD (Grey screen of death). We&#8217;re going to use this for the initial boot and to make a utility install. Utility installs will help when things go wrong, like for example if you decide to use a driver (known as kernel extensions or &#8220;kexts&#8221;) and the kext causes a kernel panic on boot, then you can boot in the utility partition and fix it.</li>
+<li>Retail Leopard OS X 10.5.5<br />
+You can get this at an Apple store, ebay, craigslist, or the usual places. I found one on craigslist for $50.</li>
+<li>10.5.6 combo updater</li>
+<li>v4.4 utility package from the tutorial author</li>
+</ul>
+
+
+<p>You can get the combo updater and the utility package from the tutorial post. Follow the tutorial and you should be fine.</p>
+
+
+<h2>BIOS</h2>
+
+
+<p>Having an updated BIOS is <em>usually</em> a good idea. In my case I had to update to F5. I also had to enable SATA AHCI, which is supposed to increase the reliability of OS X. This made Vista blue screen on boot. Apparently Vista removes unused drivers to speed up boot time. <a href="http://www.itwriting.com/blog/288-enabling-ahci-on-vista.html">Enabling a setting in the registry</a> fixed this.</p>
+
+
+<h2>Create a utility install with Kalyway</h2>
+
+
+<p>This is something that was confusing to me. Sort of a chicken and egg problem, but you need to install the retail install from an existing OS X installation. I used the Kalyway installer. I shrunk a partition in Windows by 40GB, then rebooted with the Kalyway DVD. It takes a while, but eventually the OS X installer came up. You then go to Disk Utility and format the partition. Choose Mac Journaled as the format. OSX should install after 10-15 minutes. This is where some folks have hardware issues. If your sound, lan, or video cards don&#8217;t work, then you have to roll up your sleeves and do some manual hacking. I lucked out and mine pretty much worked. It wasn&#8217;t very stable though.</p>
+
+
+<p>Once you&#8217;re in, you can continue to boot to this install using the boot DVD. I was unable to get any bootloaders to work. This utility install will be helpful to fix any problems that arise from tinkering with the main OS.</p>
+
+
+<p>From there, I followed this guide which provided me with most of what I needed to get the retail DVD installed, update to 10.5.6, run the postpatch.sh script and reboot. Then I ran the EFI hack which allows you to boot directly into OS X. At this point I set the USB drive to be first priority and viola! Leopard booted.</p>
+
+
+<h2>Getting 3D Graphics working</h2>
+
+
+<p>Upon booting the first time the graphics were sluggish and it could only run at 10204x768. There are a number of posts on the topic of video drivers, the problem is some of them are dated. NVinject worked for my 10.5.2 Kalyway install, but did not work for the 10.5.6 retail. Instead I had to use EFI Studio (found in the v4.4 package from earlier) and selected the 8600 GT 512 MB item.<img src="/images/efistudio_.png"  alt="efistudio.png"  /></p>
+
+
+<p>Then I clicked &#8220;Add Device&#8221; which brought up this window:</p>
+
+
+<p><img src="/images/efistudio2_.png"  alt="efistudio2.png"  /></p>
+
+
+<p>Then click &#8220;write to com.apple.Boot.plist&#8221;, reboot and you&#8217;re good! To get sound working I had to install the <a href="http://forum.insanelymac.com/index.php?act=attach&#38;type=post&#38;id=20698">ALC888 kext</a>.</p>
+
+
+<h2>Installing kexts</h2>
+
+
+<p>Installing kexts is basically copying a file to /System/Library/Extensions, fixing up the permissions on the file(s) with</p>
+
+
+
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>sudo chmod -R 755 /System/Library/Extensions/yourkext.kext&lt;br />sudo chown -R root:wheel /System/Library/Extensions/yourkext.kext</div></code></pre></td></tr></table></div></figure></div>
+
+
+
+
+<p>then you need to remove the kext caches like so:</p>
+
+
+
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>sudo rm -R /System/Library/Extensions.kextcache&lt;br />sudo rm -R /System/Library/Extensions.mkext</div></code></pre></td></tr></table></div></figure></div>
+
+
+
+
+<p>Reboot and cross your fingers! If you get a kernel panic, then just boot in single user mode (press F8 at boot and type -s at the prompt) (or boot your utility install) and remove the offending kexts.</p>
+
+
+<p>I found it easy to automate this process using <a href="http://cheetha.net/">KextHelper</a>.</p>
+
+
+<p>At this point I have a fully retail copy of 10.5.6, and I&#8217;m a &#8220;Mac Pro&#8221; in the eyes of Apple. This means (I think) that I can update to future versions with little to no tweaking!</p>
+
+
+<p><br />
+<img src="/images/about-this-mac_.png"  alt="about-this-mac.png"  /></p>
+
+
+<p><br />
+<img src="/images/about-this-mac2_.png"  alt="about-this-mac2.png"  /></p>
+
+
+<p>If I were to build a Mac Pro from apple.com with these specs, <strong>it would cost near $3000!</strong></p>
+
+
+<h2>Things still to figure out</h2>
+
+
+<p>My Microsoft Lifecam v1000 doesn&#8217;t quite work. I got it to work in iChat for a few minutes, but doesn&#8217;t work in Photobooth or Skype. This is a minor setback, as I can just buy a supported one.</p>
+
+
+<p>My RAID array isn&#8217;t visible. I have 2x250gb drives in RAID 1 (stripe). I need to investigate &#38; see if there are drivers for my SATA raid card. All in all it&#8217;s a small loss.</p>
+
+
+<p>VNC comes built-in with 10.5.6, however it&#8217;s SO SLOOOOWWW over the internet. Remote Desktop is far superior because they aren&#8217;t streaming bitmaps, it is actually rendering a desktop locally &#38; transmitting state changes. I really want to find a better solution for accessing my PC remotely.</p>
+
+
+<h2>Conclusion</h2>
+
+
+<p>This system has been really stable so far. I&#8217;ve had one crash, and I&#8217;m not sure what caused it, but a week has gone by with no lockups or crashes whatsoever. I&#8217;m really close to ditching my Vista install and put this on my fast Western Digital Raptor main drive.</p>
+
+
+<p>&nbsp;&#160;</p>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ben Scheirman</span></span>
+
+      
+
+
+
+
+<time datetime="2009-01-10 00:00:00 -0600" pubdate  updated >Jan 10<span>th</span>, 2009</time>
+
+
+
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://benscheirman.com/blog/2009/01/building-a-hackintosh/" data-via="subdigital" data-counturl="http://benscheirman.com/blog/2009/01/building-a-hackintosh/" >Tweet</a>
+  
+  
+  <g:plusone size="medium"></g:plusone>
+  
+</div>
+
+    
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread"><div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_shortname = 'subdigital';
+  var disqus_identifier = 'http://benscheirman.com/blog/2009/01/building-a-hackintosh/';
+  var disqus_url = 'http://benscheirman.com/blog/2009/01/building-a-hackintosh/';
+  //var disqus_developer = 1;
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside role=sidebar>
+  
+    <section>
+  <h1>Who am I?</h1>
+  <p>I&#8217;m Ben Scheirman. I make Rails &amp; iPhone apps for <a href="http://chaione.com" target="_blank">ChaiONE</a> in Houston, TX.</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/08/vim---could-not-invoke-jslint/">Vim - Could Not Invoke JSLint</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/is-rails-exempt-from-software-principles/">Is Rails Exempt?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/when-viewwillappear-isnt-called/">When viewWillAppear: Isn&#8217;t Called</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/moving-my-blog/">Moving My Blog</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/my-vim-journey/">My Vim Journey</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("subdigital", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/subdigital" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @subdigital</a>
+  
+</section>
+
+
+<section>
+  <h1>On Delicious</h1>
+  <script type="text/javascript" src="http://feeds.delicious.com/v2/js/subdigital?title=&count=3&sort=date&extended"></script>
+  <p><a href="http://delicious.com/subdigital">My Delicious Bookmarks &raquo;</a></p>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer>
+<a style="display:block; float: right" title="Real Time Analytics" href="http://getclicky.com/66470389"><img alt="Real Time Analytics" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
+<script src="//static.getclicky.com/js" type="text/javascript"></script>
+<script type="text/javascript">try{ clicky.init(66470389); }catch(e){}</script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/66470389ns.gif" /></p></noscript>
+
+<p>
+  Copyright &copy; 2011 - Ben Scheirman -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+</body>
+</html>

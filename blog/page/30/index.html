@@ -1,0 +1,998 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Fickle Bits</title>
+  <meta name="author" content="Ben Scheirman">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="canonical" href="http://benscheirman.com/blog/page/30/index.html"/>
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/ficklebits" rel="alternate" title="Fickle Bits" type="application/atom+xml"/>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-210379-10']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">Fickle Bits</a></h1>
+  
+    <h2>You're doing it wrong.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/ficklebits" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:benscheirman.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2006/09/a-journey-with-domain-driven-design-and-nhibernate-part-6/">A Journey With Domain Driven Design (and NHibernate) - Part 6</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2006-09-01 00:00:00 -0500" pubdate  updated >Sep 1<span>st</span>, 2006</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Welcome back!&nbsp; In <a title="part 5" href="http://www.flux88.com/2006/08/24/A+Journey+With+Domain+Driven+Design+And+NHibernate++Part+5.aspx">Part 5</a>&nbsp;we finished off with a table structure and the beginnings of NHibernate.&nbsp; We’ll dive in deeper with NHibernate and mapping in this article.</p>
+
+
+<p><em>(part 1 was <a title="Digg.com" href="http://digg.com/programming/A_Journey_with_nHibernate" target="_blank">Dugg</a>, which was quite&nbsp;exciting to me!&nbsp; It has also increased the traffic around here a little bit!&nbsp; If you’re enjoying the series, why not <a title="digg" href="http://digg.com/programming/A_Journey_with_nHibernate" target="_blank">Digg it some more</a>?)</em></p>
+
+
+<p>Currently we can initialize our SessionFactory which reads the configuration file and loads our domain model assembly.&nbsp; This step is where NHibernate will parse our mapping files (once we add them).</p>
+
+
+<p>So let’s take a step&nbsp;back and ask the question that’s probably on your minds already:&nbsp;how do we get our classes mapped to the database using NHibernate?&nbsp; We have to provide a mapping file.&nbsp; An NHibernate mapping file is an xml file that specifies how your object fields and properties map to database columns.&nbsp; There are a few ways you can load mapping files into NHibernate, but the easiest I have found is to add them as part of your domain model class library as <em>embedded resources (details below).&nbsp;</em>&nbsp; I emphasize embedded resources because if you just add the XML files without specifying they will not be recognized automatically by our SessionFactory initialization.</p>
+
+
+<div style="margin: 5px; padding: 5px; float: right; width: 200px; background-color: aliceblue;"><em>A number of people have asked me to display more source code, and in this article you’ll see the domain model in more detail.&nbsp; At the end of this article I will post the code that we’ve created so far.</em> </div>
+
+
+<p>If you are a little scared about writing these mapping files and would rather use a tool to generate it for you that is certainly possible.&nbsp; Ayende Rahien’s <a title="NHibernate Query Analyzer @ Ayende Rahien" href="http://www.ayende.com/projects/nhibernate-query-analyzer.aspx" target="_blank">NHibernate Query Analyzer</a> can help with this.&nbsp; I have found, however, that in order to fully understand how to effectively map your objects, you should write the mapping by hand.&nbsp; Don’t fret, there is hope with the manual method.&nbsp; The hope?&nbsp; <strong>Intellisense.&nbsp; </strong>To get nhibernate mapping intellisense in Visual Studio 2005 you can copy the schema file (<strong>nhibernate-mapping-2.0.xsd</strong>) to <strong>C:\Program Files\Microsoft Visual Studio 8\Xml\Schemas.</strong></p>
+
+
+<p>Now that we have intellisense for our mapping files, we can start creating our mappings.&nbsp; I choose to have a single mapping file per class, so that they don’t get too cluttered.&nbsp; There is nothing to stop you from defining your entire object model in a single mapping file, but I avoid this approach.</p>
+
+
+<p><a href="http://www.flux88.com/uploads/CropperCapture%5B26%5D.Jpg"><img src="/images/CropperCapture%5B26%5D_thumb_.jpg" alt="CropperCapture[26]"  vspace="5" /></a>Starting off with the Person class, we create add a new XML file to our domain model project called <strong>Person.hbm.xml</strong>.&nbsp; NHibernate will search our assembly for embedded resources named *.hbm.xml.&nbsp; If this is mispelled or the file is not marked as an embedded resource the mapping will not be found and NHibernate won’t recognize the object.</p>
+
+
+<p>&nbsp;<img src="/images/CropperCapture%5B28%5D_thumb_.jpg" alt="CropperCapture[28]"  vspace="5" /> <br clear="left">In these screen shots you can see that I have added the mapping file next to my objects and I right-clicked and selected properties.&nbsp; Then under the properties pane I clicked on <strong>Build Action</strong> and changed the value from <em>Compile </em>to <em>Embedded Resource.<a href="http://www.flux88.com/uploads/CropperCapture%5B27%5D.Jpg"><img src="/images/CropperCapture%5B27%5D_thumb_.jpg" alt="CropperCapture[27]"  vspace="5" /></a></em></p>
+
+
+<br clear="left"><p>&nbsp;</p><p>Let’s take a side-by-side look at our Person class with our People database table.&nbsp; This will be&nbsp; a simple mapping because the class contains no complex associations with other classes.</p><p><img src="/images/side_2Dby_2Dside_20compare3_.jpg" alt="Side-by-side compare3"  vspace="5" /></p><p>Here you can see that we simple relate each property in our class to a column in the table.&nbsp; Address, in this example, is called&nbsp;a <em>component.</em>&nbsp; What this means is that Address&nbsp;has no table of its own;&nbsp; all of the address properties are mapped to the containing object’s table.&nbsp; We say that <em>Address is a <strong>component </strong>of Person.</em>&nbsp; I chose to represent it this way in the object model to delineate the model and separate concerns.&nbsp; It is a common occurrence for the database, however, to not employ unnecessary joins for simple associations such as this one (for performance reasons).</p><p>We start by opening our (now blank) Person.hbm.xml file.&nbsp; In order to tell Visual Studio that we want intellisense for this file, we have to create the document element (the root) called <strong>&lt;hibernate-mapping&gt;</strong>.&nbsp; We tell it which schema to use, and then intellisense kicks in.&nbsp; Also in this root element the assembly and namespace are defined.&nbsp; This saves us from typing it every time in the mapping file.&nbsp; For example, within this mapping file, <em>Person</em> will refer to the strongly typed <em>Flux88.Videocracy.DomainModel.Person, Flux88.DomainModel.Person </em>(see?&nbsp; less typing!).</p><p><em>*note:&nbsp; I have changed the Phone number properties to be plain-jane strings instead of the Phone Number class that you may have seen earlier.&nbsp; While this is a good addition, it complicates the mapping a tad too much right at first, so I removed it in favor of a simple mapping for now.</em></p><div style="background: white none repeat scroll 0% 50%; font-size: 9pt; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; color: black; font-family: Consolas;"><p style="margin: 0px;"><span style="color: blue;">&lt;?</span><span style="color: maroon;">xml</span><span style="color: blue;"> </span><span style="color: red;">version</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">1.0</span>&#8221;<span style="color: blue;"> </span><span style="color: red;">encoding</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">utf-8</span>&#8221;<span style="color: blue;"> ?&gt;</span></p><p style="margin: 0px;"><span style="color: blue;">&lt;</span><span style="color: maroon;">hibernate-mapping</span><span style="color: blue;"> </span><span style="color: red;">xmlns</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">urn:nhibernate-mapping-2.0</span>&#8221;<span style="color: blue;"> </span></p><p style="margin: 0px;"><span style="color: blue;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="color: red;">assembly</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">Flux88.Videocracy.DomainModel</span>&#8221;<span style="color: blue;"> </span></p><p style="margin: 0px;"><span style="color: blue;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="color: red;">namespace</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">Flux88.Videocracy.DomainModel</span>&#8221;<span style="color: blue;">&gt;</span></p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;"><span style="color: blue;">&lt;/</span><span style="color: maroon;">hi
+
+
+<p>bernate-mapping</span><span style="color: blue;">&gt;</span></p></div><!--EndFragment--><p>The next element in this mapping will be our class:</p><div style="background: white none repeat scroll 0% 50%; font-size: 9pt; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; color: black; font-family: Consolas;"><p style="margin: 0px;"><span style="color: blue;">&lt;?</span><span style="color: maroon;">xml</span><span style="color: blue;"> </span><span style="color: red;">version</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">1.0</span>&#8221;<span style="color: blue;"> </span><span style="color: red;">encoding</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">utf-8</span>&#8221;<span style="color: blue;"> ?&gt;</span></p><p style="margin: 0px;"><span style="color: blue;">&lt;</span><span style="color: maroon;">hibernate-mapping</span><span style="color: blue;"> </span><span style="color: red;">xmlns</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">urn:nhibernate-mapping-2.0</span>&#8221;<span style="color: blue;"> </span></p><p style="margin: 0px;"><span style="color: blue;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: red;">namespace</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">Flux88.Videocracy.DomainModel</span>&#8221;<span style="color: blue;"> </span></p><p style="margin: 0px;"><span style="color: blue;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: red;">assembly</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">Flux88.Videocracy.DomainModel</span>&#8221;<span style="color: blue;">&gt;</span></p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;"><span style="color: blue;">&nbsp; <strong>&lt;</strong></span><strong><span style="color: maroon;">class</span><span style="color: blue;"> </span><span style="color: red;">name</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">Person</span>&#8221;<span style="color: blue;"> </span><span style="color: red;">table</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">People</span>&#8221;<span style="color: blue;">&gt;</span></strong></p><p style="margin: 0px;"><strong>&nbsp;</strong></p><p style="margin: 0px;"><strong><span style="color: blue;">&nbsp; &nbsp; &lt;</span><span style="color: maroon;">id</span><span style="color: blue;"> </span><span style="color: red;">name</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">Id</span>&#8221;<span style="color: blue;"> </span><span style="color: red;">access</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">nosetter.camelcase-underscore</span>&#8221;<span style="color: blue;"> </span></strong></p><p style="margin: 0px;"><strong><span style="color: blue;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: red;">column</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">PersonId</span>&#8221;<span style="color: blue;"> </span><span style="color: red;">type</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">Int32</span>&#8221;<span style="color: blue;">&gt;</span></strong></p><p style="margin: 0px;"><strong><span style="color: blue;">&nbsp; &nbsp; &nbsp; &lt;</span><span style="color: maroon;">generator</span><span style="color: blue;"> </span><span style="color: red;">class</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">identity</span>&#8221;<span style="color: blue;"> /&gt;</span></strong></p><p style="margin: 0px;"><strong><span style="color: blue;">&nbsp; &nbsp; &lt;/</span><span style="color: maroon;">id</span><span style="color: blue;">&gt;</span></strong></p><p style="margin: 0px;"><strong>&nbsp;</strong></p><p style="margin: 0px;"><strong><span style="color: blue;">&nbsp; &lt;/</span><span style="color: maroon;">class</span><span style="color: blue;">&gt;</span></strong></p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;"><span style="color: blue;">&lt;/</span><span style="color: maroon;">hibernate-mapping</span><span style="color: blue;">&gt;</span></p></div><!--EndFragment--><p>I have emboldened the new text.&nbsp; The name property here tells NHibernate that we are mapping our Person class, from the assembly/namespace defined above.&nbsp; The table attribute tells NHibernate which table this class maps to.&nbsp; There are a few other advanced attributes that we may define, but these will suffice for this mapping.&nbsp; </p><p>The first child of our &lt;class&gt; element is the &lt;id&gt; element.&nbsp; This tells NHibernate what our primary key is.&nbsp; You can specify a single field or multiple fields (composite-id) and define their type as well.&nbsp; Here you see that the&nbsp;name attribute refers to our&nbsp;<em>Id</em> property of the Person class.&nbsp; We do not want consumers of our objects to be able to set arbitrary values in the primary key, so this is a read only property.&nbsp; As such it does not have a setter, but NHibernate needs to know how it will set the&nbsp;value (otherwise how could it get there?).&nbsp; We give NHibernate a hint by specifying a predefined access strategy in the <strong>access</strong> attribute.&nbsp; <em>nosetter.camelcase-underscore </em>is the access strategy that we will employ.&nbsp; (This means that since our property is named <strong>Id</strong>, the private field must be named <strong><em>id</strong>).&nbsp; There are other access strategies so if you prefer naming such as <strong>m_id</strong> you can deal with that as well.&nbsp; We specify the type of our Id property (specifically Ant, which is an NHibernate Type that matches our int).</p><p>The last thing you’ll notice is that &lt;id&gt; has a &lt;generator&gt; child element.&nbsp; This tells NHibernate that we are using MS SQL Identity as our primary key generator.&nbsp; NHibernate also understands Oracle sequence, hilo, guids and other primary key generators.&nbsp; (I was happy to learn there is also a neat generator class for guid.comb, which is a sort of “ordered” guid <a title="guid.comb article by Jimmy Nilsson" href="http://www.informit.com/articles/article.asp?p=25862&amp;seqNum=7&amp;rl=1" target="_blank">conceived by Jimmy Nilsson</a>&nbsp;– if you are using Guids as primary keys, you should consider this.)</p><p>One of the reasons for specifying a generated primary key like this is so that NHibernate easily knows whether or not your object is a brand new object that needs to be <strong>inserted</strong> or a previously fetched object that might by <strong>updated</strong>&nbsp;or <strong>deleted</strong>.&nbsp; Using a guid, identity, hilo, or sequence we get the benefit of just calling <em>Session.SaveOrUpdate(myObject)</em> and NHibernate knows whether to generate an insert or update behind-the-scenes.</p><p>Here’s the rest of the Person class mapping file:</p><div style="background: white none repeat scroll 0% 50%; font-size: 9pt; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; color: black; font-family: Consolas;"><p style="margin: 0px;"><span style="color: blue;">&lt;?</span><span style="color: maroon;">xml</span><span style="color: blue;"> </span><span style="color: red;">version</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">1.0</span>&#8221;<span style="color: blue;"> </span><span style="color: red;">encoding</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">utf-8</span>&#8221;<span style="color: blue;"> ?&gt;</span></p><p style="margin: 0px;"><span style="color: blue;">&lt;</span><span style="color: maroon;">hibernate-mapping</span><span style="color: blue;"> </span><span style="color: red;">xmlns</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">urn:nhibernate-mapping-2.0</span>&#8221;<span style="color: blue;"> </span></p><p style="margin: 0px;"><span style="color: blue;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: red;">namespace</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">Flux88.Videocracy.D
+omainModel</span>&#8221;<span style="color: blue;"> </span></p><p style="margin: 0px;"><span style="color: blue;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: red;">assembly</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">Flux88.Videocracy.DomainModel</span>&#8221;<span style="color: blue;">&gt;</span></p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;"><span style="color: blue;">&nbsp; &lt;</span><span style="color: maroon;">class</span><span style="color: blue;"> </span><span style="color: red;">name</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">Person</span>&#8221;<span style="color: blue;"> </span><span style="color: red;">table</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">People</span>&#8221;<span style="color: blue;">&gt;</span></p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;"><span style="color: blue;">&nbsp; &nbsp; &lt;</span><span style="color: maroon;">id</span><span style="color: blue;"> </span><span style="color: red;">name</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">Id</span>&#8221;<span style="color: blue;"> </span><span style="color: red;">access</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">nosetter.camelcase-underscore</span>&#8221;<span style="color: blue;"> </span></p><p style="margin: 0px;"><span style="color: blue;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: red;">column</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">PersonId</span>&#8221;<span style="color: blue;"> </span><span style="color: red;">type</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">Int32</span>&#8221;<span style="color: blue;">&gt;</span></p><p style="margin: 0px;"><span style="color: blue;">&nbsp; &nbsp; &nbsp; &lt;</span><span style="color: maroon;">generator</span><span style="color: blue;"> </span><span style="color: red;">class</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">identity</span>&#8221;<span style="color: blue;"> /&gt;</span></p><p style="margin: 0px;"><span style="color: blue;">&nbsp; &nbsp; &lt;/</span><span style="color: maroon;">id</span><span style="color: blue;">&gt;</span></p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;"><span style="color: blue;">&nbsp; &nbsp; <strong>&lt;</strong></span><strong><span style="color: maroon;">property</span><span style="color: blue;"> </span><span style="color: red;">name</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">FirstName</span>&#8221;<span style="color: blue;"> </span><span style="color: red;">type</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">String</span>&#8221;<span style="color: blue;"> </span><span style="color: red;">length</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">100</span>&#8221;<span style="color: blue;"> </span><span style="color: red;">column</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">firstName</span>&#8221;<span style="color: blue;"> </span></strong></p><p style="margin: 0px;"><strong><span style="color: blue;">&nbsp; &nbsp; &nbsp; </span><span style="color: red;">not-null</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">true</span>&#8221;<span style="color: blue;"> /&gt;</span></strong></p><p style="margin: 0px;"><strong><span style="color: blue;">&nbsp; &nbsp; &lt;</span><span style="color: maroon;">property</span><span style="color: blue;"> </span><span style="color: red;">name</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">LastName</span>&#8221;<span style="color: blue;"> </span><span style="color: red;">type</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">String</span>&#8221;<span style="color: blue;"> </span><span style="color: red;">length</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">100</span>&#8221;<span style="color: blue;"> </span><span style="color: red;">column</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">lastName</span>&#8221;<span style="color: blue;"> </span></strong></p><p style="margin: 0px;"><strong><span style="color: blue;">&nbsp; &nbsp; &nbsp; </span><span style="color: red;">not-null</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">true</span>&#8221;<span style="color: blue;"> /&gt;</span></strong></p><p style="margin: 0px;"><strong><span style="color: blue;">&nbsp; &nbsp; &lt;</span><span style="color: maroon;">property</span><span style="color: blue;"> </span><span style="color: red;">name</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">HomePhone</span>&#8221;<span style="color: blue;"> </span><span style="color: red;">type</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">String</span>&#8221;<span style="color: blue;"> </span><span style="color: red;">length</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">50</span>&#8221;<span style="color: blue;"> </span><span style="color: red;">column</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">primaryPhone</span>&#8221;<span style="color: blue;"> </span></strong></p><p style="margin: 0px;"><strong><span style="color: blue;">&nbsp; &nbsp; &nbsp; </span><span style="color: red;">not-null</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">true</span>&#8221;<span style="color: blue;"> /&gt;</span></strong></p><p style="margin: 0px;"><strong><span style="color: blue;">&nbsp; &nbsp; &lt;</span><span style="color: maroon;">property</span><span style="color: blue;"> </span><span style="color: red;">name</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">AltPhone</span>&#8221;<span style="color: blue;"> </span><span style="color: red;">type</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">String</span>&#8221;<span style="color: blue;"> </span><span style="color: red;">length</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">50</span>&#8221;<span style="color: blue;"> </span><span style="color: red;">column</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">altPhone</span>&#8221;<span style="color: blue;"> /&gt;</span></strong></p><p style="margin: 0px;"><strong><span style="color: blue;">&nbsp; &nbsp; &lt;</span><span style="color: maroon;">property</span><span style="color: blue;"> </span><span style="color: red;">name</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">DateOfBirth</span>&#8221;<span style="color: blue;"> </span><span style="color: red;">type</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">DateTime</span>&#8221;<span style="color: blue;"> </span><span style="color: red;">column</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">dateOfBirth</span>&#8221;<span style="color: blue;"> </span></strong></p><p style="margin: 0px;"><strong><span style="color: blue;">&nbsp; &nbsp; &nbsp; </span><span style="color: red;">not-null</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">true</span>&#8221;<span style="color: blue;"> /&gt;</span></strong></p><p style="margin: 0px;"><strong>&nbsp;</strong></p><p style="margin: 0px;"><strong><span style="color: blue;">&nbsp; &nbsp; &lt;</span><span style="color: maroon;">component</span><span style="color: blue;"> </span><span style="color: red;">name</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">Address</span>&#8221;<span style="color: blue;"> </span><span style="color: red;">class</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">Address</span>&#8221;<span style="color: blue;">&gt;</span></strong></p><p style="margin: 0px;"><strong><span style="color: blue;">&nbsp; &nbsp; &nbsp; &lt;</span><span style="color: maroon;">property</span><span style="color: blue;"> </span><span style="color: red;">name</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">Line1</span>&#8221;<span style="color: blue;"> </span><span style="color: red;">type</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">String</span>&#8221;<span style="color: blue;"> </span><span style="color: red;">length</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">100</span>&#8221;<span style="co
+lor: blue;"> </span><span style="color: red;">column</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">addressLine1</span>&#8221;<span style="color: blue;"> </span></strong></p><p style="margin: 0px;"><strong><span style="color: blue;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: red;">not-null</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">true</span>&#8221;<span style="color: blue;"> /&gt;</span></strong></p><p style="margin: 0px;"><strong><span style="color: blue;">&nbsp; &nbsp; &nbsp; &lt;</span><span style="color: maroon;">property</span><span style="color: blue;"> </span><span style="color: red;">name</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">Line2</span>&#8221;<span style="color: blue;"> </span><span style="color: red;">type</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">String</span>&#8221;<span style="color: blue;"> </span><span style="color: red;">length</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">100</span>&#8221;<span style="color: blue;"> </span><span style="color: red;">column</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">addressLine2</span>&#8221;<span style="color: blue;"> /&gt;</span></strong></p><p style="margin: 0px;"><strong><span style="color: blue;">&nbsp; &nbsp; &nbsp; &lt;</span><span style="color: maroon;">property</span><span style="color: blue;"> </span><span style="color: red;">name</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">City</span>&#8221;<span style="color: blue;"> </span><span style="color: red;">type</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">String</span>&#8221;<span style="color: blue;"> </span><span style="color: red;">length</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">100</span>&#8221;<span style="color: blue;"> </span><span style="color: red;">column</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">city</span>&#8221;<span style="color: blue;"> /&gt;</span></strong></p><p style="margin: 0px;"><strong><span style="color: blue;">&nbsp; &nbsp; &nbsp; &lt;</span><span style="color: maroon;">property</span><span style="color: blue;"> </span><span style="color: red;">name</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">State</span>&#8221;<span style="color: blue;"> </span><span style="color: red;">type</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">String</span>&#8221;<span style="color: blue;"> </span><span style="color: red;">length</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">50</span>&#8221;<span style="color: blue;"> </span><span style="color: red;">column</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">state</span>&#8221;<span style="color: blue;"> /&gt;</span></strong></p><p style="margin: 0px;"><strong><span style="color: blue;">&nbsp; &nbsp; &nbsp; &lt;</span><span style="color: maroon;">property</span><span style="color: blue;"> </span><span style="color: red;">name</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">Zip</span>&#8221;<span style="color: blue;"> </span><span style="color: red;">type</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">String</span>&#8221;<span style="color: blue;"> </span><span style="color: red;">length</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">50</span>&#8221;<span style="color: blue;"> </span><span style="color: red;">column</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">zip</span>&#8221;<span style="color: blue;"> /&gt;</span></strong></p><p style="margin: 0px;"><strong><span style="color: blue;">&nbsp; &nbsp; &lt;/</span><span style="color: maroon;">component</span><span style="color: blue;">&gt; </span></strong></p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;"><span style="color: blue;">&nbsp; &lt;/</span><span style="color: maroon;">class</span><span style="color: blue;">&gt;</span></p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;"><span style="color: blue;">&lt;/</span><span style="color: maroon;">hibernate-mapping</span><span style="color: blue;">&gt;</span></p></div><!--EndFragment--><p>Here you can see that the properties are defined, along with their type (and length for strings) as well as their database column name.&nbsp; The Address component is nested within this mapping and defined with the &lt;component&gt; element.</p><p>With me so far?</p><p>So basically that’s it.&nbsp; We have a Person object and it is completely persistable.&nbsp; You tell NHibernate how to persist your object and you get all of the CRUD operations for free.&nbsp; You can create a new Person, fill out some properties, and then call Session.SaveOrUpdate(person) to save the person.&nbsp; Or you can call Session.Load(typeof(Person), personId) to fetch an existing person from the database.&nbsp; You can also query for Person objects, but we’ll get into that later.&nbsp; The point is, with NHibernate we are avoiding writing the mundane task of repetitive SQL commands and stored procedures.</p><p>Let’s prove that this works with tests.</p><p>&nbsp;The simplest way of seeing if our mapping is working or not is to actually hit the database.&nbsp; The simplest way to do this is to do a List operation, (basically SELECT * FROM table).&nbsp; If NHibernate doesn’t recognize your type the test will fail.&nbsp; If your mapping doesn’t map to valid columns or class properties, the test will fail.&nbsp; It’s slightly larger in scope than the Unit Tests, but this is actually an integration test, so it’s okay to test a broader scope.</p><div style="background: white none repeat scroll 0% 50%; font-size: 9pt; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; color: black; font-family: Consolas;"><p style="margin: 0px;">[<span style="color: teal;">TestFixture</span>]</p><p style="margin: 0px;"><span style="color: blue;">public</span> <span style="color: blue;">class</span> <span style="color: teal;">PersonTester</span></p><p style="margin: 0px;">{</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp; <span style="color: blue;">private</span> <span style="color: blue;">int</span> GetPersonCount()</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp; {</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: blue;">return</span> <span style="color: teal;">Convert</span>.ToInt32(</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: teal;">DatabaseHelper</span>.ExecuteQuery(<span style="color: maroon;">&#8220;SELECT COUNT(<em>) FROM People&#8221;</span>));</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp; }</p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp;&nbsp;[<span style="color: teal;">Test</span>]</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">public</span> <span style="color: blue;">void</span> TestCanListPeople()</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp;&nbsp;{</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: blue;">using</span> (NHibernate.<span style="color: teal;">ISession</span> session = <span style="color: teal;">SessionSource</span>.Current.GetSession())</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: teal;">IList</span> people = session.CreateCriteria(<span style="color: blue;">typeof</span>(<span style="color: teal;">Person</span>)).List();</p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: teal;">Assert</span>.IsNotNull(people, <span style="color: maroon;">&#8220;Person list should not be null.&#8221;</span>);</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: teal;">Assert</span>.AreEqual(GetPersonCount(), people.Count, </p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;nbs
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: maroon;">&#8220;Person list didn&#8217;t have the right number of elements&#8221;</span>);</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp;&nbsp;}</p><p style="margin: 0px;">}</p></div><p>This tests gets a list of all of the Person records in the database (currently&nbsp;zero, but that won’t matter).&nbsp; It compares the count of this list to a SELECT COUNT(</em>) FROM People, using a helper class.&nbsp; One thing to note is that I am making this test scale with the database.&nbsp; It should always return the correct number of people.</p><p>I run the test and….</p><p><img src="/images/CropperCapture%5B33%5D_small1_.jpg" alt="CropperCapture[33]"  vspace="5" /></p><p>What?&nbsp; Our new test passed, but why did <em>CanInitializeSessionSource</em> fail?&nbsp; Upon a quick inspection, I realize that I have broken a core rule of unit testing:&nbsp; <em>Each test should run independently of other tests.</em>&nbsp; The order of test execution should not affect the outcome of the test.&nbsp; This code:</p><div style="background: white none repeat scroll 0% 50%; font-size: 9pt; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; color: black; font-family: Consolas;"><p style="margin: 0px;">[<span style="color: teal;">Test</span>]</p><p style="margin: 0px;"><span style="color: blue;">public</span> <span style="color: blue;">void</span> CanInitializeSessionSource()</p><p style="margin: 0px;">{</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp; <span style="color: teal;">Assert</span>.IsFalse(<span style="color: teal;">SessionSource</span>.Current.IsInitialized);</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp; <span style="color: teal;">SessionSource</span>.Current.Initialize();</p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp; <span style="color: teal;">Assert</span>.IsTrue(<span style="color: teal;">SessionSource</span>.Current.IsInitialized);</p><p style="margin: 0px;">}</p></div><p>…is assuming that the current Session Source is not initialized.&nbsp; If another test that uses the SessionSource executes before us (like what happened above) then this Assertion fails.&nbsp; What we have to do is set our pre-condition explicitly:</p><div style="background: white none repeat scroll 0% 50%; font-size: 9pt; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; color: black; font-family: Consolas;"><p style="margin: 0px;">[<span style="color: teal;">Test</span>]</p><p style="margin: 0px;"><span style="color: blue;">public</span> <span style="color: blue;">void</span> CanInitializeSessionSource()</p><p style="margin: 0px;">{</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: green;">//make sure we start in a known state</span></p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: teal;">SessionSource</span>.Current.Close();</p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: teal;">Assert</span>.IsFalse(<span style="color: teal;">SessionSource</span>.Current.IsInitialized);</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: teal;">SessionSource</span>.Current.Initialize();</p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: teal;">Assert</span>.IsTrue(<span style="color: teal;">SessionSource</span>.Current.IsInitialized);</p><p style="margin: 0px;">}</p></div><p style="margin: 0px;"><font face="Georgia" size="2">This test fails because the .Close() method doesn’t exist yet.&nbsp; Here is the implementation that passes the test:</font></p><p style="margin: 0px;"><font face="Georgia" size="2"></font>&nbsp;</p><div style="background: white none repeat scroll 0% 50%; font-size: 9pt; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; color: black; font-family: Consolas;"><p style="margin: 0px;"><span style="color: green;">//SessionSource.cs</span></p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;"><span style="color: gray;">///</span><span style="color: green;"> </span><span style="color: gray;">&lt;summary&gt;</span></p><p style="margin: 0px;"><span style="color: gray;">///</span><span style="color: green;"> Closes the current session factory.&nbsp; The next call</span></p><p style="margin: 0px;"><span style="color: gray;">///</span><span style="color: green;"> to initialize or GetSession will re-initialize the SessionSource</span></p><p style="margin: 0px;"><span style="color: gray;">///</span><span style="color: green;"> </span><span style="color: gray;">&lt;/summary&gt;</span></p><p style="margin: 0px;"><span style="color: blue;">public</span> <span style="color: blue;">void</span> Close()</p><p style="margin: 0px;">{</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: blue;">if</span> (</em>factory == <span style="color: blue;">null</span>)</p><p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: blue;">return</span>;</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p><p style="margin: 0px;">&nbsp; &nbsp; <em>factory.Close();</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp; </em>initialized = <span style="color: blue;">false</span>;</p><p style="margin: 0px;">}</p></div><!--EndFragment--><p style="margin: 0px;"><font face="Georgia" size="2"></font>&nbsp;</p><p style="margin: 0px;"><font face="Georgia" size="2">And we’re back to all green again.</font></p><p style="margin: 0px;"><font face="Georgia" size="2"></font>&nbsp;</p><p style="margin: 0px;"><font face="Georgia" size="2">Next we can test to see if we can save a Person object.&nbsp; To test this we actually have to save it and verify that each property is equal to what it was saved as.&nbsp; I find this is easier to do by breaking a small rule:&nbsp; if we write the load functionality and reuse it to help Assert that our Save works, we can cut a few corners.&nbsp; I welcome any suggestions of&nbsp;a more elegant way of achieving this without resorting to a database query + column/property comparison which is tedious and boring.</font></p><p style="margin: 0px;"><font face="Georgia" size="2"></font>&nbsp;</p><p style="margin: 0px;"><font face="Georgia" size="2">Starting with the Load, we insert a person record into the database and verify that we can load it properly.&nbsp; I have written a simple helper class that will assist us with these database operations.&nbsp; A really quick and dirty convert-dictionary-to-insert statement is a tad on the ugly side, but this isn’t production code and it serves our purpose nicely.&nbsp; So we insert a test Person record into the database, then we load it and verify that it returns ok.</font></p><p style="margin: 0px;"><font face="Georgia" size="2"></font>&nbsp;</p><p style="margin: 0px;"><font face="Georgia" size="2">Before I show you this test, keep in mind that since we are inserting data into a (probably) development database, we don’t want this junk data to stick around.&nbsp; We will be running these tests over and over again, and each time it should clean up nicely.&nbsp; We can accomplish this easily by using transactions (more on this later).</font></p><p style="margin: 0px;"><font face="Georgia" size="2"></font>&nbsp;</p><font face="Georgia" size="2"><div style="background: white none repeat scroll 0% 50%; font-size: 9pt; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; color: black; font-family: Consolas;"><p style="margin: 0px;">[<span style="color: teal;">Test</span>]</p><p style="margin: 0px;"><span style="color: blue;">public</span> <span style="color: blue;">void</span> TestCanLoadAPerson()</p><p style="margin: 0px;">{</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: teal;">TransactionScope</span> tx = <span style="color: blue;">new</span> <span style="color: teal;">TransactionScope</span>();</p><p style="margin: 0px;">&amp;
+nbsp;</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: blue;">try</span></p><p style="margin: 0px;">&nbsp; &nbsp; {</p><p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: green;">//first we need to insert a person&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span></p><p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: teal;">Dictionary</span>&lt;<span style="color: blue;">string</span>, <span style="color: blue;">object</span>&gt; dictionary = <span style="color: blue;">new</span> <span style="color: teal;">Dictionary</span>&lt;<span style="color: blue;">string</span>, <span style="color: blue;">object</span>&gt;();</p><p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; dictionary.Add(<span style="color: maroon;">&#8220;firstName&#8221;</span>, <span style="color: maroon;">&#8220;Fred&#8221;</span>);</p><p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; dictionary.Add(<span style="color: maroon;">&#8220;lastName&#8221;</span>, <span style="color: maroon;">&#8220;Flinstone&#8221;</span>);</p><p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; dictionary.Add(<span style="color: maroon;">&#8220;dateOfBirth&#8221;</span>, <span style="color: blue;">new</span> <span style="color: teal;">DateTime</span>(1925, 10, 5));</p><p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; dictionary.Add(<span style="color: maroon;">&#8220;primaryPhone&#8221;</span>, <span style="color: maroon;">&#8220;111-222-3333&#8221;</span>);</p><p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; dictionary.Add(<span style="color: maroon;">&#8220;altPhone&#8221;</span>, <span style="color: maroon;">&#8220;444-555-6666&#8221;</span>);</p><p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; dictionary.Add(<span style="color: maroon;">&#8220;addressLine1&#8221;</span>, <span style="color: maroon;">&#8220;123 Rocky Lane&#8221;</span>);</p><p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; dictionary.Add(<span style="color: maroon;">&#8220;addressLine2&#8221;</span>, <span style="color: maroon;">&#8220;#555&#8221;</span>);</p><p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; dictionary.Add(<span style="color: maroon;">&#8220;city&#8221;</span>, <span style="color: maroon;">&#8220;Bedrock&#8221;</span>);</p><p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; dictionary.Add(<span style="color: maroon;">&#8220;state&#8221;</span>, <span style="color: maroon;">&#8220;ZZ&#8221;</span>);</p><p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; dictionary.Add(<span style="color: maroon;">&#8220;zip&#8221;</span>, <span style="color: maroon;">&#8220;12345&#8221;</span>);</p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: blue;">int</span> personId = <em>datasource.ExecuteDictionaryToInsertCommand(dictionary, <span style="color: maroon;">&#8220;People&#8221;</span>);</p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: green;">//try and fetch that person</span></p><p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: blue;">using</span> (<span style="color: teal;">ISession</span> session = <span style="color: teal;">SessionSource</span>.Current.GetSession())</p><p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; {</p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: teal;">Person</span> fred = (<span style="color: teal;">Person</span>)session.Load(<span style="color: blue;">typeof</span>(<span style="color: teal;">Person</span>), personId);</p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: green;">//assert that fred is who we think he is</span></p><p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: teal;">Assert</span>.IsNotNull(fred, <span style="color: maroon;">&#8220;Person should not be null&#8221;</span>);</p><p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: teal;">Assert</span>.AreEqual(personId, fred.Id, <span style="color: maroon;">&#8220;Id was different&#8221;</span>);</p><p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: teal;">Assert</span>.AreEqual(<span style="color: maroon;">&#8220;Fred&#8221;</span>, fred.FirstName, <span style="color: maroon;">&#8220;First Name was different&#8221;</span>);</p><p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: teal;">Assert</span>.AreEqual(<span style="color: maroon;">&#8220;Flinstone&#8221;</span>, fred.LastName, <span style="color: maroon;">&#8220;Last Name was different&#8221;</span>);</p><p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: teal;">Assert</span>.AreEqual(dictionary[<span style="color: maroon;">&#8220;dateOfBirth&#8221;</span>], fred.DateOfBirth, <span style="color: maroon;">&#8220;Date of Birth was different&#8221;</span>);</p><p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: teal;">Assert</span>.AreEqual(<span style="color: maroon;">&#8220;111-222-3333&#8221;</span>, fred.HomePhone);</p><p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: teal;">Assert</span>.AreEqual(<span style="color: maroon;">&#8220;444-555-6666&#8221;</span>, fred.AltPhone);</p><p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: teal;">Assert</span>.AreEqual(<span style="color: maroon;">&#8220;123 Rocky Lane&#8221;</span>, fred.Address.Line1);</p><p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: teal;">Assert</span>.AreEqual(<span style="color: maroon;">&#8220;#555&#8221;</span>, fred.Address.Line2);</p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; }</p><p style="margin: 0px;">&nbsp; &nbsp; }</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: blue;">finally</span></p><p style="margin: 0px;">&nbsp; &nbsp; {</p><p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: green;">//cleanup&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span></p><p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; datasource.Dispose();</p><p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; tx.Dispose();</p><p style="margin: 0px;">&nbsp; &nbsp; }</p><p style="margin: 0px;">}</p></div><!--EndFragment--></font><p style="margin: 0px;"><font face="Georgia" size="2"></font>&nbsp;</p><p style="margin: 0px;"><font face="Georgia" size="2">Wow, that’s a long test.&nbsp; But it’s explicit and easy to follow.&nbsp; One thing I’d like to point out here is that we are combining standard ADO.NET (the </em><em>datasource</em> call above) with NHibernate’s ISession.&nbsp; It’s difficult to get these 2 to share a single transaction, so I’m using .NET 2.0’s TransactionScope which makes it easy to have a shared transactiont that works on any level.&nbsp; The downside to this is that it’s 1) slow and 2) requires configuration and enabled services, which sometimes makes it a no-go, depending on your environment.&nbsp; In other tests I’ll be able to just use NHibernate transactions and everything will be easier.&nbsp; (<abbr title="Your Milage May Vary">YMMV</abbr>).</font></p><p style="margin: 0px;"><font face="Georgia" size="2"></font>&nbsp;</p><p style="margin: 0px;"><font face="Georgia" size="2">In writing this test I exposed 2 or 3 different bugs with my mapping (which were then fixed).&nbsp; This is a benefit of writing the tests along with the code.&nbsp; If you wait until you have a UI to test all of this manually, you will have waited too long and will have to re-visit all of this code and remember exactly what it does and how to fix little issues.&nbsp; Our feedback loop is very tight here, and that helps us stay on track and be efficient.&nbsp; Ok, so this test is passing…. what next?</font></p><p style="margin: 0px;"><font face="Georgia" size="2"></font>&nbsp;</p><p style="margin: 0px;"><font face="Georgia" size="2">Before this article gets too long (too late?) I want to show one last thing.&nbsp; We’ll write a <em>CanSavePerson</em> test.&nbsp; Since we have our load already working, we’ll bend a rule and build on that:</font></p><p style="margin: 0px;"><font face="Georgia" size="2"></font>&nbsp;</p><div style="background: white none repeat scroll 0% 50%; font-size: 9pt; -moz-background-clip: -moz-initial; -moz-background-ori
+gin: -moz-initial; -moz-background-inline-policy: -moz-initial; color: black; font-family: Consolas;"><p style="margin: 0px;">[<span style="color: teal;">Test</span>]</p><p style="margin: 0px;"><span style="color: blue;">public</span> <span style="color: blue;">void</span> CanSavePerson()</p><p style="margin: 0px;">{</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: blue;">using</span> (<span style="color: teal;">ISession</span> session = <span style="color: teal;">SessionSource</span>.Current.GetSession())</p><p style="margin: 0px;">&nbsp; &nbsp; {</p><p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: blue;">using</span> (<span style="color: teal;">ITransaction</span> tx = session.BeginTransaction())</p><p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; {</p><p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: green;">//create a person</span></p><p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: teal;">Person</span> p = <span style="color: blue;">new</span> <span style="color: teal;">Person</span>(<span style="color: maroon;">&#8220;Bruce&#8221;</span>, <span style="color: maroon;">&#8220;Wayne&#8221;</span>);</p><p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; p.DateOfBirth = <span style="color: blue;">new</span> <span style="color: teal;">DateTime</span>(1972, 6, 2);</p><p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; p.HomePhone = <span style="color: maroon;">&#8220;12345678&#8221;</span>;</p><p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; p.AltPhone = <span style="color: maroon;">&#8220;987675123&#8221;</span>;</p><p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; p.Address.Line1 = <span style="color: maroon;">&#8220;123 Bruce Manor&#8221;</span>;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </p><p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; p.Address.State = <span style="color: maroon;">&#8220;GT&#8221;</span>;</p><p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; p.Address.City = <span style="color: maroon;">&#8220;Gotham&#8221;</span>;</p><p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; p.Address.Zip = <span style="color: maroon;">&#8220;99999&#8221;</span>;</p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: green;">//save the person</span></p><p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; session.Save(p);</p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: teal;">Assert</span>.IsTrue(p.Id != 0, <span style="color: maroon;">&#8220;Save should give p it&#8217;s primary key&#8221;</span>);</p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: teal;">Person</span> pVerify = (<span style="color: teal;">Person</span>)session.Load(<span style="color: blue;">typeof</span>(<span style="color: teal;">Person</span>), p.Id);</p><p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: teal;">Assert</span>.AreEqual(p, pVerify, <span style="color: maroon;">&#8220;They weren&#8217;t the same&#8221;</span>);</p><p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; }</p><p style="margin: 0px;">&nbsp; &nbsp; }</p><p style="margin: 0px;">}</p></div><font face="Georgia" size="2"><p>Here we create a new person object, save it to the database, then call our Load method (which we know works because of the previous test (TDD Purists won’t like this, but I haven’t seen an effective way to test this quickly).&nbsp; Our Person objects (and subsequently, our Address objects) need to overrides the .Equals() method for the last assert to work.&nbsp; As Rocky Lhotka says, let’s be good .NET citizens and override these methods in each of our objects.&nbsp; Lastly, take notice that I’m using NHibernate’s transactions which get rolled back at the end of the test.&nbsp; These don’t share the baggage of TransactionScope objects in the previous test.</p><p>This time we were able to create a mapping file for the Person object.&nbsp; We learned to make sure and set it as an embedded resource so it is recognized by NHibernate.&nbsp; Finally we learned some basic mapping concepts and backed them up with tests.</p><p>Next time we’ll introdude a few more objects and learn to map the relationships with NHibernate.</p><p>As promised, here is the current&nbsp;source code.&nbsp; It contains all of the code written up to this article.&nbsp; Comments and questions are encouraged.</p><div style="margin: 5px; padding: 5px; width: 80%; background-color: aliceblue;"><p><a href="http://www.flux88.com/uploads/Videocracy_06.zip">File Attachment: Videocracy_06.zip (39 KB)</a></p></div><p>&nbsp;<em>If you want to run the tests, you’ll need the <a title="NUnit homepage" href="http://nunit.org/" target="_blank">NUnit Gui</a> or the <a title="TestDriven.NET homepage" href="http://www.testdriven.net/" target="_blank">TestDriven.NET plugin for visual studio</a>.</em></p></font></p>
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2006/09/a-journey-with-domain-driven-design-and-nhibernate-part-6/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2006/08/i-got-my-coding-horror-sticker-today/">I Got My Coding Horror Sticker Today</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2006-08-24 00:00:00 -0500" pubdate  updated >Aug 24<span>th</span>, 2006</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Today I received my free&nbsp;<a title="coding horror" href="http://www.codinghorror.com/blog/archives/000659.html" target="_blank">Coding Horror Sticker </a>in the mail from Jeff Atwood. Thanks Jeff! </p>
+
+
+<p><img src="/images/IMAGE_033_small_.jpg" alt="IMAGE_033"  border="0"  /></p>
+
+
+<p>He even hand-wrote the envelope!&nbsp; 350 of them ?!?!</p>
+
+
+<p>&nbsp;</p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2006/08/i-got-my-coding-horror-sticker-today/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2006/08/a-year-gone-by/">A Year Gone By</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2006-08-24 00:00:00 -0500" pubdate  updated >Aug 24<span>th</span>, 2006</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><em>..and a short break from the technical posts&hellip;</em></p>
+
+
+<p>I can hardly believe it&rsquo;s been a year (today) since <a title="last year on this day" href="http://www.flux88.com/2005/09/02/Mom+Loved+Life.aspx">my mom passed away</a>.&nbsp;&nbsp;We have gone through a lot to come to terms with the fact that she is not with us anymore.&nbsp; Luckily we were (and are) surrounded by loving and supportive family and friends that help us through our hard times.&nbsp; For that I am truly thankful.</p>
+
+
+<p>Sometimes I feel like I wish I could cry more about losing her, and other times&nbsp;tears just hit me &ndash; mostly when I&rsquo;m alone, driving and listening to music&ndash; when I am reminded of her.&nbsp; It feels good to cry about it every once in a while.&nbsp; It reminds me that I am human and that she still holds a large place in my heart.</p>
+
+
+<p>My fiance, Silvia (who just started a blog herself) posted <a title="Remembering Pam" href="http://silvia.flux88.com/PermaLink,guid,606f7f98-6dbd-465c-beb6-aae39f35bf19.aspx" target="_blank">a touching memoir and scrapbook page</a> on her blog.&nbsp; Reading her comments makes me remember the good times we all had together, and not so much on the pain in the end.</p>
+
+
+<p>I posted this link&nbsp;last year as well, but I want to post it again for my new readers to consider making a small donation to the <a href="http://www.ocrf.org/site/c.kwK0JbNTJtF/b.574943/k.CBC0/Home.htm" target="_blank">Ovarian Cancer Research Fund</a>.</p>
+
+
+<p><strong>Now playing:</strong> <a href="http://phobos.apple.com/WebObjects/MZSearch.woa/wa/advancedSearchResults?artistTerm=A Perfect Circle">A Perfect Circle</a> - <a href="http://phobos.apple.com/WebObjects/MZSearch.woa/wa/advancedSearchResults?songTerm=Gravity&amp;artistTerm=A Perfect Circle">Gravity</a></p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2006/08/a-year-gone-by/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2006/08/the-partial-function-in-mochikit/">The Partial Function in MochiKit</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2006-08-23 00:00:00 -0500" pubdate  updated >Aug 23<span>rd</span>, 2006</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a title="MochiKit - Makes Javascript Suck Less" href="http://www.mochikit.com/" target="_blank">MochiKit</a>&nbsp;is awesome.&nbsp; I&rsquo;ve only begun to scratch the surface of the power in this framework.</p>
+
+
+<p>During my demo I had a hard time explaining what the <em><strong>partial</strong></em> function does.&nbsp; I have never been a Python developer, so MochiKit&rsquo;s influence is foreign to me.&nbsp; I do appreciate the simplicity of the syntax.</p>
+
+
+<p>Partial is aptly named.&nbsp; It is basically a partial function call, wrapped in an object.&nbsp; Why would you want this, I hear you say?&nbsp; Consider the following:</p>
+
+
+<div style="FONT-SIZE: 9pt; BACKGROUND: white; COLOR: black; FONT-FAMILY: Consolas"><div style="FONT-SIZE: 9pt; BACKGROUND: white; COLOR: black; FONT-FAMILY: Consolas"><p style="MARGIN: 0px"><span style="COLOR: green">// $(&#8216;ctrlid&#8217;) is MochiKits alias of document.getElementById(&#8216;ctrlid&#8217;)</span></p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">$(<span style="COLOR: maroon">&#8216;txtbox&#8217;</span>).onchange = filterText(<span style="COLOR: maroon">&#8216;some input&#8217;</span>); <span style="COLOR: green">//wrong!&nbsp; the function will be called immediately!</span></p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">$(<span style="COLOR: maroon">&#8216;txtbox&#8217;</span>).onchange = function() <span style="COLOR: green">//need an inline function wrapper to make the function call</span></p><p style="MARGIN: 0px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; filterText(<span style="COLOR: maroon">&#8216;some input&#8217;</span>);</p><p style="MARGIN: 0px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }&nbsp; &nbsp; &nbsp; &nbsp; </p><p style="MARGIN: 0px">$(<span style="COLOR: maroon">&#8216;txtbox&#8217;</span>).onchange = partial(filterText, <span style="COLOR: maroon">&#8216;some input&#8217;</span>); <span style="COLOR: green">//partial separates the function from the argument(s)</span></p><p style="MARGIN: 0px"><span style="COLOR: green"></span>&nbsp;</p></div></div>
+
+
+<p>In this example, the top line is setting the onchange event handler of a textbox to a function call.&nbsp; But Javascript doesn&rsquo;t know that you want a function pointer here, it looks like you want to call the method and return something.&nbsp; So the solution that you can do is write a single function that wraps the function call that you want to make.&nbsp; This can be done inline like I do above.&nbsp; Partial comes in and cleans up those 3 lines and pushes them into 1 line.&nbsp; </p>
+
+
+<p>Next take a look at this:</p>
+
+
+<div style="FONT-SIZE: 9pt; BACKGROUND: white; COLOR: black; FONT-FAMILY: Consolas"><p style="MARGIN: 0px">&nbsp;function startsWith(character, target)</p><p style="MARGIN: 0px">&nbsp;{</p><p style="MARGIN: 0px">&nbsp; &nbsp; <span style="COLOR: green">//searches target for character, if found&#8230; returns true</span></p><p style="MARGIN: 0px">&nbsp;}</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp;var startsWithCapitalB = partial(startsWith, <span style="COLOR: maroon">&#8216;B&#8217;</span>);</p><p style="MARGIN: 0px">&nbsp;</p><p style="MARGIN: 0px">&nbsp;alert(startsWithCapitalB(<span style="COLOR: maroon">&#8216;Ben&#8217;</span>)); <span style="COLOR: green">//true</span></p><p style="MARGIN: 0px">&nbsp;alert(startsWithCapitalB(<span style="COLOR: maroon">&#8216;Henry&#8217;</span>)); <span style="COLOR: green">//false</span></p></div>
+
+
+<!--EndFragment-->
+
+
+<p>Here you see where partial gets its name.&nbsp; You can partially apply a function with <strong><em>partial</em></strong> and get a function variable returned!</p>
+
+
+<p>Partial is incredibly powerful when applied with other functional programming methods like <strong><em>map</em></strong>.</p>
+
+
+<p><strong>Now playing:</strong> <a href="http://phobos.apple.com/WebObjects/MZSearch.woa/wa/advancedSearchResults?artistTerm=Modest Mouse">Modest Mouse</a> - <a href="http://phobos.apple.com/WebObjects/MZSearch.woa/wa/advancedSearchResults?songTerm=Black Cadillacs&amp;artistTerm=Modest Mouse">Black Cadillacs</a></p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2006/08/the-partial-function-in-mochikit/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2006/08/presentation-on-next-gen-web-techniques/">Presentation on Next-Gen Web Techniques</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2006-08-23 00:00:00 -0500" pubdate  updated >Aug 23<span>rd</span>, 2006</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Thanks to all who attended my presentation on Next Generation Web Development Techniques at SARK.&nbsp; We talked about web layout with CSS (and not tables), Javascript, MochiKit, and AJAX.</p>
+
+
+<p>It was my first attempt at speaking, and I feel that it went pretty well.&nbsp; If you attended, I&rsquo;d love to hear your feedback here.&nbsp; I did hear from a couple people that a talk on <em>just CSS for layout </em>would be popular.&nbsp; I&rsquo;d definitely consider this.</p>
+
+
+<p>As promised, I have uploaded the complete files from the demos here for you to download.</p>
+
+
+<p><a href="http://www.flux88.com/uploads/next_20gen_20web_20techniques_20_2D_20complete.zip">File Attachment: next gen web techniques - complete.zip (678 KB)</a></p>
+
+
+<p>&nbsp;Links mentioned in the presentation:</p>
+
+
+<ul><li><a href="http://exploding-boy.com/images/cssmenus2/menus.html" target="_blank">Pure CSS Tabs @ exploding-boy.com</a></li><li><a href="http://blog.html.it/layoutgala/" target="_blank">40 CSS Layout Templates @ Layout Gala</a></li><li><a href="http://www.intensivstation.ch/en/templates/" target="_blank">More CSS Layout Templates @ intensivstation</a></li><li><a href="http://www.csszengarden.com/" target="_blank">CSS Zen Garden</a></li><li><a href="http://www.mochikit.com/" target="_blank">MochiKit</a></li><li><a href="http://developer.yahoo.com/yui" target="_blank">YahooUI (YUI)</a></li></ul>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2006/08/presentation-on-next-gen-web-techniques/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2006/08/a-journey-with-domain-driven-design-and-nhibernate-part-5/">A Journey With Domain Driven Design (and NHibernate) - Part 5</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2006-08-23 00:00:00 -0500" pubdate  updated >Aug 23<span>rd</span>, 2006</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>…And we’re back again in Part 5 of the series.&nbsp; We’ve come to a decent, functioning (yet small) domain model.&nbsp; We did it by focusing on the domain and the requirements, and were not heavily influenced by persistence related concerns.</p>
+
+
+<p>Let’s create a database structure to support persistence of our domain model.</p>
+
+
+<p>When creating the database, you might realize that the database has no notion of class inheritance.&nbsp; This is a serious impedance mismatch and represents one (of many) difficulties with object-relational mapping.&nbsp; There are 3 main approaches to solve this problem (outlined in more detail in <a title="amazon book" href="http://www.amazon.com/exec/obidos/ASIN/193239415X/hiberthejavao-20/104-6802848-1905563" target="_blank">Hibernate In Action</a>&nbsp;) :</p>
+
+
+<ul><li><strong>Table Per Concrete Class</strong> – In this approach you ignore the inheritance and just map each type to it’s own table, including all columns contained in the superclass.</li><li><strong>Table Per Class Hierarchy</strong> – This options dictates that you should collapse the hierarchy into a single table, and use a “type” column to determine what kind of record it is.&nbsp; This is called a <em>discriminator</em> in NHibernate.&nbsp; Some people prefer this for performance reasons (<em>no joins required to fetch a child object).</em></li><li><strong>Table Per Subclass</strong> – Create a shared key between a child table and the parent table, and define the columns separated by class.&nbsp; This is the approach I prefer.&nbsp; It’s the most normalized and also happens to be quite easy to work with in NHibernate.&nbsp; If I call <strong>Load</strong> on a Video to get it from the database, NHibernate will know to grab <em>Name</em> and <em>UPC </em>from the Items table, and the rest of the properties from the Videos table.</li></ul>
+
+
+<p>Here’s our Item inheritance hierarchy mapped to the database:</p>
+
+
+<p><img src="/images/CropperCapture%5B23%5D_small_.jpg" alt="CropperCapture[23]"  border="1" /></p>
+
+
+<p>This option is completely normalized and maps elegantly (as you’ll see) with NHibernate.</p>
+
+
+<p>Here’s the rest of the initial database structure (click to enlarge):</p>
+
+
+<p>&nbsp;<a href="http://www.flux88.com/uploads/CropperCapture%5B24%5D.Jpg"><img src="/images/CropperCapture%5B24%5D_thumb_.jpg" alt="CropperCapture[24]"  border="1" /></a></p>
+
+
+<p>Take a minute to understand the table structure.&nbsp; I’m sure there’s some room for improvement, but this will suit us for now.&nbsp; You’ll notice that I kept a few things de-normalized for ease of querying and performance.&nbsp; For example a Transaction’s balance is the sum of the rentals, but if we control the adding and removing of rentals then we can keep this data in sync.&nbsp; We can then avoid querying for all of a transaction’s rentals just to get the total (think of displaying this data in a grid with transaction summaries… we’d avoid loading all of the rentals for each line in the grid).&nbsp; The same concept is applied to the Accounts table.&nbsp; An account’s balance is the combination of transaction totals, plus tax, minus any money paid.&nbsp; Late fees will also modify this amount.&nbsp; I chose to omit this kind of data to keep the example somewhat simple.</p>
+
+
+<p>If you look at this ER diagram in comparison to the object diagrams in previous steps you’ll see first-hand the impedance mismatch of a relational model vs. an object-oriented model.&nbsp; By this point I hope you’ll agree with me that an object-oriented model is much more expressive and&nbsp;intuitive to work with.&nbsp; A well designed model will have a fluent interface and read very close to the language of the domain.</p>
+
+
+<p><em>As a side note, this concept goes beyond just thinking in the typical “pick out the nouns – those are your objects” line of thought.&nbsp; Don’t get me wrong, that’s a great place to start… however you’ll get more benefit if you develop a model that makes perfect sense to business users.&nbsp; They will understand it and help you build it.&nbsp;&nbsp;They will likely find flaws in the model and help clarify.&nbsp; This bridge between developer speak and business lingo is what Eric Evans calls <strong>The Ubiquitous Language</strong>.&nbsp; For more on this topic I highly recommend his book <a title="book's website" href="http://domaindrivendesign.org/book/" target="_blank">Domain Driven Design</a>.</em></p>
+
+
+<p>To get our objects persisted to the database we need to map the objects to their relational tables.&nbsp; We need to support some common operations such as loading, querying, inserting updating, and deleting.&nbsp; And we’d like to do it without writing mundane, repetitive SQL statements or stored procedures.&nbsp; We need an <em>object relational mapper</em>.&nbsp; </p>
+
+
+<p>Enter NHibernate.&nbsp;</p>
+
+
+<p>Like I said in the beginning, I’m going to focus on getting started with NHibernate in a real project, and not to go over the easy stuff in too much detail.&nbsp; To use NHibernate, first you need to download the latest release from <a title="NHibernate at SourceForge" href="http://sourceforge.net/projects/nhibernate/" target="_blank">SourceForge</a>.&nbsp;&nbsp;Remember: NHibernate is a persistence concern, so we should only add&nbsp;a&nbsp;reference to the NHibernate.dll in our data access project.</p>
+
+
+<p>I’ve created a class library project called&nbsp;<strong>Flux88.Videocracy.Persistence </strong>which will hold all of our persistence related classes.&nbsp; I also created a project to house our tests for these classes.&nbsp; Here’s the solution now:</p>
+
+
+<p><img src="/images/CropperCapture%5B25%5D_small_.jpg" alt="solution structure"  border="1" /></p>
+
+
+<p>Ok, let’s switch gears for a moment and talk about how NHibernate works.&nbsp; Like most complex components, NHibernate requires configuration to work properly.&nbsp; You can do this through code, but I’ve found that it’s more flexible and easier to maintain&nbsp;when you add it to the application’s configuration file.&nbsp; We’ll get to that in just a moment.</p>
+
+
+<p>We don’t have a UI yet, so we’ll really be calling all of this code in our test project.&nbsp; Since our test project uses these classes, it also needs to provide a&nbsp;configuration file.&nbsp; Configuration for test projects is pretty much the same as a WinForms project;&nbsp;all you need is an app.config.</p>
+
+
+<p>I’ve created an App.config file inside <strong>Flux88.Videocracy.Persistence.Tests</strong>.&nbsp; Here’s a basic config file with a configuration section for NHibernate:</p>
+
+
+<div style="border: 1px solid rgb(51, 51, 51); background: white none repeat scroll 0%; font-size: 9pt; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; color: black; font-family: Consolas;"><p style="margin: 0px;"><span style="color: blue;">&lt;?</span><span style="color: maroon;">xml</span><span style="color: blue;"> </span><span style="color: red;">version</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">1.0</span>&#8221;<span style="color: blue;">?&gt;</span></p><p style="margin: 0px;"><span style="color: blue;">&lt;</span><span style="color: maroon;">configuration</span><span style="color: blue;">&gt;</span></p><p style="margin: 0px;"><span style="color: blue;">&nbsp; &lt;</span><span style="color: maroon;">configSections</span><span style="color: blue;">&gt;</span></p><p style="margin: 0px;"><span style="color: blue;">&nbsp; &nbsp; &lt;!&#8211;</span><span style="color: green;"> we define the standard name/value section for nhibernate, see below </span><span style="color: blue;">&#8211;&gt;</span></p><p style="margin: 0px;"><span style="color: blue;">&nbsp; &nbsp; &lt;</span><span style="color: maroon;">section</span><span style="color: blue;"> </span><span style="color: red;">name</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">nhibernate</span>&#8221;<span style="color: blue;"> </span><span style="color: red;">type</span><span style="color: blue;">=</span>
+&#8221;<span style="color: blue;">System.Configuration.NameValueSectionHandler, </span></p><p style="margin: 0px;"><span style="color: blue;">&nbsp; &nbsp; &nbsp; &nbsp; System, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</span>&#8221;<span style="color: blue;">/&gt;&nbsp; &nbsp; </span></p><p style="margin: 0px;"><span style="color: blue;">&nbsp; &lt;/</span><span style="color: maroon;">configSections</span><span style="color: blue;">&gt;</span></p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;"><span style="color: blue;">&nbsp; &lt;</span><span style="color: maroon;">nhibernate</span><span style="color: blue;">&gt;&nbsp; &nbsp; </span></p><p style="margin: 0px;"><span style="color: blue;">&nbsp; &nbsp; &lt;</span><span style="color: maroon;">add</span><span style="color: blue;"> </span><span style="color: red;">key</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">hibernate.connection.provider</span>&#8221;<span style="color: blue;"> </span></p><p style="margin: 0px;"><span style="color: blue;">&nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: red;">value</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">NHibernate.Connection.DriverConnectionProvider</span>&#8221;<span style="color: blue;">&nbsp; /&gt;</span></p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;"><span style="color: blue;">&nbsp; &nbsp; &lt;!&#8211;</span><span style="color: green;"> unless you need a stricter isolation level, leave this as is</span><span style="color: blue;">&#8211;&gt;</span></p><p style="margin: 0px;"><span style="color: blue;">&nbsp; &nbsp; &lt;</span><span style="color: maroon;">add</span><span style="color: blue;"> </span><span style="color: red;">key</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">hibernate.connection.isolation</span>&#8221;<span style="color: blue;"> </span></p><p style="margin: 0px;"><span style="color: blue;">&nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: red;">value</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">ReadCommitted</span>&#8221;<span style="color: blue;"> /&gt;</span></p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;"><span style="color: blue;">&nbsp; &nbsp; &lt;!&#8211;</span><span style="color: green;"> by specifying a default schema, nhibernate&#8217;s dynamic sql queries </span></p><p style="margin: 0px;"><span style="color: green;">&nbsp; &nbsp; &nbsp; &nbsp; benefit from caching </span><span style="color: blue;">&#8211;&gt;</span></p><p style="margin: 0px;"><span style="color: blue;">&nbsp; &nbsp; &lt;</span><span style="color: maroon;">add</span><span style="color: blue;"> </span><span style="color: red;">key</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">hibernate.default_schema</span>&#8221;<span style="color: blue;"> </span><span style="color: red;">value</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">Videocracy.dbo</span>&#8221;<span style="color: blue;"> /&gt;</span></p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;"><span style="color: blue;">&nbsp; &nbsp; &lt;!&#8211;</span><span style="color: green;"> here the database dialect and connection provider are specified</span><span style="color: blue;">&#8211;&gt;</span></p><p style="margin: 0px;"><span style="color: blue;">&nbsp; &nbsp; &lt;</span><span style="color: maroon;">add</span><span style="color: blue;"> </span><span style="color: red;">key</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">hibernate.dialect</span>&#8221;<span style="color: blue;"> </span><span style="color: red;">value</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">NHibernate.Dialect.MsSql2000Dialect</span>&#8221;<span style="color: blue;"> /&gt;</span></p><p style="margin: 0px;"><span style="color: blue;">&nbsp; &nbsp; &lt;</span><span style="color: maroon;">add</span><span style="color: blue;"> </span><span style="color: red;">key</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">hibernate.connection.driver_class</span>&#8221;<span style="color: blue;"> </span></p><p style="margin: 0px;"><span style="color: blue;">&nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: red;">value</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">NHibernate.Driver.SqlClientDriver</span>&#8221;<span style="color: blue;"> /&gt;</span></p><p style="margin: 0px;"><span style="color: blue;">&nbsp; &nbsp; &lt;</span><span style="color: maroon;">add</span><span style="color: blue;"> </span><span style="color: red;">key</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">hibernate.connection.connection_string</span>&#8221;<span style="color: blue;"> </span></p><p style="margin: 0px;"><span style="color: blue;">&nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: red;">value</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">Server=localhost; Initial Catalog=Videocracy; Integrated Security=SSPI;</span>&#8221;<span style="color: blue;"> /&gt;</span></p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;"><span style="color: blue;">&nbsp; &nbsp; &lt;!&#8211;</span><span style="color: green;"> tell nhibernate to log the actual sql that is executed </span><span style="color: blue;">&#8211;&gt;</span></p><p style="margin: 0px;"><span style="color: blue;">&nbsp; &nbsp; &lt;</span><span style="color: maroon;">add</span><span style="color: blue;"> </span><span style="color: red;">key</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">hibernate.show_sql</span>&#8221;<span style="color: blue;"> </span><span style="color: red;">value</span><span style="color: blue;">=</span>&#8221;<span style="color: blue;">true</span>&#8221;<span style="color: blue;"> /&gt;</span></p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;"><span style="color: blue;">&nbsp; &lt;/</span><span style="color: maroon;">nhibernate</span><span style="color: blue;">&gt;</span></p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;"><span style="color: blue;">&lt;/</span><span style="color: maroon;">configuration</span><span style="color: blue;">&gt;</span></p></div>
+
+
+<p>This is pretty standard configuration for NHibernate.&nbsp; I received some excellent tips on&nbsp;configuration from <a title="codeproject.com" href="http://www.codeproject.com/aspnet/NHibernateBestPractices.asp" target="_blank">Billy McCafferty’s article on NHibernate Best Practices at&nbsp;CodeProject</a>.</p>
+
+
+<p>The next step is to read this configuration and instantiate a SessionFactory.&nbsp; Let’s stop and think about this for a minute.&nbsp; A SessionFactory exists solely to take the configuration and hand our ISessions to work with the database.&nbsp; This is expensive to create, so we only need to do it once for the entire application lifecycle.&nbsp;&nbsp;&nbsp; I also want to wrap the NHibernate details as much as possible so that I can provide a very thin coupling to it.</p>
+
+
+<p>I’ll start this one out with a test.&nbsp; I’ll create a&nbsp;<strong>SessionSource</strong> class (to borrow&nbsp;a name from an <a title="Jeffrey Palermo" href="http://www.jeffreypalermo.com/" target="_blank">influential developer</a>)<strong>&nbsp;</strong>that will wrap the SessionFactory.&nbsp; It will need to be initalized before use and be able to return Sessions when we need them.</p>
+
+
+<p>Here’s a test for the initialization:</p>
+
+
+<div style="border: 1px solid rgb(51, 51, 51); background: white none repeat scroll 0%; font-size: 9pt; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; color: black; font-family: Consolas;"><p style="margin: 0px;">[<span style="color: teal;">Test</span>]</p><p style="margin: 0px;"><span style="color: blue;">public</span> <span style="color: blue;">void</span> CanInitializeSessionSource()</p><p style="margin: 0px;">{</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp; <span style="color: teal;">Assert</span>.IsFalse(<span style="color: teal;">SessionSource</span>.Current.IsInitialized);</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp; <span style="color: teal;">SessionSource</span>.Current.Initialize();</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp; <span style="color: teal;">Assert</span>.IsTrue(
+<span style="color: teal;">SessionSource</span>.Current.IsInitialized);</p><p style="margin: 0px;">}</p></div>
+
+
+<!--EndFragment-->
+
+
+<p>It’s a simple enough test, but it actually tests <strong>a lot</strong>.&nbsp; In order to initialize our session source we must read the configuration file.&nbsp; Each required property must be set in order for the session factory to be created.&nbsp;&nbsp; </p>
+
+
+<p><em>I had to add a reference to the DomainModel project and the Persistence project in my Persistence Tests project to get the configuration to be able to read the “Flux88.Videocracy.DomainModel” assembly reference.</em></p>
+
+
+<p>Combined with my configuration above, this is the code that satisfies the test:</p>
+
+
+<div style="border: 1px solid rgb(51, 51, 51); background: white none repeat scroll 0%; font-size: 9pt; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; color: black; font-family: Consolas;">&nbsp;<span style="color: gray;">///</span><span style="color: green;"> </span><span style="color: gray;">&lt;summary&gt;</span> <p style="margin: 0px;">&nbsp;<span style="color: gray;">///</span><span style="color: green;"> Reads the NHibernate configuration and builds the session factory.</span></p><p style="margin: 0px;">&nbsp;<span style="color: gray;">///</span><span style="color: green;"> </span><span style="color: gray;">&lt;/summary&gt;</span></p><p style="margin: 0px;">&nbsp;<span style="color: blue;">public</span> <span style="color: blue;">void</span> Initialize()</p><p style="margin: 0px;">&nbsp;{</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: teal;">Configuration</span> config = <span style="color: blue;">new</span> <span style="color: teal;">Configuration</span>();</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; config.AddAssembly(<span style="color: maroon;">&#8220;Flux88.Videocracy.DomainModel&#8221;</span>);</p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _factory = config.BuildSessionFactory();</p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _initialized = <span style="color: blue;">true</span>;</p><p style="margin: 0px;">&nbsp;}</p></div>
+
+
+<p>We can either explicitly call Initialize when our application starts, or we can defer it until it is first needed, either one.&nbsp; I like to have this flexibility because it helps out in testing and also makes it easy to work with in our application as well.</p>
+
+
+<p>Next up we actually need to be able to return an NHibernate ISession to be able to do any work with the database, so we have:</p>
+
+
+<div style="border: 1px solid rgb(51, 51, 51); background: white none repeat scroll 0%; font-size: 9pt; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; color: black; font-family: Consolas;"><p style="margin: 0px;">&nbsp;<span style="color: gray;">///</span><span style="color: green;"> </span><span style="color: gray;">&lt;summary&gt;</span></p><p style="margin: 0px;">&nbsp;<span style="color: gray;">///</span><span style="color: green;"> Gets an open NHibernate ISession for work with the database.</span></p><p style="margin: 0px;">&nbsp;<span style="color: gray;">///</span><span style="color: green;"> </span><span style="color: gray;">&lt;/summary&gt;</span><span style="color: green;">&nbsp; &nbsp; &nbsp; &nbsp; </span></p><p style="margin: 0px;">&nbsp;<span style="color: gray;">///</span><span style="color: green;"> </span><span style="color: gray;">&lt;returns&gt;</span><span style="color: green;">ISession</span><span style="color: gray;">&lt;/returns&gt;</span></p><p style="margin: 0px;">&nbsp;<span style="color: blue;">public</span> <span style="color: teal;">ISession</span> GetSession()</p><p style="margin: 0px;">&nbsp;{</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: green;">//if we aren&#8217;t initialized, do it</span></p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: blue;">if</span> (!_initialized)</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Initialize();</p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: blue;">return</span> _factory.OpenSession();</p><p style="margin: 0px;">&nbsp;}</p></div>
+
+
+<p>Here we show the lazy initialization (if needed) and just a call to open a new session.&nbsp; I also included an overload (not shown) to accept a custom IInterceptor and pass it into the factory’s OpenSession call.&nbsp; We’ll talk about IInterceptors at length in a later article.&nbsp; And before I go any further in code, I need some code to test this method.</p>
+
+
+<div style="border: 1px solid rgb(51, 51, 51); background: white none repeat scroll 0%; font-size: 9pt; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; color: black; font-family: Consolas;">&nbsp;[<span style="color: teal;">Test</span>] <p style="margin: 0px;">&nbsp;<span style="color: blue;">public</span> <span style="color: blue;">void</span> OpenSessionInitializesFactory()</p><p style="margin: 0px;">&nbsp;{</p><p style="margin: 0px;">&nbsp; &nbsp; NHibernate.<span style="color: teal;">ISession</span> session = <span style="color: teal;">SessionSource</span>.Current.GetSession();</p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp; <span style="color: teal;">Assert</span>.IsTrue(<span style="color: teal;">SessionSource</span>.Current.IsInitialized, </p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: maroon;">&#8220;Opening a session should initialize the factory&#8221;</span>);</p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp; <span style="color: teal;">Assert</span>.IsNotNull(session, <span style="color: maroon;">&#8220;Opening a session should return an object&#8221;</span>);&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </p><p style="margin: 0px;">}</p></div>
+
+
+<p>So at this point we’ve covered the database tables, NHibernate table mapping strategies, NHibernate configuration, and a simple NHibernate helper class to assist with the usage of NHibernate.</p>
+
+
+<p>This is a good place to stop for now.&nbsp; We’ll build off of this SessionSource next time, as well as introduce Repositories for our domain entities.</p>
+
+
+<p>As always I’d love to hear feedback on these articles.&nbsp; Are you finding them helpful?&nbsp; Are they too simple, too confusing, too fast, too slow?</p>
+
+
+<p><strong>Now playing:</strong> <a href="http://phobos.apple.com/WebObjects/MZSearch.woa/wa/advancedSearchResults?artistTerm=Modest%20Mouse">Modest Mouse</a> - <a href="http://phobos.apple.com/WebObjects/MZSearch.woa/wa/advancedSearchResults?songTerm=Bury%20Me%20With%20It&amp;artistTerm=Modest%20Mouse">Bury Me With It</a></p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2006/08/a-journey-with-domain-driven-design-and-nhibernate-part-5/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2006/08/newshutch-is-my-friend/">Newshutch Is My Friend</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2006-08-17 00:00:00 -0500" pubdate  updated >Aug 17<span>th</span>, 2006</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>For my RSS Feeds I had previously used RssReader.&nbsp; I used it because I wanted a windows application that would notify me of new posts and not be too obtrusive.&nbsp; RssReader is pretty nice, but the interface needs quite a bit of polishing.&nbsp; I also disliked not having a distributed opml or something so that I could access all of my feeds on another computer.</p>
+
+
+<p>I have since crossed over and succumbd to web-based RSS Feed readers.&nbsp; I&rsquo;ve tried Google Reader, Newsgator, Bloglines, and others&hellip; but I didn&rsquo;t like any of them.</p>
+
+
+<p>My new friend for RSS feeds is <a title="newshutch rss reader" href="http://newshutch.com/" target="_blank">Newshutch</a>.&nbsp; Incredbily simplistic, but functional.&nbsp; The interface doesn&rsquo;t get in my way and the nice use of Ajax means that I can leave the window open and it will automatically get my feeds for me.&nbsp; As I read an entry, I can click 1 button and have that entry fade away and the ones below it to float to the top.&nbsp; This fits nicely with the way I like to read blog posts, so this one is most-likely here to stay.</p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2006/08/newshutch-is-my-friend/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2006/08/making-divs-stay-next-to-each-other/">Making DIVs Stay Next to Each Other</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2006-08-17 00:00:00 -0500" pubdate  updated >Aug 17<span>th</span>, 2006</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>A colleague came to me with a very simple issue yesterday.&nbsp; He had a table surrounding the area he was working on, and he wanted to have 2 DIVs side-by-side, one of them containing a table.</p>
+
+
+<p>Here&rsquo;s what he had:</p>
+
+
+<p><font face="Courier" color="#0080c0" size="2">&lt;table&gt;<br />&nbsp;&lt;tr&gt;<br />&nbsp;&nbsp;&lt;td&gt;<br />&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&lt;div style=&#8221;padding: 2px; margin: 2px; border: #ccc; background-color:#eee;&#8221;&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;here&#8217;s the first div<br />&nbsp;&nbsp;&nbsp;&lt;/div&gt;</font></p>
+
+
+<p><font face="Courier" color="#0080c0" size="2">&nbsp;&nbsp;&nbsp;&lt;div style=&#8221;padding: 2px; margin: 2px; border: #ccc; background-color:#eee;&#8221;&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;..and here&#8217;s the 2nd<br />&nbsp;&nbsp;&nbsp;&nbsp;&lt;table border=1&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;with a table&lt;/td&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/td&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;&lt;/table&gt;<br />&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br />&nbsp;&nbsp;&lt;/td&gt;<br />&nbsp;&lt;/tr&gt;<br />&lt;/table&gt;</font></p>
+
+
+<p>&#8230;which looks like: </p>
+
+
+<table><tbody><tr><td><div style="BORDER-RIGHT: #ccc; PADDING-RIGHT: 2px; BORDER-TOP: #ccc; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; MARGIN: 2px; BORDER-LEFT: #ccc; PADDING-TOP: 2px; BORDER-BOTTOM: #ccc; BACKGROUND-COLOR: #eee">here&#8217;s the first div </div><div style="BORDER-RIGHT: #ccc; PADDING-RIGHT: 2px; BORDER-TOP: #ccc; PADDING-LEFT: 2px; PADDING-BOTTOM: 2px; MARGIN: 2px; BORDER-LEFT: #ccc; PADDING-TOP: 2px; BORDER-BOTTOM: #ccc; BACKGROUND-COLOR: #eee">..and here&#8217;s the 2nd <table border="1"><tbody><tr><td>with a table</td></td></tr></tbody></table></div><p>&nbsp;</p></td></tr></tbody></table>
+
+
+<p>He tried a number of things that didn&rsquo;t work.&nbsp; Here&rsquo;s the solution:</p>
+
+
+<p>DIVs are block level elements that stretch to 100% of the width of the parent container.&nbsp; So to get them to sit next to each other you first need to give them some room to do so.&nbsp; Set the width so that they will both fit (be sure to account for border + margin as well).</p>
+
+
+<p>The next thing to do is set the DIVs to float:left;&nbsp; This will make them push up next to each other until there is no more room, then they will wrap.</p>
+
+
+<p>Here it is in action:</p>
+
+
+<p>&nbsp;<font face="Courier" color="#0080c0" size="2">&lt;table&gt;<br />&nbsp;&lt;tr&gt;<br />&nbsp;&nbsp;&lt;td width=&#8221;300&#8221;&gt;<br />&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&lt;div style=&#8221;margin:2px; padding:2px; border: solid 1px #bbb; background-color: #eee; float: left; width: 75px;&#8221;&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;here&#8217;s the 1st div<br />&nbsp;&nbsp;&nbsp;&lt;/div&gt;</font></p>
+
+
+<p><font face="Courier" color="#0080c0" size="2">&nbsp;&nbsp;&nbsp;&lt;div style=&#8221;margin:2px; padding:2px; border: solid 1px #bbb; background-color: #eee; float: left; width: 75px;&#8221;&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;..and here&#8217;s the 2nd<br />&nbsp;&nbsp;&nbsp;&nbsp;&lt;table border=1&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;&lt;td&gt;with a table&lt;/td&gt;&lt;/tr&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;&lt;/table&gt;<br />&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br />&nbsp;&nbsp;&lt;/td&gt;<br />&nbsp;&lt;/tr&gt;<br />&lt;/table&gt;</font></p>
+
+
+<table><tbody><tr><td width="300"><div style="BORDER-RIGHT: #bbb 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: #bbb 1px solid; PADDING-LEFT: 2px; FLOAT: left; PADDING-BOTTOM: 2px; MARGIN: 2px; BORDER-LEFT: #bbb 1px solid; WIDTH: 75px; PADDING-TOP: 2px; BORDER-BOTTOM: #bbb 1px solid; BACKGROUND-COLOR: #eee">here&#8217;s the 1st div </div><div style="BORDER-RIGHT: #bbb 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: #bbb 1px solid; PADDING-LEFT: 2px; FLOAT: left; PADDING-BOTTOM: 2px; MARGIN: 2px; BORDER-LEFT: #bbb 1px solid; WIDTH: 75px; PADDING-TOP: 2px; BORDER-BOTTOM: #bbb 1px solid; BACKGROUND-COLOR: #eee">..and here&#8217;s the 2nd <table border="1"><tbody><tr><td>with a table</td></tr></tbody></table></div></td></tr></tbody></table>
+
+
+<p>&nbsp;</p>
+
+
+<p>Understanding how floating works is an important part of effective CSS web design.&nbsp; I may consider some more of these simple examples if they are of help to my readers.</p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2006/08/making-divs-stay-next-to-each-other/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2006/07/a-journey-with-domain-driven-design-and-nhibernate-part-4/">A Journey With Domain Driven Design (and NHibernate) - Part 4</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2006-07-23 00:00:00 -0500" pubdate  updated >Jul 23<span>rd</span>, 2006</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Welcome back!&nbsp; I’ve gone and switched the title of these articles all together to reflect the content more adequately!&nbsp; (Maybe I should have written the series ahead of time to avoid such issues, ya think?)</p>
+
+
+<p>Anyway, last time we introduced some very basic unit tests.&nbsp; We&nbsp;simply verified that we can indeed create each object and pass in the invariants as constructor parameters.&nbsp; The only real decision making that this influenced was how to create objects.&nbsp; For example, it is no problem at all to allow direct creation (public constructor) on root objects such as <strong>Movie</strong>, <strong>Video</strong>, <strong>Account</strong>, and <strong>Customer</strong>, however I&nbsp;chose not to let <strong>Transaction</strong> be created&nbsp;directly, rather it is created from an existing <strong>Account</strong> object.&nbsp; The reason for this is simple.&nbsp; Picture what happens at a video store:&nbsp; You go to the counter with your card and your videos, the employee scans the card and sees your account details.&nbsp; The next thing that the employee will do is start a new transaction.&nbsp; An account object is always present at the time that we need to get a transaction object.&nbsp; Another reason for this is I decided to satisfy the invariants of the transaction (specifically the account) at creation time.</p>
+
+
+<p>Jimmy Nilsson&nbsp;talks about creating <em>fluent interfaces</em> in his book <a title="amazon:Applying Domain Driven Design" href="http://www.amazon.com/gp/product/0321268202/ref=sr_11_1/002-0541598-4483203?ie=UTF8" target="_blank">Applying Domain Driven Design</a>.&nbsp;&nbsp;We want our object model to express intent and reinforce correct usage.&nbsp; To demonstrate this, consider the following code two segments:</p>
+
+
+<div style="border: 1px solid rgb(51, 51, 51); background: white none repeat scroll 0% 50%; font-size: 9pt; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; color: black; font-family: Consolas;">1)&nbsp; <span style="color: teal;">Transaction</span> tx = <span style="color: blue;">new</span> <span style="color: teal;">Transaction</span>(_account);</div>
+
+
+<div style="border: 1px solid rgb(51, 51, 51); background: white none repeat scroll 0% 50%; font-size: 9pt; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; color: black; font-family: Consolas;">2)&nbsp; <span style="color: teal;">Transaction</span> tx = _account.CreateTransaction();</div>
+
+
+<p>I think that the 2nd option conveys more meaning and is more fluent than the first.&nbsp; This is, however, an early design choice and is always up to change with further refactorings.</p>
+
+
+<p>I left off last time with a list of passing tests.&nbsp; (Sometimes people suggest to leave a failing test so you know right where to pick up the next day.)&nbsp; I have implemented a few more trivial tests, which I won’t bore you with here.&nbsp; Let’s get on with the more interesting tests.&nbsp; Another thing I’d like to note is that, the tests here pass, but only after I write the appropriate code&nbsp;in the model to satisfy the test.&nbsp; I am purposefully omitting the domain model code at this time because it is unimportant.&nbsp; You should be able to understand what the code does without looking inside the class.&nbsp; Onward….</p>
+
+
+<p>As mentioned in the 1st article, a transaction will have many rentals.&nbsp; That is because you can rent more than 1 video per visit.&nbsp; The price of renting movies will vary, so in order to have history of what price was paid for an old transaction, we must allow the <strong>Rental</strong> to carry a price.&nbsp; Another thing we will have to consider is how to determine when an item is due.&nbsp; We’ll have to communicate with some service that will tell us when an item is due, given whether it is a new release, or a hardware item, etc.&nbsp; All we are&nbsp;concerned about&nbsp;at this time is that the rental knows it has a due date.&nbsp; How the due date is calculated is a&nbsp;responsibility&nbsp;outside of the <strong>Rental </strong>class.&nbsp;&nbsp;Agreed?&nbsp; On with the tests.</p>
+
+
+<div style="border: 1px solid rgb(51, 51, 51); background: white none repeat scroll 0% 50%; font-size: 9pt; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; color: black; font-family: Consolas;"><p style="margin: 0px;">[<span style="color: teal;">Test</span>]</p><p style="margin: 0px;"><span style="color: blue;">public</span> <span style="color: blue;">void</span> CanCreateTransactionForAccount()</p><p style="margin: 0px;">{</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: teal;">Account</span> a = <span style="color: blue;">new</span> <span style="color: teal;">Account</span>();</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: teal;">Customer</span> c = <span style="color: blue;">new</span> <span style="color: teal;">Customer</span>(<span style="color: maroon;">&#8220;john&#8221;</span>, <span style="color: maroon;">&#8220;doe&#8221;</span>);</p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: teal;">Transaction</span> tx = a.CreateTransaction();</p><p style="margin: 0px;">&nbsp; &nbsp; tx.Customer = c;&nbsp; </p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: green;">//we can only be accurate up to the millisecond on the date here, but we can create a timespan of 2 hours just</span></p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: green;">//to be sure.</span></p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: teal;">Assert</span>.IsTrue(tx.TransactionDate.CompareTo(<span style="color: teal;">DateTime</span>.Now.AddHours(-1)) &gt; 0 &amp;&amp;</p><p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; tx.TransactionDate.CompareTo(<span style="color: teal;">DateTime</span>.Now.AddHours(1)) &lt; 0, <span style="color: maroon;">&#8220;Date wasn&#8217;t set&#8221;</span>);</p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: teal;">Assert</span>.IsNotNull(tx, <span style="color: maroon;">&#8220;Transaction wasn&#8217;t returned&#8221;</span>);</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: teal;">Assert</span>.AreEqual(a, tx.Account, <span style="color: maroon;">&#8220;Account wasn&#8217;t set&#8221;</span>);</p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: teal;">Assert</span>.IsNotNull(tx.Rentals, <span style="color: maroon;">&#8220;Rentals collection was null&#8221;</span>);</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: teal;">Assert</span>.AreEqual(0, tx.Rentals.Count, <span style="color: maroon;">&#8220;Rentals collection wasn&#8217;t empty&#8221;</span>);</p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: teal;">Assert</span>.AreEqual(0.0, tx.SubTotal);</p><p style="margin: 0px;">}</p></div>
+
+
+<p>This test is a bit longer than previous ones, so I’ll go over it.&nbsp; We start by creating a customer and account to use in our test.&nbsp; Then we use the account object to create a transaction.&nbsp; The next sets the Customer that is actually renting the item.&nbsp; We need this because we may prevent the customer from renting items above his/her rental restriction.&nbsp;&nbsp;I’m now checking to see if the date was set.&nbsp; I used a simple 2 hour date range, because I cannot guarantee how fast this code will run.&nbsp; The idea is that the date and time will change from MinValue to Now after the creation of the <strong>Transaction</strong>.&nbsp; This will be caught by the assertion.&nbsp; The rest of the Asserts should be self-explanatory.</p>
+
+
+<p>Now we are able to create a transaction, we should now be able to create rentals and add them to the transaction.&nbsp; Adding the rental to the transaction should change the transaction’s subtotal properly, so we need to test that as well, however this should be broken up into two tests (Remember, try to only test one unit at
+a time!).</p>
+
+
+<div style="border: 1px solid rgb(51, 51, 51); background: white none repeat scroll 0% 50%; font-size: 9pt; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; color: black; font-family: Consolas;"><p style="margin: 0px;">[<span style="color: teal;">Test</span>]</p><p style="margin: 0px;"><span style="color: blue;">public</span> <span style="color: blue;">void</span> CanAddRentalToTransaction()</p><p style="margin: 0px;">{</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: teal;">Transaction</span> tx = _account.CreateTransaction();</p><p style="margin: 0px;">&nbsp; &nbsp; tx.Customer = _customer;</p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: teal;">Rental</span> r = <span style="color: blue;">new</span> <span style="color: teal;">Rental</span>(_video, 3.50f);</p><p style="margin: 0px;">&nbsp; &nbsp; tx.Rentals.Add(r);</p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: teal;">Assert</span>.AreEqual(1, tx.Rentals.Count, <span style="color: maroon;">&#8220;Rental wasn&#8217;t added to transaction&#8221;</span>);</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: teal;">Assert</span>.IsTrue(tx.Rentals.Contains(r), <span style="color: maroon;">&#8220;Rental wasn&#8217;t the same!&#8221;</span>);</p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: teal;">Rental</span> r2 = <span style="color: blue;">new</span> <span style="color: teal;">Rental</span>(_video2, 3.50f);</p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp; &nbsp; tx.Rentals.Add(r2);</p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: teal;">Assert</span>.AreEqual(2, tx.Rentals.Count, <span style="color: maroon;">&#8220;2nd rental wasn&#8217;t added to transaction&#8221;</span>);</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: teal;">Assert</span>.IsTrue(tx.Rentals.Contains(r2), <span style="color: maroon;">&#8220;2nd rental wasn&#8217;t the same!&#8221;</span>);</p><p style="margin: 0px;">}</p></div>
+
+
+<!--EndFragment-->
+
+
+<p>As you can see, we create a rental, add it to the transaction, and verify that the collection count is correct and contains the new rental.&nbsp; We do it twice just to be sure.</p>
+
+
+<p>One concept I haven’t shown yet is to test invalid usage of the model.&nbsp; We need to do this to make sure our domain model behaves accordingly if it is abused.&nbsp; Here’s a good example:</p>
+
+
+<div style="border: 1px solid rgb(51, 51, 51); background: white none repeat scroll 0% 50%; font-size: 9pt; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; color: black; font-family: Consolas;"><p style="margin: 0px;">[<span style="color: teal;">Test</span>]</p><p style="margin: 0px;"><span style="color: blue;">public</span> <span style="color: blue;">void</span> CanNotAddSameRentalToTransactionTwice()</p><p style="margin: 0px;">{</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: teal;">Transaction</span> tx = _account.CreateTransaction();</p><p style="margin: 0px;">&nbsp; &nbsp; tx.Customer = _customer;</p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: teal;">Rental</span> r = <span style="color: blue;">new</span> <span style="color: teal;">Rental</span>(_video, 3.50f);</p><p style="margin: 0px;">&nbsp; &nbsp; tx.Rentals.Add(r);</p><p style="margin: 0px;">&nbsp; &nbsp; tx.Rentals.Add(r);</p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: teal;">Assert</span>.AreEqual(1, tx.Rentals.Count, <span style="color: maroon;">&#8220;Rental was added twice!&#8221;</span>);</p><p style="margin: 0px;">}</p></div>
+
+
+<p>There is no conceptual reason that a rental should be added twice, so we check to make sure this isn’t allowed.</p>
+
+
+<p>Up next, we need to verify that the Transaction’s subtotal property is calculated correctly.</p>
+
+
+<div style="border: 1px solid rgb(51, 51, 51); background: white none repeat scroll 0% 50%; font-size: 9pt; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; color: black; font-family: Consolas;"><p style="margin: 0px;">[<span style="color: teal;">Test</span>]</p><p style="margin: 0px;"><span style="color: blue;">public</span> <span style="color: blue;">void</span> TransactionSubTotalGiveSumOfRentalPrices()</p><p style="margin: 0px;">{&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: teal;">Transaction</span> tx = _account.CreateTransaction();</p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: teal;">Assert</span>.AreEqual(0.0, tx.SubTotal, <span style="color: maroon;">&#8220;No rentals should yield 0.00 subtotal&#8221;</span>);</p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp; &nbsp; tx.Rentals.Add(<span style="color: blue;">new</span> <span style="color: teal;">Rental</span>(_video, 3.50f));</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: teal;">Assert</span>.AreEqual(3.50, tx.SubTotal, <span style="color: maroon;">&#8220;SubTotal should be 3.50 after adding a 3.50 rental&#8221;</span>);</p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp; &nbsp; tx.Rentals.Add(<span style="color: blue;">new</span> <span style="color: teal;">Rental</span>(_video2, 3.50f));</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: teal;">Assert</span>.AreEqual(7.00, tx.SubTotal, <span style="color: maroon;">&#8220;SubTotal should be 7.00 after adding 2 3.50 rentals&#8221;</span>);</p><p style="margin: 0px;">}</p></div>
+
+
+<p>This test failed initially, and to get it to pass I had 2 choices of implementation:&nbsp; have a dynamic property that calculates the sum of the rental prices on the fly, or capture the collection adding/removing actions and adjust it appropriately.&nbsp; I chose the latter option, because I would like to persist this as a de-normalized column in the database.&nbsp; This way I can deal with a transaction object without actually loading up all the rentals along with it.&nbsp; You’ll see the benefit of this a bit later when we talk about NHibernate’s lazy loading.</p>
+
+
+<p>Here’s&nbsp;&nbsp;the (slightly modified) feature list.&nbsp; I’ve colored the already implemented features in green.</p>
+
+
+<ul><li><font color="#009f00">Add new Customer / Account</font> </li><li><font color="#009f00">Add other members to an account</font> </li><li>Restrict certain members from renting certain content </li><li>Query for a Customer by Customer # (swipe card, etc), phone number, or last name </li><li><font color="#009f00">Add new rental item (movie, video game, game console, vcr, etc)</font> </li><li>Rent an item to a customer <ul><li><font color="#009f00">Create a Transaction</font> </li><li><font color="#009f00">Add Rental To Transaction</font> </li><li>Finalize Transaction </li><li>Calculate due date for an item</li></ul></li><li>Check items back in from a customer </li><li>Get movies checked out for a customer </li><li>Calculate late fees for a customer </li><li>Query for an item, see who has it</li></ul>
+
+
+<p>We’re coming to a point where we need to start persisting our domain model.&nbsp; Most of the remaining&nbsp; features to implement will employ querying a database, so we’ll probably start on persistence next time.</p>
+
+
+<!--EndFragment-->
+
+
+<!--EndFragment-->
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2006/07/a-journey-with-domain-driven-design-and-nhibernate-part-4/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2006/07/a-journey-with-nhibernate-and-ddd-part-3/">A Journey With NHibernate (and DDD) - Part 3</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2006-07-19 00:00:00 -0500" pubdate  updated >Jul 19<span>th</span>, 2006</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I decided to somewhat rename this series to include Domain-Driven Design.&nbsp; It became apparent after <a title="Part 1" href="http://www.flux88.com/2006/07/10/A+Journey+With+NHibernate++Part+1.aspx">Part One</a> and <a title="Part 2" href="http://www.flux88.com/2006/07/10/A+Journey+With+NHibernate++Part+2.aspx">Part Two</a> that I will spend a lot of time just developing the domain model.&nbsp; I could either skip this step and start with a fully functional model, ready for persistence, or I can slow down a bit and focus on creating the domain model as well.&nbsp; Due to some recent feedback I am choosing to focus a bit on modeling the application.&nbsp; This will of course delay the NHibernate specifics, but a good understanding of the object model is crucial to effective object-relational mapping.&nbsp; On we go….</p>
+
+
+<p>Before we get started with the tests (as I promised), I’d like to mention that I received some good advice from <a href="http://blogs.sarkhouston.com/hdierking" target="_blank">Howard Dierking</a>&nbsp;about how I was approaching the development.&nbsp; He suggested that I refrain from creating an entire solution structure up front, and delay such details until a need arises for them.&nbsp; I hadn’t actually&nbsp;created these projects in my pet project (I was more thinking-out-loud), but it is worth mentioning that the project structure in part 1 is something that, from experience, &nbsp;I already had in mind what I wanted.&nbsp;&nbsp; Focus on the task-at-hand, which is the Domain Model.&nbsp; Speaking of, let’s start with our test list…..</p>
+
+
+<p>When testing, whether you practice test-driven development (TDD) or not, it is important that your tests and your code follow each other closely.&nbsp; <a title="walking along the developer beach..." href="http://www.agiledeveloper.com/blog/PermaLink,guid,cb96e2d3-06bb-4a25-b4af-6546a9bae2b0.aspx" target="_blank">Venkat Subramaniam</a>&nbsp;compares this to walking on a beach, one foot following the other.&nbsp; I’m not a TDD purist, but I try to write the tests first to let the consumer (the calling code) drive the design.</p>
+
+
+<p>I wrote down (yes, on paper) a simple list of test that I’d like to implement.&nbsp; In no particular order, here they are:</p>
+
+
+<ul><li><strong>Can create an Employee</strong></li><li><strong>Can create a Customer</strong></li><li><strong>Can create a Video</strong></li><li><strong>Can create a VideoGame</strong></li><li><strong>Can create a Console</strong></li><li><strong>Can create a Movie</strong></li><li><strong>Can create a Game</strong></li><li>Can query for an Employee by EmployeeId</li><li>Can query for a Customer by CustomerId</li><li>Can create an Account</li><li>Can associate a Customer to Account</li><li>Can create a Transaction for an Account</li><li>Can create a Rental for an Item from a Transaction</li></ul>
+
+
+<p>&nbsp; <em>Tests in bold are the ones I’ll implement first.&nbsp; With a list of tests like this, it’s really up to you what gets implemented next.&nbsp; Focus on a small set and implement them, all the while keeping an entire list of tests you are working on, test that will come later, and tests that have been completed.&nbsp; This method of working is described in detail in <a title="Amazon - TDD book" href="http://www.amazon.com/gp/product/0321146530/sr=8-1/qid=1152764089/ref=pd_bbs_1/104-5607051-3417551?ie=UTF8" target="_blank">Test-Driven Development</a> by Kent Beck.</em></p>
+
+
+<p>Here’s what my solution looks like:</p>
+
+
+<p><img src="/images/CropperCapture%5B15%5D_small_.jpg" alt="CropperCapture[15]"  border="1" /></p>
+
+
+<p>&nbsp; I’ve only implemented the bare minimum on these classes, just enough to show the diagrams from last time.&nbsp; In order to test this class library, let’s add another class library project and call it <strong>Flux88.Videocracy.DomainModel.Tests</strong>.</p>
+
+
+<p><img src="/images/CropperCapture%5B17%5D_small_.jpg" alt="CropperCapture[17]"  border="1" /></p>
+
+
+<p>&nbsp;</p>
+
+
+<p>&nbsp;</p>
+
+
+<p>&nbsp;</p>
+
+
+<p>We need to add a couple of references here.&nbsp; First, we are going to be testing objects from the Domain Model project, so we need to add a project reference to that.&nbsp; We will also be utilizing NUnit for our tests so we need to add a reference to NUnit.Framework.dll.</p>
+
+
+<p>Here’s a skeleton class for Employee Tests:</p>
+
+
+<div style="border: 1px solid rgb(51, 51, 51); background: white none repeat scroll 0%; font-size: 10pt; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; color: black; font-family: Consolas;"><p style="margin: 0px;"><span style="color: blue;">using</span> System;</p><p style="margin: 0px;"><span style="color: blue;">using</span> Flux88.Videocracy.DomainModel;</p><p style="margin: 0px;"><span style="color: blue;">using</span> NUnit.Framework;</p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;"><span style="color: blue;">namespace</span> Flux88.Videocracy.DomainModel.Tests</p><p style="margin: 0px;">{</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp; [<span style="color: teal;">TestFixture</span>]</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp; <span style="color: blue;">public</span> <span style="color: blue;">class</span> <span style="color: teal;">EmployeeTests</span></p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp; {</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: green;">//called before every test</span></p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; [<span style="color: teal;">SetUp</span>]</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">public</span> <span style="color: blue;">void</span> SetUp()</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: green;">//called after every test</span></p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; [<span style="color: teal;">TearDown</span>]</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <span style="color: blue;">public</span> <span style="color: blue;">void</span> TearDown()</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; {</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp; }</p><p style="margin: 0px;">}</p><p style="margin: 0px;">&nbsp;</p></div>
+
+
+<!--EndFragment-->
+
+
+<p>You’ll notice I have a <em>using</em> statement for both my domain model and NUnit, as I will use these namespaces frequently in my tests.&nbsp; </p>
+
+
+<p>The attributes you see above the class &amp; methods are NUnit attributes.&nbsp; [TestFixture] denotes a class that has tests.&nbsp; When the test runner loads my test dll, it will notice this and parse the class for test methods (we’ll see in a&nbsp;second).&nbsp; The [SetUp] method is called exactly once before every single test.&nbsp; This is where you’d create any objects or set any preconditions for every test.&nbsp; The [TearDown] cleans up any objects or junk left over from the test.&nbsp; Each test should be able to run independently of any other.&nbsp; Don’t count on one test running successfully before another test can run.</p>
+
+
+<p>Ok, our first test on the list was <strong>CanCreateEmployee</strong>.&nbsp; In this test I want to make sure that I can instantiate the Employee class and take in any invariants in the constructor.&nbsp; We don’t ever want to have an employee without a name, so name will be a constructor parameter to enforce that all new Employees have a name.&nbsp; Also all employees will be either a Customer Service Rep or a Manager, so we’ll take that in as well.</p>
+
+
+<div style="border: 1px solid rgb(51, 51, 51); background: white none repeat scroll 0%; font-size: 9pt; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; color: black; font-family: Consolas;"><p style="ma
+rgin: 0px;">&nbsp;[<span style="color: teal;">Test</span>]</p><p style="margin: 0px;">&nbsp;<span style="color: blue;">public</span> <span style="color: blue;">void</span> CanCreateEmployee()</p><p style="margin: 0px;">&nbsp;{</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: teal;">Employee</span> emp = <span style="color: blue;">new</span> <span style="color: teal;">Employee</span>(<span style="color: maroon;">&#8220;Joe&#8221;</span>, <span style="color: maroon;">&#8220;Blow&#8221;</span>, <span style="color: teal;">EmployeeType</span>.CustomerServiceRep);</p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: teal;">Assert</span>.AreEqual(<span style="color: maroon;">&#8220;Joe&#8221;</span>, emp.FirstName, <span style="color: maroon;">&#8220;FirstName wasn&#8217;t set properly.&#8221;</span>);</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: teal;">Assert</span>.AreEqual(<span style="color: maroon;">&#8220;Blow&#8221;</span>, emp.LastName, <span style="color: maroon;">&#8220;LastName wasn&#8217;t set properly.&#8221;</span>);</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: teal;">Assert</span>.AreEqual(<span style="color: teal;">EmployeeType</span>.CustomerServiceRep, emp.Type, <span style="color: maroon;">&#8220;Employee type was not set.&#8221;</span>);</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: teal;">Assert</span>.AreEqual(0.0, emp.HourlyWage, <span style="color: maroon;">&#8220;Wage was not initially 0.0&#8221;</span>);</p><p style="margin: 0px;">&nbsp; }</p></div>
+
+
+<!--EndFragment-->
+
+
+<p>Decorating the method with the [Test] attribute tell NUnit to run this method as a test.&nbsp; I create an employee and pass in the name &amp; type, then I run a couple of NUnit’s Asserts to verify that the properties were set properly.&nbsp; I decided that HourlyWage was not a required input.&nbsp; Right now there is no real need to do anything with HourlyWage, so I’m not going to test this.&nbsp; You’ll notice that the <em>Assert.AreEqual</em> verifies that the&nbsp;two values are equal, and if not it fails the current test with the specified error message.&nbsp; If it makes it to the end of the method without any errors, your test passes!</p>
+
+
+<p>Ok, now it’s time to compile.&nbsp; Oops!&nbsp; I get an error.&nbsp; I haven’t yet implemented the constructor that takes in the parameters.&nbsp; I’ll add that and compile again.&nbsp; Also I’m going to make the default constructor private because I don’t want any callers to be able to instantiate the employee without filling out those parameters.&nbsp; Compiling now succeeds and we’re ready to run the test.</p>
+
+
+<p><img src="/images/CropperCapture%5B18%5D_small1_.jpg" alt="CropperCapture[18]"  border="1" /></p>
+
+
+<p>Load up the NUnit GUI and open your new test dll.&nbsp; You’ll see that NUnit organizes your tests hierarchically.&nbsp; We only have 1 test, called CanCreateEmployee.&nbsp; Lets run it now.</p>
+
+
+<p>&nbsp;</p>
+
+
+<p><img src="/images/CropperCapture%5B19%5D_small_.jpg" alt="CropperCapture[19]"  border="1" /></p>
+
+
+<p>The tests pass!&nbsp; Now it’s time to refactor.&nbsp; Right now I’m directly setting the first name and last name in the employee class, but employee doesn’t actually <em>own</em> these properties, Person does.&nbsp; A simple refactoring is in order.&nbsp; I’ll add the invariants to the Person class and keep the only Employee specific invariant to the employee class.&nbsp; This is what it looks like now:</p>
+
+
+<div style="border: 1px solid rgb(51, 51, 51); background: white none repeat scroll 0%; font-size: 9pt; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; color: black; font-family: Consolas;"><p style="margin: 0px;">&nbsp;<span style="color: blue;">public</span> Person(<span style="color: blue;">string</span> firstName, <span style="color: blue;">string</span> lastName)</p><p style="margin: 0px;">&nbsp;{</p><p style="margin: 0px;">&nbsp; &nbsp;&nbsp; _firstName = firstName;</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp;&nbsp; _lastName = lastName;</p><p style="margin: 0px;">&nbsp;}</p></div>
+
+
+<div style="border: 1px solid rgb(51, 51, 51); background: white none repeat scroll 0%; font-size: 9pt; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; color: black; font-family: Consolas;"><p style="margin: 0px;">&nbsp;<span style="color: blue;">public</span> Employee(<span style="color: blue;">string</span> firstName, <span style="color: blue;">string</span> lastName, <span style="color: teal;">EmployeeType</span> type)</p><p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; : <span style="color: blue;">base</span>(firstName, lastName)</p><p style="margin: 0px;">&nbsp;{</p><p style="margin: 0px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Type = type;</p><p style="margin: 0px;">&nbsp;}</p></div>
+
+
+<p>You can see that the employee class is now passing arguments to the parent class’s constructor.&nbsp; We run the test again to make sure that the property setting still works, and it does.&nbsp; This kind of simple refactoring is something you regularly do as you develop.&nbsp; The tests are there to back you up and assure you that you haven’t broken anything.&nbsp; </p>
+
+
+<p>I started off kind of slow to illustrate how the process goes.&nbsp; I’ll speed up as I implement the remaining tests.</p>
+
+
+<p><strong>Can Create Customer</strong> was the next test, but it’s painfully similar to the above example, so I will just implement it and move on.&nbsp; (…. a bit of typing ….) ok, now that test is passing.&nbsp; Let’s move on to <strong>Can Create Video.</strong></p>
+
+
+<p>Let’s give some thought on what a video is.&nbsp; A video is a representation of the actual item you hold in your hands at the video store.&nbsp; It contains a movie, but there is a distinction here.&nbsp; I chose to separate the movie details from the video following the <a title="Type Object Pattern explained" href="http://www.ksc.com/article3.htm" target="_blank">Type-Object pattern</a>&nbsp;(as it turns out, their example is about movies too!&nbsp; what luck!).&nbsp; Since a video cannot exist without a movie, we should probably test the movie creation first.&nbsp; Here’s <strong>CanCreateMovie</strong>:</p>
+
+
+<div style="border: 1px solid rgb(51, 51, 51); background: white none repeat scroll 0%; font-size: 9pt; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; color: black; font-family: Consolas;">[<span style="color: teal;">TestFixture</span>] <p style="margin: 0px;"><span style="color: blue;">public</span> <span style="color: blue;">class</span> <span style="color: teal;">MovieTests</span></p><p style="margin: 0px;">{</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp; [<span style="color: teal;">Test</span>]</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp; <span style="color: blue;">public</span> <span style="color: blue;">void</span> CanCreateMovie()</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp; {</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: teal;">Movie</span> superTroopers = <span style="color: blue;">new</span> <span style="color: teal;">Movie</span>(<span style="color: maroon;">&#8220;Super Troopers&#8221;</span>, <span style="color: teal;">MovieCategory</span>.Comedy, 2001);</p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: teal;">Assert</span>.AreEqual(<span style="color: maroon;">&#8220;Super Troopers&#8221;</span>, superTroopers.Name, <span style="color: maroon;">&#8220;Name wasn&#8217;t set&#8221;</span>);</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: teal;">Assert</span>.AreEqual(<span style="color: teal;">MovieCategory</span>.Comedy, superTroopers.Category, <span style="color: maroon;">&#8220;Category wasn&#8217;t set&#8221;</span>);</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: teal;">Assert</s
+pan>.AreEqual(2001, superTroopers.Year, <span style="color: maroon;">&#8220;Year wasn&#8217;t set&#8221;</span>);</p><p style="margin: 0px;">&nbsp;&nbsp;&nbsp; }</p><p style="margin: 0px;">}</p></div>
+
+
+<!--EndFragment-->
+
+
+<p>I make sure and pass in&nbsp;a&nbsp;title, category, and year.&nbsp; If the categories are to be user definable later on, we’ll probably opt for a class instead of an enum, but again we defer this decision until it is actually&nbsp;needed.</p>
+
+
+<p>I run the tests again, and:&nbsp; </p>
+
+
+<p><img src="/images/CropperCapture%5B21%5D_small_.jpg" alt="CropperCapture[21]"  border="1" /></p>
+
+
+<p>…all passing.&nbsp; </p>
+
+
+<p>I’m ready to write our Video test, but here’s where things get tricky.&nbsp; We identified previously that a video cannot exist without a movie, but one of the testaments to good unit testing&nbsp;is writing tests that do not depend on other tests.&nbsp; The purist solution to this is to extract an interface for Movie (called IMovie) that can be&nbsp;faked out in the test (A fake is a class implements the interface with known/precalculated values that you can test upon).&nbsp; I think this approach is a bit overkill for a simple class like Movie, but if the class connected to another resource, such as a database, web service, or file, then I’d definitely stub out the interface for testing.</p>
+
+
+<div style="border: 1px solid rgb(51, 51, 51); background: white none repeat scroll 0%; font-size: 9pt; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; color: black; font-family: Consolas;">[<span style="color: teal;">Test</span>] <p style="margin: 0px;"><span style="color: blue;">public</span> <span style="color: blue;">void</span> CanCreateVideo()</p><p style="margin: 0px;">{</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: teal;">Movie</span> caddyShack = <span style="color: blue;">new</span> <span style="color: teal;">Movie</span>(<span style="color: maroon;">&#8220;Caddy Shack&#8221;</span>, <span style="color: teal;">MovieCategory</span>.Comedy, 1980);</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: teal;">Video</span> v = <span style="color: blue;">new</span> <span style="color: teal;">Video</span>(caddyShack, <span style="color: teal;">VideoFormat</span>.DVD);&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </p><p style="margin: 0px;">&nbsp;</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: teal;">Assert</span>.AreEqual(v.Movie, caddyShack, <span style="color: maroon;">&#8220;Movie wasn&#8217;t set.&#8221;</span>);</p><p style="margin: 0px;">&nbsp; &nbsp; <span style="color: teal;">Assert</span>.AreEqual(<span style="color: teal;">VideoFormat</span>.DVD, v.Format, <span style="color: maroon;">&#8220;Format wasn&#8217;t set.&#8221;</span>);&nbsp; &nbsp; &nbsp; </p><p style="margin: 0px;">}</p></div>
+
+
+<!--EndFragment-->
+
+
+<!--EndFragment-->
+
+
+<p>This test actually depends on two things.&nbsp; One, mentioned above, is <strong>CanCreateMovie</strong>.&nbsp; The other is a valid implementation of Movie.ToEquals(), since we are equating the two movie objects.&nbsp; This can make your tests somewhat ambiguous, as the tests will fail for different reasons.&nbsp; I have yet to find a really good balance between <em>Interfacing</em> everything and having tests that depend on other tests.&nbsp; For something this trivial I won’t worry about it, but for more sophisticated tests I will be sure and isolate the test.</p>
+
+
+<p>Right now this is what NUnit looks like:</p>
+
+
+<p><img src="/images/CropperCapture%5B22%5D_small_.jpg" alt="CropperCapture[22]"  border="1" /></p>
+
+
+<p>All of the tests are passing and we’re at a good stopping point.&nbsp; </p>
+
+
+<p><li><strike>Can create an Employee</strike></li><li><strike>Can create a Customer</strike></li><li><strike>Can create a Video</strike></li><li><strong>Can create a VideoGame</strong></li><li><strong>Can create a Console</strong></li><li><strike>Can create a Movie</strike></li><li><strong>Can create a Game</strong></li><p>Next time we’ll see some more complicated tests.&nbsp; Until then….</p></p>
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2006/07/a-journey-with-nhibernate-and-ddd-part-3/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+<nav role="pagination">
+  <div>
+    
+      <a class="prev" href="/blog/page/31/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/29/">Newer &rarr;</a>
+    
+  </div>
+</nav>
+
+<script type="text/javascript">
+    var disqus_shortname = 'subdigital';
+    (function () {
+      var s = document.createElement('script'); s.async = true;
+      s.type = 'text/javascript';
+      s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+      (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+
+</div>
+<aside role=sidebar>
+  
+    <section>
+  <h1>Who am I?</h1>
+  <p>I&#8217;m Ben Scheirman. I make Rails &amp; iPhone apps for <a href="http://chaione.com" target="_blank">ChaiONE</a> in Houston, TX.</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/08/vim---could-not-invoke-jslint/">Vim - Could Not Invoke JSLint</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/is-rails-exempt-from-software-principles/">Is Rails Exempt?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/when-viewwillappear-isnt-called/">When viewWillAppear: Isn&#8217;t Called</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/moving-my-blog/">Moving My Blog</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/my-vim-journey/">My Vim Journey</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("subdigital", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/subdigital" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @subdigital</a>
+  
+</section>
+
+
+<section>
+  <h1>On Delicious</h1>
+  <script type="text/javascript" src="http://feeds.delicious.com/v2/js/subdigital?title=&count=3&sort=date&extended"></script>
+  <p><a href="http://delicious.com/subdigital">My Delicious Bookmarks &raquo;</a></p>
+</section>
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer>
+<a style="display:block; float: right" title="Real Time Analytics" href="http://getclicky.com/66470389"><img alt="Real Time Analytics" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
+<script src="//static.getclicky.com/js" type="text/javascript"></script>
+<script type="text/javascript">try{ clicky.init(66470389); }catch(e){}</script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/66470389ns.gif" /></p></noscript>
+
+<p>
+  Copyright &copy; 2011 - Ben Scheirman -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+</body>
+</html>

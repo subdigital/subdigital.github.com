@@ -1,0 +1,683 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Fickle Bits</title>
+  <meta name="author" content="Ben Scheirman">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <link rel="canonical" href="http://benscheirman.com/blog/page/21/index.html"/>
+  <link href="/favicon.png" rel="shortcut icon" />
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="http://s3.amazonaws.com/ender-js/jeesh.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="http://feeds.feedburner.com/ficklebits" rel="alternate" title="Fickle Bits" type="application/atom+xml"/>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-210379-10']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+  <!--Fonts from Google's Web font directory at http://google.com/webfonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body  >
+  <header><hgroup>
+  <h1><a href="/">Fickle Bits</a></h1>
+  
+    <h2>You're doing it wrong.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role=navigation><ul role=subscription data-subscription="rss">
+  <li><a href="http://feeds.feedburner.com/ficklebits" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+<form action="http://google.com/search" method="get">
+  <fieldset role="site-search">
+    <input type="hidden" name="q" value="site:benscheirman.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+<ul role=main-navigation>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/09/putting-your-logic-in-stored-procedures-or-how-to-create-a-maze-of-unescapable-complexity/">Putting Your Logic in Stored Procedures or How to Create a Maze of Unescapable Complexity</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-09-13 00:00:00 -0500" pubdate  updated >Sep 13<span>th</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>My friend <a href="http://aspadvice.com/blogs/azamsharp/archive/2007/09/12/Business-Logic-in-Stored-Procedure_2100_-Sometimes-Beneficial.aspx">Azam</a> just hit a nerve.&nbsp; One of my pet peeves is the fact that some people clutch to stored procedures and claim it to be the <b>one place to hold the true state and logic of a system</b>.&nbsp; I have worked with such a DBA, and it was not very fun.<br><br>Anyway, he makes the claim that it is easier to make a tiny change to a stored procedure than to make the change in code, recompile, and upload the new version of the application to the servers.&nbsp; He gives this example:<br><br><blockquote><i>Let&#8217;s say that you have some code to display all the users whoenrolled&nbsp;within the past 7 days. You implement it using some OR Mapperand the domain contains the logic for pulling out the users enrolledwithin the past 7 days. Everything worked fine! Now, the client comesand ask you that he needs to view the users enrolled in the past 14days (Let&#8217;s assume for the sake of discussion that we don&#8217;t have the UIto select the number of days). Now, you have to change the code in thedomain model and then upload the new version of the application.</i></blockquote><br><br>I have to disagree.&nbsp; While the impedance to making a change is usually smaller by updating a stored proc, a change is a change is a change.<br><br>Most production enviornments I have worked in are guarded by a machine-gun weilding fairy with a SOX t-shirt on that won&#8217;t let me run an innocent little script without getting the blood of 14 virgins and my manager&#8217;s approval.&nbsp; So sometimes the actual process of making a change overshadows the change itself.<br><br>2nd, when the next developer goes to review the code, shouldn&#8217;t he/she know EXACTLY where the business logic is?&nbsp; I would argue that the largest cost in this scenario is the maintenance cost of the poor developer who doesn&#8217;t know where to look for a change.&nbsp; It could take an entire day of searching to find out exactly where that rule is being defined.<br><br>If the value in question (the number of days) was identified to be a possible changing value, then place it in a config file so that the application can change on the fly without having to jump through burning hoops of fire.<br><br>Anyway, like I said, this is one of my pet peeves, so if you enjoy working with elegant software, don&#8217;t put logic in your database.&nbsp; Keep it in your domain layer where it belongs.<br><p></p></p>
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2007/09/putting-your-logic-in-stored-procedures-or-how-to-create-a-maze-of-unescapable-complexity/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/09/gridview-cell-text-versus-cell-controls-add/">GridView Cell.Text Versus Cell.Controls.Add</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-09-12 00:00:00 -0500" pubdate  updated >Sep 12<span>th</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I&#8217;m sure I&#8217;ve come across this before, but I&#8217;m writing this down so that I don&#8217;t forget it later.<br/><br/>I&#8217;m working with a pretty hefty custom GridView and it&#8217;s really trying my patience for this control.&nbsp; Yeah yeah, it&#8217;s all great if you want to bind a list of data coming from a SQL Query written in your aspx in plain-text.&nbsp; The minute you start to customize it all that goodness turns into a mess of weird templating and strange quirks about ASP.NET, but I digress.<br/><br/>Anyway, this post relates to the fact that the TableCell class has a Text property <i>and</i> a controls collection.<br/><br/>If you are creating custom rows of data, you have to choose between doing <br/></p>
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>cell.Text = "content";</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>or <br /></p>
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>cell.Controls.Add( new LiteralControl("content") );</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>The difference is that the two are mutually exclusive.&nbsp; If you have controls inside the table cell, then the Text property will be empty.&nbsp; If you have the Text property set, then there can&#8217;t be any controls.<br /><br/>So in my case I was setting the Text property, then trying to insert a LinkButton control right <i>before</i> the text.&nbsp; So I diligently put <br/></p>
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>row.Cells[index].Controls.AddAt(0, theLinkButton);</div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>Which happily wipes everything that was previously in the Text property.&nbsp; Ugh.</p>
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2007/09/gridview-cell-text-versus-cell-controls-add/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/09/anywhere-fm-its-the-bees-knees/">Anywhere.FM - It&#8217;s the Bee&#8217;s Knees!</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-09-12 00:00:00 -0500" pubdate  updated >Sep 12<span>th</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I don&#8217;t know how they do it.&nbsp; Somehow, the most-excellent <a href="http://anywhere.fm">http://anywhere.fm</a> <b>allows you to upload your entire music catalog </b>onto their servers and play it on the web.&nbsp; Their bandwidth costs must be outrageous.<br><br><i>On a side note, isn&#8217;t it weird that these web2.0 startups such as this one or YouTube have the most backwards business model?&nbsp; Let&#8217;s spend an outrageous amount of money and give away our applications, ad-free.&nbsp; I always laugh at the one-liner &#8220;Step 2: Profit!&#8221; but this is even worse than that!&nbsp; I think the business model here is, build a gigantoid (that&#8217;s my word, you can&#8217;t take it) user-base, then hope that google will buy us out.&nbsp; If all else fails we can start injecting subliminal messages to our advertisers.&nbsp; <br><br>&#8220;How I wish, how I wish you were here (with Tylenol).&nbsp; Cuz we&#8217;re just&#8230; two lost souls looking for some Lysol&#8230;. year after year&#8230;.Running over the same old ground, but have we found&#8230;. the same old beers, Wish you were here (with Viagra)&#8221;</i><br><br>The have a pretty usable flash clone of iTunes, and it allows me to listen to my music library wherever I am (which is great for a consultant).&nbsp; Sometimes my Zune runs out of batteries, or sometimes I forget it at home.&nbsp; Anywhere.fm rocks.&nbsp; It&#8217;s the bee&#8217;s knees!<br><br>Here&#8217;s a screenshot of the player:<br><br><img src="http://www.flux88.com/uploads/anywhere-fm.png"><br><br>You can also listen to my library as a radio station by navigating to <a href="http://anywhere.fm/subdigital">http://anywhere.fm/subdigital</a>.&nbsp; Just don&#8217;t make fun of my music :)<br><p></p></p>
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2007/09/anywhere-fm-its-the-bees-knees/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/09/hug-your-dog-today/">Hug Your Dog Today</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-09-10 00:00:00 -0500" pubdate  updated >Sep 10<span>th</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>My heart sank last week.&nbsp; Our dog, Molly, was hit by a car&hellip;</p>
+
+
+<p>She was chasing after our other dog (a puppy) and crossed a busy road.&nbsp; We got the call and picked her up from a nice gentleman that kept her cool in his car (the Texas heat is around 100&deg; F outside).</p>
+
+
+<p>She had a nasty laceration on her head and a bunch of scrapes and cuts.&nbsp; Molly had been rolled under a car and obviously suffered a large blow to the head.&nbsp; We rushed her to the Emergency Animal Clinic of Houston and they took her in.&nbsp; There was blood all over my car and my shorts.&nbsp; We were in complete shock.</p>
+
+
+<p>Until this moment I didn&rsquo;t realize how much Molly really meant to me.&nbsp; She was always a great dog and I loved her, but I didn&rsquo;t take the time to pet her everyday and spend some time with her.&nbsp; My wife and I were pretty shaken up at the thought that she had almost died.</p>
+
+
+<p>Our children were nearly devastated.&nbsp; None of us could believe that we almost lost her.</p>
+
+
+<p>Molly was treated with&nbsp;6 staples to her head-wound.&nbsp; We picked her up the next day.</p>
+
+
+<p><img src="/images/IMG_5838_small_.jpg" alt="IMG_5838"  border="0"  /></p>
+
+
+<p><img src="/images/IMG_5825_small_.jpg" alt="IMG_5825"  border="0"  /></p>
+
+
+<p>Her handkercheif reads &ldquo;They saved my life at the Animal Emergency Center of Houston.&rdquo;</p>
+
+
+<p>She is still a little skiddish, but she has quickly returned to her normal self and we love her.&nbsp; Take the time to hug your dog today.&nbsp; Show them that you appreciate them.</p>
+
+
+<p><img src="/images/IMG_5841_small_.jpg" alt="IMG_5841"  border="0"  /></p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2007/09/hug-your-dog-today/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/09/im-a-todoist/">I&#8217;m a Todoist</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-09-09 00:00:00 -0500" pubdate  updated >Sep 9<span>th</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I&rsquo;m kind of a nut when it comes to nit-pickiness in applications.&nbsp; I have always wanted to use Office Tasks as my todo list, however it was never effective enought to stick with.</p>
+
+
+<p>The <a href="http://lifehacker.com/" target="_blank">lifehacker</a> recommended todo.txt&nbsp;is as lo-fi you can get before going completely non-tech, but I really don&rsquo;t want to manage a text file.&nbsp; I want the computer to work for me.</p>
+
+
+<p>I recently discovered todoist.com, a minimalist, but oh-so-flexible todo-list application that really has me using it.&nbsp; It&rsquo;s got more umph than the excellent tadalist.com, and this is why it&rsquo;s more useful to me.</p>
+
+
+<p>Here&rsquo;s a screenshot of my current list.&nbsp; I have top-level projects called <strong>Work, Home, and Leisure</strong> and I drill down from there.</p>
+
+
+<p><img src="/images/todoist_small_.jpg" alt="Todoist"  border="0"  /></p>
+
+
+<p>Notice how I have recurring tasks in the @Home project.&nbsp; (Also, notice that I didn&rsquo;t mow the lawn or sweep the driveway this weekend.&nbsp; Oops!&nbsp; I guess this goes to show you that no matter how fancy your todo list is implemented, you still actually have to DO stuff to accomplish anything)</p>
+
+
+<p>I also jot down little notes and things, such as what movies to rent or buy next, or what my reading list looks like.</p>
+
+
+<p>Todoist has a pretty simple API as well.&nbsp; Everything is token based, so you have a long token that serves as your credentials for making a call.&nbsp; This is similar to the way that google does it.</p>
+
+
+<p>Speaking of google, todoist integrates with GMail with a simple bookmarklet or firefox plugin.&nbsp; Just open an email within GMail and click the bookmarklet and the email shows up as a task in todoist.</p>
+
+
+<p>Another awesome feature is the <a href="http://launchy.net/" target="_blank">Launchy</a> plugin.&nbsp; Everyone knows I loves me some Launchy, but now I can type <strong>todo | add &ldquo;get some milk&rdquo; to &ldquo;Shopping&rdquo;</strong> and todoist will pick it up.&nbsp; Slick.</p>
+
+
+<p>Anyway, I&rsquo;m smitten with this tool.&nbsp; What do you use to manage your todolist?&nbsp; If it&rsquo;s not Outlook, then I&rsquo;d like to hear about it in the comments.&nbsp; (If it is Outlook, I suppose you can comment as well, I&rsquo;ll forgive you)</p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2007/09/im-a-todoist/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/08/tsk-tsk-tsk-pny-should-be-ashamed-of-themselves/">Tsk, Tsk, Tsk - PNY Should Be Ashamed of Themselves</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-08-31 00:00:00 -0500" pubdate  updated >Aug 31<span>st</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Take a look at one of my co-workers found today.&nbsp; The screenshot says it all.</p>
+
+
+<p><a href="http://www.flux88.com/uploads/tsk_2Dtsk.jpg"><img src="/images/tsk_2Dtsk_thumb_.jpg" alt="Tsk-tsk"  border="0"  /></a></p>
+
+
+<p><em>No, I didn&rsquo;t destroy their database.&nbsp; I was about to send an email to them when I realized it was fixed.</em></p>
+
+
+<p>It amazes me that a large company such as PNY would do this.&nbsp; It was probably written in Taiwan by someone who makes $4/hour, but still.&nbsp; It makes you think twice before buying PNY memory.</p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2007/08/tsk-tsk-tsk-pny-should-be-ashamed-of-themselves/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/08/professional-xna-game-programming-review/">Professional XNA Game Programming - Review</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-08-30 00:00:00 -0500" pubdate  updated >Aug 30<span>th</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><img src="/images/xna_2Dbook_.jpg" hspace="10"  border="0"  />I just finished reading Professional <a href="http://www.amazon.com/Professional-XNA-Game-Programming-Windows/dp/0470126779/ref=pd_bbs_sr_1/104-8400577-8532738?ie=UTF8&amp;s=books&amp;qid=1188482950&amp;sr=8-1">XNA Game Development</a> by <a href="http://abi.exdream.com/">Benjamin Nitchske</a>.&nbsp; It was my first attempt at using the XNA Framework.&nbsp; I have some experience with DirectX, as I have been tinkering with it since version 5. Most of my work has been with the Managed DirectX bits for .NET 1.1. I found it to be much easier and readable than C++, just because of the language differences.</p>
+
+
+<p>XNA takes that next productivity leap and really allows you to hit the ground running.&nbsp; You start out with a game loop (complete with elapsed time already calculated for you), a graphics device already setup, and a managed content pipeline for imported models, sounds, and textures.&nbsp; Things like graphics memory getting lost when you alt-tab are already handled for you.</p>
+
+
+<p>But enough about XNA, this post is a review for Benjamin&#8217;s book.&nbsp; If you haven&#8217;t heard of him before, he was the author of the first Managed DirectX game called Arena Wars, and later wrote RocketCommander. Both games are very well done and he ported RocketCommander to XNA so that you can play it on the XBOX 360. XNA Racer was also done completely by himself, which is very impressive.&nbsp; Needless to say, with all that background and expertise&#8230; I had high hopes for this book.</p>
+
+
+<p>The first few chapters introduced how Benjamin approaches game development.&nbsp; He calls them &#8220;Unit Tests&#8221; but that term often implies that the tests are automated.&nbsp; His tests are basically slices of game functionality that he calls manually.&nbsp; For example he might have a unit test to verify that shadows work properly, or that a specific collision detection algorithm works.&nbsp; He is able to setup the update and render loops using anonymous methods and execute them using batch files or manually calling the unit test instead of the main game.&nbsp; I found this to be very interesting, however the code that he used to write it was somewhat ugly and unintuitive.&nbsp; I coded the Pong game following his coding style and was disappointed the whole way through it.&nbsp; While he does say that we will utilize better code for the next game, the code he wrote here was inexcusably bad. I got the game working, however new features and modifications would prove to be difficult because it is just spaghetti code.&nbsp; I swallowed my pride and told myself, &#8220;.. it will get better.&#8221;</p>
+
+
+<p>So then I started to follow his next example: Breakout.&nbsp; I have built breakout before using Managed DirectX, and it was quite fun.&nbsp; I was disappointed to find out that he didn&#8217;t really <em>buid</em> the game through the book, he rather took the reader on an exploration of code already written. And he was true to his word, the code pulled a lot of functionality into &#8220;helper&#8221; classes which made them reusable.&nbsp; And yes, the code was still horrid.</p>
+
+
+<p>I mentioned reusable code.&nbsp; It wasn&#8217;t reusable like you&#8217;re thinking.&nbsp; He actually tells you to copy the code from the previous game and paste it into the new game.&nbsp; I&#8217;m not kidding.&nbsp; I&#8217;m a professional developer.&nbsp; This book is called&nbsp;<em>Professional</em> XNA.&nbsp; Professionals don&#8217;t write code like that. He begins to talk about 3D programming in a way that is &#8211; while full of information &#8211; poorly organized and generally boring.&nbsp; I learned a lot in this section, but nothing I can really refer to later.&nbsp; It was more like a stream of conciousness than organized writing. </p>
+
+
+<p>Let me give you a hard example of how bad the code is.&nbsp; At one point he is talking about how he handles car physics, which was very interesting.&nbsp; Then I saw the class diagram where he implemented it.&nbsp; It looked something like this: </p>
+
+
+<p><img src="/images/carPhysics_2Dcrap_small_.jpg" alt="CarPhysics-crap"  border="0"  /></p>
+
+
+<p>What!?!? So `ChaseCamera` inherits from `CarPhysics` which in turn inherits from `Player?`&nbsp; Sounds like an object model from the Twilight Zone. This is pure junk as an object model, and is really only there because the CarPhysics object needs to know details about what the player is doing, and indeed so does the camera. But that doesn&#8217;t mean you should break all rules of OO just to achieve a hack that works.&nbsp; I was so appalled by this I almost didn&#8217;t finish the book.</p>
+
+
+<p>Benjamin knows his stuff, no doubt.&nbsp; I think it&rsquo;s amazing that someone can build something as beautiful as RocketCommander or XNA Racer in less than a month <strong>by yourself</strong>.&nbsp; But I just can&rsquo;t recommend this book because of the code quality.</p>
+
+
+<p>I will wrap this up by saying that I *did* enjoy the book because it got me into game programming again, but I find this type of writing almost intolerable.&nbsp; I enjoyed to learn about some nuances around XBOX 360 vs. PC versions of XNA Games, and I especially liked his Unit Testing technique. The information on Shaders was mildly useful, albeit boring. But if you&#8217;re going to be reading this book, be fore-warned that the code sucks.</p>
+
+
+<p>I give it 2.5 / 5 stars. </p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2007/08/professional-xna-game-programming-review/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/08/houstontechfest-2007-was-a-hit/">HoustonTechFest 2007 Was a Hit</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-08-26 00:00:00 -0500" pubdate  updated >Aug 26<span>th</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><font style="BACKGROUND-COLOR: #f4f4f4">Houston Tech Fest 2007&nbsp;was yesterday and it was an amazing success.&nbsp; Over 600 people were present and I was able to see a lot of old friends and meet some new &amp; interesting people.</font></p>
+
+
+<p>I got to chill out with <a href="http://blogs.msdn.com/brada" target="_blank">Brad Abrams</a> and a few other folks from Microsoft, and it was great to meet <a href="http://codeslammer.wordpress.com/" target="_blank">Scott Bateman</a> (fellow Houston blogger and advocate of Continuous Integration).&nbsp; His talk was most excellent, he was very informative and it showed that he not only understood the concepts, but he was able to explain it all in a way that (I thought) was easily grasped by the audience.</p>
+
+
+<p>Some of the other speakers included <a href="http://www.michaelazocar.com/blog" target="_blank">Mike Azocar</a>, John Cook, <a href="http://www.timrayburn.net/" target="_blank">Tim Rayburn</a> (sorry I missed your talk again Tim!), and <a href="http://aspadvice.com/blogs/davidwalker/default.aspx" target="_blank">David Walker</a>.</p>
+
+
+<p>Funny thing about Tim&rsquo;s talk.&nbsp; I was in the room next door listening to David Walker talk about SOA and WCF, and we could hear Tim through the wall partition.&nbsp; At one point I heard Tim say, &ldquo;If you can&rsquo;t hear me in the back, please shout out and let me know.&rdquo;&nbsp; I felt like shouting from our room <img src="/images/smile1_________________________________.gif"   />.</p>
+
+
+<p>I had two sessions, Advanced CSS &amp; Javascript and ORM with NHibernate.&nbsp; In the first session, I had a full room (over 100 people!) and the audience was very engaging.&nbsp; It&rsquo;s great to have an audience that has so many questions and comments on what you are saying.&nbsp; It becomes more of a dialog, which I think makes the content so much more valuable for everyone.&nbsp; </p>
+
+
+<p>Sometime in the midway point of the talk the projector just turned off.&nbsp; It&rsquo;s hard to give a talk on CSS without some visuals, so I continued typing and said &ldquo;Imagine if you wil&hellip;&rdquo; to a room full of laughter.&nbsp; About that time the projector turned on again.&nbsp; I didn&rsquo;t find out until later, but my friend Wes had sat on the cord and unplugged it, then silently plugged it back in.&nbsp; Funny how a room full of geeks and nobody thought to check the plug when it turned off.&nbsp; Ah well.</p>
+
+
+<p>At the end of the talk I had a couple people come up to shake my hand and a little 4&ndash;year old girl came up, touched my arm, then ran away giggling.&nbsp; (Don&rsquo;t ask me&hellip;).&nbsp; I really enjoy giving this talk and I would like to branch outside of Houston and start giving it elsewhere around Texas (and the U.S.).</p>
+
+
+<p>My second session was on NHibernate and it was more cozy, with only 15 people or so.&nbsp; I think NHibernate is a lot harder to make interesting for an intro class because it is a radically different way of developing applications that most people are exposed to.&nbsp; There is so much material to cover and only a short amount of time, so I tried to focus on the code and keep the examples short and simple.&nbsp;&nbsp;I think it was effective, though I&rsquo;d like to branch off this talk and start giving more advanced lectures on NHibernate.</p>
+
+
+<p>Thanks to all who came to the event (especially my sessions!).&nbsp; I hope you all had as much fun as I did.</p>
+
+
+<p>The files from my presentations can be downloaded here:</p>
+
+
+<p><a href="http://www.flux88.com/uploads/AdvancedCSSAndJavascript.zip" target="_blank">File Attachment: AdvancedCSSAndJavascript.zip (1161 KB)</a></p>
+
+
+<p><a href="http://www.flux88.com/uploads/nhibernate.zip" target="_blank">File Attachment: nhibernate.zip (4001 KB)</a></p>
+
+
+<p>Also, a lot of people were interested in the tools I was using during my demos.&nbsp; My favorite text editor is E, which you can get at <a href="http://www.e-texteditor.com/">http://www.e-texteditor.com</a>.&nbsp; My zooming tool that I use is called <a href="http://www.microsoft.com/technet/sysinternals/Miscellaneous/ZoomIt.mspx" target="_blank">Zoomit</a>.&nbsp; My launching utility is called <a href="http://www.microsoft.com/technet/sysinternals/Miscellaneous/ZoomIt.mspx" target="_blank">Launchy</a> and it saves me so much time everyday.&nbsp; I use <a href="http://www.jetbrains.com/resharper" target="_blank">ReSharper</a> for Visual Studio nirvana (seriously, get this tool).</p>
+
+
+<p>Some links I mentioned at the talks:</p>
+
+
+<p><a href="http://www.csszengarden.com/">http://www.csszengarden.com</a></p>
+
+
+<p><a href="http://www.exploding-boy.com/">http://www.exploding-boy.com</a></p>
+
+
+<p><a href="http://www.mochikit.com/">http://www.mochikit.com</a></p>
+
+
+<p><a href="http://www.prototypejs.org/">http://www.prototypejs.org</a></p>
+
+
+<p>And finally, my favorite CSS book that I keep recommending to everyone:&nbsp; <a href="http://www.cssmastery.com/" target="_blank">CSS Mastery</a>.</p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2007/08/houstontechfest-2007-was-a-hit/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/08/e-text-editor-no-such-file-exists-ubygems/">E - Text Editor - No Such File Exists &#8211; Ubygems</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-08-23 00:00:00 -0500" pubdate  updated >Aug 23<span>rd</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>There&#8217;s no doubt that <a href="http://www.e-texteditor.com">e</a> kicks ass.&nbsp; On one of my computers, however I was having a problem using some of the bundles.&nbsp; Specifically some of the bundles utilize <a href="http://www.cygwin.com/">cygwin</a> to do their magic.<br><br>I was receiving this weird error, where ruby is complaining that it can&#8217;t locat a file named &#8220;ubygems&#8221;.&nbsp; Obviously, they are referring to rubygems, and the problem exists when you have a windows install of ruby and a cygwin install of ruby.<br><br>To fix it you need to reinstall ruby gems within cygwin.&nbsp; Download the <a href="http://rubyforge.org/frs/?group_id=126">latest version of rubygems</a> from rubyforge.&nbsp; Put the tarball in the c:\cygwin\home\USER folder, then open up your cygwin prompt and type:<br></p>
+
+<div><figure role=code><div class="highlight"><table cellpadding="0" cellspacing="0"><tr><td class="gutter"><pre class="line-numbers"><span class='line'>1</span>
+</pre></td><td class='code' width='100%'><pre><code class=''><div class='line'>$ tar -x -f rubygems-0.9.4.tgz(this will change if you download a different version)&lt;br>$ cd rubygems-0.9.4&lt;br>$ unset RUBYOPT&lt;br>$ ruby setup.rb&lt;br>&lt;br></div></code></pre></td></tr></table></div></figure></div>
+
+
+<p>At this point rubygems should be installing and you should be good to go.&nbsp; Back to &#8220;e goodness&#8221;!<br></p>
+
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2007/08/e-text-editor-no-such-file-exists-ubygems/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+
+  <article>
+    
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2007/08/sogeti-is-hiring/">Sogeti Is Hiring</a></h1>
+    
+    
+      <p class="meta">
+
+
+
+
+<time datetime="2007-08-22 00:00:00 -0500" pubdate  updated >Aug 22<span>nd</span>, 2007</time>
+
+
+</p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>My company, <a href="http://www.us.sogeti.com">Sogeti</a>, is always seeking out new candidates.&nbsp; If you&#8217;ve got experience or are just out of college, there is a place for you.<br><br>Currently we have an immediate need for someone to help out on a project.&nbsp; No development experience needed for this role.&nbsp; It would be a great way to get started in a BA, QA, or PM position.&nbsp;&nbsp; This position is in Houston, but I can always help pass the word to one of our other offices as well.<br><br>If you&#8217;re interested, or know of anyone who might be, please send me an email at ben.scheirman <em>AT</em> us.sogeti.com.<br><p></p></p>
+</div>
+  <footer>
+    <a rel="full-article" href="/blog/2007/08/sogeti-is-hiring/">Read on &rarr;</a>
+  </footer>
+
+
+  </article>
+
+<nav role="pagination">
+  <div>
+    
+      <a class="prev" href="/blog/page/22/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/20/">Newer &rarr;</a>
+    
+  </div>
+</nav>
+
+<script type="text/javascript">
+    var disqus_shortname = 'subdigital';
+    (function () {
+      var s = document.createElement('script'); s.async = true;
+      s.type = 'text/javascript';
+      s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+      (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+
+</div>
+<aside role=sidebar>
+  
+    <section>
+  <h1>Who am I?</h1>
+  <p>I&#8217;m Ben Scheirman. I make Rails &amp; iPhone apps for <a href="http://chaione.com" target="_blank">ChaiONE</a> in Houston, TX.</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/08/vim---could-not-invoke-jslint/">Vim - Could Not Invoke JSLint</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/is-rails-exempt-from-software-principles/">Is Rails Exempt?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/when-viewwillappear-isnt-called/">When viewWillAppear: Isn&#8217;t Called</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/moving-my-blog/">Moving My Blog</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/my-vim-journey/">My Vim Journey</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("subdigital", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/subdigital" class="twitter-follow-button" data-width="208px" data-show-count="false">Follow @subdigital</a>
+  
+</section>
+
+
+<section>
+  <h1>On Delicious</h1>
+  <script type="text/javascript" src="http://feeds.delicious.com/v2/js/subdigital?title=&count=3&sort=date&extended"></script>
+  <p><a href="http://delicious.com/subdigital">My Delicious Bookmarks &raquo;</a></p>
+</section>
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer>
+<a style="display:block; float: right" title="Real Time Analytics" href="http://getclicky.com/66470389"><img alt="Real Time Analytics" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
+<script src="//static.getclicky.com/js" type="text/javascript"></script>
+<script type="text/javascript">try{ clicky.init(66470389); }catch(e){}</script>
+<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/66470389ns.gif" /></p></noscript>
+
+<p>
+  Copyright &copy; 2011 - Ben Scheirman -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+</body>
+</html>
